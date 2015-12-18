@@ -184,7 +184,7 @@ If any fields are left blank in a Template Meta, those fields are pulled from th
 You can also dynamically change any of these SEO Meta fields in your Twig templates, and they will appear in the rendered SEO Meta.
 
 * **Title** - The human readable title for this SEO Template Meta
-* **Template Path** - Enter the path to the template to associate this meta with (just as you would on the Section settings). It will override the SEO Global Meta for this template. Leave any field blank if you want it to fall back on the default global settings for that field.
+* **Template Path** - Enter the path to the template to associate this meta with (just as you would on the Section settings). It will override the SEO Site Meta for this template. Leave any field blank if you want it to fall back on the default global settings for that field.
 * **SEO Title** - This should be between 10 and 70 characters (spaces included). Make sure your title tag is explicit and contains your most important keywords. Be sure that each page has a unique title tag.
 * **SEO Description** - This should be between 70 and 160 characters (spaces included). Meta descriptions allow you to influence how your web pages are described and displayed in search results. Ensure that all of your web pages have a unique meta description that is explicit and contains your most important keywords.
 * **SEO Keywords** - Google ignores this tag; though other search engines do look at it. Utilize it carefully, as improper or spammy use most likely will hurt you, or even have your site marked as spam. Avoid overstuffing the keywords and do not include keywords that are not related to the specific page you place them on.
@@ -220,7 +220,7 @@ SEOmatic populates your templates with the following global variables for SEO Me
     seomaticMeta.seoImage
     seomaticMeta.canonicalUrl
 
-All of the variables are set by a combination of your SEO Global Meta settings, and the SEO Template Meta settings linked to the currently rendered template (if any).
+All of the variables are set by a combination of your SEO Site Meta settings, and the SEO Template Meta settings linked to the currently rendered template (if any).
 
 By default, `seomaticMeta.canonicalUrl` is set to `craft.request.url`.
 
@@ -273,11 +273,39 @@ All three of these methods accomplish the same thing:
 
 Here's an example use of the `extractKeywords()` function:
 
-	{{ extractKeywords('Scientists have developed a gel that helps brains recover from traumatic injuries. It has the potential to treat head injuries suffered in combat, car accidents, falls, or gunshot wounds. Developed by Dr. Ning Zhang at Clemson University in South Carolina, the gel is injected in liquid form at the site of injury and stimulates the growth of stem cells there. Brain injuries are particularly hard to repair, since injured tissues swell up and can cause additional damage to the cells. So far, treatments have tried to limit this secondary damage by lowering the temperature or relieving the pressure at the site of injury. However, these techniques are often not very effective. More recently, scientists have considered transplanting donor brain cells into the wound to repair damaged tissue. This method has so far had limited results when treating brain injuries. The donor cells often fail to grow or stimulate repair at the injury site, possibly because of the inflammation and scarring present there. The injury site also typically has very limited blood supply and connective tissue, which might prevent donor cells from getting the nutrients they require. Dr. Zhangs gel, however, can be loaded with different chemicals to stimulate various biological processes at the site of injury. In previous research done on rats, she was able to use the gel to help re-establish full blood supply at the site of brain injury. This could help create a better environment for donor cells. In a follow-up study, Dr. Zhang loaded the gel with immature stem cells, as well as the chemicals they needed to develop into full-fledged adult brain cells. When rats with severe brain injuries were treated with this mixture for eight weeks, they showed signs of significant recovery. The new gel could treat patients at varying stages following injury, and is expected to be ready for testing in humans in about three years.') }} 
+	{{ extractKeywords('Scientists have developed a gel that helps brains
+	recover from traumatic injuries. It has the potential to treat head injuries
+	suffered in combat, car accidents, falls, or gunshot wounds. Developed by
+	Dr. Ning Zhang at Clemson University in South Carolina, the gel is injected
+	in liquid form at the site of injury and stimulates the growth of stem cells
+	there. Brain injuries are particularly hard to repair, since injured tissues
+	swell up and can cause additional damage to the cells. So far, treatments
+	have tried to limit this secondary damage by lowering the temperature or
+	relieving the pressure at the site of injury. However, these techniques are
+	often not very effective. More recently, scientists have considered
+	transplanting donor brain cells into the wound to repair damaged tissue.
+	This method has so far had limited results when treating brain injuries. The
+	donor cells often fail to grow or stimulate repair at the injury site,
+	possibly because of the inflammation and scarring present there. The injury
+	site also typically has very limited blood supply and connective tissue,
+	which might prevent donor cells from getting the nutrients they require. Dr.
+	Zhangs gel, however, can be loaded with different chemicals to stimulate
+	various biological processes at the site of injury. In previous research
+	done on rats, she was able to use the gel to help re-establish full blood
+	supply at the site of brain injury. This could help create a better
+	environment for donor cells. In a follow-up study, Dr. Zhang loaded the gel
+	with immature stem cells, as well as the chemicals they needed to develop
+	into full-fledged adult brain cells. When rats with severe brain injuries
+	were treated with this mixture for eight weeks, they showed signs of
+	significant recovery. The new gel could treat patients at varying stages
+	following injury, and is expected to be ready for testing in humans in about
+	three years.') }}
 
 This will output the following:
 
-    injury site, brain cells, brain injuries, donor cells, donor brain cells, injury, site of injury, site, cells, brain, injuries, repair, donor, damage to the cells, blood
+    injury site, brain cells, brain injuries, donor cells, donor brain cells,
+    injury, site of injury, site, cells, brain, injuries, repair, donor, damage
+    to the cells, blood
 
 So tying it all together, you might do something like this for a dynamic Blog entry:
 
@@ -531,7 +559,7 @@ Clicking on the **Preview SEO Meta Display** button will show you a preview of w
 
 This serves as a nice sanity check for you, and a very nice way to show clients the amazing job you did on their SEO strategy.
 
-If you click on the **Preview SEO Meta Display** button when you are editing a SEO Template Meta, you'll see the result of that particular template's SEO Template Meta tags.  Otherwise, you will see the SEO Global Meta tags.
+If you click on the **Preview SEO Meta Display** button when you are editing a SEO Template Meta, you'll see the result of that particular template's SEO Template Meta tags.  Otherwise, you will see the SEO Site Meta tags.
 
 ### Preview SEO Meta Tags
 
@@ -579,7 +607,7 @@ You can treat all of these like regular Twig variables; for instance, `{{ seomat
 
 The `{% hook 'seomaticRender' %}` tag generates these SEO Meta for you, based on the Meta Template Variables (above). By default, it uses an internal template, but you can pass your own template to be used instead, like this: `{% set seomaticTemplatePath = 'path/template' %} {% hook 'seomaticRender' %}`
 
-SEOmatic cascades Meta settings; if you have a Meta associated with the current template, it uses that. Otherwise it falls back on the SEO Global Meta settings (set on the Site Identity tab). If a field is empty for a Template Meta, it falls back on the Global Meta setting for that field.
+SEOmatic cascades Meta settings; if you have a Meta associated with the current template, it uses that. Otherwise it falls back on the SEO Site Meta settings. If a field is empty for a Template Meta, it falls back on the SEO Site Meta setting for that field.
 
 	<!-- BEGIN SEOmatic rendered SEO Meta -->
 	
@@ -738,15 +766,14 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 	}
 	</script>
 	
-If you click on the **Preview SEO Meta Tags** button when you are editing a SEO Template Meta, you'll see that particular template's SEO Template Meta tags.  Otherwise, you will see the SEO Global Meta tags.
+If you click on the **Preview SEO Meta Tags** button when you are editing a SEO Template Meta, you'll see that particular template's SEO Template Meta tags.  Otherwise, you will see the SEO Site Meta tags.
 
 ## Roadmap
 
 * Get the Template Metas implemented with full `locale` support, so the settings can all be per-locale based
 * Encode the Idenity and Creator email addresses
 * Helper functions for GetFullAddress and GetCopyrightString (?)
-* Proof the docs, fixing the areas that we changed
-* Testing.
+* Proof the docs
 
 ## Changelog
 
