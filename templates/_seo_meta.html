@@ -8,7 +8,7 @@
 <meta name="description" content="{{ seomaticMeta.seoDescription }}" />
 <link rel="canonical" href="{{ seomaticMeta.canonicalUrl }}" />
 {% for locale in craft.i18n.getSiteLocales() %}
-{% if locale != craft.locale and craft.config.siteUrl is iterable %}<link rel="alternate" hreflang="{{ locale.getId() }}" href="{{ craft.config.siteUrl[locale.getId()] }}" />{% endif %}
+{% if locale != craft.locale and craft.config.siteUrl is iterable %}{% if craft.config.siteUrl[locale.getId()] is defined %}<link rel="alternate" hreflang="{{ locale.getId() }}" href="{{ craft.config.siteUrl[locale.getId()] }}" />{% endif%}{% endif %}
 {% endfor %}
 {% if seomaticIdentity.genericOwnerAddressRegion %}
 <meta name="geo.region" content="{{ seomaticIdentity.genericOwnerAddressRegion }}" />
