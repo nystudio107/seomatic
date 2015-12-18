@@ -1,0 +1,176 @@
+{% extends "_layouts/cp" %}
+{% import '_includes/forms' as forms %}
+
+{% includeCssResource "css/entry.css" %}
+{% includeCssResource "seomatic/css/style.css" %}
+{% includeCssResource "seomatic/css/css-reset.css" %}
+{% includeCssResource "seomatic/css/prism.min.css" %}
+{% includeJsResource "seomatic/js/seomatic.js" %}
+{% includeJsResource "seomatic/js/jquery.bpopup.min.js" %}
+{% includeJsResource "seomatic/js/prism.min.js" %}
+
+{% set title = "SEOmatic"|t %}
+
+{% set docsUrl = "https://github.com/khalwat/seomatic/blob/master/README.md" %}
+
+{% set fullPageForm = true %}
+{% set hasCustomLayout = true %}
+
+{% set tabs = {
+	meta:		{ label: "SEO Template Meta"|t, url: url('seomatic/meta') },
+	site:		{ label: "SEO Site Meta"|t, url: url('seomatic/site') },
+	identity:	{ label: "Site Identity"|t, url: url('seomatic/identity') },
+	social:		{ label: "Social Media"|t, url: url('seomatic/social') },
+	creator:	{ label: "Site Creator"|t, url: url('seomatic/creator') },
+} %}
+
+{% set selectedTab = 'site' %}
+
+{% block main %}
+
+	{% include "seomatic/_preview_display_modal" with {'previewMetaPath': '', 'locale': siteMeta.locale } %}
+	{% include "seomatic/_preview_tags_modal" with {'previewMetaPath': '', 'locale': siteMeta.locale } %}
+
+    <input type="hidden" name="action" value="seomatic/saveSiteMeta" />
+    <input type="hidden" name="redirect" value="seomatic/site{% if craft.isLocalized %}/{{ siteMeta.locale }}{% endif %}" />
+    {{ getCsrfInput() }}
+
+		<input type="hidden" name="locale" value="{{ siteMeta.locale }}">
+
+			<div class="grid first">
+				<div class="item" data-position="left" data-min-colspan="2" data-max-colspan="3">
+					<div id="fields" class="pane">
+						{% include "_includes/tabs" %}
+						
+						{{ forms.textField({
+							label: "siteSeoName"|t,
+							instructions: "siteSeoName_help" |t |raw,
+							id: "siteSeoName",
+							class: 'nicetext',
+							name: "siteSeoName",
+							value: siteMeta.siteSeoName,
+							required: true,
+							locale: siteMeta.locale,
+						}) }}
+						
+						{{ forms.textField({
+							label: "siteSeoTitle"|t,
+							instructions: "siteSeoTitle_help" |t |raw,
+							id: 'siteSeoTitle',
+							class: 'nicetext',
+							name: 'siteSeoTitle',
+							value: siteMeta.siteSeoTitle,
+							maxlength: 70,
+							showCharsLeft: true,
+							required: false,
+							locale: siteMeta.locale,
+						}) }}
+						
+						<div class="field" id="siteSeoDescription-field">
+							<div class="heading">
+								<label for="siteSeoDescription">{{ "siteSeoDescription"|t}}{% if craft.isLocalized and siteMeta.locale %}<span class="locale">{{ siteMeta.locale }}</span>{% endif %}</label>
+								<div class="instructions"><p>{{ "siteSeoDescription_help" |t |raw}}</p></div>
+							</div>
+						{{ forms.textarea({
+							label: "siteSeoDescription"|t,
+							instructions: "siteSeoDescription_help" |t |raw,
+							id: 'siteSeoDescription',
+							class: 'nicetext',
+							name: 'siteSeoDescription',
+							value: siteMeta.siteSeoDescription,
+							maxlength: 160,
+							showCharsLeft: true,
+							required: false,
+							locale: siteMeta.locale,
+						}) }}
+						</div>
+						
+						<div class="field" id="siteSeoKeywords-field">
+							<div class="heading">
+								<label for="siteSeoDescription">{{ "siteSeoKeywords"|t}}{% if craft.isLocalized and siteMeta.locale %}<span class="locale">{{ siteMeta.locale }}</span>{% endif %}</label>
+								<div class="instructions"><p>{{ "siteSeoKeywords_help" |t |raw}}</p></div>
+							</div>
+						{{ forms.textarea({
+							label: "siteSeoKeywords"|t,
+							instructions: "siteSeoKeywords_help" |t |raw,
+							id: 'siteSeoKeywords',
+							class: 'nicetext',
+							name: 'siteSeoKeywords',
+							value: siteMeta.siteSeoKeywords,
+							maxlength: 200,
+							showCharsLeft: true,
+							required: false,
+							locale: siteMeta.locale,
+						}) }}
+						</div>
+						
+						<div class="field" id="siteSeoImageId-field">
+							<div class="heading">
+								<label for="siteSeoImageId">{{ "siteSeoImageId"|t}}{% if craft.isLocalized and siteMeta.locale %}<span class="locale">{{ siteMeta.locale }}</span>{% endif %}</label>
+								<div class="instructions"><p>{{ "siteSeoImageId_help" |t |raw}}</p></div>
+							</div>
+							<div class="input">
+								{% if assetsSourceExists %}
+									{{ forms.elementSelect({
+										elements: elements,
+										id: 'siteSeoImageId',
+										name: 'siteSeoImageId',
+										elementType: elementType,
+										criteria: {
+											'kind': [],
+											'localeEnabled': null,
+											'locale': craft.locale,
+										},
+										sourceElementId: siteSeoImageId,
+										jsClass: 'Craft.AssetSelectInput',
+										addButtonLabel: 'Select SEO Image',
+										limit: 1,
+										locale: siteMeta.locale,
+									}) }}
+								{% else %}
+									<p class="error">No assets sources currently exist. <a href="{{ newAssetsSourceUrl }}">Create one now...</a></p>
+								{% endif %}
+							</div>
+						</div>
+            
+						<p>&nbsp;</p>
+	 					<p>{{ "environmentalVariables_ok" |t |raw }}</p>
+      
+					</div>
+										
+				</div>
+	
+				<div class="item" data-position="right" data-colspan="1">
+	
+					<div id="preview-display" class="btn big livepreviewbtn">
+						Preview SEO Meta Display
+					</div>
+
+					<div id="preview-tags" class="btn big livepreviewbtn secondbtn">
+						Preview SEO Meta Tags
+					</div>
+					
+					{% if craft.isLocalized %}
+						<ul id="locales" class="pane">
+							{% for locale in craft.i18n.getSiteLocales() %}
+								{% if locale == siteMeta.locale %}
+									<li class="sel">{{ locale.name }}</li>
+								{% else %}
+									<li><a href="{{ url('seomatic/site') ~ '/' ~ locale.id }}">{{ locale.name }}</a></li>
+								{% endif %}
+							{% endfor %}
+							<li><p class="instructions">{{ "localizing_help" |t |raw }}</p></li>
+						</ul>
+					{% endif %}
+					
+					<div class="pane">
+						<div style="text-align:center; margin:0 auto;">
+							<img src="{{ resourceUrl('seomatic/images/seo_site.svg') }}" width="64px" height="auto" />
+						</div>
+						{{ "siteMeta_help" |t |raw }}
+					</div>
+	
+				</div>
+			</div>
+
+{% endblock %}

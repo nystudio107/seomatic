@@ -1,0 +1,424 @@
+{% extends "_layouts/cp" %}
+{% import '_includes/forms' as forms %}
+
+{% includeCssResource "css/entry.css" %}
+{% includeCssResource "seomatic/css/style.css" %}
+{% includeCssResource "seomatic/css/css-reset.css" %}
+{% includeCssResource "seomatic/css/prism.min.css" %}
+{% includeJsResource "seomatic/js/seomatic.js" %}
+{% includeJsResource "seomatic/js/creator.js" %}
+{% includeJsResource "seomatic/js/jquery.bpopup.min.js" %}
+{% includeJsResource "seomatic/js/prism.min.js" %}
+
+{% set title = "SEOmatic"|t %}
+
+{% set docsUrl = "https://github.com/khalwat/seomatic/blob/master/README.md" %}
+
+{% set fullPageForm = true %}
+{% set hasCustomLayout = true %}
+
+{% set tabs = {
+	meta:		{ label: "SEO Template Meta"|t, url: url('seomatic/meta') },
+	site:		{ label: "SEO Site Meta"|t, url: url('seomatic/site') },
+	identity:	{ label: "Site Identity"|t, url: url('seomatic/identity') },
+	social:		{ label: "Social Media"|t, url: url('seomatic/social') },
+	creator:	{ label: "Site Creator"|t, url: url('seomatic/creator') },
+} %}
+
+{% set selectedTab = 'creator' %}
+
+{% block main %}
+
+	{% include "seomatic/_preview_display_modal" with {'previewMetaPath': '', 'locale': creator.locale } %}
+	{% include "seomatic/_preview_tags_modal" with {'previewMetaPath': '', 'locale': creator.locale } %}
+
+        <input type="hidden" name="action" value="seomatic/saveCreator" />
+        <input type="hidden" name="redirect" value="seomatic/creator{% if craft.isLocalized %}/{{ creator.locale }}{% endif %}" />
+        {{ getCsrfInput() }}
+
+		<input type="hidden" name="locale" value="{{ creator.locale }}">
+
+			<div class="grid first">
+				<div class="item" data-position="left" data-min-colspan="2" data-max-colspan="3">
+					<div id="fields" class="pane">
+						{% include "_includes/tabs" %}
+
+<!-- Site Creatorship -->
+
+						<h2>{{ "Site Creator" |t }}</h2>
+	                    {{ forms.selectField({
+	                        first: true,
+	                        label: "siteCreatorType"|t,
+	                        instructions: "siteCreatorType_help"|t,
+	                        id: "siteCreatorType",
+	                        options: {
+		            			corporation: 'Corporation'|t,
+		            			organization: 'Organization'|t,
+		            			person: 'Person'|t,
+	                        },
+	                        name: "siteCreatorType",
+	                        value: creator.siteCreatorType,
+							required: true,
+							locale: creator.locale,
+	                    }) }}
+
+<!-- General Info -->
+						<h2>{{ "General Info" |t }}</h2>
+						
+						{{ forms.textField({
+							label: "genericCreatorName"|t,
+							instructions: "genericCreatorName_help" |t |raw,
+							id: 'genericCreatorName',
+							class: 'nicetext',
+							name: 'genericCreatorName',
+							value: creator.genericCreatorName,
+							required: true,
+							locale: creator.locale,
+						}) }}
+						
+						{{ forms.textField({
+							label: "genericCreatorAlternateName"|t,
+							instructions: "genericCreatorAlternateName_help" |t |raw,
+							id: 'genericCreatorAlternateName',
+							class: 'nicetext',
+							name: 'genericCreatorAlternateName',
+							value: creator.genericCreatorAlternateName,
+							required: false,
+							locale: creator.locale,
+						}) }}
+
+						<div class="field" id="genericCreatorDescription-field">
+							<div class="heading">
+								<label for="genericCreatorDescription">{{ "genericCreatorDescription"|t}}{% if craft.isLocalized and creator.locale %}<span class="locale">{{ creator.locale }}</span>{% endif %}</label>
+								<div class="instructions"><p>{{ "genericCreatorDescription_help" |t |raw}}</p></div>
+							</div>
+							{{ forms.textarea({
+								label: "genericCreatorDescription"|t,
+								instructions: "genericCreatorDescription_help" |t |raw,
+								id: 'genericCreatorDescription',
+								class: 'nicetext',
+								name: 'genericCreatorDescription',
+								value: creator.genericCreatorDescription,
+								required: false,
+								locale: creator.locale,
+							}) }}
+						</div>
+
+						{{ forms.textField({
+							label: "genericCreatorUrl"|t,
+							instructions: "genericCreatorUrl_help" |t |raw,
+							id: 'genericCreatorUrl',
+							class: 'nicetext',
+							name: 'genericCreatorUrl',
+							value: creator.genericCreatorUrl,
+							required: false,
+							locale: creator.locale,
+						}) }}
+
+						<div class="field" id="genericCreatorImageId-field">
+							<div class="heading">
+								<label for="genericCreatorImageId">{{ "genericCreatorImageId"|t}}{% if craft.isLocalized and creator.locale %}<span class="locale">{{ creator.locale }}</span>{% endif %}</label>
+								<div class="instructions"><p>{{ "genericCreatorImageId_help" |t |raw}}</p></div>
+							</div>
+							<div class="input">
+								{% if assetsSourceExists %}
+									{{ forms.elementSelect({
+										elements: elementsCreatorImage,
+										id: 'genericCreatorImageId',
+										name: 'genericCreatorImageId',
+										elementType: elementType,
+										criteria: {
+											'kind': [],
+											'localeEnabled': null,
+											'locale': craft.locale,
+										},
+										sourceElementId: genericCreatorImageId,
+										jsClass: 'Craft.AssetSelectInput',
+										addButtonLabel: 'Select Brand Image',
+										limit: 1,
+										locale: creator.locale,
+									}) }}
+								{% else %}
+									<p class="error">No assets sources currently exist. <a href="{{ newAssetsSourceUrl }}">Create one now...</a></p>
+								{% endif %}
+							</div>
+						</div>
+
+						{{ forms.textField({
+							label: "genericCreatorTelephone"|t,
+							instructions: "genericCreatorTelephone_help" |t |raw,
+							id: 'genericCreatorTelephone',
+							class: 'nicetext',
+							name: 'genericCreatorTelephone',
+							value: creator.genericCreatorTelephone,
+							required: false,
+							locale: creator.locale,
+						}) }}
+
+						{{ forms.textField({
+							label: "genericCreatorEmail"|t,
+							instructions: "genericCreatorEmail_help" |t |raw,
+							id: 'genericCreatorEmail',
+							class: 'nicetext',
+							name: 'genericCreatorEmail',
+							value: creator.genericCreatorEmail,
+							required: false,
+							locale: creator.locale,
+						}) }}
+
+<!-- Location -->
+						<h2>{{ "Location Info" |t }}</h2>
+
+						<div class="field">
+							<div class="half-width-field half-width-field-left">
+							{{ forms.textField({
+								label: "genericCreatorGeoLatitude"|t,
+								instructions: "genericCreatorGeoLatitude_help" |t |raw,
+								id: 'genericCreatorGeoLatitude',
+								class: 'nicetext',
+								name: 'genericCreatorGeoLatitude',
+								value: creator.genericCreatorGeoLatitude,
+								required: false,
+								locale: creator.locale,
+							}) }}
+							</div>
+							
+							<div class="half-width-field">
+							{{ forms.textField({
+								label: "genericCreatorGeoLongitude"|t,
+								instructions: "genericCreatorGeoLongitude_help" |t |raw,
+								id: 'genericCreatorGeoLongitude',
+								class: 'nicetext',
+								name: 'genericCreatorGeoLongitude',
+								value: creator.genericCreatorGeoLongitude,
+								required: false,
+								locale: creator.locale,
+							}) }}
+							</div>
+						</div>
+						
+						{{ forms.textField({
+							label: "genericCreatorStreetAddress"|t,
+							instructions: "genericCreatorStreetAddress_help" |t |raw,
+							id: 'genericCreatorStreetAddress',
+							class: 'nicetext',
+							name: 'genericCreatorStreetAddress',
+							value: creator.genericCreatorStreetAddress,
+							required: false,
+							locale: creator.locale,
+						}) }}
+
+						<div class="field">
+							<div class="half-width-field half-width-field-left">
+							{{ forms.textField({
+								label: "genericCreatorAddressLocality"|t,
+								instructions: "genericCreatorAddressLocality_help" |t |raw,
+								id: 'genericCreatorAddressLocality',
+								class: 'nicetext',
+								name: 'genericCreatorAddressLocality',
+								value: creator.genericCreatorAddressLocality,
+								required: false,
+								locale: creator.locale,
+							}) }}
+							</div>
+							<div class="half-width-field">
+							{{ forms.textField({
+								label: "genericCreatorAddressRegion"|t,
+								instructions: "genericCreatorAddressRegion_help" |t |raw,
+								id: 'genericCreatorAddressRegion',
+								class: 'nicetext',
+								name: 'genericCreatorAddressRegion',
+								value: creator.genericCreatorAddressRegion,
+								required: false,
+								locale: creator.locale,
+							}) }}
+							</div>
+						</div>
+						
+						<div class="field">
+							<div class="half-width-field half-width-field-left">
+							{{ forms.textField({
+								label: "genericCreatorPostalCode"|t,
+								instructions: "genericCreatorPostalCode_help" |t |raw,
+								id: 'genericCreatorPostalCode',
+								class: 'nicetext',
+								name: 'genericCreatorPostalCode',
+								value: creator.genericCreatorPostalCode,
+								required: false,
+								locale: creator.locale,
+							}) }}
+							</div>
+							<div class="half-width-field">
+							{{ forms.textField({
+								label: "genericCreatorAddressCountry"|t,
+								instructions: "genericCreatorAddressCountry_help" |t |raw,
+								id: 'genericCreatorAddressCountry',
+								class: 'nicetext',
+								name: 'genericCreatorAddressCountry',
+								value: creator.genericCreatorAddressCountry,
+								required: true,
+								locale: creator.locale,
+							}) }}
+							</div>
+						</div>
+						
+<!-- General organization fields -->
+
+	                    <div id="generic" class="metaPane">
+							<h2>{{ "Organization Info" |t }}</h2>
+	
+							<div class="field">
+								<div class="half-width-field half-width-field-left">
+								{{ forms.textField({
+									label: "organizationCreatorDuns"|t,
+									instructions: "organizationCreatorDuns_help" |t |raw,
+									id: 'organizationCreatorDuns',
+									class: 'nicetext',
+									name: 'organizationCreatorDuns',
+									value: creator.organizationCreatorDuns,
+									required: false,
+									locale: creator.locale,
+								}) }}
+								</div>
+								<div class="half-width-field">
+								{{ forms.textField({
+									label: "organizationCreatorFounder"|t,
+									instructions: "organizationCreatorFounder_help" |t |raw,
+									id: 'organizationCreatorFounder',
+									class: 'nicetext',
+									name: 'organizationCreatorFounder',
+									value: creator.organizationCreatorFounder,
+									required: false,
+									locale: creator.locale,
+								}) }}
+								</div>
+							</div>
+
+							<div class="field">
+								<div class="half-width-field half-width-field-left">
+								{{ forms.textField({
+									label: "organizationCreatorFoundingDate"|t,
+									instructions: "organizationCreatorFoundingDate_help" |t |raw,
+									id: 'organizationCreatorFoundingDate',
+									class: 'nicetext',
+									name: 'organizationCreatorFoundingDate',
+									value: creator.organizationCreatorFoundingDate,
+									required: false,
+									locale: creator.locale,
+								}) }}
+								</div>
+								<div class="half-width-field">
+								{{ forms.textField({
+									label: "organizationCreatorFoundingLocation"|t,
+									instructions: "organizationCreatorFoundingLocation_help" |t |raw,
+									id: 'organizationCreatorFoundingLocation',
+									class: 'nicetext',
+									name: 'organizationCreatorFoundingLocation',
+									value: creator.organizationCreatorFoundingLocation,
+									required: false,
+									locale: creator.locale,
+								}) }}
+								</div>
+							</div>
+							
+	                    </div>
+	                    
+<!-- Corporation-specific fields -->
+
+	                    <div id="corporation" class="metaPane field">
+							<h2>{{ "Corporation Info" |t }}</h2>
+							{{ forms.textField({
+								label: "corporationCreatorTickerSymbol"|t,
+								instructions: "corporationCreatorTickerSymbol_help" |t |raw,
+								id: 'corporationCreatorTickerSymbol',
+								class: 'nicetext',
+								name: 'corporationCreatorTickerSymbol',
+								value: creator.corporationCreatorTickerSymbol,
+								required: false,
+								locale: creator.locale,
+							}) }}
+	                    </div>
+
+<!-- Organization-specific fields -->
+
+	                    <div id="organization" class="metaPane field">
+	                    </div>
+
+<!-- Restaurant-specific fields -->
+
+	                    <div id="restaurant" class="metaPane field">
+	                    </div>
+
+<!-- Person-specific fields -->
+
+	                    <div id="person" class="metaPane field">
+							<h2>{{ "Person Info" |t }}</h2>
+							<div class="field">
+								<div class="half-width-field half-width-field-left">
+								{{ forms.textField({
+									label: "personCreatorGender"|t,
+									instructions: "personCreatorGender_help" |t |raw,
+									id: 'personCreatorGender',
+									class: 'nicetext',
+									name: 'personCreatorGender',
+									value: creator.personCreatorGender,
+									required: false,
+									locale: creator.locale,
+								}) }}
+								</div>
+								<div class="half-width-field">
+								{{ forms.textField({
+									label: "personCreatorBirthPlace"|t,
+									instructions: "personCreatorBirthPlace_help" |t |raw,
+									id: 'personCreatorBirthPlace',
+									class: 'nicetext',
+									name: 'personCreatorBirthPlace',
+									value: creator.personCreatorBirthPlace,
+									required: false,
+									locale: creator.locale,
+								}) }}
+								</div>
+							</div>
+	                    </div>
+                        
+                        <p>&nbsp;</p>
+	 					<p>{{ "environmentalVariables_ok" |t |raw }}</p>
+            
+					</div>
+										
+				</div>
+	
+				<div class="item" data-position="right" data-colspan="1">
+	
+					<div id="preview-display" class="btn big livepreviewbtn">
+						Preview SEO Meta Display
+					</div>
+
+					<div id="preview-tags" class="btn big livepreviewbtn secondbtn">
+						Preview SEO Meta Tags
+					</div>
+
+					{% if craft.isLocalized %}
+						<ul id="locales" class="pane">
+							{% for locale in craft.i18n.getSiteLocales() %}
+								{% if locale == creator.locale %}
+									<li class="sel">{{ locale.name }}</li>
+								{% else %}
+									<li><a href="{{ url('seomatic/creator') ~ '/' ~ locale.id }}">{{ locale.name }}</a></li>
+								{% endif %}
+							{% endfor %}
+							<li><p class="instructions">{{ "localizing_help" |t |raw }}</p></li>
+						</ul>
+					{% endif %}
+					
+					<div class="pane">
+						<div style="text-align:center; margin:0 auto;">
+							<img src="{{ resourceUrl('seomatic/images/site_creator.svg') }}" width="64px" height="auto" />
+						</div>
+						{{ "siteCreator_help" |t |raw }}
+					</div>
+	
+				</div>
+			</div>
+
+{% endblock %}

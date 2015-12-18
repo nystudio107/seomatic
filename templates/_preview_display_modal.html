@@ -1,0 +1,31 @@
+	<div id="preview-display-popup" style="display: none;">
+		<div class="preview-modal">
+			<div class="preview-modal-inner">
+
+				<div class="displaypreview-container">
+					
+					<h1>{{ "renderedFor" |t }}</h1>
+					<p>{% if previewMetaPath %}<code>{{ previewMetaPath }}</code> {{ "renderedForTemplate" |t | raw }}{% else %}{{ "renderedForGlobal" |t | raw }}{% endif %}</p>
+
+					<div class="preview-column">
+						<h1><br />{{ "googleDisplayPreview" |t }}</h1>
+						<p>{{ "googleDisplayPreview_help" |t |raw }}</p>
+						<div class="displaypreview">{{ craft.seomatic.renderDisplayPreview('_googleDisplayPreview', previewMetaPath, locale) |raw }}</div>
+					</div>
+	
+					<div class="preview-column">
+						<h1><br />{{ "twitterCardDisplayPreview" |t }}</h1>
+						<p>{{ "twitterCardDisplayPreview_help" |t |raw }}</p>
+						<div class="displaypreview">{{ craft.seomatic.renderDisplayPreview('_twitterCardDisplayPreview', previewMetaPath, locale) |raw }}</div>
+					</div>
+	
+					<div class="preview-column">
+						<h1><br />{{ "facebookDisplayPreview" |t }}</h1>
+						<p>{{ "facebookDisplayPreview_help" |t |raw }}</p>
+						<div class="displaypreview">{{ craft.seomatic.renderDisplayPreview('_facebookDisplayPreview', previewMetaPath, locale) |raw }}</div>
+					</div>
+	
+				</div>
+			</div>
+		</div>
+	</div>

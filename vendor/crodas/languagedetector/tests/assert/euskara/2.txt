@@ -1,0 +1,3 @@
+Meneame.net taldeko adimena erabiliz albisteak ezagutarazteko balio duen gaztelaniazko bloga da. Erregistratutako erabiltzaileek gainontzekoek (erregistratuta edo gabe) bozka ditzaketen albisteak bidal ditzakete webgunera, boto gehien dituzten albisteak azalera pasako direlarik. Proiektu honen garatzailea Ricardo Galli da, Balear Uharteetako Unibertsitateko irakaslea.
+Web 2.0 proiektu bat da, Digg.com-en ideia berean oinarrituz. Hala eta guztiz ere, azken honek ez bezala, karma bezalako kontzeptuak ere baditu. Karma erabiltzaile batek duen puntuazioa da, bere partehartzea eta lan onaren ondorioz handituz doana.
+Meneame.neten oinarrituta, eta euskaraz, Zabaldu.com egitasmoa dugu.

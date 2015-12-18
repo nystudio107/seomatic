@@ -1,0 +1,40 @@
+	<div id="preview-tags-popup" style="display: none;">
+		<div class="preview-modal">
+			<div class="preview-modal-inner">
+
+				<div class="displaypreview-container">
+					
+					<h1>{{ "renderedFor" |t }}</h1>
+					<p>{% if previewMetaPath %}<code>{{ previewMetaPath }}</code> {{ "renderedForTemplate" |t | raw }}{% else %}{{ "renderedForGlobal" |t | raw }}{% endif %}</p>
+	
+					<div class="preview-column">
+						<h1><br />{{ "templateVariables" |t }}</h1>
+						<p>{{ "templateVariables_help" |t |raw }}</p>
+						<pre><code class="language-twig">{{ craft.seomatic.renderGlobals(previewMetaPath, locale) | raw }}</code></pre>
+						<p>{{ "templateVariables2_help" |t |raw }}</p>
+					</div>
+	
+					<div class="preview-column">
+						<h1><br />{{ "renderedSeoMeta" |t }}</h1>
+						<p>{{ "renderedSeoMeta_help" |t |raw }}</p>
+						<p>{{ "renderedSeoMeta2_help" |t |raw }}</p>
+						<pre><code class="language-markup">{{ craft.seomatic.renderPreview('', previewMetaPath, locale) }}</code></pre>
+					</div>
+	
+					<div class="preview-column">
+						<h1><br />{{ "renderedIdentity" |t }}</h1>
+						<p>{{ "renderedIdentity_help" |t |raw }}</p>
+						<pre><code class="language-javascript">{{ craft.seomatic.renderIdentity('', true, locale) }}</code></pre>
+					</div>
+	
+					<div class="preview-column">
+						<h1><br />{{ "renderedWebsite" |t }}</h1>
+						<p>{{ "renderedWebsite_help" |t |raw }}</p>
+						<pre><code class="language-javascript">{{ craft.seomatic.renderWebsite('', true, locale) }}</code></pre>
+					</div>
+				
+				</div>
+
+			</div>
+		</div>
+	</div>

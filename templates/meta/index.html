@@ -1,0 +1,33 @@
+{% extends '_layouts/elementindex' %}
+
+{% includeCssResource "seomatic/css/style.css" %}
+{% includeJsResource "seomatic/js/meta.js" %}
+
+{% set title = "SEOmatic"|t %}
+{% set docsUrl = "https://github.com/khalwat/seomatic/blob/master/README.md" %}
+
+{% set elementType = 'Seomatic_Meta' %}
+
+{% set tabs = {
+	meta:		{ label: "SEO Template Meta"|t, url: url('seomatic/meta') },
+	site:		{ label: "SEO Site Meta"|t, url: url('seomatic/site') },
+	identity:	{ label: "Site Identity"|t, url: url('seomatic/identity') },
+	social:		{ label: "Social Media"|t, url: url('seomatic/social') },
+	creator:	{ label: "Site Creator"|t, url: url('seomatic/creator') },
+} %}
+
+{% set selectedTab = 'meta' %}
+
+{% block sidebar %}
+
+		<div class="buttons">
+
+				<div class="btngroup submit">
+					<div class="btn submit add icon" id="new-meta">{{ "New Template Meta"|t }}</div>
+				</div>
+
+		</div>
+
+	{{ parent() }}
+
+{% endblock %}

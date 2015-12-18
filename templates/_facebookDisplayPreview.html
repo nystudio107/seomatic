@@ -1,0 +1,36 @@
+						<div class="Facebook-container">
+							<div class="">
+								<a href="{{ seomaticMeta.canonicalUrl }}" target="_blank">
+									<div class="Facebook-image-wrap">
+										<div id="facebook-post-image" class="Facebook-post-image" style="width:470px;height:246px;">
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="facebook-text-wrap">
+								<div class="Facebook-text-container">
+									<div class="Facebook-headline">
+										<a class="Facebook-link" href="{{ seomaticMeta.canonicalUrl }}" target="_blank">{{ seomaticMeta.seoTitle }} | {{ seomaticSiteMeta.siteSeoName }}</a>
+									</div>
+									<div class="Facebook-text">
+										{{ seomaticMeta.seoDescription }}
+									</div>
+									<div class="Facebook-site-url-wrapper">
+										<div>
+											<div class="Facebook-site-url">
+												{{ siteUrl | replace({'http://': ''}) | replace({'https://': ''})  | replace({'/': ''}) }}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+<script type="text/javascript">
+	document.getElementById('facebook-post-image').style.backgroundImage = "url(" + "{{ resourceUrl('seomatic/images/no_image_set.png') }}" + ")";
+	{% if seomaticMeta.seoImage is defined and seomaticMeta.seoImage is not null %}
+		{% if seomaticMeta.seoImage.url %}
+			document.getElementById('facebook-post-image').style.backgroundImage = "url(" + "{{ seomaticMeta.seoImage.url }}" + ")";
+		{% endif %}
+	{% endif %}
+</script>

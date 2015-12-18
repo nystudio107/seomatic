@@ -1,0 +1,95 @@
+{% extends "_layouts/cp" %}
+{% import '_includes/forms' as forms %}
+
+{% includeCssResource "css/entry.css" %}
+{% includeCssResource "seomatic/css/style.css" %}
+{% includeCssResource "seomatic/css/css-reset.css" %}
+{% includeCssResource "seomatic/css/prism.min.css" %}
+{% includeJsResource "seomatic/js/seomatic.js" %}
+{% includeJsResource "seomatic/js/jquery.bpopup.min.js" %}
+{% includeJsResource "seomatic/js/prism.min.js" %}
+
+{% set title = "SEOmatic"|t %}
+{% set docsUrl = "https://github.com/khalwat/seomatic/blob/master/README.md" %}
+{% set hasCustomLayout = true %}
+
+{% set tabs = {
+	meta:		{ label: "SEO Template Meta"|t, url: url('seomatic/meta') },
+	site:		{ label: "SEO Site Meta"|t, url: url('seomatic/site') },
+	identity:	{ label: "Site Identity"|t, url: url('seomatic/identity') },
+	social:		{ label: "Social Media"|t, url: url('seomatic/social') },
+	creator:	{ label: "Site Creator"|t, url: url('seomatic/creator') },
+} %}
+
+{% set selectedTab = 'social' %}
+
+{% set fullPageForm = true %}
+
+{% block main %}
+
+	{% include "seomatic/_preview_display_modal" with {'previewMetaPath': '', 'locale': social.locale } %}
+	{% include "seomatic/_preview_tags_modal" with {'previewMetaPath': '', 'locale': social.locale } %}
+
+        <input type="hidden" name="action" value="seomatic/saveSocial" />
+        <input type="hidden" name="redirect" value="seomatic/social{% if craft.isLocalized %}/{{ social.locale }}{% endif %}" />
+        {{ getCsrfInput() }}
+
+			<div class="grid first">
+				<div class="item" data-position="left" data-min-colspan="2" data-max-colspan="3">
+					<div id="fields" class="pane">
+					{% include "_includes/tabs" %}
+					{% for key,value in social %}
+						{% if key == "locale" %}
+							<input type="hidden" name="locale" value="{{ social.locale }}">
+						{% else %}
+							{{ forms.textField({
+								label: key|t,
+								instructions: (key ~"_help") |t |raw,
+								id: key,
+								class: 'nicetext',
+								name: key,
+								value: value,
+								required: false,
+								locale:  social.locale,
+							}) }}
+						{% endif %}
+					{% endfor %}
+                    <p>&nbsp;</p>
+ 					<p>{{ "environmentalVariables_ok" |t |raw }}</p>
+					</div>
+				</div>
+	
+				<div class="item" data-position="right" data-colspan="1">
+	
+					<div id="preview-display" class="btn big livepreviewbtn">
+						Preview SEO Meta Display
+					</div>
+
+					<div id="preview-tags" class="btn big livepreviewbtn secondbtn">
+						Preview SEO Meta Tags
+					</div>
+
+					{% if craft.isLocalized %}
+						<ul id="locales" class="pane">
+							{% for locale in craft.i18n.getSiteLocales() %}
+								{% if locale == social.locale %}
+									<li class="sel">{{ locale.name }}</li>
+								{% else %}
+									<li><a href="{{ url('seomatic/social') ~ '/' ~ locale.id }}">{{ locale.name }}</a></li>
+								{% endif %}
+							{% endfor %}
+							<li><p class="instructions">{{ "localizing_help" |t |raw }}</p></li>
+						</ul>
+					{% endif %}
+					
+					<div class="pane">
+						<div style="text-align:center; margin:0 auto;">
+							<img src="{{ resourceUrl('seomatic/images/social_media.svg') }}" width="64px" height="auto" />
+						</div>
+						{{ "socialMedia_help" |t |raw }}
+					</div>
+	
+				</div>
+			</div>
+
+{% endblock %}

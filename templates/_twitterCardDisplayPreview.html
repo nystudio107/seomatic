@@ -1,0 +1,28 @@
+<div class="TwitterCardsGrid">
+	<div class="TwitterCardGrid-col">
+		<a class="TwitterCard-container" href="{{ seomaticMeta.canonicalUrl }}" target="_blank">
+			<div class="TwitterCard-summary-image">
+				<div class="TwitterCard-image-container">
+					<div id="twitter-card-image" class="TwitterCard-image-wrapper">
+					</div>
+				</div>
+			</div>
+			<div class="TwitterCard-summary-content-container">
+				<div class="TwitterCard-summary-content">
+					<h2 class="TwitterCard-title">{{ seomaticMeta.seoTitle }} | {{ seomaticSiteMeta.siteSeoName }}</h2>
+					<p class="TwitterCard-text">{{ seomaticMeta.seoDescription }}</p>
+					<span class="TwitterCard-destination">{{ siteUrl | replace({'http://': ''}) | replace({'https://': ''})  | replace({'/': ''}) }}</span>
+				</div>
+			</div>
+		</a>
+	</div>
+</div>
+
+<script type="text/javascript">
+	document.getElementById('twitter-card-image').style.backgroundImage = "url(" + "{{ resourceUrl('seomatic/images/no_image_set.png') }}" + ")";
+	{% if seomaticMeta.seoImage is defined and seomaticMeta.seoImage is not null %}
+		{% if seomaticMeta.seoImage.url %}
+			document.getElementById('twitter-card-image').style.backgroundImage = "url(" + "{{ seomaticMeta.seoImage.url }}" + ")";
+		{% endif %}
+	{% endif %}
+</script>

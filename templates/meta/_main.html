@@ -1,0 +1,108 @@
+
+{{ forms.textField({
+	label: "Title"|t,
+	id: 'title',
+	class: 'nicetext',
+	name: 'title',
+	value: meta.title,
+	errors: meta.getErrors('title'),
+	first: true,
+	autofocus: true,
+	required: true,
+	locale: meta.locale,
+}) }}
+
+{{ forms.textField({
+	label: "metaPath"|t,
+	instructions: "metaPath_help" |t |raw,
+	id: 'metaPath',
+	class: 'nicetext',
+	name: 'metaPath',
+	value: meta.metaPath,
+	errors: meta.getErrors('metaPath'),
+	required: true,
+	locale: meta.locale,
+}) }}
+
+{{ forms.textField({
+	label: "seoTitle"|t,
+	instructions: "seoTitle_help" |t |raw,
+	id: 'seoTitle',
+	class: 'nicetext',
+	name: 'seoTitle',
+	value: meta.seoTitle,
+	errors: meta.getErrors('seoTitle'),
+	maxlength: 70,
+	showCharsLeft: true,
+	required: false,
+	locale: meta.locale,
+}) }}
+
+<div class="field" id="seoDescription-field">
+	<div class="heading">
+		<label for="seoDescription">{{ "seoDescription"|t}}{% if meta.locale %}<span class="locale">{{ meta.locale }}</span>{% endif %}</label>
+		<div class="instructions"><p>{{ "seoDescription_help" |t |raw}}</p></div>
+	</div>
+{{ forms.textarea({
+	label: "seoDescription"|t,
+	instructions: "seoDescription_help" |t |raw,
+	id: 'seoDescription',
+	class: 'nicetext',
+	name: 'seoDescription',
+	value: meta.seoDescription,
+	errors: meta.getErrors('seoDescription'),
+	maxlength: 160,
+	showCharsLeft: true,
+	required: false,
+	locale: meta.locale,
+}) }}
+</div>
+
+<div class="field" id="seoKeywords-field">
+	<div class="heading">
+		<label for="seoDescription">{{ "seoKeywords"|t}}{% if meta.locale %}<span class="locale">{{ meta.locale }}</span>{% endif %}</label>
+		<div class="instructions"><p>{{ "seoKeywords_help" |t |raw}}</p></div>
+	</div>
+{{ forms.textarea({
+	label: "seoKeywords"|t,
+	instructions: "seoKeywords_help" |t |raw,
+	id: 'seoKeywords',
+	class: 'nicetext',
+	name: 'seoKeywords',
+	value: meta.seoKeywords,
+	errors: meta.getErrors('seoKeywords'),
+	maxlength: 200,
+	showCharsLeft: true,
+	required: false,
+	locale: meta.locale,
+}) }}
+</div>
+
+<div class="field" id="seoImageId-field">
+	<div class="heading">
+		<label for="seoImageId">{{ "seoImageId"|t}}{% if meta.locale %}<span class="locale">{{ meta.locale }}</span>{% endif %}</label>
+		<div class="instructions"><p>{{ "seoImageId_help" |t |raw}}</p></div>
+	</div>
+	<div class="input">
+		{% if assetsSourceExists %}
+			{{ forms.elementSelect({
+				elements: elements,
+				id: 'seoImageId',
+				name: 'seoImageId',
+				elementType: elementType,
+				criteria: {
+					'kind': [],
+					'localeEnabled': null,
+					'locale': craft.locale,
+				},
+				sourceElementId: seoImageId,
+				jsClass: 'Craft.AssetSelectInput',
+				addButtonLabel: 'Select SEO Image',
+				limit: 1,
+				locale: meta.locale,
+			}) }}
+		{% else %}
+			<p class="error">No assets sources currently exist. <a href="{{ newAssetsSourceUrl }}">Create one now...</a></p>
+		{% endif %}
+	</div>
+</div>

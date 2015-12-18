@@ -1,0 +1,27 @@
+{
+    "name": "crodas/languagedetector",
+    "description": "simple library to classify texts",
+    "authors": [
+        {
+            "name": "César D. Rodas",
+            "email": "crodas@php.net"
+        }
+    ],
+    "require": {
+
+    },
+    "minimum-stability": "dev",
+    "require-dev": {
+        "crodas/Autoloader": "~0.1"
+    },
+    "license": "BSD-4-Clause",
+    "version": "v0.1.1",
+    "scripts": {
+        "post-autoload-dump": "Autoloader\\Composer::generate"
+    },
+    "autoload": {
+        "psr-0": {
+            "LanguageDetector": "lib/"
+        }
+    }
+}

@@ -1,0 +1,619 @@
+div.seomatic-devmode-wrapper {
+	width: 100%;
+	margin-bottom: 10px;
+	background-color: #333f4d;
+}
+
+div.seomatic-devmode {
+	width: 100%;
+	height: 4px;
+	background: url('/admin/resources/images/dev-mode.svg') repeat-x 15px 0;
+	cursor: help;
+}
+
+p.seomatic-devmode-text {
+	margin: 0;
+	padding: 10px;
+	color: white;
+}
+
+div.half-width-field {
+	display: inline-block;
+	width: 45%;
+}
+
+div.half-width-field-left {
+	padding-right: 5%;
+}
+
+p.instructions {
+	margin-top: 4px;
+	font-size: 11px;
+	line-height: 1.4;
+	color: #8f98a3;
+}
+
+div.preview-modal {
+    width: 90vw;
+    height: 90vh;
+    background-color: #FFFFFF;
+    border-radius: 4px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    margin-top: 2%;
+}
+
+div.preview-modal-inner {
+    padding: 5%;
+}
+
+div.preview-column {
+    float: none;
+    width: 100%%;
+}
+
+div.seomatic-container {
+    overflow: hidden;
+}
+
+div.metaPane {
+    display: none;
+}
+
+div.secondbtn {
+    margin: 14px 0px;
+}
+
+div.displaypreview-container {
+}
+
+div.displaypreview {
+    width: 512px;
+    overflow: hidden;
+    border: 1px solid #EEE;
+    padding: 30px;
+}
+
+h3.googleDisplay {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 18px;
+    font-family: arial, sans-serif;
+    font-weight: normal;
+    line-height: 21px;
+    list-style-type: decimal;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    text-align: left;
+}
+
+a.googleDisplay {
+    text-decoration: none;
+}
+
+a.googleDisplay:link {
+    cursor: pointer;
+    color: #1a0dab;
+}
+
+a.googleDisplay:visited {
+    color: #609;
+}
+
+a.googleDisplay:hover {
+    text-decoration: underline;
+}
+
+div.googleDisplay1 {
+    color: rgb(84, 84, 84);
+    display: block;
+    font-family: arial, sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 18px;
+    list-style-type: decimal;
+    max-width: 546px;
+    text-align: left;
+    visibility: visible;
+}
+
+div.googleDisplay2 {
+    color: rgb(128, 128, 128);
+    display: block;
+    font-family: arial, sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 16px;
+    list-style-type: decimal;
+    text-align: left;
+    visibility: visible;
+    white-space: nowrap;
+}
+
+cite.googleDisplay {
+    color: rgb(0, 102, 33);
+    display: inline;
+    font-family: arial, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: normal;
+    height: auto;
+    line-height: 16px;
+    list-style-type: decimal;
+    text-align: left;
+    visibility: visible;
+    white-space: nowrap;
+    width: auto;
+}
+
+div.googleDisplay3 {
+    -webkit-user-select: none;
+    color: rgb(128, 128, 128);
+    display: inline;
+    font-family: arial, sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    height: auto;
+    line-height: 16px;
+    list-style-type: decimal;
+    margin-bottom: 0px;
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-top: 0px;
+    position: relative;
+    text-align: left;
+    vertical-align: middle;
+    visibility: visible;
+    white-space: nowrap;
+    width: auto;
+}
+
+span.googleDisplay1 {
+    -webkit-user-select: none;
+    border-bottom-color: rgb(0, 102, 33);
+    border-bottom-style: solid;
+    border-bottom-width: 0px;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-left-style: solid;
+    border-left-width: 4px;
+    border-right-color: rgba(0, 0, 0, 0);
+    border-right-style: solid;
+    border-right-width: 4px;
+    border-top-color: rgb(0, 102, 33);
+    border-top-style: solid;
+    border-top-width: 5px;
+    color: rgb(128, 128, 128);
+    display: block;
+    font-family: arial, sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    left: 0px;
+    line-height: 16px;
+    list-style-type: decimal;
+    margin-left: 3px;
+    margin-top: -4px;
+    position: absolute;
+    text-align: left;
+    text-decoration: none;
+    top: 50%;
+    visibility: visible;
+    white-space: nowrap;
+    width: 0px;
+}
+
+div.googleDisplay2 {
+    color: rgb(84, 84, 84);
+    display: block;
+    font-family: arial, sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    height: auto;
+    line-height: 18px;
+    list-style-type: decimal;
+    text-align: left;
+    visibility: visible;
+    width: auto;
+    word-wrap: break-word;
+}
+
+.TwitterCardsGrid {
+    -webkit-background-clip: border-box;
+    -webkit-background-origin: padding-box;
+    -webkit-background-size: auto;
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: none;
+    background-origin: padding-box;
+    background-size: auto;
+    color: rgb(0, 0, 0);
+    display: block;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    height: 129.9375px;
+    line-height: 18.200000762939453px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position: relative;
+    text-align: left;
+}
+
+.TwitterCardGrid-col {
+    clear: both;
+    color: rgb(0, 0, 0);
+    display: block;
+    float: left;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    height: 125.421875px;
+    line-height: 18.200000762939453px;
+    margin-bottom: 4.526619911193848px;
+    text-align: left;
+    width: 506px;
+}
+
+a.TwitterCard-container {
+    -webkit-transition-delay: 0s, 0s;
+    -webkit-transition-duration: 0.15s, 0.15s;
+    -webkit-transition-property: background-color, border-color;
+    -webkit-transition-timing-function: ease-in-out, ease-in-out;
+    border-bottom-color: rgb(225, 232, 237);
+    border-bottom-left-radius: 5.984375px;
+    border-bottom-right-radius: 5.984375px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-color: rgb(225, 232, 237);
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-right-color: rgb(225, 232, 237);
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-top-color: rgb(225, 232, 237);
+    border-top-left-radius: 5.984375px;
+    border-top-right-radius: 5.984375px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    box-sizing: border-box;
+    clear: both;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    display: block;
+    float: left;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    height: 125.421875px;
+    line-height: 18.200000762939453px;
+    outline-offset: 0px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    text-align: left;
+    text-decoration: none;
+    transition-delay: 0s, 0s;
+    transition-duration: 0.15s, 0.15s;
+    transition-property: background-color, border-color;
+    transition-timing-function: ease-in-out, ease-in-out;
+    width: 506px;
+}
+
+a.TwitterCard-container:hover {
+    outline: 0;
+    background: #F5F8FA;
+    border-color: rgba(136, 153, 166, .5)
+}
+
+.TwitterCard-summary-image {
+    background-color: rgb(225, 232, 237);
+    border-bottom-color: rgb(225, 232, 237);
+    border-bottom-style: solid;
+    border-bottom-width: 0px;
+    border-left-color: rgb(225, 232, 237);
+    border-left-style: solid;
+    border-left-width: 0px;
+    border-right-color: rgb(225, 232, 237);
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-top-color: rgb(225, 232, 237);
+    border-top-style: solid;
+    border-top-width: 0px;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    display: block;
+    float: left;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    height: 123.421875px;
+    line-height: 18.200000762939453px;
+    text-align: left;
+    text-decoration: none;
+    width: 123.421875px;
+}
+
+.TwitterCard-image-container {
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    display: block;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    height: 123.421875px;
+    line-height: 18.200000762939453px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    width: 123.421875px;
+}
+
+.TwitterCard-image-wrapper {
+    -webkit-background-size: cover;
+    background-image: none;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    bottom: -1px;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    display: block;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    height: 125.421875px;
+    left: -1px;
+    line-height: 18.200000762939453px;
+    position: absolute;
+    right: -1px;
+    text-align: left;
+    text-decoration: none;
+    top: -1px;
+    width: 125.421875px;
+}
+
+.TwitterCard-summary-content-container {
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    display: block;
+    float: left;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    height: 120.03125px;
+    line-height: 18.200000762939453px;
+    text-align: left;
+    text-decoration: none;
+    width: 379.5625px;
+}
+
+.TwitterCard-summary-content {
+    box-sizing: border-box;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    display: block;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    height: 120.03125px;
+    line-height: 18.200000762939453px;
+    padding-bottom: 10.5px;
+    padding-left: 10.5px;
+    padding-right: 10.5px;
+    padding-top: 10.5px;
+    text-align: left;
+    text-decoration: none;
+    width: 379.5625px;
+}
+
+h2.TwitterCard-title {
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    display: block;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    height: 18px;
+    line-height: 18.200000762939453px;
+    margin-bottom: 2.0999999046325684px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    max-height: 18.200000762939453px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    text-align: left;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+p.TwitterCard-text {
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    display: block;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    height: 54px;
+    line-height: 18.200000762939453px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 4.526619911193848px;
+    max-height: 54.599998474121094px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    text-align: left;
+    text-decoration: none;
+}
+
+.TwitterCard-destination {
+    color: rgb(136, 153, 166);
+    cursor: pointer;
+    display: block;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    height: 18px;
+    line-height: 18.200000762939453px;
+    margin-top: 4.526619911193848px;
+    max-height: 18.200000762939453px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    text-align: left;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    text-transform: lowercase;
+    white-space: nowrap;
+}
+
+.Facebook-container {
+    -webkit-box-shadow: rgba(0, 0, 0, 0.14902) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.0980392) 0px 1px 4px 0px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0.14902) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.0980392) 0px 1px 4px 0px;
+    color: rgb(20, 24, 35);
+    direction: ltr;
+    display: block;
+    font-family: helvetica, arial, sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position: relative;
+    width: 470px;
+    word-wrap: break-word;
+    z-index: 0;
+    zoom: 1;
+}
+
+.Facebook-container:hover {
+    -webkit-box-shadow: rgba(0, 0, 0, 0.14902) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.14902) 0px 1px 6px 0px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0.14902) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.14902) 0px 1px 6px 0px;
+}
+
+.Facebook-image-wrap {
+	padding: 1px;
+	overflow: hidden;
+}
+
+.Facebook-post-image {
+    background-image: none;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-bottom-color: rgba(0, 0, 0, 0.0980392);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
+.Facebook-text-container {
+    color: rgb(20, 24, 35);
+    direction: ltr;
+    display: block;
+    font-family: helvetica, arial, sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    margin-bottom: 10px;
+    margin-left: 12px;
+    margin-right: 12px;
+    margin-top: 10px;
+    max-height: 100px;
+    position: relative;
+    width: 446px;
+    word-wrap: break-word;
+}
+
+a.Facebook-link {
+    -webkit-transition-delay: 0s;
+    -webkit-transition-duration: 0.1s;
+    -webkit-transition-property: color;
+    -webkit-transition-timing-function: ease-in-out;
+    color: rgb(20, 24, 35);
+    cursor: pointer;
+    direction: ltr;
+    display: inline;
+    font-family: Georgia, 'lucida grande', tahoma, verdana, arial, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    height: auto;
+    line-height: 22px;
+    text-decoration: none;
+    transition-delay: 0s;
+    transition-duration: 0.1s;
+    transition-property: color;
+    transition-timing-function: ease-in-out;
+    width: auto;
+    word-wrap: break-word;
+}
+
+.Facebook-headline {
+    -webkit-transition-delay: 0s;
+    -webkit-transition-duration: 0.1s;
+    -webkit-transition-property: color;
+    -webkit-transition-timing-function: ease-in-out;
+    color: rgb(20, 24, 35);
+    direction: ltr;
+    display: block;
+    font-family: Georgia, 'lucida grande', tahoma, verdana, arial, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+    margin-bottom: 5px;
+    max-height: 110px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    text-decoration: none;
+    transition-delay: 0s;
+    transition-duration: 0.1s;
+    transition-property: color;
+    transition-timing-function: ease-in-out;
+    width: 446px;
+    word-wrap: break-word;
+}
+
+.Facebook-text {
+    color: rgb(20, 24, 35);
+    direction: ltr;
+    display: block;
+    font-family: helvetica, arial, sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    max-height: 80px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    width: 446px;
+    word-wrap: break-word;
+}
+
+.Facebook-site-url-wrapper {
+    color: rgb(20, 24, 35);
+    direction: ltr;
+    display: block;
+    font-family: helvetica, arial, sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    padding-top: 9px;
+    position: relative;
+    width: 446px;
+    word-wrap: break-word;
+}
+
+.Facebook-site-url {
+    color: rgb(145, 151, 163);
+    direction: ltr;
+    display: block;
+    font-family: helvetica, arial, sans-serif;
+    font-size: 11px;
+    line-height: 11px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+    width: 446px;
+    word-wrap: break-word;
+}

@@ -1,0 +1,89 @@
+{% switch seomaticIdentity.siteOwnerType %}
+{% case "corporation" %}
+	"@type": "Corporation",
+{% case "restaurant" %}
+	"@type": "Restaurant",
+{% case "organization" %}
+	"@type": "Organization",
+{% case "person" %}
+	"@type": "Person",
+{% endswitch %}
+{% if seomaticIdentity.genericOwnerName %}
+	"name": "{{ seomaticIdentity.genericOwnerName }}",
+{% endif %}
+{% if seomaticIdentity.genericOwnerAlternateName %}
+	"alternateName": "{{ seomaticIdentity.genericOwnerAlternateName }}",
+{% endif %}
+{% if seomaticIdentity.genericOwnerDescription %}
+	"description": "{{ seomaticIdentity.genericOwnerDescription }}",
+{% endif %}
+{% if seomaticIdentity.genericOwnerUrl %}
+	"url": "{{ seomaticIdentity.genericOwnerUrl }}",
+{% endif %}
+{% if seomaticIdentity.genericOwnerImage is defined and seomaticIdentity.genericOwnerImage is not null %}
+	"image": "{{ seomaticIdentity.genericOwnerImage.url }}",
+{% endif %}
+{% if seomaticIdentity.genericOwnerTelephone %}
+	"telephone": "{{ seomaticIdentity.genericOwnerTelephone }}",
+{% endif %}
+{% if seomaticIdentity.genericOwnerEmail %}
+	"email": "{{ seomaticIdentity.genericOwnerEmail }}",
+{% endif %}
+{% if seomaticIdentity.siteOwnerType != "person" %}
+{% if seomaticIdentity.genericOwnerImage is defined and seomaticIdentity.genericOwnerImage is not null %}
+	"logo": "{{ seomaticIdentity.genericOwnerImage.url }}",
+{% endif %}
+{% if seomaticIdentity.organizationOwnerDuns %}
+	"duns": "{{ seomaticIdentity.organizationOwnerDuns }}",
+{% endif %}
+{% if seomaticIdentity.organizationOwnerFounder %}
+	"founder": "{{ seomaticIdentity.organizationOwnerFounder }}",
+{% endif %}
+{% if seomaticIdentity.organizationOwnerFoundingDate %}
+	"foundingDate": "{{ seomaticIdentity.organizationOwnerFoundingDate }}",
+{% endif %}
+{% if seomaticIdentity.organizationOwnerFoundingLocation %}
+	"foundingLocation": "{{ seomaticIdentity.organizationOwnerFoundingLocation }}",
+{% endif %}
+{% endif %}
+{% switch seomaticIdentity.siteOwnerType %}
+{% case "corporation" %}
+{% if seomaticIdentity.corporationOwnerTickerSymbol %}
+	"tickerSymbol": "{{ seomaticIdentity.corporationOwnerTickerSymbol }}",
+{% endif %}
+{% case "restaurant" %}
+{% if seomaticIdentity.restaurantOwnerServesCuisine %}
+	"servesCuisine": "{{ seomaticIdentity.restaurantOwnerServesCuisine }}",
+{% endif %}
+{% case "organization" %}
+{% case "person" %}
+{% if seomaticIdentity.personOwnerGender %}
+	"gender": "{{ seomaticIdentity.personOwnerGender }}",
+{% endif %}
+{% if seomaticIdentity.personOwnerBirthPlace %}
+	"birthPlace": "{{ seomaticIdentity.personOwnerBirthPlace }}",
+{% endif %}
+{% endswitch %}
+{% if seomaticIdentity.genericOwnerGeoLatitude and seomaticIdentity.genericOwnerGeoLongitude  %}
+	"geo": {
+		"@type": "GeoCoordinates",
+		"latitude": "{{ seomaticIdentity.genericOwnerGeoLatitude}}",
+		"longitude": "{{ seomaticIdentity.genericOwnerGeoLongitude}}",
+	},
+{% endif %}
+	"address": {
+		"@type": "PostalAddress",
+{% if seomaticIdentity.genericOwnerStreetAddress %}
+		"streetAddress": "{{ seomaticIdentity.genericOwnerStreetAddress}}",
+{% endif %}
+{% if seomaticIdentity.genericOwnerAddressLocality %}
+		"addressLocality": "{{ seomaticIdentity.genericOwnerAddressLocality}}",
+{% endif %}
+{% if seomaticIdentity.genericOwnerAddressRegion %}
+		"addressRegion": "{{ seomaticIdentity.genericOwnerAddressRegion}}",
+{% endif %}
+{% if seomaticIdentity.genericOwnerPostalCode %}
+		"addressPostalCode": "{{ seomaticIdentity.genericOwnerPostalCode}}",
+{% endif %}
+		"addressCountry": "{{ seomaticIdentity.genericOwnerAddressCountry}}"
+	}

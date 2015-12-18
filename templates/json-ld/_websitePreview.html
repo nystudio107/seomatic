@@ -1,0 +1,23 @@
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "WebSite",
+	"name": "{{ seomaticSiteMeta.siteSeoName }}",
+	"description": "{{ seomaticSiteMeta.siteSeoDescription }}",
+	"url": "{{ siteUrl }}",
+{% if seomaticSiteMeta.siteSeoImage is defined and seomaticSiteMeta.siteSeoImage is not null %}
+	"image": "{{ seomaticSiteMeta.siteSeoImage.url }}",
+{% endif %}
+	"sameAs": [{% if seomaticSocial.facebookHandle %}"{{ seomaticSocial.facebookUrl }}",{% endif %}{% if seomaticSocial.twitterHandle %}"{{ seomaticSocial.twitterUrl }}",{% endif %}{% if seomaticSocial.googlePlusHandle %}"{{ seomaticSocial.googlePlusUrl }}",{% endif %}{% if seomaticSocial.linkedInHandle %}"{{ seomaticSocial.linkedInUrl }}",{% endif %}{% if seomaticSocial.youtubeHandle %}"{{ seomaticSocial.youtubeUrl }}",{% endif %}{% if seomaticSocial.instagramHandle %}"{{ seomaticSocial.instagramUrl }}",{% endif %}{% if seomaticSocial.pinterestHandle %}"{{ seomaticSocial.pinterestUrl }}",{% endif %}"{{ siteUrl}}"],
+	
+	"copyrightHolder": {
+{% include "json-ld/_identity_corePreview" %}
+	},
+	"author": {
+{% include "json-ld/_identity_corePreview" %}
+	},
+	"creator": {
+{% include "json-ld/_creator_corePreview" %}
+	}
+}
+</script>
