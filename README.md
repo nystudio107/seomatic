@@ -899,13 +899,19 @@ Some things to do, and ideas for potential features:
 * [bug] Get the Template Metas implemented with full `locale` support, so the settings can all be per-locale based
 * [bug] Find an appropriate place for the GeoCoordinates in the Idenity and WebSite schemas
 * [bug] The `foundingDate` fields probably should be dateTimeField types on the Settings pages
-* [feature] Add caching to the Idenity & WebSite schemas
 * [feature] Encode the Idenity and Creator email addresses
 * [feature] Helper functions for GetFullAddress and GetCopyrightString (?)
 * [feature] Provide SiteMap functionality.  Yes, it's SEO-related, but seems like it might be better to keep SEOmatic focused (?)
-* [feature] Added a "Lookup Geo Coordinates" button to the Site Identity and Site Creator pages.
+* [feature] Add a "Lookup Geo Coordinates" button to the Site Identity and Site Creator pages.
 
 ## Changelog
+
+### 1.0.1 -- 2015.12.22
+
+* [Added] If the [Minify](https://github.com/khalwat/minify) plugin is installed, SEOmatic will minify the SEO Meta tags & JSON-LD
+* [Improved] Improved the caching mechanism to span all of the meta
+* [Fixed] Fixed a few of small errors
+* [Improved] Updated the README.md to better document SEOmatic
 
 ### 1.0.0 -- 2015.12.18
 

@@ -14,26 +14,51 @@ class SeomaticService extends BaseApplicationComponent
 	protected $cachedIdentity = array();
 	protected $cachedSocial = array();
 	protected $cachedCreator = array();
-	
+
+/* --------------------------------------------------------------------------------
+    Render the all of the SEO Meta, caching it if possible
+-------------------------------------------------------------------------------- */
+
+    public function renderSiteMeta($templatePath="", $metaVars=null, $locale)
+    {
+
+/* -- Cache the results for speediness; 1 query to rule them all */
+
+	    $shouldCache = ($metaVars != null);
+		if ($shouldCache)	    
+		{
+			$cacheKey = 'seomatic_metacache_' . $this->getMetaHashStr($templatePath, $metaVars);
+			$cache = craft()->cache->get($cacheKey);
+			if ($cache)
+				return $cache;
+		}
+
+/* -- If Minify is installed, minify all the things */
+
+		if (craft()->plugins->getPlugin('Minify'))
+		{
+	        $htmlText = craft()->minify->htmlMin($this->render($templatePath, $metaVars));
+	        $htmlText .= craft()->minify->jsMin($this->renderIdentity('', false, $metaVars, $locale));
+	        $htmlText .= craft()->minify->jsMin($this->renderWebsite('', false, $metaVars, $locale));
+		}
+		else
+		{
+	        $htmlText = $this->render($templatePath, $metaVars);
+	        $htmlText .= $this->renderIdentity('', false, $metaVars, $locale);
+	        $htmlText .= $this->renderWebsite('', false, $metaVars, $locale);
+		}
+		if ($shouldCache)	    
+			craft()->cache->set($cacheKey, $htmlText, null);
+
+        return $htmlText;
+    } /* -- renderSiteMeta */
+
 /* --------------------------------------------------------------------------------
     Render the SEOmatic template
 -------------------------------------------------------------------------------- */
 
     public function render($templatePath="", $metaVars=null, $isPreview=false)
     {
-
-/* -- Cache the results for speediness; 1 query > 3 queries */
-
-	    $shouldCache = (($metaVars != null) && (!$isPreview));
-		if ($shouldCache)	    
-		{
-			$cacheKey = 'seomatic_meta_' . $this->getMetaHashStr($metaVars);
-			$cache = craft()->cache->get($cacheKey);
-			if ($cache)
-				{
-				return $cache;
-				}
-		}
 
         if ($templatePath)
             {
@@ -57,9 +82,6 @@ class SeomaticService extends BaseApplicationComponent
 
             craft()->path->setTemplatesPath($oldPath);
             }
-
-		if ($shouldCache)	    
-			craft()->cache->set($cacheKey, $htmlText, null);
 
         return $htmlText;
     } /* -- render */
@@ -758,9 +780,9 @@ class SeomaticService extends BaseApplicationComponent
     Get a md5 hash string for this combination of $metaVars
 -------------------------------------------------------------------------------- */
 
-	private function getMetaHashStr($metaVars)
+	private function getMetaHashStr($templatePath, $metaVars)
 	{
-		$hashStr = '';
+		$hashStr = $templatePath;
         foreach ($metaVars as $key => $value)
         {
             if (is_array($value))

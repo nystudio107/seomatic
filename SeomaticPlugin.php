@@ -25,7 +25,7 @@ class SeomaticPlugin extends BasePlugin
     
     public function getVersion()
     {
-        return '1.0.0';
+        return '1.0.1';
     }
 
     public function getSchemaVersion()
@@ -79,9 +79,7 @@ class SeomaticPlugin extends BasePlugin
             $seomaticTemplatePath = '';
             if (isset($context['seomaticTemplatePath']))
                 $seomaticTemplatePath = $context['seomaticTemplatePath'];
-            $result = craft()->seomatic->render($seomaticTemplatePath, $metaVars);
-            $result = $result . craft()->seomatic->renderIdentity('', false, $metaVars, $locale);
-            $result = $result . craft()->seomatic->renderWebsite('', false, $metaVars, $locale);
+            $result = craft()->seomatic->renderSiteMeta($seomaticTemplatePath, $metaVars, $locale);
             return $result;
         });
     }
@@ -99,11 +97,11 @@ class SeomaticPlugin extends BasePlugin
             'seomatic/site'             							=> array('action' => 'seomatic/editSiteMeta'),
             'seomatic/site/(?P<locale>[-\w\.*]+)'   				=> array('action' => 'seomatic/editSiteMeta'),
             'seomatic/identity'             						=> array('action' => 'seomatic/editIdentity'),
-            'seomatic/identity/(?P<locale>[-\w\.*]+)'             						=> array('action' => 'seomatic/editIdentity'),
+            'seomatic/identity/(?P<locale>[-\w\.*]+)'             	=> array('action' => 'seomatic/editIdentity'),
             'seomatic/social'             							=> array('action' => 'seomatic/editSocial'),
-            'seomatic/social/(?P<locale>[-\w\.*]+)'             							=> array('action' => 'seomatic/editSocial'),
+            'seomatic/social/(?P<locale>[-\w\.*]+)'             	=> array('action' => 'seomatic/editSocial'),
             'seomatic/creator'             							=> array('action' => 'seomatic/editCreator'),
-            'seomatic/creator/(?P<locale>[-\w\.*]+)'             							=> array('action' => 'seomatic/editCreator'),
+            'seomatic/creator/(?P<locale>[-\w\.*]+)'             	=> array('action' => 'seomatic/editCreator'),
             'seomatic/new'                  						=> array('action' => 'seomatic/editMeta'),
             'seomatic/meta/(?P<metaId>\d+)' 						=> array('action' => 'seomatic/editMeta'),
             'seomatic/meta/(?P<metaId>\d+)/(?P<locale>[-\w\.*]+)' 	=> array('action' => 'seomatic/editMeta'),

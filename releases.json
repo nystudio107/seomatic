@@ -1,8 +1,19 @@
 [
     {
+        "version": "1.0.1",
+        "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
+        "date": "2015-12-22T11:00:00-05:00",
+        "notes": [
+            "[Added] If the Minify plugin is installed, SEOmatic will minify the SEO Meta tags & JSON-LD",
+            "[Improved] Improved the caching mechanism to span all of the meta",
+            "[Fixed] Fixed a few of small errors",
+            "[Improved] Updated the README.md to better document SEOmatic"
+        ]
+    },
+    {
         "version": "1.0.0",
         "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
-        "date": "2015-01-02T11:00:00-05:00",
+        "date": "2015-12-18T11:00:00-05:00",
         "notes": [
             "[Added] Initial release"
         ]
