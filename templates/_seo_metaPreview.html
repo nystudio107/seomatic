@@ -89,8 +89,8 @@
 {% if seomaticSocial.googlePlusHandle %}
 <!-- Google Publisher/Authorship -->
 
-<link rel="publisher" href="https://plus.google.com/+{{ seomaticSocial.googlePlusHandle }}" /> <!-- {% verbatim %}https://plus.google.com/+{{ seomaticSocial.googlePlusHandle }}{% endverbatim %} -->
-<link rel="author" href="https://plus.google.com/+{{ seomaticSocial.googlePlusHandle }}" /> <!-- {% verbatim %}https://plus.google.com/+{{ seomaticSocial.googlePlusHandle }}{% endverbatim %} -->
+<link rel="publisher" href="{{ seomaticSocial.googlePlusUrl }}" /> <!-- {% verbatim %}{{ seomaticSocial.googlePlusUrl }}{% endverbatim %} -->
+<link rel="author" href="{{ seomaticSocial.googlePlusUrl }}" /> <!-- {% verbatim %}{{ seomaticSocial.googlePlusUrl }}{% endverbatim %} -->
 {% endif %}
 
 {% if seomaticIdentity.googleSiteVerification %}

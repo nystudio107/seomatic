@@ -733,8 +733,8 @@ SEOmatic cascades Meta settings; if you have a Meta associated with the current 
 	
 	<!-- Google Publisher/Authorship -->
 	
-	<link rel="publisher" href="https://plus.google.com/+nystudio107" /> <!-- https://plus.google.com/+{{ seomaticSocial.googlePlusHandle }} -->
-	<link rel="author" href="https://plus.google.com/+nystudio107" /> <!-- https://plus.google.com/+{{ seomaticSocial.googlePlusHandle }} -->
+	<link rel="publisher" href="https://plus.google.com/+nystudio107" /> <!-- {{ seomaticSocial.googlePlusUrl }} -->
+	<link rel="author" href="https://plus.google.com/+nystudio107" /> <!-- {{ seomaticSocial.googlePlusUrl }} -->
 	
 	<!-- Domain verification -->
 	

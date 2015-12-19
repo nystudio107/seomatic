@@ -89,8 +89,8 @@
 {% if seomaticSocial.googlePlusHandle %}
 <!-- Google Publisher/Authorship -->
 
-<link rel="publisher" href="https://plus.google.com/+{{ seomaticSocial.googlePlusHandle }}" />
-<link rel="author" href="https://plus.google.com/+{{ seomaticSocial.googlePlusHandle }}" />
+<link rel="publisher" href="{{ seomaticSocial.googlePlusUrl }}" />
+<link rel="author" href="{{ seomaticSocial.googlePlusUrl }}" />
 {% endif %}
 
 {% if seomaticIdentity.googleSiteVerification %}
