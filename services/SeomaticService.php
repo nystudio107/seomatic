@@ -565,12 +565,6 @@ class SeomaticService extends BaseApplicationComponent
     {
         $result = array();
 
-/*
-        $whereQuery = '`metaType` = ' . '\'default\'';
-        $globalMetaRecord = Seomatic_MetaRecord::model()->find();
-        $globalMeta = $globalMetaRecord->attributes;
-        $thisMeta = $globalMeta;
-*/
         if ($forTemplate)
         {
             $whereQuery = '`metaPath` = ' . '\'' .$forTemplate . '\'';
@@ -598,27 +592,6 @@ class SeomaticService extends BaseApplicationComponent
         
         return $result;
     } /* -- getMeta */
-
-/* --------------------------------------------------------------------------------
-    Save the default meta
--------------------------------------------------------------------------------- 
-
-    public function saveDefaultMeta()
-    {
-        $model = new Seomatic_MetaModel();
-        $model->metaType = 'default';
-        $model->metaPath = 'Global';
-        $model->seoTitle = 'SEO Title.  This is the title of this page.  Limited to 70 characters.';
-        $model->seoDescription = 'SEO Description.  This is a natural language description of the content on this page.  Limited to 170 characters.';
-        $model->seoKeywords = 'SEO Keywords.  This is a list of comma-separated key words that are relevant to the content on this page.  Limited to 200 characters';
-        $model->seoImageId = null;
-        $model->enabled = true;
-        $model->getContent()->title = 'Global Site Meta';
-        $model->locale = craft()->locale->id;
-
-        $this->saveMeta($model);
-    } 
-*/
 
 /* --------------------------------------------------------------------------------
     Save the meta element & record from the model
@@ -808,7 +781,7 @@ class SeomaticService extends BaseApplicationComponent
 		
 		return $result;
 	} /* -- getMetaHashStr */
-	
+
 /* --------------------------------------------------------------------------------
     Sanitize the metaVars
 -------------------------------------------------------------------------------- */
@@ -816,8 +789,10 @@ class SeomaticService extends BaseApplicationComponent
     public function sanitizeMetaVars(&$metaVars)
     {
         $seomaticMeta = $metaVars['seomaticMeta'];
+        $seomaticSiteMeta = $metaVars['seomaticSiteMeta'];
         $seomaticIdentity = $metaVars['seomaticIdentity'];
         $seomaticSocial = $metaVars['seomaticSocial'];
+        $seomaticCreator = $metaVars['seomaticCreator'];
 
 /* -- Truncate seoTitle, seoDescription, and seoKeywords to recommended values */
 
@@ -843,6 +818,16 @@ class SeomaticService extends BaseApplicationComponent
             }
         }
 
+        foreach ($seomaticSiteMeta as $key => $value)
+        {
+            if (is_string($value))
+            {
+				$seomaticSiteMeta[$key] = craft()->config->parseEnvironmentString($value);
+				$seomaticSiteMeta[$key] = strip_tags($value);
+                $seomaticSiteMeta[$key] = htmlspecialchars($value);
+            }
+        }
+
         foreach ($seomaticIdentity as $key => $value)
         {
             if (is_string($value))
@@ -863,9 +848,21 @@ class SeomaticService extends BaseApplicationComponent
             }
         }
 
+        foreach ($seomaticCreator as $key => $value)
+        {
+            if (is_string($value))
+            {
+				$seomaticCreator[$key] = craft()->config->parseEnvironmentString($value);
+				$seomaticCreator[$key] = strip_tags($value);
+                $seomaticCreator[$key] = htmlspecialchars($value);
+            }
+        }
+
         $metaVars['seomaticMeta'] = $seomaticMeta;
+        $metaVars['seomaticSiteMeta'] = $seomaticSiteMeta;
         $metaVars['seomaticIdentity'] = $seomaticIdentity;
         $metaVars['seomaticSocial'] = $seomaticSocial;
+        $metaVars['seomaticCreator'] = $seomaticCreator;
 
     } /* -- sanitizeMetaVars */
 

@@ -272,8 +272,8 @@ All three of these methods accomplish the same thing:
 	{# Extract keywords using the 'extractKeywords' filter #}
     {{ TEXT | extractKeywords( LIMIT ) }}
     
-	{# Extract keywords using the 'set' variable #}
-    {% do craft.seomatic.set( TEXT, LIMIT ) %}
+	{# Extract keywords using the 'extractKeywords' variable #}
+    {% do craft.seomatic.extractKeywords( TEXT, LIMIT ) %}
 
 **TEXT** is the text to extract the keywords from, and the optional **LIMIT** parameter specifies the maximum number of keywords to return (the default is 15).
 
@@ -324,6 +324,37 @@ So tying it all together, you might do something like this for a dynamic Blog en
 	} %}
 
 And there you have it, dynamic keywords for your SEO Meta.  Note that we set the `canonicalUrl` to `seomaticMeta.canonicalUrl`, effectively leaving it unchanged.
+
+## Dynamic Summary Generation
+
+Generating a good summary from dynamic data is also a pain; to this end, SEOmatic uses the [TextRank](https://github.com/crodas/TextRank) PHP library to generate a summary from arbitrary text data.
+
+All three of these methods accomplish the same thing:
+
+	{# Extract a summary using the 'extractSummary' function #}
+    {{ extractSummary( TEXT, LIMIT ) }}
+    
+	{# Extract a summary using the 'extractSummary' filter #}
+    {{ TEXT | extractSummary( LIMIT ) }}
+    
+	{# Extract a summary using the 'extractSummary' variable #}
+    {% do craft.seomatic.extractSummary( TEXT, LIMIT ) %}
+
+**TEXT** is the text to extract the summary from, and the optional **LIMIT** parameter specifies the maximum number of characters to return.
+
+**Caveats** - This feature of TextRank seems to be best suited for large amounts of text.  It attempts to pick out the most relevant whole sentences based on statistical analysis.  The result may end up being too long to be useful for an `seoDescription` in some cases.
+
+So tying it all together, you might do something like this for a dynamic Blog entry:
+
+	{% set seomaticMeta = { 
+	    seoTitle: entry.title,
+	    seoDescription: extractSummary(entry.blog),
+	    seoKeywords: extractKeywords(entry.blog),
+	    seoImage: entry.image,
+	    canonicalUrl: seomaticMeta.canonicalUrl,
+	} %}
+
+Note that we set the `canonicalUrl` to `seomaticMeta.canonicalUrl`, effectively leaving it unchanged.
 
 ## SEOmatic Site Meta Twig Variables
 
@@ -886,6 +917,7 @@ Some things to do, and ideas for potential features:
 * [feature] Encode the Idenity and Creator email addresses
 * [feature] Helper functions for GetFullAddress and GetCopyrightString (?)
 * [feature] Provide SiteMap functionality.  Yes, it's SEO-related, but seems like it might be better to keep SEOmatic focused (?)
+* [feature] Added a "Lookup Geo Coordinates" button to the Site Identity and Site Creator pages.
 
 ## Changelog
 
