@@ -884,8 +884,8 @@ Some things to do, and ideas for potential features:
 * [bug] Get the Template Metas implemented with full `locale` support, so the settings can all be per-locale based
 * [bug] The `foundingDate` fields probably should be dateTimeField types on the Settings pages
 * [feature] Encode the Idenity and Creator email addresses
-* [feature] (?) Helper functions for GetFullAddress and GetCopyrightString
-* [feature] (?) Provide SiteMap functionality.  Yes, it's SEO-related, but seems like it might be better to keep SEOmatic focused
+* [feature] Helper functions for GetFullAddress and GetCopyrightString (?)
+* [feature] Provide SiteMap functionality.  Yes, it's SEO-related, but seems like it might be better to keep SEOmatic focused (?)
 
 ## Changelog
 
