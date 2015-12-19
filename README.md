@@ -11,6 +11,8 @@ To install SEOmatic, follow these steps:
 3. Install plugin in the Craft Control Panel under Settings > Plugins
 4. The plugin folder should be named `seomatic` for Craft to see it.  GitHub recently started appending `-master` (the branch name) to the name of the folder for zip file downloads.
 
+SEOmatic works on Craft 2.4.x and Craft 2.5.x.
+
 ## Overview
 
 SEOmatic allows you to quickly get a website up and running with a robust, comprehensive SEO strategy.  It is also implemented in a Craft-y way, in that it is also flexible and customizable.
@@ -131,8 +133,8 @@ They are used in combination with the SEO Template Meta settings to generate [JS
 
 The Site Creator information is referenced in the Identity JSON-LD schema that is used to identity the website to search engines.
 
-#### Site Ownership
-* **Site Owner Entity Type** - The type of entity that created this website.
+#### Site Creator
+* **Site Creator Entity Type** - The type of entity that created this website.
 
 #### General Info
 * **Entity Name** - The name of the entity that created the website
@@ -247,7 +249,7 @@ You can change these `seomaticMeta` variables in your templates that `extends` y
 Some of the `seomaticMeta` variables have character limitations on them, because search engines want to see only the most relevant, succinct information, and will truncate them during processing:
 
 * **seomaticMeta.seoTitle** - 70 characters
-* **seomaticMeta.seoDescription** - 170 characters
+* **seomaticMeta.seoDescription** - 160 characters
 * **seomaticMeta.seoKeywords** - 200 characters
 
 SEOmatic will automatically truncate these variables for you when you set them, so you don't have to worry about the length.  It intelligently truncates them on whole-word boundaries, so nothing will get cut off.
@@ -573,34 +575,91 @@ These are the Twig variables that SEOmatic pre-populates, and makes available to
 	    seoTitle: 'This is the default global title of the site pages.',
 	    seoDescription: 'This is the default global natural language description of the content on the site pages.',
 	    seoKeywords: 'This is the default global list of comma-separated key words that are relevant to the content on the site pages.',
-	    seoImage: {},
+	    seoImage: {nys seo logo},
 	    canonicalUrl: 'http://nystudio107.dev/',
 	} %}
 	
-	{% set seomaticIdentity = { 
+	{% set seomaticSiteMeta = { 
 	    siteSeoName: 'nystudio107',
 	    siteSeoTitle: 'This is the default global title of the site pages.',
 	    siteSeoDescription: 'This is the default global natural language description of the content on the site pages.',
 	    siteSeoKeywords: 'This is the default global list of comma-separated key words that are relevant to the content on the site pages.',
-	    siteOwnerType: 'corporation',
-	    siteSeoImage: {},
+	    siteSeoImage: {nys seo logo},
 	} %}
 	
 	{% set seomaticSocial = { 
 	    twitterHandle: 'nystudio107',
-	    facebookHandle: '',
-	    facebookProfileId: '1343',
+	    facebookHandle: 'nystudio107',
+	    facebookProfileId: '123456',
 	    linkedInHandle: 'nystudio107',
 	    googlePlusHandle: 'nystudio107',
-	    googleSiteVerification: '343253',
+	    youtubeHandle: 'nystudio107',
+	    instagramHandle: 'nystudio107',
+	    pinterestHandle: 'nystudio107',
 	    twitterUrl: 'https://twitter.com/nystudio107',
-	    facebookUrl: '',
+	    facebookUrl: 'https://www.facebook.com/nystudio107',
 	    googlePlusUrl: 'https://plus.google.com/+nystudio107',
 	    linkedInUrl: 'https://www.linkedin.com/company/nystudio107',
+	    youtubeUrl: 'https://www.youtube.com/user/nystudio107',
+	    instagramUrl: 'https://www.instagram.com/nystudio107',
+	    pinterestUrl: 'https://www.pinterest.com/nystudio107',
+	} %}
+	
+	{% set seomaticIdentity = { 
+	    googleSiteVerification: '12456',
+	    siteOwnerType: 'corporation',
+	    genericOwnerName: 'NY Studio 107',
+	    genericOwnerAlternateName: 'nystudio107',
+	    genericOwnerDescription: 'Impeccable design married with precision craftsmanship.',
+	    genericOwnerUrl: 'http://nystudio107.com',
+	    genericOwnerTelephone: '585-555-1212',
+	    genericOwnerEmail: 'info[at]nystudio107.com',
+	    genericOwnerStreetAddress: '123 Main Street',
+	    genericOwnerAddressLocality: 'Portchester',
+	    genericOwnerAddressRegion: 'NY',
+	    genericOwnerPostalCode: '14580',
+	    genericOwnerAddressCountry: 'USA',
+	    genericOwnerGeoLatitude: '-120.5436367',
+	    genericOwnerGeoLongitude: '80.6033588',
+	    organizationOwnerDuns: '',
+	    organizationOwnerFounder: 'Andrew Welch',
+	    organizationOwnerFoundingDate: '10/1/2011',
+	    organizationOwnerFoundingLocation: 'Webster, NY, USA',
+	    personOwnerGender: '',
+	    personOwnerBirthPlace: '',
+	    corporationOwnerTickerSymbol: '',
+	    restaurantOwnerServesCuisine: '',
+	    genericOwnerImage: {nys logo@2x},
+	} %}
+	
+	{% set seomaticCreator = { 
+	    googleSiteVerification: '12456',
+	    siteCreatorType: 'corporation',
+	    genericCreatorName: 'NY Studio 107',
+	    genericCreatorAlternateName: 'nystudio107',
+	    genericCreatorDescription: 'Impeccable design married with precision craftsmanship.',
+	    genericCreatorUrl: 'http://nystudio107.com',
+	    genericCreatorTelephone: '585.555.1212',
+	    genericCreatorEmail: 'info[at]nystudio107.com',
+	    genericCreatorStreetAddress: '575 Dunfrey Road',
+	    genericCreatorAddressLocality: 'Lansing',
+	    genericCreatorAddressRegion: 'MI',
+	    genericCreatorPostalCode: '11360',
+	    genericCreatorAddressCountry: 'USA',
+	    genericCreatorGeoLatitude: '-120.5436367',
+	    genericCreatorGeoLongitude: '80.6033588',
+	    organizationCreatorDuns: '',
+	    organizationCreatorFounder: 'Andrew Welch',
+	    organizationCreatorFoundingDate: '10/1/2011',
+	    organizationCreatorFoundingLocation: 'Webster, NY',
+	    personCreatorGender: '',
+	    personCreatorBirthPlace: '',
+	    corporationCreatorTickerSymbol: '',
+	    genericCreatorImage: {nys logo@2x},
 	} %}
 	
 	{% set seomaticTemplatePath = '' %}
-
+	
 You can treat all of these like regular Twig variables; for instance, `{{ seomaticSocial.twitterUrl }}` will output the URL to the website's Twitter page. You can change these variables using the Twig array [set](http://twig.sensiolabs.org/doc/tags/set.html) syntax, or using the Twig function [merge](http://twig.sensiolabs.org/doc/filters/merge.html). Any changes you make will be reflected in the SEO Meta rendered with `{% hook 'seomaticRender' %}` on your page.
 
 #### Rendered SEO Meta
@@ -611,61 +670,71 @@ SEOmatic cascades Meta settings; if you have a Meta associated with the current 
 
 	<!-- BEGIN SEOmatic rendered SEO Meta -->
 	
-	<title>This is the default global title of the site pages. | nystudio107</title> <!-- {{ seomaticMeta.seoTitle }} | {{ seomaticIdentity.siteSeoName }} -->
+	<title>This is the default global title of the site pages. | nystudio107</title> <!-- {{ seomaticMeta.seoTitle }} | {{ seomaticSiteMeta.siteSeoName }} -->
 	
 	<!-- Standard SEO -->
 	
 	<meta name="keywords" content="This is the default global list of comma-separated key words that are relevant to the content on the site pages." /> <!-- {{ seomaticMeta.seoKeywords }} -->
 	<meta name="description" content="This is the default global natural language description of the content on the site pages." /> <!-- {{ seomaticMeta.seoDescription }} -->
 	<link rel="canonical" href="http://nystudio107.dev/" /> <!-- {{ seomaticMeta.canonicalUrl }} (defaults to craft.request.url) -->
+	<meta name="geo.region" content="NY" /> <!-- {{ seomaticIdentity.genericOwnerAddressRegion }} -->
+	<meta name="geo.position" content="-120.5436367,80.6033588" /> <!-- {{ seomaticIdentity.genericOwnerGeoLatitude }},{{ seomaticIdentity.genericOwnerGeoLongitude }} -->
+	<meta name="ICBM" content="-120.5436367,80.6033588" /> <!-- {{ seomaticIdentity.genericOwnerGeoLatitude }},{{ seomaticIdentity.genericOwnerGeoLongitude }} -->
+	<meta name="geo.placename" content="NY Studio 107" /> <!-- {{ seomaticIdentity.genericOwnerName }} -->
 	
 	<!-- Dublin Core basic info -->
 	
 	<meta name="dcterms.Identifier" content="http://nystudio107.dev/" /> <!-- {{ seomaticMeta.canonicalUrl }} (defaults to craft.request.url) -->
 	<meta name="dcterms.Format" content="text/html" /> <!-- text/html -->
-	<meta name="dcterms.Relation" content="nystudio107" /> <!-- {{ seomaticIdentity.siteSeoName }} -->
+	<meta name="dcterms.Relation" content="nystudio107" /> <!-- {{ seomaticSiteMeta.siteSeoName }} -->
 	<meta name="dcterms.Language" content="en" /> <!-- {{ craft.locale }} -->
-	<meta name="dcterms.Publisher" content="nystudio107" /> <!-- {{ seomaticIdentity.siteSeoName }} -->
+	<meta name="dcterms.Publisher" content="nystudio107" /> <!-- {{ seomaticSiteMeta.siteSeoName }} -->
 	<meta name="dcterms.Type" content="text/html" /> <!-- text/html -->
 	<meta name="dcterms.Coverage" content="http://nystudio107.dev/" /> <!-- {{ siteUrl }} -->
-	<meta name="dcterms.Rights" content="Copyright &copy;2015, nystudio107.  All rights reserved." /> <!-- Copyright &copy;{{ now | date('Y') }}, {{ seomaticIdentity.siteSeoName }}.  All rights reserved. -->
+	<meta name="dcterms.Rights" content="Copyright &copy;2015, NY Studio 107. All rights reserved." /> <!-- Copyright &copy;{{ now | date('Y') }}, {{ seomaticIdentity.genericOwnerName }}. All rights reserved. -->
 	<meta name="dcterms.Title" content="This is the default global title of the site pages." /> <!-- {{ seomaticMeta.seoTitle }} -->
-	<meta name="dcterms.Creator" content="nystudio107" /> <!-- {{ seomaticIdentity.siteSeoName }} -->
-	<meta name="dcterms.Subject" content="This is the default global list of comma-separated key words that are relevant to the content on the site pages." />  <!-- {{ seomaticMeta.seoKeywords }} -->
-	<meta name="dcterms.Contributor" content="nystudio107" />  <!-- {{ seomaticIdentity.siteSeoName }} -->
-	<meta name="dcterms.Date"  content="2015-12-15" /> <!-- {{ now | date('Y-m-d') }} -->
+	<meta name="dcterms.Creator" content="nystudio107" /> <!-- {{ seomaticSiteMeta.siteSeoName }} -->
+	<meta name="dcterms.Subject" content="This is the default global list of comma-separated key words that are relevant to the content on the site pages." /> <!-- {{ seomaticMeta.seoKeywords }} -->
+	<meta name="dcterms.Contributor" content="nystudio107" /> <!-- {{ seomaticSiteMeta.siteSeoName }} -->
+	<meta name="dcterms.Date" content="2015-12-18" /> <!-- {{ now | date('Y-m-d') }} -->
 	<meta name="dcterms.Description" content="This is the default global natural language description of the content on the site pages." /> <!-- {{ seomaticMeta.seoDescription }} -->
 	
 	<!-- Facebook OpenGraph -->
 	
-	<meta property="fb:profile_id" content="1343" />  <!-- {{ seomaticSocial.facebookProfileId }} -->
-	<meta property="og:type" content="website" />  <!-- website -->
-	<meta property="og:url" content="http://nystudio107.dev/" />  <!-- {{ seomaticMeta.canonicalUrl }} (defaults to craft.request.url) -->
-	<meta property="og:title" content="This is the default global title of the site pages. | nystudio107" />  <!-- {{ seomaticMeta.seoTitle }} | {{ seomaticIdentity.siteSeoName }} -->
-	<meta property="og:site_name" content="nystudio107" /> <!-- {{ seomaticIdentity.siteSeoName }} -->
+	<meta property="fb:profile_id" content="123456" /> <!-- {{ seomaticSocial.facebookProfileId }} -->
+	<meta property="og:type" content="website" /> <!-- website -->
+	<meta property="og:url" content="http://nystudio107.dev/" /> <!-- {{ seomaticMeta.canonicalUrl }} (defaults to craft.request.url) -->
+	<meta property="og:title" content="This is the default global title of the site pages. | nystudio107" /> <!-- {{ seomaticMeta.seoTitle }} | {{ seomaticSiteMeta.siteSeoName }} -->
+	<meta property="og:image" content="http://NYStudio107.com/img/site/nys_seo_logo.png" /> <!-- {{ seomaticMeta.seoImage.url }} -->
+	<meta property="og:site_name" content="nystudio107" /> <!-- {{ seomaticSiteMeta.siteSeoName }} -->
 	<meta property="og:description" content="This is the default global natural language description of the content on the site pages." /> <!-- {{ seomaticMeta.seoDescription }} -->
 	<meta property="og:locale" content="en" /> <!-- {{ craft.locale }} -->
-	<meta property="og:see_also" content="http://nystudio107.dev/" />  <!-- {{ siteUrl }} -->
-	<meta property="og:see_also" content="https://twitter.com/nystudio107" /> <!-- https://twitter.com/{{ seomaticSocial.twitterHandle }} -->
-	<meta property="og:see_also" content="https://plus.google.com/+nystudio107" /> <!-- https://plus.google.com/+{{ seomaticSocial.googlePlusHandle }} -->
-	<meta property="og:see_also" content="https://www.linkedin.com/company/nystudio107" /> <!-- https://www.linkedin.com/in/{{ seomaticSocial.linkedInHandle }} -->
+	<meta property="og:see_also" content="http://nystudio107.dev/" /> <!-- {{ siteUrl }} -->
+	<meta property="og:see_also" content="https://www.facebook.com/nystudio107" /> <!-- {{ seomaticSocial.facebookUrl }} -->
+	<meta property="og:see_also" content="https://twitter.com/nystudio107" /> <!-- {{ seomaticSocial.twitterUrl }} -->
+	<meta property="og:see_also" content="https://plus.google.com/+nystudio107" /> <!-- {{ seomaticSocial.googlePlusUrl }} -->
+	<meta property="og:see_also" content="https://www.linkedin.com/company/nystudio107" /> <!-- {{ seomaticSocial.linkedInUrl }} -->
+	<meta property="og:see_also" content="https://www.youtube.com/user/nystudio107" /> <!-- {{ seomaticSocial.youtubeUrl }} -->
+	<meta property="og:see_also" content="https://www.instagram.com/nystudio107" /> <!-- {{ seomaticSocial.instagramUrl }} -->
+	<meta property="og:see_also" content="https://www.pinterest.com/nystudio107" /> <!-- {{ seomaticSocial.pinterestUrl }} -->
 	
 	<!-- Twitter Card -->
 	
-	<meta property="twitter:card" content="summary" />  <!-- summary -->
-	<meta property="twitter:site" content="@nystudio107" />  <!-- @{{ seomaticSocial.twitterHandle }} -->
-	<meta property="twitter:title" content="This is the default global title of the site pages. | nystudio107" />  <!-- {{ seomaticMeta.seoTitle }} | {{ seomaticIdentity.siteSeoName }} -->
-	<meta property="twitter:description" content="This is the default global natural language description of the content on the site pages." />  <!-- {{ seomaticMeta.seoDescription }} -->
-	<meta property="twitter:url" content="http://nystudio107.dev/" />  <!-- {{ siteUrl }} -->
+	<meta property="twitter:card" content="summary" /> <!-- summary -->
+	<meta property="twitter:site" content="@nystudio107" /> <!-- @{{ seomaticSocial.twitterHandle }} -->
+	<meta property="twitter:title" content="This is the default global title of the site pages. | nystudio107" /> <!-- {{ seomaticMeta.seoTitle }} | {{ seomaticSiteMeta.siteSeoName }} -->
+	<meta property="twitter:description" content="This is the default global natural language description of the content on the site pages." /> <!-- {{ seomaticMeta.seoDescription }} -->
+	<meta property="twitter:image" content="http://NYStudio107.com/img/site/nys_seo_logo.png" /> <!-- {{ seomaticMeta.seoImage.url }} -->
+	<meta property="twitter:url" content="http://nystudio107.dev/" /> <!-- {{ siteUrl }} -->
 	
 	<!-- Google Publisher/Authorship -->
 	
-	<link rel="publisher" href="https://plus.google.com/+nystudio107" />  <!-- https://plus.google.com/+{{ seomaticSocial.googlePlusHandle }} -->
-	<link rel="author" href="https://plus.google.com/+nystudio107" />  <!-- https://plus.google.com/+{{ seomaticSocial.googlePlusHandle }} -->
+	<link rel="publisher" href="https://plus.google.com/+nystudio107" /> <!-- https://plus.google.com/+{{ seomaticSocial.googlePlusHandle }} -->
+	<link rel="author" href="https://plus.google.com/+nystudio107" /> <!-- https://plus.google.com/+{{ seomaticSocial.googlePlusHandle }} -->
 	
 	<!-- Domain verification -->
 	
-	<meta name="google-site-verification" content="343253" />  <!-- {{ seomaticSocial.googleSiteVerification }} -->
+	<meta name="google-site-verification" content="12456" /> <!-- {{ seomaticIdentity.googleSiteVerification }} -->
 	
 	<!-- END SEOmatic rendered SEO Meta -->
 	
@@ -678,23 +747,32 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 		"@context": "http://schema.org",
 		"@type": "Corporation",
 		"name": "NY Studio 107",
+		"alternateName": "nystudio107",
 		"description": "Impeccable design married with precision craftsmanship.",
-		"url": "http://NYStudio107.com",
+		"url": "http://nystudio107.com",
+		"image": "http://NYStudio107.com/img/site/nys_logo@2x.png",
+		"telephone": "585-555-1212",
+		"email": "info[at]nystudio107.com",
+		"logo": "http://NYStudio107.com/img/site/nys_logo@2x.png",
+		"founder": "Andrew Welch",
+		"foundingDate": "10/1/2011",
+		"foundingLocation": "Webster, NY, USA",
+		"geo": {
+			"@type": "GeoCoordinates",
+			"latitude": "-120.5436367",
+			"longitude": "80.6033588"
+		},
 		"address": {
 			"@type": "PostalAddress",
-			"addressLocality": "Webster",
+			"streetAddress": "123 Main Street",
+			"addressLocality": "Portchester",
 			"addressRegion": "NY",
+			"addressPostalCode": "14580",
 			"addressCountry": "USA"
-		},
-		"email": "info(at)NYStudio107.com",
-		"founder": "Polly Welch",
-		"foundingDate": "2009",
-		"foundingLocation": "Webster, NY, USA",
-		"sameAs": "https://twitter.com/nystudio107",
-		"logo": "http://NYStudio107.com/img/site/nys_seo_logo.png"
+		}
 	}
 	</script>
-
+	
 #### Rendered WebSite Microdata
 
 The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developers.google.com/schemas/formats/json-ld?hl=en) WebSite microdata.
@@ -704,76 +782,106 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 		"@context": "http://schema.org",
 		"@type": "WebSite",
 		"name": "nystudio107",
-		"description": "nystudio107",
+		"description": "This is the default global natural language description of the content on the site pages.",
 		"url": "http://nystudio107.dev/",
 		"image": "http://NYStudio107.com/img/site/nys_seo_logo.png",
-		"sameAs": "https://twitter.com/nystudio107",
+		"sameAs": ["https://www.facebook.com/nystudio107","https://twitter.com/nystudio107","https://plus.google.com/+nystudio107","https://www.linkedin.com/company/nystudio107","https://www.youtube.com/user/nystudio107","https://www.instagram.com/nystudio107","https://www.pinterest.com/nystudio107","http://nystudio107.dev/"],
 		
 		"copyrightHolder": {
 			"@type": "Corporation",
 			"name": "NY Studio 107",
+			"alternateName": "nystudio107",
 			"description": "Impeccable design married with precision craftsmanship.",
-			"url": "http://NYStudio107.com",
+			"url": "http://nystudio107.com",
+			"image": "http://NYStudio107.com/img/site/nys_logo@2x.png",
+			"telephone": "585-555-1212",
+			"email": "info[at]nystudio107.com",
+			"logo": "http://NYStudio107.com/img/site/nys_logo@2x.png",
+			"founder": "Andrew Welch",
+			"foundingDate": "10/1/2011",
+			"foundingLocation": "Webster, NY, USA",
+			"geo": {
+				"@type": "GeoCoordinates",
+				"latitude": "-120.5436367",
+				"longitude": "80.6033588"
+			},
 			"address": {
 				"@type": "PostalAddress",
-				"addressLocality": "Webster",
+				"streetAddress": "123 Main Street",
+				"addressLocality": "Portchester",
 				"addressRegion": "NY",
+				"addressPostalCode": "14580",
 				"addressCountry": "USA"
-			},
-			"email": "info(at)NYStudio107.com",
-			"founder": "Polly Welch",
-			"foundingDate": "2009",
-			"foundingLocation": "Webster, NY, USA",
-			"sameAs": "https://twitter.com/nystudio107",
-			"logo": "http://NYStudio107.com/img/site/nys_seo_logo.png"
+			}
 		},
 		"author": {
 			"@type": "Corporation",
 			"name": "NY Studio 107",
+			"alternateName": "nystudio107",
 			"description": "Impeccable design married with precision craftsmanship.",
-			"url": "http://NYStudio107.com",
+			"url": "http://nystudio107.com",
+			"image": "http://NYStudio107.com/img/site/nys_logo@2x.png",
+			"telephone": "585-555-1212",
+			"email": "info[at]nystudio107.com",
+			"logo": "http://NYStudio107.com/img/site/nys_logo@2x.png",
+			"founder": "Andrew Welch",
+			"foundingDate": "10/1/2011",
+			"foundingLocation": "Webster, NY, USA",
+			"geo": {
+				"@type": "GeoCoordinates",
+				"latitude": "-120.5436367",
+				"longitude": "80.6033588"
+			},
 			"address": {
 				"@type": "PostalAddress",
-				"addressLocality": "Webster",
+				"streetAddress": "123 Main Street",
+				"addressLocality": "Portchester",
 				"addressRegion": "NY",
+				"addressPostalCode": "14580",
 				"addressCountry": "USA"
-			},
-			"email": "info(at)NYStudio107.com",
-			"founder": "Polly Welch",
-			"foundingDate": "2009",
-			"foundingLocation": "Webster, NY, USA",
-			"sameAs": "https://twitter.com/nystudio107",
-			"logo": "http://NYStudio107.com/img/site/nys_seo_logo.png"
+			}
 		},
 		"creator": {
 			"@type": "Corporation",
 			"name": "NY Studio 107",
+			"alternateName": "nystudio107",
 			"description": "Impeccable design married with precision craftsmanship.",
-			"url": "http://NYStudio107.com",
+			"url": "http://nystudio107.com",
+			"image": "http://NYStudio107.com/img/site/nys_logo@2x.png",
+			"telephone": "585.555.1212",
+			"email": "info[at]nystudio107.com",
+			"logo": "http://NYStudio107.com/img/site/nys_logo@2x.png",
+			"founder": "Andrew Welch",
+			"foundingDate": "10/1/2011",
+			"foundingLocation": "Webster, NY",
+			"geo": {
+				"@type": "GeoCoordinates",
+				"latitude": "-120.5436367",
+				"longitude": "80.6033588"
+			},
 			"address": {
 				"@type": "PostalAddress",
-				"addressLocality": "Webster",
-				"addressRegion": "NY",
+				"streetAddress": "575 Dunfrey Road",
+				"addressLocality": "Lansing",
+				"addressRegion": "MI",
+				"addressPostalCode": "11360",
 				"addressCountry": "USA"
-			},
-			"email": "info(at)NYStudio107.com",
-			"founder": "Polly Welch",
-			"foundingDate": "2009",
-			"foundingLocation": "Webster, NY, USA",
-			"sameAs": "https://twitter.com/nystudio107",
-			"logo": "http://NYStudio107.com/img/site/nys_seo_logo.png"
+			}
 		}
 	}
 	</script>
-	
+		
 If you click on the **Preview SEO Meta Tags** button when you are editing a SEO Template Meta, you'll see that particular template's SEO Template Meta tags.  Otherwise, you will see the SEO Site Meta tags.
 
 ## Roadmap
 
-* Get the Template Metas implemented with full `locale` support, so the settings can all be per-locale based
-* Encode the Idenity and Creator email addresses
-* Helper functions for GetFullAddress and GetCopyrightString (?)
-* Proof the docs
+Some things to do, and ideas for potential features:
+
+* [bug] Get the Template Metas implemented with full `locale` support, so the settings can all be per-locale based
+* [bug] The `foundingDate` fields probably should be dateTimeField types on the Settings pages
+* [feature] Encode the Idenity and Creator email addresses
+* [feature] (?) Helper functions for GetFullAddress and GetCopyrightString
+* [feature] (?) Provide SiteMap functionality.  Yes, it's SEO-related, but seems like it might be better to keep SEOmatic focused
 
 ## Changelog
 
