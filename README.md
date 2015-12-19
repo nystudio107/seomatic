@@ -340,7 +340,7 @@ All three of these methods accomplish the same thing:
 	{# Extract a summary using the 'extractSummary' variable #}
     {% do craft.seomatic.extractSummary( TEXT, LIMIT ) %}
 
-**TEXT** is the text to extract the summary from, and the optional **LIMIT** parameter specifies the maximum number of characters to return.
+**TEXT** is the text to extract the summary from, and the optional **LIMIT** parameter specifies the maximum number of characters to return.  The Summary is returns is at most 5% of the sentences of the text.
 
 **Caveats** - This feature of TextRank seems to be best suited for large amounts of text.  It attempts to pick out the most relevant whole sentences based on statistical analysis.  The result may end up being too long to be useful for an `seoDescription` in some cases.
 
