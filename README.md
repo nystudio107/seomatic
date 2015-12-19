@@ -62,6 +62,8 @@ They are used in combination with the SEO Template Meta settings to generate [JS
 
 The Site Owner type determines the JSON-LD schema that will be used to identity the website to search engines.
 
+Leave any fields blank that aren't applicable or which you do not want as part of the SEO schema.
+
 #### Site Ownership
 * **Google Site Verification** - For the `<meta name='google-site-verification'>` tag. [Here's how to get it](https://www.google.com/webmasters/verification/).
 * **Site Owner Entity Type** - The type of entity that owns this website.
@@ -132,6 +134,8 @@ These Site Creator settings are used to globally define & attribute the creator 
 They are used in combination with the SEO Template Meta settings to generate [JSON-LD](https://developers.google.com/schemas/formats/json-ld?hl=en) microdata, [Dublin Core](http://dublincore.org) core metadata, [Twitter Cards](https://dev.twitter.com/cards/overview), [Facebook OpenGraph](https://developers.facebook.com/docs/sharing/opengraph), and as well as HTML meta tags.
 
 The Site Creator information is referenced in the Identity JSON-LD schema that is used to identity the website to search engines.
+
+Leave any fields blank that aren't applicable or which you do not want as part of the SEO schema.
 
 #### Site Creator
 * **Site Creator Entity Type** - The type of entity that created this website.
