@@ -58,6 +58,7 @@
 	"birthPlace": "{{ seomaticCreator.personCreatorBirthPlace }}",
 {% endif %}
 {% endswitch %}
+{# Not a property
 {% if seomaticCreator.genericCreatorGeoLatitude and seomaticCreator.genericCreatorGeoLongitude  %}
 	"geo": {
 		"@type": "GeoCoordinates",
@@ -65,6 +66,7 @@
 		"longitude": "{{ seomaticCreator.genericCreatorGeoLongitude}}"
 	},
 {% endif %}
+#}
 	"address": {
 		"@type": "PostalAddress",
 {% if seomaticCreator.genericCreatorStreetAddress %}
@@ -77,7 +79,7 @@
 		"addressRegion": "{{ seomaticCreator.genericCreatorAddressRegion}}",
 {% endif %}
 {% if seomaticCreator.genericCreatorPostalCode %}
-		"addressPostalCode": "{{ seomaticCreator.genericCreatorPostalCode}}",
+		"postalCode": "{{ seomaticCreator.genericCreatorPostalCode}}",
 {% endif %}
 		"addressCountry": "{{ seomaticCreator.genericCreatorAddressCountry}}"
 	}

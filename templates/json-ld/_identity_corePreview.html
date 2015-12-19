@@ -64,13 +64,15 @@
 	"birthPlace": "{{ seomaticIdentity.personOwnerBirthPlace }}",
 {% endif %}
 {% endswitch %}
+{# Not a property
 {% if seomaticIdentity.genericOwnerGeoLatitude and seomaticIdentity.genericOwnerGeoLongitude  %}
-	"geo": {
+	"location": {
 		"@type": "GeoCoordinates",
 		"latitude": "{{ seomaticIdentity.genericOwnerGeoLatitude}}",
 		"longitude": "{{ seomaticIdentity.genericOwnerGeoLongitude}}"
 	},
 {% endif %}
+#}
 	"address": {
 		"@type": "PostalAddress",
 {% if seomaticIdentity.genericOwnerStreetAddress %}
@@ -83,7 +85,7 @@
 		"addressRegion": "{{ seomaticIdentity.genericOwnerAddressRegion}}",
 {% endif %}
 {% if seomaticIdentity.genericOwnerPostalCode %}
-		"addressPostalCode": "{{ seomaticIdentity.genericOwnerPostalCode}}",
+		"postalCode": "{{ seomaticIdentity.genericOwnerPostalCode}}",
 {% endif %}
 		"addressCountry": "{{ seomaticIdentity.genericOwnerAddressCountry}}"
 	}

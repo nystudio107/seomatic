@@ -792,17 +792,12 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 		"founder": "Andrew Welch",
 		"foundingDate": "10/1/2011",
 		"foundingLocation": "Webster, NY, USA",
-		"geo": {
-			"@type": "GeoCoordinates",
-			"latitude": "-120.5436367",
-			"longitude": "80.6033588"
-		},
 		"address": {
 			"@type": "PostalAddress",
 			"streetAddress": "123 Main Street",
 			"addressLocality": "Portchester",
 			"addressRegion": "NY",
-			"addressPostalCode": "14580",
+			"postalCode": "14580",
 			"addressCountry": "USA"
 		}
 	}
@@ -835,17 +830,12 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 			"founder": "Andrew Welch",
 			"foundingDate": "10/1/2011",
 			"foundingLocation": "Webster, NY, USA",
-			"geo": {
-				"@type": "GeoCoordinates",
-				"latitude": "-120.5436367",
-				"longitude": "80.6033588"
-			},
 			"address": {
 				"@type": "PostalAddress",
 				"streetAddress": "123 Main Street",
 				"addressLocality": "Portchester",
 				"addressRegion": "NY",
-				"addressPostalCode": "14580",
+				"postalCode": "14580",
 				"addressCountry": "USA"
 			}
 		},
@@ -862,17 +852,12 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 			"founder": "Andrew Welch",
 			"foundingDate": "10/1/2011",
 			"foundingLocation": "Webster, NY, USA",
-			"geo": {
-				"@type": "GeoCoordinates",
-				"latitude": "-120.5436367",
-				"longitude": "80.6033588"
-			},
 			"address": {
 				"@type": "PostalAddress",
 				"streetAddress": "123 Main Street",
 				"addressLocality": "Portchester",
 				"addressRegion": "NY",
-				"addressPostalCode": "14580",
+				"postalCode": "14580",
 				"addressCountry": "USA"
 			}
 		},
@@ -889,30 +874,30 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 			"founder": "Andrew Welch",
 			"foundingDate": "10/1/2011",
 			"foundingLocation": "Webster, NY",
-			"geo": {
-				"@type": "GeoCoordinates",
-				"latitude": "-120.5436367",
-				"longitude": "80.6033588"
-			},
 			"address": {
 				"@type": "PostalAddress",
 				"streetAddress": "575 Dunfrey Road",
 				"addressLocality": "Lansing",
 				"addressRegion": "MI",
-				"addressPostalCode": "11360",
+				"postalCode": "11360",
 				"addressCountry": "USA"
 			}
 		}
 	}
 	</script>
-		
+			
 If you click on the **Preview SEO Meta Tags** button when you are editing a SEO Template Meta, you'll see that particular template's SEO Template Meta tags.  Otherwise, you will see the SEO Site Meta tags.
+
+## Testing Your SEO Meta
+
+Use Google's [Structured Data Testing Tool](https://developers.google.com/structured-data/testing-tool/) to view your metadata/microdata as Google sees it, and validate it for accuracy.
 
 ## Roadmap
 
 Some things to do, and ideas for potential features:
 
 * [bug] Get the Template Metas implemented with full `locale` support, so the settings can all be per-locale based
+* [bug] Find an appropriate place for the GeoCoordinates in the Idenity and WebSite schemas
 * [bug] The `foundingDate` fields probably should be dateTimeField types on the Settings pages
 * [feature] Encode the Idenity and Creator email addresses
 * [feature] Helper functions for GetFullAddress and GetCopyrightString (?)
