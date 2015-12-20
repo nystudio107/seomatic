@@ -1019,6 +1019,10 @@ If you click on the **Preview SEO Meta Tags** button when you are editing a SEO 
 
 Use Google's [Structured Data Testing Tool](https://developers.google.com/structured-data/testing-tool/) to view your metadata/microdata as Google sees it, and validate it for accuracy.
 
+Use Facebook's [Open Graph Debugger](https://developers.facebook.com/tools/debug) to validate and verify your Open Graph meta tags.
+
+Use Twitter's [Twitter Card Validator](https://cards-dev.twitter.com/validator) to validate and verify your Twitter Cards.
+
 ## Roadmap
 
 Some things to do, and ideas for potential features:
