@@ -373,7 +373,7 @@ All three of these methods accomplish the same thing:
 	{# Truncate a string on word boundaries using the 'truncateStringOnWord' variable #}
     {% do craft.seomatic.truncateStringOnWord( THESTRING, DESIREDLENGTH ) %}
 
-**THESTRING** is the string to be truncated, and the optional **DESIREDLENGTH** parameter specifies the desired length in characters.  the Returned string will be broken on a whole-word boundary, with an … appended to the end if it is truncated.
+**THESTRING** is the string to be truncated, and the optional **DESIREDLENGTH** parameter specifies the desired length in characters.  The returned string will be broken on a whole-word boundary, with an … appended to the end if it is truncated.
 
 You shouldn't need to use truncateStringOnWord() for SEO Meta like `seoTitle` & `seoDescription` that have character limitations, because SEOmatic will truncate them for you automatically.  However you may find this function handy for other purposes.
 
@@ -1024,8 +1024,7 @@ Use Google's [Structured Data Testing Tool](https://developers.google.com/struct
 Some things to do, and ideas for potential features:
 
 * [bug] Get the Template Metas implemented with full `locale` support, so the settings can all be per-locale based
-* [bug] The variable names show up instead of text in the Admin CP if the Admin CP isn't in English
-* [bug] Enforce *required fields on the various settings pages in the Admin CP
+* [bug] Enforce *required fields on the various settings pages in the Admin CP by doing proper validation
 * [bug] The `foundingDate` fields probably should be dateTimeField types on the Settings pages
 * [feature] Helper functions for GetFullAddress and GetCopyrightString (?)
 * [feature] Provide SiteMap functionality.  Yes, it's SEO-related, but seems like it might be better to keep SEOmatic focused (?)
@@ -1039,6 +1038,7 @@ Some things to do, and ideas for potential features:
 * [Added] Exposed a few more utility functions via Twig filters & functions
 * [Added] The genericOwnerEmail & genericCreatorEmail variables are ordinal-encoded, to obfuscate them
 * [Added] Added 'location': 'Place' type to the Identity & Creator schemas, including GeoCoordinates
+* [Fixed] Fixed the localization so SEOmatic works if your Admin CP is in a language other than English
 * [Improved] Updated the README.md
 
 ### 1.0.1 -- 2015.12.19

@@ -35,25 +35,25 @@
 						{% include "seomatic/meta/_main" %}
 
                         <p>&nbsp;</p>
-	 					<p>{{ "environmentalVariables_ok" |t |raw }}</p>
+	 					<p>{{ "<p>You can use any Craft <code>environmentVariables</code> in these fields in addition to static text, e.g.:<br /> <code>This is my {baseUrl}</code></p>" |t |raw }}</p>
 					</div>
 				</div>
 	
 				<div class="item" data-position="right" data-colspan="1">
 	
 					<div id="preview-display" class="btn big livepreviewbtn">
-						Preview SEO Meta Display
+						{{ "Preview SEO Meta Display" |t }}
 					</div>
 
 					<div id="preview-tags" class="btn big livepreviewbtn secondbtn">
-						Preview SEO Meta Tags
+						{{ "Preview SEO Meta Tags" |t }}
 					</div>
 
 					<div class="pane">
 						<div style="text-align:center; margin:0 auto;">
 							<img src="{{ resourceUrl('seomatic/images/seo_meta.svg') }}" width="64px" height="auto" />
 						</div>
-						{{ "editMeta_help" |t |raw }}
+						{{ "<p>These SEO Meta settings are used to render the SEO Meta for the website.  You can create any number of SEO Template Metas associated with your Twig templates on the website.</p><p>They are used in combination with the Site Identity & Social Media settings to generate <a href='https://developers.google.com/schemas/formats/json-ld?hl=en' target='_blank'>JSON-LD</a> microdata, <a href='http://dublincore.org' target='_blank'>Dublin Core</a> core metadata, <a href='https://dev.twitter.com/cards/overview' target='_blank'>Twitter Cards</a>, <a href='https://developers.facebook.com/docs/sharing/opengraph' target='_blank'>Facebook OpenGraph</a>, and as well as HTML meta tags. <p>If a no Template Meta exists for a template, the SEO Site Meta is used.</p>  <p>If any fields are left blank in a Template Meta, those fields are pulled from the SEO Site Meta.</p><p>You can also dynamically change any of these SEO Meta fields in your Twig templates, and they will appear in the rendered SEO Meta.</p>" |t |raw }}
 					</div>
 					
 					{% if meta.id and meta.metaType != "default" %}

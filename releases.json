@@ -7,6 +7,7 @@
             "[Added] Exposed a few more utility functions via Twig filters & functions",
             "[Added] The genericOwnerEmail & genericCreatorEmail variables are ordinal-encoded, to obfuscate them",
             "[Added] Added 'location': 'Place' type to the Identity & Creator schemas, including GeoCoordinates",
+            "[Fixed] Fixed the localization so SEOmatic works if your Admin CP is in a language other than English",
             "[Improved] Updated the README.md"
         ]
     },

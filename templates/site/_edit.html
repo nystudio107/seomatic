@@ -43,8 +43,8 @@
 						{% include "_includes/tabs" %}
 						
 						{{ forms.textField({
-							label: "siteSeoName"|t,
-							instructions: "siteSeoName_help" |t |raw,
+							label: "Site SEO Name"|t,
+							instructions: "This field is used wherever the name of the site is referenced, both at the trailing end of the <code>&lt;title&gt;</code> tag, and in other meta tags on the site.  It is initially set to your Craft <code>{{ siteName }}</code>." |t |raw,
 							id: "siteSeoName",
 							class: 'nicetext',
 							name: "siteSeoName",
@@ -54,8 +54,8 @@
 						}) }}
 						
 						{{ forms.textField({
-							label: "siteSeoTitle"|t,
-							instructions: "siteSeoTitle_help" |t |raw,
+							label: "Site SEO Title"|t,
+							instructions: "This should be between 10 and 70 characters (spaces included).  Make sure your title tag is explicit and contains your most important keywords. Be sure that each page has a unique title tag." |t |raw,
 							id: 'siteSeoTitle',
 							class: 'nicetext',
 							name: 'siteSeoTitle',
@@ -68,8 +68,8 @@
 						
 						<div class="field" id="siteSeoDescription-field">
 							<div class="heading">
-								<label for="siteSeoDescription">{{ "siteSeoDescription"|t}}{% if craft.isLocalized and siteMeta.locale %}<span class="locale">{{ siteMeta.locale }}</span>{% endif %}</label>
-								<div class="instructions"><p>{{ "siteSeoDescription_help" |t |raw}}</p></div>
+								<label for="siteSeoDescription">{{ "Site SEO Description"|t}}{% if craft.isLocalized and siteMeta.locale %}<span class="locale">{{ siteMeta.locale }}</span>{% endif %}</label>
+								<div class="instructions"><p>{{ "This should be between 70 and 160 characters (spaces included).  Meta descriptions allow you to influence how your web pages are described and displayed in search results.  Ensure that all of your web pages have a unique meta description that is explicit and contains your most important keywords." |t |raw}}</p></div>
 							</div>
 						{{ forms.textarea({
 							label: "siteSeoDescription"|t,
@@ -87,8 +87,8 @@
 						
 						<div class="field" id="siteSeoKeywords-field">
 							<div class="heading">
-								<label for="siteSeoDescription">{{ "siteSeoKeywords"|t}}{% if craft.isLocalized and siteMeta.locale %}<span class="locale">{{ siteMeta.locale }}</span>{% endif %}</label>
-								<div class="instructions"><p>{{ "siteSeoKeywords_help" |t |raw}}</p></div>
+								<label for="siteSeoDescription">{{ "Site SEO Keywords"|t}}{% if craft.isLocalized and siteMeta.locale %}<span class="locale">{{ siteMeta.locale }}</span>{% endif %}</label>
+								<div class="instructions"><p>{{ "Google ignores this tag; though other search engines do look at it.  Utilize it carefully, as improper or spammy use most likely will hurt you, or even have your site marked as spam.  Avoid overstuffing the keywords and do not include keywords that are not related to the specific page you place them on." |t |raw}}</p></div>
 							</div>
 						{{ forms.textarea({
 							label: "siteSeoKeywords"|t,
@@ -106,8 +106,8 @@
 						
 						<div class="field" id="siteSeoImageId-field">
 							<div class="heading">
-								<label for="siteSeoImageId">{{ "siteSeoImageId"|t}}{% if craft.isLocalized and siteMeta.locale %}<span class="locale">{{ siteMeta.locale }}</span>{% endif %}</label>
-								<div class="instructions"><p>{{ "siteSeoImageId_help" |t |raw}}</p></div>
+								<label for="siteSeoImageId">{{ "Site SEO Image"|t}}{% if craft.isLocalized and siteMeta.locale %}<span class="locale">{{ siteMeta.locale }}</span>{% endif %}</label>
+								<div class="instructions"><p>{{ "This is the image that will be used for display as the global website brand, as well as on Twitter Cards and Facebook OpenGraph that link to the website.  It should be an image that displays well when cropped to a square format (for Twitter)" |t |raw}}</p></div>
 							</div>
 							<div class="input">
 								{% if assetsSourceExists %}
@@ -123,7 +123,7 @@
 										},
 										sourceElementId: siteSeoImageId,
 										jsClass: 'Craft.AssetSelectInput',
-										addButtonLabel: 'Select SEO Image',
+										addButtonLabel: "Select SEO Image" |t,
 										limit: 1,
 										locale: siteMeta.locale,
 									}) }}
@@ -134,7 +134,7 @@
 						</div>
             
 						<p>&nbsp;</p>
-	 					<p>{{ "environmentalVariables_ok" |t |raw }}</p>
+	 					<p>{{ "<p>You can use any Craft <code>environmentVariables</code> in these fields in addition to static text, e.g.:<br /> <code>This is my {baseUrl}</code></p>" |t |raw }}</p>
       
 					</div>
 										
@@ -143,11 +143,11 @@
 				<div class="item" data-position="right" data-colspan="1">
 	
 					<div id="preview-display" class="btn big livepreviewbtn">
-						Preview SEO Meta Display
+						{{ "Preview SEO Meta Display" |t }}
 					</div>
 
 					<div id="preview-tags" class="btn big livepreviewbtn secondbtn">
-						Preview SEO Meta Tags
+						{{ "Preview SEO Meta Tags" |t }}
 					</div>
 					
 					{% if craft.isLocalized %}
@@ -159,7 +159,7 @@
 									<li><a href="{{ url('seomatic/site') ~ '/' ~ locale.id }}">{{ locale.name }}</a></li>
 								{% endif %}
 							{% endfor %}
-							<li><p class="instructions">{{ "localizing_help" |t |raw }}</p></li>
+							<li><p class="instructions">{{ "If any field is left blank for a setting in a particular locale, it will fall back on the primary locale." |t |raw }}</p></li>
 						</ul>
 					{% endif %}
 					
@@ -167,7 +167,7 @@
 						<div style="text-align:center; margin:0 auto;">
 							<img src="{{ resourceUrl('seomatic/images/seo_site.svg') }}" width="64px" height="auto" />
 						</div>
-						{{ "siteMeta_help" |t |raw }}
+						{{ "<p>These SEO Site Meta settings are used to globally define the Meta for the website.  When no SEO Template Meta is found for a webpage, these settings are used by default.</p><p>They are used in combination with the SEO Template Meta settings to generate <a href='https://developers.google.com/schemas/formats/json-ld?hl=en' target='_blank'>JSON-LD</a> microdata, <a href='http://dublincore.org' target='_blank'>Dublin Core</a> core metadata, <a href='https://dev.twitter.com/cards/overview' target='_blank'>Twitter Cards</a>, <a href='https://developers.facebook.com/docs/sharing/opengraph' target='_blank'>Facebook OpenGraph</a>, and as well as HTML meta tags.<p>If a no Template Meta exists for a template, the SEO Site Meta is used.</p>  <p>If any fields are left blank in a Template Meta, those fields are pulled from the SEO Site Meta.</p><p>You can also dynamically change any of these SEO Meta fields in your Twig templates, and they will appear in the rendered SEO Meta.</p>" |t |raw }}
 					</div>
 	
 				</div>

@@ -13,8 +13,8 @@
 }) }}
 
 {{ forms.textField({
-	label: "metaPath"|t,
-	instructions: "metaPath_help" |t |raw,
+	label: "Template Path"|t,
+	instructions: "Enter the path to the template to associate this meta with (just as you would on the Section settings).  It will override the SEO Site Meta for this template.  Leave any field blank if you want it to fall back on the default global settings for that field." |t |raw,
 	id: 'metaPath',
 	class: 'nicetext',
 	name: 'metaPath',
@@ -25,8 +25,8 @@
 }) }}
 
 {{ forms.textField({
-	label: "seoTitle"|t,
-	instructions: "seoTitle_help" |t |raw,
+	label: "SEO Title"|t,
+	instructions: "This should be between 10 and 70 characters (spaces included).  Make sure your title tag is explicit and contains your most important keywords. Be sure that each page has a unique title tag." |t |raw,
 	id: 'seoTitle',
 	class: 'nicetext',
 	name: 'seoTitle',
@@ -40,12 +40,12 @@
 
 <div class="field" id="seoDescription-field">
 	<div class="heading">
-		<label for="seoDescription">{{ "seoDescription"|t}}{% if meta.locale %}<span class="locale">{{ meta.locale }}</span>{% endif %}</label>
-		<div class="instructions"><p>{{ "seoDescription_help" |t |raw}}</p></div>
+		<label for="seoDescription">{{ "SEO Description"|t}}{% if meta.locale %}<span class="locale">{{ meta.locale }}</span>{% endif %}</label>
+		<div class="instructions"><p>{{ "This should be between 70 and 160 characters (spaces included).  Meta descriptions allow you to influence how your web pages are described and displayed in search results.  Ensure that all of your web pages have a unique meta description that is explicit and contains your most important keywords." |t |raw}}</p></div>
 	</div>
 {{ forms.textarea({
-	label: "seoDescription"|t,
-	instructions: "seoDescription_help" |t |raw,
+	label: "SEO Description"|t,
+	instructions: "This should be between 70 and 160 characters (spaces included).  Meta descriptions allow you to influence how your web pages are described and displayed in search results.  Ensure that all of your web pages have a unique meta description that is explicit and contains your most important keywords." |t |raw,
 	id: 'seoDescription',
 	class: 'nicetext',
 	name: 'seoDescription',
@@ -60,12 +60,12 @@
 
 <div class="field" id="seoKeywords-field">
 	<div class="heading">
-		<label for="seoDescription">{{ "seoKeywords"|t}}{% if meta.locale %}<span class="locale">{{ meta.locale }}</span>{% endif %}</label>
-		<div class="instructions"><p>{{ "seoKeywords_help" |t |raw}}</p></div>
+		<label for="seoDescription">{{ "SEO Keywords"|t}}{% if meta.locale %}<span class="locale">{{ meta.locale }}</span>{% endif %}</label>
+		<div class="instructions"><p>{{ "Google ignores this tag; though other search engines do look at it.  Utilize it carefully, as improper or spammy use most likely will hurt you, or even have your site marked as spam.  Avoid overstuffing the keywords and do not include keywords that are not related to the specific page you place them on." |t |raw}}</p></div>
 	</div>
 {{ forms.textarea({
-	label: "seoKeywords"|t,
-	instructions: "seoKeywords_help" |t |raw,
+	label: "SEO Keywords"|t,
+	instructions: "Google ignores this tag; though other search engines do look at it.  Utilize it carefully, as improper or spammy use most likely will hurt you, or even have your site marked as spam.  Avoid overstuffing the keywords and do not include keywords that are not related to the specific page you place them on." |t |raw,
 	id: 'seoKeywords',
 	class: 'nicetext',
 	name: 'seoKeywords',
@@ -80,8 +80,8 @@
 
 <div class="field" id="seoImageId-field">
 	<div class="heading">
-		<label for="seoImageId">{{ "seoImageId"|t}}{% if meta.locale %}<span class="locale">{{ meta.locale }}</span>{% endif %}</label>
-		<div class="instructions"><p>{{ "seoImageId_help" |t |raw}}</p></div>
+		<label for="seoImageId">{{ "SEO Image"|t}}{% if meta.locale %}<span class="locale">{{ meta.locale }}</span>{% endif %}</label>
+		<div class="instructions"><p>{{ "This is the image that will be used for display as the webpage brand for this template, as well as on Twitter Cards and Facebook OpenGraph that link to this page.  It should be an image that displays well when cropped to a square format (for Twitter)" |t |raw}}</p></div>
 	</div>
 	<div class="input">
 		{% if assetsSourceExists %}
@@ -97,7 +97,7 @@
 				},
 				sourceElementId: seoImageId,
 				jsClass: 'Craft.AssetSelectInput',
-				addButtonLabel: 'Select SEO Image',
+				addButtonLabel: "Select SEO Image" |t,
 				limit: 1,
 				locale: meta.locale,
 			}) }}

@@ -4,32 +4,32 @@
 
 				<div class="displaypreview-container">
 					
-					<h1>{{ "renderedFor" |t }}</h1>
-					<p>{% if previewMetaPath %}<code>{{ previewMetaPath }}</code> {{ "renderedForTemplate" |t | raw }}{% else %}{{ "renderedForGlobal" |t | raw }}{% endif %}</p>
+					<h1>{{ "Rendered For" |t }}</h1>
+					<p>{% if previewMetaPath %}<code>{{ previewMetaPath }}</code> {{ "<code>SEO Template</code> Meta.  This is what is generated when this template is displayed." |t | raw }}{% else %}{{ "<code>SEO Site</code> Meta.  This is what is generated for the global site meta, with no template meta overrides." |t | raw }}{% endif %}</p>
 	
 					<div class="preview-column">
-						<h1><br />{{ "templateVariables" |t }}</h1>
-						<p>{{ "templateVariables_help" |t |raw }}</p>
+						<h1><br />{{ "Meta Template Variables" |t }}</h1>
+						<p>{{ "These are the Twig variables that SEOmatic pre-populates, and makes available to you in your templates.  They are used when rendering the SEO Meta, so you can manipulate them however you want before rendering your SEO Meta.  For example, you might change the <code>seoDescription</code> to be the summary field of an entry." |t |raw }}</p>
 						<pre><code class="language-twig">{{ craft.seomatic.renderGlobals(previewMetaPath, locale) | raw }}</code></pre>
-						<p>{{ "templateVariables2_help" |t |raw }}</p>
+						<p>{{ "You can treat all of these like regular Twig variables; for instance, <code>{{ seomaticSocial.twitterUrl }}</code> will output the URL to the website's Twitter page.  You can change these variables using the Twig array <a href='http://twig.sensiolabs.org/doc/tags/set.html' target='_blank'>set</a> syntax, or using the Twig function <a href='http://twig.sensiolabs.org/doc/filters/merge.html' target='_blank'>merge</a>.  Any changes you make will be reflected in the SEO Meta rendered with <code>{% hook 'seomaticRender' %}</code> on your page.  The <code>genericOwnerEmail</code> and <code>genericCreatorEmail</code> variables are ordinal-encoded to obfuscate them.  See the documentation for details by clicking on the ? link below." |t |raw }}</p>
 					</div>
 	
 					<div class="preview-column">
-						<h1><br />{{ "renderedSeoMeta" |t }}</h1>
-						<p>{{ "renderedSeoMeta_help" |t |raw }}</p>
-						<p>{{ "renderedSeoMeta2_help" |t |raw }}</p>
+						<h1><br />{{ "Rendered SEO Meta" |t }}</h1>
+						<p>{{ "The <code>{% hook 'seomaticRender' %}</code> tag generates these SEO Meta for you, based on the Meta Template Variables (above).  By default, it uses an internal template, but you can pass your own template to be used instead, like this: <code>{% set seomaticTemplatePath = 'path/template' %} {% hook 'seomaticRender' %}</code>" |t |raw }}</p>
+						<p>{{ "SEOmatic cascades Meta settings; if you have a Meta associated with the current template, it uses that.  Otherwise it falls back on the SEO Site Meta settings.  If a field is empty for a Template Meta, it falls back on the SEO Site Meta setting for that field." |t |raw }}</p>
 						<pre><code class="language-markup">{{ craft.seomatic.renderPreview('', previewMetaPath, locale) }}</code></pre>
 					</div>
 	
 					<div class="preview-column">
-						<h1><br />{{ "renderedIdentity" |t }}</h1>
-						<p>{{ "renderedIdentity_help" |t |raw }}</p>
+						<h1><br />{{ "Rendered Identity Microdata" |t }}</h1>
+						<p>{{ "The <code>{% hook 'seomaticRender' %}</code> tag also generates <a href='https://developers.google.com/schemas/formats/json-ld?hl=en' target='_blank'>JSON-LD</a> identity microdata." |t |raw }}</p>
 						<pre><code class="language-javascript">{{ craft.seomatic.renderIdentity('', true, locale) }}</code></pre>
 					</div>
 	
 					<div class="preview-column">
-						<h1><br />{{ "renderedWebsite" |t }}</h1>
-						<p>{{ "renderedWebsite_help" |t |raw }}</p>
+						<h1><br />{{ "Rendered WebSite Microdata" |t }}</h1>
+						<p>{{ "The <code>{% hook 'seomaticRender' %}</code> tag also generates <a href='https://developers.google.com/schemas/formats/json-ld?hl=en' target='_blank'>JSON-LD</a> WebSite microdata." |t |raw }}</p>
 						<pre><code class="language-javascript">{{ craft.seomatic.renderWebsite('', true, locale) }}</code></pre>
 					</div>
 				
