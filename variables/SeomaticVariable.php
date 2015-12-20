@@ -30,6 +30,30 @@ class SeomaticVariable
         return $result;
     } /* -- extractSummary */
 
+/* --------------------------------------------------------------------------------
+    Truncate the the string passed in, breaking it on a word.  $desiredLength
+    is in characters; the returned string will be broken on a whole-word
+    boundary, with an … appended to the end if it is truncated
+-------------------------------------------------------------------------------- */
+
+    public function truncateStringOnWord($theString, $desiredLength)
+    {
+        $result = craft()->seomatic->truncateStringOnWord($theString, $desiredLength);
+        
+        return $result;
+    } /* -- truncateStringOnWord */
+
+/* --------------------------------------------------------------------------------
+    Encode an email address as ordinal values to obfuscate it to bots
+-------------------------------------------------------------------------------- */
+
+    public function encodeEmailAddress($emailAddress)
+    {
+        $result = craft()->seomatic->encodeEmailAddress($emailAddress);
+        
+        return $result;
+    } /* -- encodeEmailAddress */
+
 /* ================================================================================
     INTERNAL methods for SEOmatic use
 ================================================================================ */

@@ -1,8 +1,19 @@
 [
     {
+        "version": "1.0.2",
+        "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
+        "date": "2015-12-20T11:00:00-05:00",
+        "notes": [
+            "[Added] Exposed a few more utility functions via Twig filters & functions",
+            "[Added] The genericOwnerEmail & genericCreatorEmail variables are ordinal-encoded, to obfuscate them",
+            "[Added] Added 'location': 'Place' type to the Identity & Creator schemas, including GeoCoordinates",
+            "[Improved] Updated the README.md"
+        ]
+    },
+    {
         "version": "1.0.1",
         "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
-        "date": "2015-12-22T11:00:00-05:00",
+        "date": "2015-12-19T11:00:00-05:00",
         "notes": [
             "[Added] If the Minify plugin is installed, SEOmatic will minify the SEO Meta tags & JSON-LD",
             "[Improved] Improved the caching mechanism to span all of the meta",

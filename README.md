@@ -356,6 +356,46 @@ So tying it all together, you might do something like this for a dynamic Blog en
 
 Note that we set the `canonicalUrl` to `seomaticMeta.canonicalUrl`, effectively leaving it unchanged.
 
+## Utility Filters & Functions
+
+SEOmatic exposes a few useful utility filters & functions that you can use... or not.
+
+### truncateStringOnWord()
+
+All three of these methods accomplish the same thing:
+
+	{# Truncate a string on word boundaries using the 'truncateStringOnWord' function #}
+    {{ truncateStringOnWord( THESTRING, DESIREDLENGTH ) }}
+    
+	{# Truncate a string on word boundaries using the 'truncateStringOnWord' filter #}
+    {{ THESTRING | truncateStringOnWord( DESIREDLENGTH ) }}
+    
+	{# Truncate a string on word boundaries using the 'truncateStringOnWord' variable #}
+    {% do craft.seomatic.truncateStringOnWord( THESTRING, DESIREDLENGTH ) %}
+
+**THESTRING** is the string to be truncated, and the optional **DESIREDLENGTH** parameter specifies the desired length in characters.  the Returned string will be broken on a whole-word boundary, with an … appended to the end if it is truncated.
+
+You shouldn't need to use truncateStringOnWord() for SEO Meta like `seoTitle` & `seoDescription` that have character limitations, because SEOmatic will truncate them for you automatically.  However you may find this function handy for other purposes.
+
+### encodeEmailAddress()
+
+All three of these methods accomplish the same thing:
+
+	{# Ordinal-encode an email address to obfuscate it using the 'encodeEmailAddress' function #}
+    {{ encodeEmailAddress( EMAILADDRESS ) }}
+    
+	{# Ordinal-encode an email address to obfuscate it using the 'encodeEmailAddress' filter #}
+    {{ EMAILADDRESS | encodeEmailAddress() }}
+    
+	{# Ordinal-encode an email address to obfuscate it using the 'encodeEmailAddress' variable #}
+    {% do craft.seomatic.encodeEmailAddress( EMAILADDRESS ) %}
+
+**EMAILADDRESS** is the email address to be ordinal-encoded.  For instance, `info@nystudio107.com` becomes:
+    
+    &#105;&#110;&#102;&#111;&#64;&#110;&#121;&#115;&#116;&#117;&#100;&#105;&#111;&#49;&#48;&#55;&#46;&#99;&#111;&#109;
+
+Google can still properly decode email addresses that are ordinal-encoded, it's still readable by humans when displayed, but it prevents some bots from recognizing it as an email address.
+
 ## SEOmatic Site Meta Twig Variables
 
 SEOmatic populates your templates with the following global variables for Site Meta:
@@ -463,6 +503,10 @@ Or if you want to set just one variable in the array, you can use the Twig funct
 You can change these `seomaticIdentity` variables in your templates that `extends` your main `layout.twig` template, and due to the Twig rendering order, when `{% hook 'seomaticRender' %}` is called, they'll be populated in your rendered SEO Meta tags.
 
 SEOmatic also automatically strips HTML/PHP tags from the variables, and translates HTML entities to ensure that they are properly encoded.
+
+The `genericOwnerEmail` variable is ordinal-encoded to obfuscate it.  For instance, `info@nystudio107.com` becomes:
+    
+    &#105;&#110;&#102;&#111;&#64;&#110;&#121;&#115;&#116;&#117;&#100;&#105;&#111;&#49;&#48;&#55;&#46;&#99;&#111;&#109;
 
 ## SEOmatic Social Media Twig Variables
 
@@ -586,6 +630,10 @@ You can change these `seomaticCreator` variables in your templates that `extends
 
 SEOmatic also automatically strips HTML/PHP tags from the variables, and translates HTML entities to ensure that they are properly encoded.
 
+The `genericCreatorEmail` variable is ordinal-encoded to obfuscate it.  For instance, `info@nystudio107.com` becomes:
+
+    &#105;&#110;&#102;&#111;&#64;&#110;&#121;&#115;&#116;&#117;&#100;&#105;&#111;&#49;&#48;&#55;&#46;&#99;&#111;&#109;
+
 ## Previewing your SEO Meta
 
 There's a lot going on here, so to make it all more easily understood, SEOmatic offers two ways to preview your SEO Meta:
@@ -648,7 +696,7 @@ These are the Twig variables that SEOmatic pre-populates, and makes available to
 	    genericOwnerDescription: 'Impeccable design married with precision craftsmanship.',
 	    genericOwnerUrl: 'http://nystudio107.com',
 	    genericOwnerTelephone: '585-555-1212',
-	    genericOwnerEmail: 'info[at]nystudio107.com',
+	    genericOwnerEmail: '&#105;&#110;&#102;&#111;&#64;&#110;&#121;&#115;&#116;&#117;&#100;&#105;&#111;&#49;&#48;&#55;&#46;&#99;&#111;&#109;',
 	    genericOwnerStreetAddress: '123 Main Street',
 	    genericOwnerAddressLocality: 'Portchester',
 	    genericOwnerAddressRegion: 'NY',
@@ -675,7 +723,7 @@ These are the Twig variables that SEOmatic pre-populates, and makes available to
 	    genericCreatorDescription: 'Impeccable design married with precision craftsmanship.',
 	    genericCreatorUrl: 'http://nystudio107.com',
 	    genericCreatorTelephone: '585.555.1212',
-	    genericCreatorEmail: 'info[at]nystudio107.com',
+	    genericCreatorEmail: '&#105;&#110;&#102;&#111;&#64;&#110;&#121;&#115;&#116;&#117;&#100;&#105;&#111;&#49;&#48;&#55;&#46;&#99;&#111;&#109;',
 	    genericCreatorStreetAddress: '575 Dunfrey Road',
 	    genericCreatorAddressLocality: 'Lansing',
 	    genericCreatorAddressRegion: 'MI',
@@ -785,10 +833,30 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 		"alternateName": "nystudio107",
 		"description": "Impeccable design married with precision craftsmanship.",
 		"url": "http://nystudio107.com",
-		"image": "http://NYStudio107.com/img/site/nys_logo@2x.png",
+		"image": "http://nystudio107.dev/img/site/nys_logo@2x.png",
 		"telephone": "585-555-1212",
-		"email": "info[at]nystudio107.com",
-		"logo": "http://NYStudio107.com/img/site/nys_logo@2x.png",
+		"email": "&#105;&#110;&#102;&#111;&#64;&#110;&#121;&#115;&#116;&#117;&#100;&#105;&#111;&#49;&#48;&#55;&#46;&#99;&#111;&#109;",
+		"logo": "http://nystudio107.dev/img/site/nys_logo@2x.png",
+		"location": {
+			"@type": "Place",
+			"name": "NY Studio 107",
+			"alternateName": "nystudio107",
+			"description": "Impeccable design married with precision craftsmanship.",
+			"geo": {
+				"@type": "GeoCoordinates",
+				"latitude": "-120.5436367",
+				"longitude": "80.6033588"
+			},
+			"address": {
+				"@type": "PostalAddress",
+				"streetAddress": "123 Main Street",
+				"addressLocality": "Portchester",
+				"addressRegion": "NY",
+				"postalCode": "14580",
+				"addressCountry": "USA"
+			}
+		},
+		"duns": "3456",
 		"founder": "Andrew Welch",
 		"foundingDate": "10/1/2011",
 		"foundingLocation": "Webster, NY, USA",
@@ -802,7 +870,7 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 		}
 	}
 	</script>
-	
+		
 #### Rendered WebSite Microdata
 
 The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developers.google.com/schemas/formats/json-ld?hl=en) WebSite microdata.
@@ -814,7 +882,7 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 		"name": "nystudio107",
 		"description": "This is the default global natural language description of the content on the site pages.",
 		"url": "http://nystudio107.dev/",
-		"image": "http://NYStudio107.com/img/site/nys_seo_logo.png",
+		"image": "http://nystudio107.dev/img/site/nys_seo_logo.png",
 		"sameAs": ["https://www.facebook.com/nystudio107","https://twitter.com/nystudio107","https://plus.google.com/+nystudio107","https://www.linkedin.com/company/nystudio107","https://www.youtube.com/user/nystudio107","https://www.instagram.com/nystudio107","https://www.pinterest.com/nystudio107","http://nystudio107.dev/"],
 		
 		"copyrightHolder": {
@@ -823,10 +891,30 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 			"alternateName": "nystudio107",
 			"description": "Impeccable design married with precision craftsmanship.",
 			"url": "http://nystudio107.com",
-			"image": "http://NYStudio107.com/img/site/nys_logo@2x.png",
+			"image": "http://nystudio107.dev/img/site/nys_logo@2x.png",
 			"telephone": "585-555-1212",
-			"email": "info[at]nystudio107.com",
-			"logo": "http://NYStudio107.com/img/site/nys_logo@2x.png",
+			"email": "&#105;&#110;&#102;&#111;&#64;&#110;&#121;&#115;&#116;&#117;&#100;&#105;&#111;&#49;&#48;&#55;&#46;&#99;&#111;&#109;",
+			"logo": "http://nystudio107.dev/img/site/nys_logo@2x.png",
+			"location": {
+				"@type": "Place",
+				"name": "NY Studio 107",
+				"alternateName": "nystudio107",
+				"description": "Impeccable design married with precision craftsmanship.",
+				"geo": {
+					"@type": "GeoCoordinates",
+					"latitude": "-120.5436367",
+					"longitude": "80.6033588"
+				},
+				"address": {
+					"@type": "PostalAddress",
+					"streetAddress": "123 Main Street",
+					"addressLocality": "Portchester",
+					"addressRegion": "NY",
+					"postalCode": "14580",
+					"addressCountry": "USA"
+				}
+			},
+			"duns": "3456",
 			"founder": "Andrew Welch",
 			"foundingDate": "10/1/2011",
 			"foundingLocation": "Webster, NY, USA",
@@ -840,15 +928,35 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 			}
 		},
 		"author": {
-			"@type": "Corporation",
+		"@type": "Corporation",
 			"name": "NY Studio 107",
 			"alternateName": "nystudio107",
 			"description": "Impeccable design married with precision craftsmanship.",
 			"url": "http://nystudio107.com",
-			"image": "http://NYStudio107.com/img/site/nys_logo@2x.png",
+			"image": "http://nystudio107.dev/img/site/nys_logo@2x.png",
 			"telephone": "585-555-1212",
-			"email": "info[at]nystudio107.com",
-			"logo": "http://NYStudio107.com/img/site/nys_logo@2x.png",
+			"email": "&#105;&#110;&#102;&#111;&#64;&#110;&#121;&#115;&#116;&#117;&#100;&#105;&#111;&#49;&#48;&#55;&#46;&#99;&#111;&#109;",
+			"logo": "http://nystudio107.dev/img/site/nys_logo@2x.png",
+			"location": {
+				"@type": "Place",
+				"name": "NY Studio 107",
+				"alternateName": "nystudio107",
+				"description": "Impeccable design married with precision craftsmanship.",
+				"geo": {
+					"@type": "GeoCoordinates",
+					"latitude": "-120.5436367",
+					"longitude": "80.6033588"
+				},
+				"address": {
+					"@type": "PostalAddress",
+					"streetAddress": "123 Main Street",
+					"addressLocality": "Portchester",
+					"addressRegion": "NY",
+					"postalCode": "14580",
+					"addressCountry": "USA"
+				}
+			},
+			"duns": "3456",
 			"founder": "Andrew Welch",
 			"foundingDate": "10/1/2011",
 			"foundingLocation": "Webster, NY, USA",
@@ -867,10 +975,29 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 			"alternateName": "nystudio107",
 			"description": "Impeccable design married with precision craftsmanship.",
 			"url": "http://nystudio107.com",
-			"image": "http://NYStudio107.com/img/site/nys_logo@2x.png",
+			"image": "http://nystudio107.dev/img/site/nys_logo@2x.png",
 			"telephone": "585.555.1212",
-			"email": "info[at]nystudio107.com",
-			"logo": "http://NYStudio107.com/img/site/nys_logo@2x.png",
+			"email": "&#105;&#110;&#102;&#111;&#64;&#110;&#121;&#115;&#116;&#117;&#100;&#105;&#111;&#49;&#48;&#55;&#46;&#99;&#111;&#109;",
+			"logo": "http://nystudio107.dev/img/site/nys_logo@2x.png",
+			"location": {
+				"@type": "Place",
+				"name": "NY Studio 107",
+				"alternateName": "nystudio107",
+				"description": "Impeccable design married with precision craftsmanship.",
+				"geo": {
+					"@type": "GeoCoordinates",
+					"latitude": "-120.5436367",
+					"longitude": "80.6033588"
+				},
+				"address": {
+					"@type": "PostalAddress",
+					"streetAddress": "575 Dunfrey Road",
+					"addressLocality": "Lansing",
+					"addressRegion": "MI",
+					"postalCode": "11360",
+					"addressCountry": "USA"
+				}
+			},
 			"founder": "Andrew Welch",
 			"foundingDate": "10/1/2011",
 			"foundingLocation": "Webster, NY",
@@ -885,7 +1012,7 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 		}
 	}
 	</script>
-			
+				
 If you click on the **Preview SEO Meta Tags** button when you are editing a SEO Template Meta, you'll see that particular template's SEO Template Meta tags.  Otherwise, you will see the SEO Site Meta tags.
 
 ## Testing Your SEO Meta
@@ -897,16 +1024,24 @@ Use Google's [Structured Data Testing Tool](https://developers.google.com/struct
 Some things to do, and ideas for potential features:
 
 * [bug] Get the Template Metas implemented with full `locale` support, so the settings can all be per-locale based
-* [bug] Find an appropriate place for the GeoCoordinates in the Idenity and WebSite schemas
+* [bug] The variable names show up instead of text in the Admin CP if the Admin CP isn't in English
+* [bug] Enforce *required fields on the various settings pages in the Admin CP
 * [bug] The `foundingDate` fields probably should be dateTimeField types on the Settings pages
-* [feature] Encode the Idenity and Creator email addresses
 * [feature] Helper functions for GetFullAddress and GetCopyrightString (?)
 * [feature] Provide SiteMap functionality.  Yes, it's SEO-related, but seems like it might be better to keep SEOmatic focused (?)
+* [feature] Provide Redirect functionality.  Yes, it's SEO-related, but seems like it might be better to keep SEOmatic focused (?)
 * [feature] Add a "Lookup Geo Coordinates" button to the Site Identity and Site Creator pages.
 
 ## Changelog
 
-### 1.0.1 -- 2015.12.22
+### 1.0.2 -- 2015.12.20
+
+* [Added] Exposed a few more utility functions via Twig filters & functions
+* [Added] The genericOwnerEmail & genericCreatorEmail variables are ordinal-encoded, to obfuscate them
+* [Added] Added 'location': 'Place' type to the Identity & Creator schemas, including GeoCoordinates
+* [Improved] Updated the README.md
+
+### 1.0.1 -- 2015.12.19
 
 * [Added] If the [Minify](https://github.com/khalwat/minify) plugin is installed, SEOmatic will minify the SEO Meta tags & JSON-LD
 * [Improved] Improved the caching mechanism to span all of the meta

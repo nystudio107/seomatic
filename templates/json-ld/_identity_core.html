@@ -27,12 +27,47 @@
 	"telephone": "{{ seomaticIdentity.genericOwnerTelephone }}",
 {% endif %}
 {% if seomaticIdentity.genericOwnerEmail %}
-	"email": "{{ seomaticIdentity.genericOwnerEmail }}",
+	"email": "{{ seomaticIdentity.genericOwnerEmail | raw }}",
 {% endif %}
 {% if seomaticIdentity.siteOwnerType != "person" %}
 {% if seomaticIdentity.genericOwnerImage is defined and seomaticIdentity.genericOwnerImage is not null %}
 	"logo": "{{ seomaticIdentity.genericOwnerImage.url }}",
 {% endif %}
+	"location": {
+		"@type": "Place",
+{% if seomaticIdentity.genericOwnerName %}
+		"name": "{{ seomaticIdentity.genericOwnerName }}",
+{% endif %}
+{% if seomaticIdentity.genericOwnerAlternateName %}
+		"alternateName": "{{ seomaticIdentity.genericOwnerAlternateName }}",
+{% endif %}
+{% if seomaticIdentity.genericOwnerDescription %}
+		"description": "{{ seomaticIdentity.genericOwnerDescription }}",
+{% endif %}
+{% if seomaticIdentity.genericOwnerGeoLatitude and seomaticIdentity.genericOwnerGeoLongitude  %}
+		"geo": {
+			"@type": "GeoCoordinates",
+			"latitude": "{{ seomaticIdentity.genericOwnerGeoLatitude}}",
+			"longitude": "{{ seomaticIdentity.genericOwnerGeoLongitude}}"
+		},
+{% endif %}
+		"address": {
+			"@type": "PostalAddress",
+{% if seomaticIdentity.genericOwnerStreetAddress %}
+			"streetAddress": "{{ seomaticIdentity.genericOwnerStreetAddress}}",
+{% endif %}
+{% if seomaticIdentity.genericOwnerAddressLocality %}
+			"addressLocality": "{{ seomaticIdentity.genericOwnerAddressLocality}}",
+{% endif %}
+{% if seomaticIdentity.genericOwnerAddressRegion %}
+			"addressRegion": "{{ seomaticIdentity.genericOwnerAddressRegion}}",
+{% endif %}
+{% if seomaticIdentity.genericOwnerPostalCode %}
+			"postalCode": "{{ seomaticIdentity.genericOwnerPostalCode}}",
+{% endif %}
+			"addressCountry": "{{ seomaticIdentity.genericOwnerAddressCountry}}"
+		}
+	},
 {% if seomaticIdentity.organizationOwnerDuns %}
 	"duns": "{{ seomaticIdentity.organizationOwnerDuns }}",
 {% endif %}
@@ -64,15 +99,6 @@
 	"birthPlace": "{{ seomaticIdentity.personOwnerBirthPlace }}",
 {% endif %}
 {% endswitch %}
-{# Not a property
-{% if seomaticIdentity.genericOwnerGeoLatitude and seomaticIdentity.genericOwnerGeoLongitude  %}
-	"geo": {
-		"@type": "GeoCoordinates",
-		"latitude": "{{ seomaticIdentity.genericOwnerGeoLatitude}}",
-		"longitude": "{{ seomaticIdentity.genericOwnerGeoLongitude}}"
-	},
-{% endif %}
-#}
 	"address": {
 		"@type": "PostalAddress",
 {% if seomaticIdentity.genericOwnerStreetAddress %}

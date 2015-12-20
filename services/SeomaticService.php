@@ -856,7 +856,10 @@ class SeomaticService extends BaseApplicationComponent
             {
 				$seomaticIdentity[$key] = craft()->config->parseEnvironmentString($value);
 				$seomaticIdentity[$key] = strip_tags($value);
-                $seomaticIdentity[$key] = htmlspecialchars($value);
+				if ($key == 'genericOwnerEmail')
+					$seomaticIdentity[$key] = $this->encodeEmailAddress($value);
+				else
+                	$seomaticIdentity[$key] = htmlspecialchars($value);
             }
         }
 
@@ -876,7 +879,10 @@ class SeomaticService extends BaseApplicationComponent
             {
 				$seomaticCreator[$key] = craft()->config->parseEnvironmentString($value);
 				$seomaticCreator[$key] = strip_tags($value);
-                $seomaticCreator[$key] = htmlspecialchars($value);
+				if ($key == 'genericCreatorEmail')
+					$seomaticCreator[$key] = $this->encodeEmailAddress($value);
+				else
+                	$seomaticCreator[$key] = htmlspecialchars($value);
             }
         }
 
@@ -971,7 +977,9 @@ class SeomaticService extends BaseApplicationComponent
     } /* -- _cleanupText */
 
 /* --------------------------------------------------------------------------------
-    Truncate the the string passed in, breaking it on a word
+    Truncate the the string passed in, breaking it on a word.  $desiredLength
+    is in characters; the returned string will be broken on a whole-word
+    boundary, with an … appended to the end if it is truncated
 -------------------------------------------------------------------------------- */
 
     public function truncateStringOnWord($theString, $desiredLength)
@@ -985,5 +993,20 @@ class SeomaticService extends BaseApplicationComponent
         
         return $theString;
     } /* -- truncateStringOnWord */
+
+/* --------------------------------------------------------------------------------
+    Encode an email address as ordinal values to obfuscate it to bots
+-------------------------------------------------------------------------------- */
+
+    public function encodeEmailAddress($emailAddress)
+    {
+	    $result = '';
+		for ($i = 0; $i < strlen($emailAddress); $i++)
+		{
+			$result .= '&#'.ord($emailAddress[$i]).';';
+		}
+        
+        return $result;
+    } /* -- encodeEmailAddress */
 
 } /* -- class SeomaticService */

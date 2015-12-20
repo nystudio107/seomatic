@@ -37,6 +37,8 @@ class SeomaticTwigExtension extends \Twig_Extension
         return array(
             'extractKeywords' => new \Twig_Filter_Method($this, 'extractKeywords'),
             'extractSummary' => new \Twig_Filter_Method($this, 'extractSummary'),
+            'truncateStringOnWord' => new \Twig_Filter_Method($this, 'truncateStringOnWord'),
+            'encodeEmailAddress' => new \Twig_Filter_Method($this, 'encodeEmailAddress'),
         );
     }
 
@@ -49,6 +51,8 @@ class SeomaticTwigExtension extends \Twig_Extension
         return array(
             'extractKeywords' => new \Twig_Function_Method($this, 'extractKeywords'),
             'extractSummary' => new \Twig_Function_Method($this, 'extractSummary'),
+            'truncateStringOnWord' => new \Twig_Function_Method($this, 'truncateStringOnWord'),
+            'encodeEmailAddress' => new \Twig_Function_Method($this, 'encodeEmailAddress'),
         );
     }
 
@@ -73,6 +77,30 @@ class SeomaticTwigExtension extends \Twig_Extension
         
         return $result;
     } /* -- extractSummary */
+
+/* --------------------------------------------------------------------------------
+    Truncate the the string passed in, breaking it on a word.  $desiredLength
+    is in characters; the returned string will be broken on a whole-word
+    boundary, with an … appended to the end if it is truncated
+-------------------------------------------------------------------------------- */
+
+    public function truncateStringOnWord($theString, $desiredLength)
+    {
+        $result = craft()->seomatic->truncateStringOnWord($theString, $desiredLength);
+        
+        return $result;
+    } /* -- truncateStringOnWord */
+
+/* --------------------------------------------------------------------------------
+    Encode an email address as ordinal values to obfuscate it to bots
+-------------------------------------------------------------------------------- */
+
+    public function encodeEmailAddress($emailAddress)
+    {
+        $result = craft()->seomatic->encodeEmailAddress($emailAddress);
+        
+        return $result;
+    } /* -- encodeEmailAddress */
 
 /* --------------------------------------------------------------------------------
     Get the current template path 
