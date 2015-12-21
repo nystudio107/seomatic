@@ -1033,6 +1033,7 @@ Some things to do, and ideas for potential features:
 * [bug] Enforce *required fields on the various settings pages in the Admin CP by doing proper validation
 * [bug] The `foundingDate` fields probably should be dateTimeField types on the Settings pages
 * [feature] Helper functions for GetFullAddress and GetCopyrightString (?)
+* [feature] Change the preview to a live preview when editing things in SEOmatic
 * [feature] Provide SiteMap functionality.  Yes, it's SEO-related, but seems like it might be better to keep SEOmatic focused (?)
 * [feature] Provide Redirect functionality.  Yes, it's SEO-related, but seems like it might be better to keep SEOmatic focused (?)
 * [feature] Add a "Lookup Geo Coordinates" button to the Site Identity and Site Creator pages.
