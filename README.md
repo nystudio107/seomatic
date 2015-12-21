@@ -1033,16 +1033,18 @@ Some things to do, and ideas for potential features:
 * [bug] Enforce *required fields on the various settings pages in the Admin CP by doing proper validation
 * [bug] The `foundingDate` fields probably should be dateTimeField types on the Settings pages
 * [feature] Helper functions for GetFullAddress and GetCopyrightString (?)
+* [feature] Add a "Lookup Geo Coordinates" button to the Site Identity and Site Creator pages.
+* [feature] Add support for different types of Twitter cards and Facebook OpenGraph
 * [feature] Change the preview to a live preview when editing things in SEOmatic
 * [feature] Provide SiteMap functionality.  Yes, it's SEO-related, but seems like it might be better to keep SEOmatic focused (?)
 * [feature] Provide Redirect functionality.  Yes, it's SEO-related, but seems like it might be better to keep SEOmatic focused (?)
-* [feature] Add a "Lookup Geo Coordinates" button to the Site Identity and Site Creator pages.
 
 ## Changelog
 
 ### 1.0.3 -- 2015.12.21
 
 * [Fixed] Fixed an issue with the TextRank lib not being properly in the git repo, causing it to error when used
+* [Fixed] The SEOmatic settings pages now have a SAVE button on them for Craft 2.4
 * [Improved] Updated the README.md
 
 ### 1.0.2 -- 2015.12.20

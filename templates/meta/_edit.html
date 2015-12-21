@@ -22,6 +22,13 @@
 {% endif %}
 	
 	<div class="seomatic-container">
+
+<!-- Needed for for Craft < 2.5 -->
+
+		{% if craft.app.version < 2.5 %}
+		<form id="meta-form" method="post" accept-charset="UTF-8" data-saveshortcut="1" data-saveshortcut-redirect="{{ continueEditingUrl }}">
+		{% endif %}
+
 			{{ getCsrfInput() }}
 			<input type="hidden" name="action" value="seomatic/saveMeta">
 			<input type="hidden" name="redirect" value="seomatic/meta">
@@ -65,7 +72,26 @@
 					{% endif %}
 	
 				</div>
+
+<!-- Needed for for Craft < 2.5 -->
+
+				{% if craft.app.version < 2.5 %}
+				<div class="item" data-position="left" data-colspan="1">
+					<div class="buttons">
+						<div class="btngroup submit first">
+							<input type="submit" class="btn submit" value="{{ 'Save'|t }}">
+						</div>
+					</div>
+				</div>
+				{% endif %}
+
 			</div>
+
+<!-- Needed for for Craft < 2.5 -->
+
+		{% if craft.app.version < 2.5 %}
+		</form>
+		{% endif %}
 
 	</div>
 	

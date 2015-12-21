@@ -32,421 +32,446 @@
 	{% include "seomatic/_preview_display_modal" with {'previewMetaPath': '', 'locale': identity.locale } %}
 	{% include "seomatic/_preview_tags_modal" with {'previewMetaPath': '', 'locale': identity.locale } %}
 
+<!-- Needed for for Craft < 2.5 -->
+
+	{% if craft.app.version < 2.5 %}
+	<form id="identity-form" method="post" accept-charset="UTF-8" data-saveshortcut="1" data-saveshortcut-redirect="{{ continueEditingUrl }}">
+	{% endif %}
+
         <input type="hidden" name="action" value="seomatic/saveIdentity" />
         <input type="hidden" name="redirect" value="seomatic/identity{% if craft.isLocalized %}/{{ identity.locale }}{% endif %}" />
         {{ getCsrfInput() }}
 
 		<input type="hidden" name="locale" value="{{ identity.locale }}">
 
-			<div class="grid first">
-				<div class="item" data-position="left" data-min-colspan="2" data-max-colspan="3">
-					<div id="fields" class="pane">
-						{% include "_includes/tabs" %}
+		<div class="grid first">
+			<div class="item" data-position="left" data-min-colspan="2" data-max-colspan="3">
+				<div id="fields" class="pane">
+					{% include "_includes/tabs" %}
 
 <!-- Site Ownership -->
-						<h2>{{ "Site Ownership" |t }}</h2>
+					<h2>{{ "Site Ownership" |t }}</h2>
 
-						{{ forms.textField({
-							label: "Google Site Verification"|t,
-							instructions: "For the <code>&lt;meta name='google-site-verification'&gt;</code> tag. <a href='https://www.google.com/webmasters/verification/' target='_blank'>Here's how to get it.</a>" |t |raw,
-							id: 'googleSiteVerification',
-							class: 'nicetext',
-							name: 'googleSiteVerification',
-							value: identity.googleSiteVerification,
-							required: false,
-							locale: identity.locale,
-						}) }}
+					{{ forms.textField({
+						label: "Google Site Verification"|t,
+						instructions: "For the <code>&lt;meta name='google-site-verification'&gt;</code> tag. <a href='https://www.google.com/webmasters/verification/' target='_blank'>Here's how to get it.</a>" |t |raw,
+						id: 'googleSiteVerification',
+						class: 'nicetext',
+						name: 'googleSiteVerification',
+						value: identity.googleSiteVerification,
+						required: false,
+						locale: identity.locale,
+					}) }}
 
-	                    {{ forms.selectField({
-	                        first: true,
-	                        label: "Site Owner Entity Type"|t,
-	                        instructions: "The type of entity that owns this website."|t,
-	                        id: "siteOwnerType",
-	                        options: {
-		            			corporation: "Corporation"|t,
-		            			organization: "Organization"|t,
-		            			restaurant: "Restaurant"|t,
-		            			person: "Person"|t,
-	                        },
-	                        name: "siteOwnerType",
-	                        value: identity.siteOwnerType,
-							required: true,
-							locale: identity.locale,
-	                    }) }}
+                    {{ forms.selectField({
+                        first: true,
+                        label: "Site Owner Entity Type"|t,
+                        instructions: "The type of entity that owns this website."|t,
+                        id: "siteOwnerType",
+                        options: {
+	            			corporation: "Corporation"|t,
+	            			organization: "Organization"|t,
+	            			restaurant: "Restaurant"|t,
+	            			person: "Person"|t,
+                        },
+                        name: "siteOwnerType",
+                        value: identity.siteOwnerType,
+						required: true,
+						locale: identity.locale,
+                    }) }}
 
 <!-- General Info -->
-						<h2>{{ "General Info" |t }}</h2>
-						
-						{{ forms.textField({
-							label: "Entity Name"|t,
-							instructions: "The name of the entity that owns the website" |t |raw,
-							id: 'genericOwnerName',
+					<h2>{{ "General Info" |t }}</h2>
+					
+					{{ forms.textField({
+						label: "Entity Name"|t,
+						instructions: "The name of the entity that owns the website" |t |raw,
+						id: 'genericOwnerName',
+						class: 'nicetext',
+						name: 'genericOwnerName',
+						value: identity.genericOwnerName,
+						required: true,
+						locale: identity.locale,
+					}) }}
+					
+					{{ forms.textField({
+						label: "Alternate Entity Name"|t,
+						instructions: "An alternate or nickname for the entity that owns the website" |t |raw,
+						id: 'genericOwnerAlternateName',
+						class: 'nicetext',
+						name: 'genericOwnerAlternateName',
+						value: identity.genericOwnerAlternateName,
+						required: false,
+						locale: identity.locale,
+					}) }}
+
+					<div class="field" id="genericOwnerDescription-field">
+						<div class="heading">
+							<label for="genericOwnerDescription">{{ "Entity Description"|t}}{% if craft.isLocalized and identity.locale %}<span class="locale">{{ identity.locale }}</span>{% endif %}</label>
+							<div class="instructions"><p>{{ "A description of the entity that owns the website" |t |raw}}</p></div>
+						</div>
+						{{ forms.textarea({
+							label: "Entity Description"|t,
+							instructions: "A description of the entity that owns the website" |t |raw,
+							id: 'genericOwnerDescription',
 							class: 'nicetext',
-							name: 'genericOwnerName',
-							value: identity.genericOwnerName,
+							name: 'genericOwnerDescription',
+							value: identity.genericOwnerDescription,
+							required: false,
+							locale: identity.locale,
+						}) }}
+					</div>
+
+					{{ forms.textField({
+						label: "Entity URL"|t,
+						instructions: "A URL for the entity that owns the website" |t |raw,
+						id: 'genericOwnerUrl',
+						class: 'nicetext',
+						name: 'genericOwnerUrl',
+						value: identity.genericOwnerUrl,
+						required: false,
+						locale: identity.locale,
+					}) }}
+
+					<div class="field" id="genericOwnerImageId-field">
+						<div class="heading">
+							<label for="genericOwnerImageId">{{ "Entity Brand"|t}}{% if craft.isLocalized and identity.locale %}<span class="locale">{{ identity.locale }}</span>{% endif %}</label>
+							<div class="instructions"><p>{{ "An image or logo that represents the entity that owns the website" |t |raw}}</p></div>
+						</div>
+						<div class="input">
+							{% if assetsSourceExists %}
+								{{ forms.elementSelect({
+									elements: elementsOwnerImage,
+									id: 'genericOwnerImageId',
+									name: 'genericOwnerImageId',
+									elementType: elementType,
+									criteria: {
+										'kind': [],
+										'localeEnabled': null,
+										'locale': craft.locale,
+									},
+									sourceElementId: genericOwnerImageId,
+									jsClass: 'Craft.AssetSelectInput',
+									addButtonLabel: "Select Brand Image" |t,
+									limit: 1,
+									locale: identity.locale,
+								}) }}
+							{% else %}
+								<p class="error">No assets sources currently exist. <a href="{{ newAssetsSourceUrl }}">Create one now...</a></p>
+							{% endif %}
+						</div>
+					</div>
+
+					{{ forms.textField({
+						label: "Entity Telephone"|t,
+						instructions: "The primary contact telephone number for the entity that owns the website" |t |raw,
+						id: 'genericOwnerTelephone',
+						class: 'nicetext',
+						name: 'genericOwnerTelephone',
+						value: identity.genericOwnerTelephone,
+						required: false,
+						locale: identity.locale,
+					}) }}
+
+					{{ forms.textField({
+						label: "Entity Email"|t,
+						instructions: "The primary contact email address for the entity that owns the website" |t |raw,
+						id: 'genericOwnerEmail',
+						class: 'nicetext',
+						name: 'genericOwnerEmail',
+						value: identity.genericOwnerEmail,
+						required: false,
+						locale: identity.locale,
+					}) }}
+
+<!-- Location -->
+					<h2>{{ "Location Info" |t }}</h2>
+
+					<div class="field">
+						<div class="half-width-field half-width-field-left">
+						{{ forms.textField({
+							label: "Entity Latitude"|t,
+							instructions: "The latitude of the location of the entity that owns the website, e.g.: -120.5436367" |t |raw,
+							id: 'genericOwnerGeoLatitude',
+							class: 'nicetext',
+							name: 'genericOwnerGeoLatitude',
+							value: identity.genericOwnerGeoLatitude,
+							required: false,
+							locale: identity.locale,
+						}) }}
+						</div>
+						
+						<div class="half-width-field">
+						{{ forms.textField({
+							label: "Entity Longitude"|t,
+							instructions: "The longitude of the location of the entity that owns the website, e.g.: 80.6033588" |t |raw,
+							id: 'genericOwnerGeoLongitude',
+							class: 'nicetext',
+							name: 'genericOwnerGeoLongitude',
+							value: identity.genericOwnerGeoLongitude,
+							required: false,
+							locale: identity.locale,
+						}) }}
+						</div>
+					</div>
+					
+					{{ forms.textField({
+						label: "Entity Street Address"|t,
+						instructions: "The street address of the entity that owns the website, e.g.: 123 Main Street" |t |raw,
+						id: 'genericOwnerStreetAddress',
+						class: 'nicetext',
+						name: 'genericOwnerStreetAddress',
+						value: identity.genericOwnerStreetAddress,
+						required: false,
+						locale: identity.locale,
+					}) }}
+
+					<div class="field">
+						<div class="half-width-field half-width-field-left">
+						{{ forms.textField({
+							label: "Entity Locality"|t,
+							instructions: "The locality of the entity that owns the website, e.g.: Portchester" |t |raw,
+							id: 'genericOwnerAddressLocality',
+							class: 'nicetext',
+							name: 'genericOwnerAddressLocality',
+							value: identity.genericOwnerAddressLocality,
+							required: false,
+							locale: identity.locale,
+						}) }}
+						</div>
+						<div class="half-width-field">
+						{{ forms.textField({
+							label: "Entity Region"|t,
+							instructions: "The region of the entity that owns the website, e.g.: New York or NY" |t |raw,
+							id: 'genericOwnerAddressRegion',
+							class: 'nicetext',
+							name: 'genericOwnerAddressRegion',
+							value: identity.genericOwnerAddressRegion,
+							required: false,
+							locale: identity.locale,
+						}) }}
+						</div>
+					</div>
+					
+					<div class="field">
+						<div class="half-width-field half-width-field-left">
+						{{ forms.textField({
+							label: "Entity Postal Code"|t,
+							instructions: "The postal code of the entity that owns the website, e.g.: 14580" |t |raw,
+							id: 'genericOwnerPostalCode',
+							class: 'nicetext',
+							name: 'genericOwnerPostalCode',
+							value: identity.genericOwnerPostalCode,
+							required: false,
+							locale: identity.locale,
+						}) }}
+						</div>
+						<div class="half-width-field">
+						{{ forms.textField({
+							label: "Entity Country"|t,
+							instructions: "The country in which the entity that owns the website is located, e.g.: USA" |t |raw,
+							id: 'genericOwnerAddressCountry',
+							class: 'nicetext',
+							name: 'genericOwnerAddressCountry',
+							value: identity.genericOwnerAddressCountry,
 							required: true,
 							locale: identity.locale,
 						}) }}
-						
-						{{ forms.textField({
-							label: "Alternate Entity Name"|t,
-							instructions: "An alternate or nickname for the entity that owns the website" |t |raw,
-							id: 'genericOwnerAlternateName',
-							class: 'nicetext',
-							name: 'genericOwnerAlternateName',
-							value: identity.genericOwnerAlternateName,
-							required: false,
-							locale: identity.locale,
-						}) }}
-
-						<div class="field" id="genericOwnerDescription-field">
-							<div class="heading">
-								<label for="genericOwnerDescription">{{ "Entity Description"|t}}{% if craft.isLocalized and identity.locale %}<span class="locale">{{ identity.locale }}</span>{% endif %}</label>
-								<div class="instructions"><p>{{ "A description of the entity that owns the website" |t |raw}}</p></div>
-							</div>
-							{{ forms.textarea({
-								label: "Entity Description"|t,
-								instructions: "A description of the entity that owns the website" |t |raw,
-								id: 'genericOwnerDescription',
-								class: 'nicetext',
-								name: 'genericOwnerDescription',
-								value: identity.genericOwnerDescription,
-								required: false,
-								locale: identity.locale,
-							}) }}
 						</div>
-
-						{{ forms.textField({
-							label: "Entity URL"|t,
-							instructions: "A URL for the entity that owns the website" |t |raw,
-							id: 'genericOwnerUrl',
-							class: 'nicetext',
-							name: 'genericOwnerUrl',
-							value: identity.genericOwnerUrl,
-							required: false,
-							locale: identity.locale,
-						}) }}
-
-						<div class="field" id="genericOwnerImageId-field">
-							<div class="heading">
-								<label for="genericOwnerImageId">{{ "Entity Brand"|t}}{% if craft.isLocalized and identity.locale %}<span class="locale">{{ identity.locale }}</span>{% endif %}</label>
-								<div class="instructions"><p>{{ "An image or logo that represents the entity that owns the website" |t |raw}}</p></div>
-							</div>
-							<div class="input">
-								{% if assetsSourceExists %}
-									{{ forms.elementSelect({
-										elements: elementsOwnerImage,
-										id: 'genericOwnerImageId',
-										name: 'genericOwnerImageId',
-										elementType: elementType,
-										criteria: {
-											'kind': [],
-											'localeEnabled': null,
-											'locale': craft.locale,
-										},
-										sourceElementId: genericOwnerImageId,
-										jsClass: 'Craft.AssetSelectInput',
-										addButtonLabel: "Select Brand Image" |t,
-										limit: 1,
-										locale: identity.locale,
-									}) }}
-								{% else %}
-									<p class="error">No assets sources currently exist. <a href="{{ newAssetsSourceUrl }}">Create one now...</a></p>
-								{% endif %}
-							</div>
-						</div>
-
-						{{ forms.textField({
-							label: "Entity Telephone"|t,
-							instructions: "The primary contact telephone number for the entity that owns the website" |t |raw,
-							id: 'genericOwnerTelephone',
-							class: 'nicetext',
-							name: 'genericOwnerTelephone',
-							value: identity.genericOwnerTelephone,
-							required: false,
-							locale: identity.locale,
-						}) }}
-
-						{{ forms.textField({
-							label: "Entity Email"|t,
-							instructions: "The primary contact email address for the entity that owns the website" |t |raw,
-							id: 'genericOwnerEmail',
-							class: 'nicetext',
-							name: 'genericOwnerEmail',
-							value: identity.genericOwnerEmail,
-							required: false,
-							locale: identity.locale,
-						}) }}
-
-<!-- Location -->
-						<h2>{{ "Location Info" |t }}</h2>
-
-						<div class="field">
-							<div class="half-width-field half-width-field-left">
-							{{ forms.textField({
-								label: "Entity Latitude"|t,
-								instructions: "The latitude of the location of the entity that owns the website, e.g.: -120.5436367" |t |raw,
-								id: 'genericOwnerGeoLatitude',
-								class: 'nicetext',
-								name: 'genericOwnerGeoLatitude',
-								value: identity.genericOwnerGeoLatitude,
-								required: false,
-								locale: identity.locale,
-							}) }}
-							</div>
-							
-							<div class="half-width-field">
-							{{ forms.textField({
-								label: "Entity Longitude"|t,
-								instructions: "The longitude of the location of the entity that owns the website, e.g.: 80.6033588" |t |raw,
-								id: 'genericOwnerGeoLongitude',
-								class: 'nicetext',
-								name: 'genericOwnerGeoLongitude',
-								value: identity.genericOwnerGeoLongitude,
-								required: false,
-								locale: identity.locale,
-							}) }}
-							</div>
-						</div>
-						
-						{{ forms.textField({
-							label: "Entity Street Address"|t,
-							instructions: "The street address of the entity that owns the website, e.g.: 123 Main Street" |t |raw,
-							id: 'genericOwnerStreetAddress',
-							class: 'nicetext',
-							name: 'genericOwnerStreetAddress',
-							value: identity.genericOwnerStreetAddress,
-							required: false,
-							locale: identity.locale,
-						}) }}
-
-						<div class="field">
-							<div class="half-width-field half-width-field-left">
-							{{ forms.textField({
-								label: "Entity Locality"|t,
-								instructions: "The locality of the entity that owns the website, e.g.: Portchester" |t |raw,
-								id: 'genericOwnerAddressLocality',
-								class: 'nicetext',
-								name: 'genericOwnerAddressLocality',
-								value: identity.genericOwnerAddressLocality,
-								required: false,
-								locale: identity.locale,
-							}) }}
-							</div>
-							<div class="half-width-field">
-							{{ forms.textField({
-								label: "Entity Region"|t,
-								instructions: "The region of the entity that owns the website, e.g.: New York or NY" |t |raw,
-								id: 'genericOwnerAddressRegion',
-								class: 'nicetext',
-								name: 'genericOwnerAddressRegion',
-								value: identity.genericOwnerAddressRegion,
-								required: false,
-								locale: identity.locale,
-							}) }}
-							</div>
-						</div>
-						
-						<div class="field">
-							<div class="half-width-field half-width-field-left">
-							{{ forms.textField({
-								label: "Entity Postal Code"|t,
-								instructions: "The postal code of the entity that owns the website, e.g.: 14580" |t |raw,
-								id: 'genericOwnerPostalCode',
-								class: 'nicetext',
-								name: 'genericOwnerPostalCode',
-								value: identity.genericOwnerPostalCode,
-								required: false,
-								locale: identity.locale,
-							}) }}
-							</div>
-							<div class="half-width-field">
-							{{ forms.textField({
-								label: "Entity Country"|t,
-								instructions: "The country in which the entity that owns the website is located, e.g.: USA" |t |raw,
-								id: 'genericOwnerAddressCountry',
-								class: 'nicetext',
-								name: 'genericOwnerAddressCountry',
-								value: identity.genericOwnerAddressCountry,
-								required: true,
-								locale: identity.locale,
-							}) }}
-							</div>
-						</div>
-						
+					</div>
+					
 <!-- General organization fields -->
 
-	                    <div id="generic" class="metaPane">
-							<h2>{{ "Organization Info" |t }}</h2>
-	
-							<div class="field">
-								<div class="half-width-field half-width-field-left">
-								{{ forms.textField({
-									label: "Organization DUNS Number"|t,
-									instructions: "The DUNS (Dunn & Bradstreet) number of the organization/company/restaurant that owns the website" |t |raw,
-									id: 'organizationOwnerDuns',
-									class: 'nicetext',
-									name: 'organizationOwnerDuns',
-									value: identity.organizationOwnerDuns,
-									required: false,
-									locale: identity.locale,
-								}) }}
-								</div>
-								<div class="half-width-field">
-								{{ forms.textField({
-									label: "Organization Founder"|t,
-									instructions: "The name of the founder of the organization/company/restaurant" |t |raw,
-									id: 'organizationOwnerFounder',
-									class: 'nicetext',
-									name: 'organizationOwnerFounder',
-									value: identity.organizationOwnerFounder,
-									required: false,
-									locale: identity.locale,
-								}) }}
-								</div>
-							</div>
+                    <div id="generic" class="metaPane">
+						<h2>{{ "Organization Info" |t }}</h2>
 
-							<div class="field">
-								<div class="half-width-field half-width-field-left">
-								{{ forms.textField({
-									label: "Organization Founding Date"|t,
-									instructions: "The date the organization/company/restaurant was founded" |t |raw,
-									id: 'organizationOwnerFoundingDate',
-									class: 'nicetext',
-									name: 'organizationOwnerFoundingDate',
-									value: identity.organizationOwnerFoundingDate,
-									required: false,
-									locale: identity.locale,
-								}) }}
-								</div>
-								<div class="half-width-field">
-								{{ forms.textField({
-									label: "Organization Founding Location"|t,
-									instructions: "The location where the organization/company/restaurant was founded" |t |raw,
-									id: 'organizationOwnerFoundingLocation',
-									class: 'nicetext',
-									name: 'organizationOwnerFoundingLocation',
-									value: identity.organizationOwnerFoundingLocation,
-									required: false,
-									locale: identity.locale,
-								}) }}
-								</div>
-							</div>
-							
-	                    </div>
-	                    
-<!-- Corporation-specific fields -->
-
-	                    <div id="corporation" class="metaPane field">
-							<h2>{{ "Corporation Info" |t }}</h2>
+						<div class="field">
+							<div class="half-width-field half-width-field-left">
 							{{ forms.textField({
-								label: "Corporation Ticker Symbol"|t,
-								instructions: "The exchange ticker symbol of the corporation" |t |raw,
-								id: 'corporationOwnerTickerSymbol',
+								label: "Organization DUNS Number"|t,
+								instructions: "The DUNS (Dunn & Bradstreet) number of the organization/company/restaurant that owns the website" |t |raw,
+								id: 'organizationOwnerDuns',
 								class: 'nicetext',
-								name: 'corporationOwnerTickerSymbol',
-								value: identity.corporationOwnerTickerSymbol,
+								name: 'organizationOwnerDuns',
+								value: identity.organizationOwnerDuns,
 								required: false,
 								locale: identity.locale,
 							}) }}
-	                    </div>
+							</div>
+							<div class="half-width-field">
+							{{ forms.textField({
+								label: "Organization Founder"|t,
+								instructions: "The name of the founder of the organization/company/restaurant" |t |raw,
+								id: 'organizationOwnerFounder',
+								class: 'nicetext',
+								name: 'organizationOwnerFounder',
+								value: identity.organizationOwnerFounder,
+								required: false,
+								locale: identity.locale,
+							}) }}
+							</div>
+						</div>
+
+						<div class="field">
+							<div class="half-width-field half-width-field-left">
+							{{ forms.textField({
+								label: "Organization Founding Date"|t,
+								instructions: "The date the organization/company/restaurant was founded" |t |raw,
+								id: 'organizationOwnerFoundingDate',
+								class: 'nicetext',
+								name: 'organizationOwnerFoundingDate',
+								value: identity.organizationOwnerFoundingDate,
+								required: false,
+								locale: identity.locale,
+							}) }}
+							</div>
+							<div class="half-width-field">
+							{{ forms.textField({
+								label: "Organization Founding Location"|t,
+								instructions: "The location where the organization/company/restaurant was founded" |t |raw,
+								id: 'organizationOwnerFoundingLocation',
+								class: 'nicetext',
+								name: 'organizationOwnerFoundingLocation',
+								value: identity.organizationOwnerFoundingLocation,
+								required: false,
+								locale: identity.locale,
+							}) }}
+							</div>
+						</div>
+						
+                    </div>
+                    
+<!-- Corporation-specific fields -->
+
+                    <div id="corporation" class="metaPane field">
+						<h2>{{ "Corporation Info" |t }}</h2>
+						{{ forms.textField({
+							label: "Corporation Ticker Symbol"|t,
+							instructions: "The exchange ticker symbol of the corporation" |t |raw,
+							id: 'corporationOwnerTickerSymbol',
+							class: 'nicetext',
+							name: 'corporationOwnerTickerSymbol',
+							value: identity.corporationOwnerTickerSymbol,
+							required: false,
+							locale: identity.locale,
+						}) }}
+                    </div>
 
 <!-- Organization-specific fields -->
 
-	                    <div id="organization" class="metaPane field">
-	                    </div>
+                    <div id="organization" class="metaPane field">
+                    </div>
 
 <!-- Restaurant-specific fields -->
 
-	                    <div id="restaurant" class="metaPane field">
-							<h2>{{ "Restaurant Info" |t }}</h2>
-							{{ forms.textField({
-								label: "Restaurant Cuisine"|t,
-								instructions: "The primary type of cuisine that the restaurant serves" |t |raw,
-								id: 'restaurantOwnerServesCuisine',
-								class: 'nicetext',
-								name: 'restaurantOwnerServesCuisine',
-								value: identity.restaurantOwnerServesCuisine,
-								required: false,
-								locale: identity.locale,
-							}) }}
-	                    </div>
+                    <div id="restaurant" class="metaPane field">
+						<h2>{{ "Restaurant Info" |t }}</h2>
+						{{ forms.textField({
+							label: "Restaurant Cuisine"|t,
+							instructions: "The primary type of cuisine that the restaurant serves" |t |raw,
+							id: 'restaurantOwnerServesCuisine',
+							class: 'nicetext',
+							name: 'restaurantOwnerServesCuisine',
+							value: identity.restaurantOwnerServesCuisine,
+							required: false,
+							locale: identity.locale,
+						}) }}
+                    </div>
 
 <!-- Person-specific fields -->
 
-	                    <div id="person" class="metaPane field">
-							<h2>{{ "Person Info" |t }}</h2>
-							<div class="field">
-								<div class="half-width-field half-width-field-left">
-								{{ forms.selectField({
-									label: "Person Gender"|t,
-									instructions: "The gender of the person" |t |raw,
-									id: 'personOwnerGender',
-									class: 'nicetext',
-			                        options: {
-				            			"Male": "Male"|t,
-				            			"Female": "Female"|t,
-				            			"Other": "Other"|t,
-			                        },
-									name: 'personOwnerGender',
-									value: identity.personOwnerGender,
-									required: false,
-									locale: identity.locale,
-								}) }}
-								</div>
-								<div class="half-width-field">
-								{{ forms.textField({
-									label: "Person Birth Place"|t,
-									instructions: "The place where the person was born" |t |raw,
-									id: 'personOwnerBirthPlace',
-									class: 'nicetext',
-									name: 'personOwnerBirthPlace',
-									value: identity.personOwnerBirthPlace,
-									required: false,
-									locale: identity.locale,
-								}) }}
-								</div>
+                    <div id="person" class="metaPane field">
+						<h2>{{ "Person Info" |t }}</h2>
+						<div class="field">
+							<div class="half-width-field half-width-field-left">
+							{{ forms.selectField({
+								label: "Person Gender"|t,
+								instructions: "The gender of the person" |t |raw,
+								id: 'personOwnerGender',
+								class: 'nicetext',
+		                        options: {
+			            			"Male": "Male"|t,
+			            			"Female": "Female"|t,
+			            			"Other": "Other"|t,
+		                        },
+								name: 'personOwnerGender',
+								value: identity.personOwnerGender,
+								required: false,
+								locale: identity.locale,
+							}) }}
 							</div>
-	                    </div>
-                        
-                        <p>&nbsp;</p>
-	 					<p>{{ "<p>You can use any Craft <code>environmentVariables</code> in these fields in addition to static text, e.g.:<br /> <code>This is my {baseUrl}</code></p>" |t |raw }}</p>
-            
-					</div>
-										
-				</div>
-	
-				<div class="item" data-position="right" data-colspan="1">
-	
-					<div id="preview-display" class="btn big livepreviewbtn">
-						{{ "Preview SEO Meta Display" |t }}
-					</div>
-
-					<div id="preview-tags" class="btn big livepreviewbtn secondbtn">
-						{{ "Preview SEO Meta Tags" |t }}
-					</div>
-
-					{% if craft.isLocalized %}
-						<ul id="locales" class="pane">
-							{% for locale in craft.i18n.getSiteLocales() %}
-								{% if locale == identity.locale %}
-									<li class="sel">{{ locale.name }}</li>
-								{% else %}
-									<li><a href="{{ url('seomatic/identity') ~ '/' ~ locale.id }}">{{ locale.name }}</a></li>
-								{% endif %}
-							{% endfor %}
-							<li><p class="instructions">{{ "If any field is left blank for a setting in a particular locale, it will fall back on the primary locale." |t |raw }}</p></li>
-						</ul>
-					{% endif %}
-					
-					<div class="pane">
-						<div style="text-align:center; margin:0 auto;">
-							<img src="{{ resourceUrl('seomatic/images/site_identity.svg') }}" width="64px" height="auto" />
+							<div class="half-width-field">
+							{{ forms.textField({
+								label: "Person Birth Place"|t,
+								instructions: "The place where the person was born" |t |raw,
+								id: 'personOwnerBirthPlace',
+								class: 'nicetext',
+								name: 'personOwnerBirthPlace',
+								value: identity.personOwnerBirthPlace,
+								required: false,
+								locale: identity.locale,
+							}) }}
+							</div>
 						</div>
-						{{ "<p>These Site Identity settings are used to globally define the identity and ownership of the website.</p><p>They are used in combination with the SEO Template Meta settings to generate <a href='https://developers.google.com/schemas/formats/json-ld?hl=en' target='_blank'>JSON-LD</a> microdata, <a href='http://dublincore.org' target='_blank'>Dublin Core</a> core metadata, <a href='https://dev.twitter.com/cards/overview' target='_blank'>Twitter Cards</a>, <a href='https://developers.facebook.com/docs/sharing/opengraph' target='_blank'>Facebook OpenGraph</a>, and as well as HTML meta tags.<p>The Site Owner type determines the JSON-LD schema that will be used to identity the website to search engines.</p><p>Leave any fields blank that aren't applicable or which you do not want as part of the SEO schema.</p>" |t |raw }}
+                    </div>
+                    
+                    <p>&nbsp;</p>
+ 					<p>{{ "<p>You can use any Craft <code>environmentVariables</code> in these fields in addition to static text, e.g.:<br /> <code>This is my {baseUrl}</code></p>" |t |raw }}</p>
+        
+				</div>
+									
+			</div>
+
+			<div class="item" data-position="right" data-colspan="1">
+
+				<div id="preview-display" class="btn big livepreviewbtn">
+					{{ "Preview SEO Meta Display" |t }}
+				</div>
+
+				<div id="preview-tags" class="btn big livepreviewbtn secondbtn">
+					{{ "Preview SEO Meta Tags" |t }}
+				</div>
+
+				{% if craft.isLocalized %}
+					<ul id="locales" class="pane">
+						{% for locale in craft.i18n.getSiteLocales() %}
+							{% if locale == identity.locale %}
+								<li class="sel">{{ locale.name }}</li>
+							{% else %}
+								<li><a href="{{ url('seomatic/identity') ~ '/' ~ locale.id }}">{{ locale.name }}</a></li>
+							{% endif %}
+						{% endfor %}
+						<li><p class="instructions">{{ "If any field is left blank for a setting in a particular locale, it will fall back on the primary locale." |t |raw }}</p></li>
+					</ul>
+				{% endif %}
+				
+				<div class="pane">
+					<div style="text-align:center; margin:0 auto;">
+						<img src="{{ resourceUrl('seomatic/images/site_identity.svg') }}" width="64px" height="auto" />
 					</div>
-	
+					{{ "<p>These Site Identity settings are used to globally define the identity and ownership of the website.</p><p>They are used in combination with the SEO Template Meta settings to generate <a href='https://developers.google.com/schemas/formats/json-ld?hl=en' target='_blank'>JSON-LD</a> microdata, <a href='http://dublincore.org' target='_blank'>Dublin Core</a> core metadata, <a href='https://dev.twitter.com/cards/overview' target='_blank'>Twitter Cards</a>, <a href='https://developers.facebook.com/docs/sharing/opengraph' target='_blank'>Facebook OpenGraph</a>, and as well as HTML meta tags.<p>The Site Owner type determines the JSON-LD schema that will be used to identity the website to search engines.</p><p>Leave any fields blank that aren't applicable or which you do not want as part of the SEO schema.</p>" |t |raw }}
+				</div>
+
+			</div>
+
+<!-- Needed for for Craft < 2.5 -->
+
+			{% if craft.app.version < 2.5 %}
+			<div class="item" data-position="left" data-colspan="1">
+				<div class="buttons">
+					<div class="btngroup submit first">
+						<input type="submit" class="btn submit" value="{{ 'Save'|t }}">
+					</div>
 				</div>
 			</div>
+			{% endif %}
+
+		</div>
+
+<!-- Needed for for Craft < 2.5 -->
+
+	{% if craft.app.version < 2.5 %}
+	</form>
+	{% endif %}
 
 {% endblock %}

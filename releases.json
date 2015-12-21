@@ -5,6 +5,7 @@
         "date": "2015-12-21T11:00:00-05:00",
         "notes": [
             "[Fixed] Fixed an issue with the TextRank lib not being properly in the git repo, causing it to error when used",
+            "[Fixed] The SEOmatic settings pages now have a SAVE button on them for Craft 2.4",
             "[Improved] Updated the README.md"
         ]
     },
