@@ -1,0 +1,36 @@
+A "storage grid" is made up of one or more storage servers. In the case of S4, the grid has one server which is run by Least Authority, and configured to store its data in Amazon Simple Storage Service (S3). A "gateway" uses the storage servers and provides access to the filesystem over HTTP(S), SFTP, or FTP.
+
+Users do not rely on storage servers to provide confidentiality nor integrity for their data -- instead all of the data is encrypted and integrity-checked by the gateway, so that the servers can neither read nor modify the contents of the files. Users do rely on storage servers for availability. On Amazon S3, data is replicated according to the following policy decribed in Amazon's Overview of Security Processes:
+
+ [...] Objects are redundantly stored on multiple devices across multiple facilities in an Amazon S3 region. To help provide durability, Amazon S3 PUT and COPY operations synchronously store customer data across multiple facilities before returning SUCCESS. Once stored, Amazon S3 helps maintain the durability of the objects by quickly detecting and repairing any lost redundancy. Amazon S3 also regularly verifies the integrity of data stored using checksums. If corruption is detected, it is repaired using redundant data. In addition, Amazon S3 calculates checksums on all network traffic to detect corruption of data packets when storing or retrieving data.
+ In the typical deployment mode each user runs her own gateway on her own machine. This way she relies on her own machine for the confidentiality and integrity of the data.
+
+ An alternate deployment mode is that the gateway runs on a remote machine and the user connects to it over HTTPS or SFTP. This means that the operator of the gateway can view and modify the user's data (the user relies on the gateway for confidentiality and integrity), but the advantage is that the user can access the filesystem with a client that doesn't have the gateway software installed, such as a cell phone.
+
+ Here is an interactive demonstration of LAFS storing and recovering a file.
+
+ LAFS also supports access control. In LAFS, there are two kinds of files: immutable and mutable. When you upload a file to the storage grid you can choose which kind of file it will be in the grid. Immutable files can't be modified once they have been uploaded. A mutable file can be modified by someone with read-write access to it. A user can have read-write access to a mutable file or read-only access to it, or no access to it at all.
+
+ A user who has read-write access to a mutable file or directory can give another user read-write access to that file or directory, or they can give read-only access to that file or directory. A user who has read-only access to a file or directory can give another user read-only access to it.
+
+ When linking a file or directory into a parent directory, you can use a read-write link or a read-only link. If you use a read-write link, then anyone who has read-write access to the parent directory can gain read-write access to the child, and anyone who has read-only access to the parent directory can gain read-only access to the child. If you use a read-only link, then anyone who has either read-write or read-only access to the parent directory can gain read-only access to the child.
+
+ For more technical detail, please see the LAFS project's docs page.
+
+ What is verifiable end-to-end security?
+ Every seller of cloud storage services will tell you that their service is "secure". But what they mean by that is something fundamentally different from what we mean. What they mean by "secure" is that after you've given them the power to read and modify your data, they try really hard not to let this power be abused. This turns out to be difficult! Bugs, misconfigurations, or operator error can accidentally expose your data to another customer or to the public, or can corrupt your data. Criminals routinely gain illicit access to corporate servers. Even more insidious is the fact that the employees themselves sometimes violate customer privacy out of carelessness, avarice, or mere curiousity. The most conscientious of these service providers spend considerable effort and expense trying to mitigate these risks. However, some privacy breach is inevitable--if by nothing else, then by government order via programs like PRISM.
+
+ What we mean by "security" is something different. The service provider never has the ability to read or modify your data in the first place: never. If you use S4, then all of the threats described above are non-issues to you. Not only is it easy and inexpensive for the service provider to maintain the security of your data, but in fact they couldn't violate its security if they tried. This is what we call provider-independent security.
+
+ This guarantee is integrated naturally into S4 (and LAFS, on which S4 is based) and and doesn't require you to perform a manual pre-encryption step or cumbersome key management. (After all, having to do cumbersome manual operations when storing or accessing your data would nullify one of the primary benefits of using cloud storage in the first place: convenience.)
+
+ Transparency
+ Zooko Wilcox-O'Hearn, founder and CEO of Least Authority Enterprises, was one of the inventors of LAFS. Least Authority Enterprises contributes all of the code we write to the free and open source software project. We believe that's the best thing for our customers.
+
+ The Python source code for this website, our automation and monitoring scripts, and our fork of LAFS to support Amazon S3 are all open-sourced under the same licenses as LAFS itself. The S3 backend depends on a fork of the txaws library that is open-sourced under the MIT / X / Expat License.
+
+ To obtain this source code, you currently need to install both darcs and git (we're part-way through a transition from darcs to git). Then use:
+
+   darcs get --lazy https://leastauthority.com/static/source/ticket999-S3-
+     git clone https://github.com/LeastAuthority/leastauthority.com
+     The patches to txaws are at https://leastauthority.com/static/patches.

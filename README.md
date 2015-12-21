@@ -214,6 +214,8 @@ SEOmatic uses its own internal template for rendering; but you can provide it wi
 
 ...and it'll use your custom template instead.
 
+If the [Minify](https://github.com/khalwat/minify) plugin is installed, SEOmatic will minify the SEO Meta tags & JSON-LD.
+
 ## Dynamic Twig SEO Meta
 
 All this SEO is great, but what if you want to generate dynamic SEO in an Twig template, for example on a Blog page where each blog entry should have different SEO Meta?  SEOmatic makes it easy.
@@ -1036,6 +1038,11 @@ Some things to do, and ideas for potential features:
 * [feature] Add a "Lookup Geo Coordinates" button to the Site Identity and Site Creator pages.
 
 ## Changelog
+
+### 1.0.3 -- 2015.12.21
+
+* [Fixed] Fixed an issue with the TextRank lib not being properly in the git repo, causing it to error when used
+* [Improved] Updated the README.md
 
 ### 1.0.2 -- 2015.12.20
 

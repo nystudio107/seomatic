@@ -1,0 +1,21 @@
+{
+    "name": "crodas/text-rank",
+    "description": "Extract relevant keywords from a given text",
+    "require": {
+        "ext-mbstring": "*",
+        "crodas/languagedetector": "~0.1"
+    },
+    "suggest": {
+        "ext-stem": "Improves keywords selection"
+    },
+    "authors": [
+        {
+            "name": "César D. Rodas",
+            "email": "crodas@php.net"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "classmap":["lib/"]
+    }
+}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- http://www.phpunit.de/manual/current/en/appendixes.configuration.html -->
+<phpunit
+    backupGlobals               = "false"
+    backupStaticAttributes      = "false"
+    colors                      = "true"
+    convertErrorsToExceptions   = "true"
+    convertNoticesToExceptions  = "true"
+    convertWarningsToExceptions = "true"
+    processIsolation            = "false"
+    stopOnError                 = "true"
+    stopOnFailure               = "true"
+    stopOnIncomplete            = "false"
+    stopOnSkipped               = "false"
+    syntaxCheck                 = "true"
+    strict                      = "false"
+    verbose                     = "true"
+    debug                       = "true"
+    bootstrap                   = "tests/bootstrap.php" >
+
+    <testsuites>
+        <testsuite name="Dispatcher tests">
+            <directory>tests/</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>lib/</directory>
+            <directory>tests/tmp/</directory>
+            <exclude>
+                <directory>lib/Dispatcher/Template</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
+</phpunit>
