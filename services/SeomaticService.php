@@ -50,7 +50,7 @@ class SeomaticService extends BaseApplicationComponent
 		if ($shouldCache)	    
 			craft()->cache->set($cacheKey, $htmlText, null);
 
-        return TemplateHelper::getRaw($htmlText);
+        return $htmlText;
     } /* -- renderSiteMeta */
 
 /* --------------------------------------------------------------------------------
@@ -83,7 +83,7 @@ class SeomaticService extends BaseApplicationComponent
             craft()->path->setTemplatesPath($oldPath);
             }
 
-        return TemplateHelper::getRaw($htmlText);
+        return $htmlText;
     } /* -- render */
 
 /* --------------------------------------------------------------------------------
@@ -102,7 +102,7 @@ class SeomaticService extends BaseApplicationComponent
 
         craft()->path->setTemplatesPath($oldPath);
 
-        return TemplateHelper::getRaw($htmlText);
+        return $htmlText;
     } /* -- renderDisplayPreview */
 
 /* --------------------------------------------------------------------------------
@@ -131,7 +131,7 @@ class SeomaticService extends BaseApplicationComponent
 
             craft()->path->setTemplatesPath($oldPath);
             }
-        return TemplateHelper::getRaw($htmlText);
+        return $htmlText;
     } /* -- renderIdentity */
 
 /* --------------------------------------------------------------------------------
@@ -160,7 +160,7 @@ class SeomaticService extends BaseApplicationComponent
 
             craft()->path->setTemplatesPath($oldPath);
             }
-        return TemplateHelper::getRaw($htmlText);
+        return $htmlText;
     } /* -- renderWebsite */
 
 /* --------------------------------------------------------------------------------
