@@ -26,13 +26,13 @@
 
 {{ forms.textField({
 	label: "SEO Title"|t,
-	instructions: "This should be between 10 and 70 characters (spaces included).  Make sure your title tag is explicit and contains your most important keywords. Be sure that each page has a unique title tag." |t |raw,
+	instructions: "This should be between 10 and 70 characters (spaces included).  Make sure your title tag is explicit and contains your most important keywords. Be sure that each page has a unique title tag.  The <code>siteSeoName</code> length is subtracted from the 70 character limit automatically, since it is appended to the <code>seoTitle</code>." |t |raw,
 	id: 'seoTitle',
 	class: 'nicetext',
 	name: 'seoTitle',
 	value: meta.seoTitle,
 	errors: meta.getErrors('seoTitle'),
-	maxlength: 70,
+	maxlength: titleLength,
 	showCharsLeft: true,
 	required: false,
 	locale: meta.locale,

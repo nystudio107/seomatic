@@ -453,6 +453,7 @@ Additionally, the following variables are generated for you automatically for th
     seomaticIdentity.copyrightNotice
     seomaticIdentity.addressString
     seomaticIdentity.addressHtml
+    seomaticIdentity.mapUrl
 
 All of the variables are from your Site Identity settings, and will be the same for every template rendered.
 
@@ -534,6 +535,7 @@ Additionally, the following variables are generated for you automatically for th
     seomaticCreator.copyrightNotice
     seomaticCreator.addressString
     seomaticCreator.addressHtml
+    seomaticCreator.mapUrl
     
 All of the variables are from your Site Creator settings, and will be the same for every template rendered.
 
@@ -959,6 +961,7 @@ Some things to do, and ideas for potential features:
 * [Added] Added 'copyrightNotice', 'addressString', 'addressHtml', & 'mapUrl' to 'seomaticCreator'
 * [Added] Added 'hasMap' to the 'location' schema
 * [Added] Added a 'Look up Latitude/Longitude' button to the Site Identity & Site Creator settings
+* [Fixed] Fixed an issue with the releases.json; the 'Update' button should show up going forward for the plugin
 * [Improved] The length of the 'seoSiteName' is now taken into account when truncating the 'seoTitle'
 * [Improved] Updated the README.md
 

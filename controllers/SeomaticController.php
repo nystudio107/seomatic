@@ -10,11 +10,16 @@ class SeomaticController extends BaseController
 
     public function actionEditSiteMeta(array $variables = array())
     {   
+	    
 	    if (isset($variables['locale']))
 	    	$locale = $variables['locale'];
 	    else
 	    	$locale = craft()->language;
-        $variables['siteMeta'] = craft()->seomatic->getSiteMeta($locale);
+
+	    $siteMeta = craft()->seomatic->getSiteMeta($locale);
+	    $variables['titleLength'] = (70 - strlen(" | ") - strlen($siteMeta['siteSeoName']));
+
+        $variables['siteMeta'] = $siteMeta;
         
         // Whether any assets sources exist
         $sources = craft()->assets->findFolders();
@@ -122,6 +127,7 @@ class SeomaticController extends BaseController
 	    	$locale = $variables['locale'];
 	    else
 	    	$locale = craft()->language;
+
         $variables['creator'] = craft()->seomatic->getCreator($locale);
         
         // Whether any assets sources exist
@@ -169,6 +175,9 @@ class SeomaticController extends BaseController
         $locale = null;
         if (isset($variables['locale']))
             $locale = $variables['locale'];
+
+	    $siteMeta = craft()->seomatic->getSiteMeta($locale);
+	    $variables['titleLength'] = (70 - strlen(" | ") - strlen($siteMeta['siteSeoName']));
             
         if (empty($variables['meta']))
         {

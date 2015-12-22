@@ -489,7 +489,7 @@ class SeomaticService extends BaseApplicationComponent
 		$now = new DateTime;
 		$identity['copyrightNotice'] = Craft::t("Copyright") . " &copy;" . $now->year() . ", " . $identity['genericOwnerName'] . ". " . Craft::t("All rights reserved.");
 
-		$identity['mapUrl'] = '';
+		$identity['addressString'] = '';
 		$identity['addressHtml'] = '';
 		$identity['mapUrl'] = '';
 		if ($identity['genericOwnerStreetAddress'] &&
