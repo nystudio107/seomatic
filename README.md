@@ -958,7 +958,7 @@ Some things to do, and ideas for potential features:
 * [Added] Added 'copyrightNotice', 'addressString', 'addressHtml', & 'mapUrl' to 'seomaticIdentity'
 * [Added] Added 'copyrightNotice', 'addressString', 'addressHtml', & 'mapUrl' to 'seomaticCreator'
 * [Added] Added 'hasMap' to the 'location' schema
-* [feature] Added a 'Look up Latitude/Longitude' button to the Site Identity & Site Creator settings
+* [Added] Added a 'Look up Latitude/Longitude' button to the Site Identity & Site Creator settings
 * [Improved] The length of the 'seoSiteName' is now taken into account when truncating the 'seoTitle'
 * [Improved] Updated the README.md
 

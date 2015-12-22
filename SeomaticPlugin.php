@@ -20,7 +20,7 @@ class SeomaticPlugin extends BasePlugin
     
     public function getReleaseFeedUrl()
     {
-        return 'https://github.com/khalwat/seomatic/blob/master/releases.json';
+        return 'https://raw.githubusercontent.com/khalwat/seomatic/master/releases.json';
     }
     
     public function getVersion()
