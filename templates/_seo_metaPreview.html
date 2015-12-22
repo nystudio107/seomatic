@@ -28,7 +28,7 @@
 <meta name="dcterms.Publisher" content="{{ seomaticSiteMeta.siteSeoName }}" /> <!-- {% verbatim %}{{ seomaticSiteMeta.siteSeoName }}{% endverbatim %} -->
 <meta name="dcterms.Type" content="text/html" /> <!-- {% verbatim %}text/html{% endverbatim %} -->
 <meta name="dcterms.Coverage" content="{{ siteUrl }}" /> <!-- {% verbatim %}{{ siteUrl }}{% endverbatim %} -->
-<meta name="dcterms.Rights" content="Copyright &copy;{{ now | date('Y') }}, {{ seomaticIdentity.genericOwnerName }}. All rights reserved." /> <!-- {% verbatim %}Copyright &copy;{{ now | date('Y') }}, {{ seomaticIdentity.genericOwnerName }}. All rights reserved.{% endverbatim %} -->
+<meta name="dcterms.Rights" content="{{ seomaticIdentity.copyrightNotice }}" /> <!-- {% verbatim %}{{ seomaticIdentity.copyrightNotice }}{% endverbatim %} -->
 <meta name="dcterms.Title" content="{{ seomaticMeta.seoTitle }}" /> <!-- {% verbatim %}{{ seomaticMeta.seoTitle }}{% endverbatim %} -->
 <meta name="dcterms.Creator" content="{{ seomaticCreator.genericCreatorName }}" /> <!-- {% verbatim %}{{ seomaticCreator.genericCreatorName }}{% endverbatim %} -->
 <meta name="dcterms.Subject" content="{{ seomaticMeta.seoKeywords }}" /> <!-- {% verbatim %}{{ seomaticMeta.seoKeywords }}{% endverbatim %} -->

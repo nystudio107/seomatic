@@ -214,7 +214,13 @@
 						}) }}
 						</div>
 					</div>
-					
+
+					<div class="buttons">
+						<div class="btngroup submit first">
+							<input id="geolookup" type="button" class="btn submit" value="{{ 'Look up Latitude/Longitude'|t }}">
+						</div>
+					</div>
+
 					{{ forms.textField({
 						label: "Entity Street Address"|t,
 						instructions: "The street address of the entity that owns the website, e.g.: 123 Main Street" |t |raw,

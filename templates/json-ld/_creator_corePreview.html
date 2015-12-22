@@ -42,6 +42,9 @@
 {% if seomaticCreator.genericCreatorDescription %}
 		"description": "{{ seomaticCreator.genericCreatorDescription }}",
 {% endif %}
+{% if seomaticCreator.mapUrl %}
+		"hasMap": "{{ seomaticCreator.mapUrl }}",
+{% endif %}
 {% if seomaticCreator.genericCreatorGeoLatitude and seomaticCreator.genericCreatorGeoLongitude  %}
 		"geo": {
 			"@type": "GeoCoordinates",

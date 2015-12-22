@@ -44,6 +44,9 @@
 {% if seomaticIdentity.genericOwnerDescription %}
 		"description": "{{ seomaticIdentity.genericOwnerDescription }}",
 {% endif %}
+{% if seomaticIdentity.mapUrl %}
+		"hasMap": "{{ seomaticIdentity.mapUrl }}",
+{% endif %}
 {% if seomaticIdentity.genericOwnerGeoLatitude and seomaticIdentity.genericOwnerGeoLongitude  %}
 		"geo": {
 			"@type": "GeoCoordinates",

@@ -129,7 +129,7 @@ You can use any Craft `environmentVariables` in these fields in addition to stat
 
 ### Site Creator
 
-These Site Creator settings are used to globally define & attribute the creator of the website.
+These Site Creator settings are used to globally define & attribute the creator of the website.  If you're reading this, that's probably you.
 
 They are used in combination with the SEO Template Meta settings to generate [JSON-LD](https://developers.google.com/schemas/formats/json-ld?hl=en) microdata, [Dublin Core](http://dublincore.org) core metadata, [Twitter Cards](https://dev.twitter.com/cards/overview), [Facebook OpenGraph](https://developers.facebook.com/docs/sharing/opengraph), and as well as HTML meta tags.
 
@@ -415,22 +415,7 @@ Mostly, you won't need to change them in your Twig templates, but it can be usef
 
     {{ seomaticSiteMeta.siteSeoName }}
 
-You can also change them all at once like this using the Twig [set](http://twig.sensiolabs.org/doc/tags/set.html) syntax:
-
-	{% set seomaticSiteMeta = { 
-	    siteSeoName: 'Some Name',
-	    siteSeoTitle: entry.title,
-	    siteSeoDescription: entry.summary,
-	    siteSeoKeywords: 'Some,Key,Words',
-	    siteSeoImage: '',
-	    siteOwnerType: 'company',
-	} %}
-
-Or if you want to set just one variable in the array, you can use the Twig function [merge](http://twig.sensiolabs.org/doc/filters/merge.html):
-
-    {% set seomaticSiteMeta = seomaticSiteMeta | merge({'siteSeoTitle': entry.title }) %}
-
-You can change these `seomaticSiteMeta` variables in your templates that `extends` your main `layout.twig` template, and due to the Twig rendering order, when `{% hook 'seomaticRender' %}` is called, they'll be populated in your rendered SEO Meta tags.
+You can also change these variables the same way you change the "Dynamic Twig SEO Meta" (using Twig `set` and `merge`), but in practice they typically will just be set in the SEOmatic **SEO Site Meta** settings page in the Admin CP.
 
 SEOmatic also automatically strips HTML/PHP tags from the variables, and translates HTML entities to ensure that they are properly encoded.
 
@@ -462,47 +447,20 @@ SEOmatic populates your templates with the following global variables for Site I
     seomaticIdentity.corporationOwnerTickerSymbol
     seomaticIdentity.restaurantOwnerServesCuisine
     seomaticIdentity.genericOwnerImage
-    
+
+Additionally, the following variables are generated for you automatically for the respective services, and are links to your website's social media account pages:
+
+    seomaticIdentity.copyrightNotice
+    seomaticIdentity.addressString
+    seomaticIdentity.addressHtml
+
 All of the variables are from your Site Identity settings, and will be the same for every template rendered.
 
 Mostly, you won't need to change them in your Twig templates, but it can be useful to reference or output them.  These work like any other Twig variables; you can output them by doing:
 
     {{ seomaticIdentity.genericOwnerName }}
 
-You can also change them all at once like this using the Twig [set](http://twig.sensiolabs.org/doc/tags/set.html) syntax:
-
-	{% set seomaticIdentity = { 
-	    googleSiteVerification: '',
-	    siteOwnerType: 'corporation',
-	    genericOwnerName: 'nystudio107',
-	    genericOwnerAlternateName: '',
-	    genericOwnerDescription: '',
-	    genericOwnerUrl: '',
-	    genericOwnerTelephone: '',
-	    genericOwnerEmail: '',
-	    genericOwnerStreetAddress: '',
-	    genericOwnerAddressLocality: '',
-	    genericOwnerAddressRegion: '',
-	    genericOwnerPostalCode: '',
-	    genericOwnerAddressCountry: '',
-	    genericOwnerGeoLatitude: '',
-	    genericOwnerGeoLongitude: '',
-	    organizationOwnerDuns: '',
-	    organizationOwnerFounder: '',
-	    organizationOwnerFoundingDate: '',
-	    organizationOwnerFoundingLocation: '',
-	    personOwnerGender: '',
-	    personOwnerBirthPlace: '',
-	    corporationOwnerTickerSymbol: '',
-	    restaurantOwnerServesCuisine: '',
-	    genericOwnerImage: {},
-	} %}
-	
-Or if you want to set just one variable in the array, you can use the Twig function [merge](http://twig.sensiolabs.org/doc/filters/merge.html):
-
-    {% set seomaticIdentity = seomaticIdentity | merge({'genericOwnerAlternateName': entry.title }) %}
-
-You can change these `seomaticIdentity` variables in your templates that `extends` your main `layout.twig` template, and due to the Twig rendering order, when `{% hook 'seomaticRender' %}` is called, they'll be populated in your rendered SEO Meta tags.
+You can also change these variables the same way you change the "Dynamic Twig SEO Meta" (using Twig `set` and `merge`), but in practice they typically will just be set in the SEOmatic **Site Identity** settings page in the Admin CP.
 
 SEOmatic also automatically strips HTML/PHP tags from the variables, and translates HTML entities to ensure that they are properly encoded.
 
@@ -523,6 +481,9 @@ SEOmatic populates your templates with the following global variables for Social
     seomaticSocial.youtubeHandle
     seomaticSocial.instagramHandle
     seomaticSocial.pinterestHandle
+    
+Additionally, the following variables are generated for you automatically for the respective services, and are links to your website's social media account pages:
+    
     seomaticSocial.twitterUrl
     seomaticSocial.facebookUrl
     seomaticSocial.googlePlusUrl
@@ -531,35 +492,13 @@ SEOmatic populates your templates with the following global variables for Social
     seomaticSocial.instagramUrl
     seomaticSocial.pinterestUrl
     
-All of the variables are from your Social Media settings, and will be the same for every template rendered.  The `seomaticSocial.twitterUrl`, `seomaticSocial.facebookUrl`, `seomaticSocial.googlePlusUrl`, `seomaticSocial.linkedInUrl`, `seomaticSocial.youtubeUrl`, `seomaticSocial.instagramUrl`, and `seomaticSocial.pinterestUrl` variables are generated for you automatially for the respective services, and are links to your website's social media account pages.
+All of the variables are from your Social Media settings, and will be the same for every template rendered.
 
 Mostly, you won't need to change them in your Twig templates, but it can be useful to reference or output them.  These work like any other Twig variables; you can output them by doing:
 
     {{ seomaticSocial.twitterUrl }}
 
-You can also change them all at once like this using the Twig [set](http://twig.sensiolabs.org/doc/tags/set.html) syntax:
-
-	{% set seomaticSocial = { 
-	    twitterHandle: 'nystudio107',
-	    facebookHandle: '',
-	    facebookProfileId: '',
-	    linkedInHandle: 'nystudio107',
-	    googlePlusHandle: 'nystudio107',
-	    googleSiteVerification: '',
-	    twitterUrl: 'https://twitter.com/nystudio107',
-	    facebookUrl: '',
-	    googlePlusUrl: 'https://plus.google.com/+nystudio107',
-	    linkedInUrl: 'https://www.linkedin.com/company/nystudio107',
-	    youtubeUrl: '',
-	    instagramUrl: '',
-	    pinterestUrl: '',
-	} %}
-	
-Or if you want to set just one variable in the array, you can use the Twig function [merge](http://twig.sensiolabs.org/doc/filters/merge.html):
-
-    {% set seomaticSocial = seomaticSocial | merge({'twitterUrl': entry.twitterLink }) %}
-
-You can change these `seomaticSocial` variables in your templates that `extends` your main `layout.twig` template, and due to the Twig rendering order, when `{% hook 'seomaticRender' %}` is called, they'll be populated in your rendered SEO Meta tags.
+You can also change these variables the same way you change the "Dynamic Twig SEO Meta" (using Twig `set` and `merge`), but in practice they typically will just be set in the SEOmatic **Social Media** settings page in the Admin CP.
 
 SEOmatic also automatically strips HTML/PHP tags from the variables, and translates HTML entities to ensure that they are properly encoded.
 
@@ -589,6 +528,12 @@ SEOmatic populates your templates with the following global variables for Site C
     seomaticCreator.personCreatorBirthPlace
     seomaticCreator.corporationCreatorTickerSymbol
     seomaticCreator.genericCreatorImage
+
+Additionally, the following variables are generated for you automatically for the respective services, and are links to your website's social media account pages:
+
+    seomaticCreator.copyrightNotice
+    seomaticCreator.addressString
+    seomaticCreator.addressHtml
     
 All of the variables are from your Site Creator settings, and will be the same for every template rendered.
 
@@ -596,39 +541,7 @@ Mostly, you won't need to change them in your Twig templates, but it can be usef
 
     {{ seomaticCreator.genericCreatorName }}
 
-You can also change them all at once like this using the Twig [set](http://twig.sensiolabs.org/doc/tags/set.html) syntax:
-
-	{% set seomaticCreator = { 
-	    googleSiteVerification: '',
-	    siteCreatorType: 'corporation',
-	    genericCreatorName: 'nystudio107',
-	    genericCreatorAlternateName: '',
-	    genericCreatorDescription: '',
-	    genericCreatorUrl: '',
-	    genericCreatorTelephone: '',
-	    genericCreatorEmail: '',
-	    genericCreatorStreetAddress: '',
-	    genericCreatorAddressLocality: '',
-	    genericCreatorAddressRegion: '',
-	    genericCreatorPostalCode: '',
-	    genericCreatorAddressCountry: '',
-	    genericCreatorGeoLatitude: '',
-	    genericCreatorGeoLongitude: '',
-	    organizationCreatorDuns: '',
-	    organizationCreatorFounder: '',
-	    organizationCreatorFoundingDate: '',
-	    organizationCreatorFoundingLocation: '',
-	    personCreatorGender: '',
-	    personCreatorBirthPlace: '',
-	    corporationCreatorTickerSymbol: '',
-	    genericCreatorImage: {},
-	} %}
-	
-Or if you want to set just one variable in the array, you can use the Twig function [merge](http://twig.sensiolabs.org/doc/filters/merge.html):
-
-    {% set seomaticCreator = seomaticCreator | merge({'genericCreatorAlternateName': entry.title }) %}
-
-You can change these `seomaticCreator` variables in your templates that `extends` your main `layout.twig` template, and due to the Twig rendering order, when `{% hook 'seomaticRender' %}` is called, they'll be populated in your rendered SEO Meta tags.
+You can also change these variables the same way you change the "Dynamic Twig SEO Meta" (using Twig `set` and `merge`), but in practice they typically will just be set in the SEOmatic **Creator Identity** settings page in the Admin CP.
 
 SEOmatic also automatically strips HTML/PHP tags from the variables, and translates HTML entities to ensure that they are properly encoded.
 
@@ -638,7 +551,7 @@ The `genericCreatorEmail` variable is ordinal-encoded to obfuscate it.  For inst
 
 ## Previewing your SEO Meta
 
-There's a lot going on here, so to make it all more easily understood, SEOmatic offers two ways to preview your SEO Meta:
+There's a lot going on here, so to make it all more easily understood, SEOmatic offers two ways to preview your SEO Meta.  You have to **Save** the settings first before you preview them; a "Live Preview" feature is on the wish list for future versions.
 
 ### Preview SEO Meta Display
 
@@ -1032,14 +945,22 @@ Some things to do, and ideas for potential features:
 * [bug] Get the Template Metas implemented with full `locale` support, so the settings can all be per-locale based
 * [bug] Enforce *required fields on the various settings pages in the Admin CP by doing proper validation
 * [bug] The `foundingDate` fields probably should be dateTimeField types on the Settings pages
-* [feature] Helper functions for GetFullAddress and GetCopyrightString (?)
-* [feature] Add a "Lookup Geo Coordinates" button to the Site Identity and Site Creator pages.
 * [feature] Add support for different types of Twitter cards and Facebook OpenGraph
+* [feature] Add the ability to analyze a page for content vs. keywords for the SEO Template Metas, "just like Yoast"
 * [feature] Change the preview to a live preview when editing things in SEOmatic
 * [feature] Provide SiteMap functionality.  Yes, it's SEO-related, but seems like it might be better to keep SEOmatic focused (?)
 * [feature] Provide Redirect functionality.  Yes, it's SEO-related, but seems like it might be better to keep SEOmatic focused (?)
 
 ## Changelog
+
+### 1.0.4 -- 2015.12.22
+
+* [Added] Added 'copyrightNotice', 'addressString', 'addressHtml', & 'mapUrl' to 'seomaticIdentity'
+* [Added] Added 'copyrightNotice', 'addressString', 'addressHtml', & 'mapUrl' to 'seomaticCreator'
+* [Added] Added 'hasMap' to the 'location' schema
+* [feature] Added a 'Look up Latitude/Longitude' button to the Site Identity & Site Creator settings
+* [Improved] The length of the 'seoSiteName' is now taken into account when truncating the 'seoTitle'
+* [Improved] Updated the README.md
 
 ### 1.0.3 -- 2015.12.21
 
@@ -1065,3 +986,5 @@ Some things to do, and ideas for potential features:
 ### 1.0.0 -- 2015.12.18
 
 * Initial release
+
+Brought to you by [nystudio107](http://nystudio107.com)

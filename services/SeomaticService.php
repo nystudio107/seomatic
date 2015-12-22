@@ -50,7 +50,7 @@ class SeomaticService extends BaseApplicationComponent
 		if ($shouldCache)	    
 			craft()->cache->set($cacheKey, $htmlText, null);
 
-        return $htmlText;
+        return TemplateHelper::getRaw($htmlText);
     } /* -- renderSiteMeta */
 
 /* --------------------------------------------------------------------------------
@@ -83,7 +83,7 @@ class SeomaticService extends BaseApplicationComponent
             craft()->path->setTemplatesPath($oldPath);
             }
 
-        return $htmlText;
+        return TemplateHelper::getRaw($htmlText);
     } /* -- render */
 
 /* --------------------------------------------------------------------------------
@@ -102,7 +102,7 @@ class SeomaticService extends BaseApplicationComponent
 
         craft()->path->setTemplatesPath($oldPath);
 
-        return $htmlText;
+        return TemplateHelper::getRaw($htmlText);
     } /* -- renderDisplayPreview */
 
 /* --------------------------------------------------------------------------------
@@ -131,7 +131,7 @@ class SeomaticService extends BaseApplicationComponent
 
             craft()->path->setTemplatesPath($oldPath);
             }
-        return $htmlText;
+        return TemplateHelper::getRaw($htmlText);
     } /* -- renderIdentity */
 
 /* --------------------------------------------------------------------------------
@@ -160,7 +160,7 @@ class SeomaticService extends BaseApplicationComponent
 
             craft()->path->setTemplatesPath($oldPath);
             }
-        return $htmlText;
+        return TemplateHelper::getRaw($htmlText);
     } /* -- renderWebsite */
 
 /* --------------------------------------------------------------------------------
@@ -484,6 +484,34 @@ class SeomaticService extends BaseApplicationComponent
 
 		$identity['restaurantOwnerServesCuisine'] = $settings['restaurantOwnerServesCuisine'];
 
+/* -- Computed identity strings */
+
+		$now = new DateTime;
+		$identity['copyrightNotice'] = Craft::t("Copyright") . " &copy;" . $now->year() . ", " . $identity['genericOwnerName'] . ". " . Craft::t("All rights reserved.");
+
+		if ($identity['genericOwnerStreetAddress'] &&
+			$identity['genericOwnerAddressLocality'] &&
+			$identity['genericOwnerAddressRegion'] &&
+			$identity['genericOwnerPostalCode'])
+		{
+			$identity['addressString'] = $identity['genericOwnerName'] . ", "
+										. $identity['genericOwnerStreetAddress'] . ", "
+										. $identity['genericOwnerAddressLocality'] . ", "
+										. $identity['genericOwnerAddressRegion'] . " "
+										. $identity['genericOwnerPostalCode'] . ", "
+										. $identity['genericOwnerAddressCountry'];
+										
+			$identity['addressHtml'] = $identity['genericOwnerName'] . "<br />"
+										. $identity['genericOwnerStreetAddress'] . "<br />"
+										. $identity['genericOwnerAddressLocality'] . ", " . $identity['genericOwnerAddressRegion'] . " " . $identity['genericOwnerPostalCode'] . "<br />"
+										. $identity['genericOwnerAddressCountry'] . "<br />";
+			
+			$params=array();
+			$params = count($params) ? '&' . http_build_query($params) : '';
+			$query = urlencode($identity['addressString']);
+			$identity['mapUrl'] = "http://maps.google.com/maps?q={$query}{$params}";
+		}
+		
         $result = $identity;
         
         $this->cachedIdentity[$locale] = $result;
@@ -572,6 +600,33 @@ class SeomaticService extends BaseApplicationComponent
 
 		$creator['corporationCreatorTickerSymbol'] = $settings['corporationCreatorTickerSymbol'];
 
+/* -- Computed identity strings */
+
+		$now = new DateTime;
+		$creator['copyrightNotice'] = Craft::t("Copyright") . " &copy;" . $now->year() . ", " . $creator['genericCreatorName'] . ". " . Craft::t("All rights reserved.");
+
+		if ($creator['genericCreatorStreetAddress'] &&
+			$creator['genericCreatorAddressLocality'] &&
+			$creator['genericCreatorAddressRegion'] &&
+			$creator['genericCreatorPostalCode'])
+		{
+			$creator['addressString'] = $creator['genericCreatorName'] . ", "
+										. $creator['genericCreatorStreetAddress'] . ", "
+										. $creator['genericCreatorAddressLocality'] . ", "
+										. $creator['genericCreatorAddressRegion'] . " "
+										. $creator['genericCreatorPostalCode'] . ", "
+										. $creator['genericCreatorAddressCountry'];
+										
+			$creator['addressHtml'] = $creator['genericCreatorName'] . "<br />"
+										. $creator['genericCreatorStreetAddress'] . "<br />"
+										. $creator['genericCreatorAddressLocality'] . ", " . $creator['genericCreatorAddressRegion'] . " " . $creator['genericCreatorPostalCode'] . "<br />"
+										. $creator['genericCreatorAddressCountry'] . "<br />";
+	
+			$params=array();
+			$params = count($params) ? '&' . http_build_query($params) : '';
+			$query = urlencode($creator['addressString']);
+			$creator['mapUrl'] = "http://maps.google.com/maps?q={$query}{$params}";
+		}
         $result = $creator;
         
         $this->cachedCreator[$locale] = $result;
@@ -818,7 +873,7 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Truncate seoTitle, seoDescription, and seoKeywords to recommended values */
 
-        $vars = array('seoTitle' => 70, 'seoDescription' => 160, 'seoKeywords' => 200);
+        $vars = array('seoTitle' => (70 - strlen(" | ") - strlen($seomaticSiteMeta['siteSeoName'])), 'seoDescription' => 160, 'seoKeywords' => 200);
         
         foreach ($vars as $key => $value)
         {
@@ -855,11 +910,14 @@ class SeomaticService extends BaseApplicationComponent
             if (is_string($value))
             {
 				$seomaticIdentity[$key] = craft()->config->parseEnvironmentString($value);
-				$seomaticIdentity[$key] = strip_tags($value);
-				if ($key == 'genericOwnerEmail')
-					$seomaticIdentity[$key] = $this->encodeEmailAddress($value);
-				else
-                	$seomaticIdentity[$key] = htmlspecialchars($value);
+				if (($key != 'addressHtml') && ($key !='copyrightNotice'))
+				{
+					$seomaticIdentity[$key] = strip_tags($value);
+					if ($key == 'genericOwnerEmail')
+						$seomaticIdentity[$key] = $this->encodeEmailAddress($value);
+					else
+	                	$seomaticIdentity[$key] = htmlspecialchars($value);
+                }
             }
         }
 
@@ -878,11 +936,14 @@ class SeomaticService extends BaseApplicationComponent
             if (is_string($value))
             {
 				$seomaticCreator[$key] = craft()->config->parseEnvironmentString($value);
-				$seomaticCreator[$key] = strip_tags($value);
-				if ($key == 'genericCreatorEmail')
-					$seomaticCreator[$key] = $this->encodeEmailAddress($value);
-				else
-                	$seomaticCreator[$key] = htmlspecialchars($value);
+				if (($key != 'addressHtml') && ($key !='copyrightNotice'))
+				{
+					$seomaticCreator[$key] = strip_tags($value);
+					if ($key == 'genericCreatorEmail')
+						$seomaticCreator[$key] = $this->encodeEmailAddress($value);
+					else
+	                	$seomaticCreator[$key] = htmlspecialchars($value);
+                }
             }
         }
 

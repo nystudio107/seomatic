@@ -1,6 +1,8 @@
 {% extends '_layouts/cp' %}
 {% set title = 'Welcome to SEOmatic!' %}
 
+{% includeCssResource "seomatic/css/style.css" %}
+
 {% set linkGetStarted = url('seomatic/site') %}
 {% set docsUrl = "https://github.com/khalwat/seomatic/blob/master/README.md" %}
 
@@ -16,6 +18,11 @@
 		</p>
 		<p>
 			<a href="{{ linkGetStarted }}"><button class="btn submit">Get Started</button></a>
+		</p>
+	</div>
+	<div style="text-align:center; margin:0 auto; padding: 0;">
+		<p class="instructions">
+			Brought to you by <a href="http://nystudio107.com" target="_blank">nystudio107</a>
 		</p>
 	</div>
 {% endset %}
