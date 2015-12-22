@@ -490,6 +490,8 @@ class SeomaticService extends BaseApplicationComponent
 		$identity['copyrightNotice'] = Craft::t("Copyright") . " &copy;" . $now->year() . ", " . $identity['genericOwnerName'] . ". " . Craft::t("All rights reserved.");
 
 		$identity['mapUrl'] = '';
+		$identity['addressHtml'] = '';
+		$identity['mapUrl'] = '';
 		if ($identity['genericOwnerStreetAddress'] &&
 			$identity['genericOwnerAddressLocality'] &&
 			$identity['genericOwnerAddressRegion'] &&
@@ -606,6 +608,8 @@ class SeomaticService extends BaseApplicationComponent
 		$now = new DateTime;
 		$creator['copyrightNotice'] = Craft::t("Copyright") . " &copy;" . $now->year() . ", " . $creator['genericCreatorName'] . ". " . Craft::t("All rights reserved.");
 
+		$creator['addressString'] = '';
+		$creator['addressHtml'] = '';
 		$creator['mapUrl'] = '';
 		if ($creator['genericCreatorStreetAddress'] &&
 			$creator['genericCreatorAddressLocality'] &&
