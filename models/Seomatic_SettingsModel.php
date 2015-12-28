@@ -20,6 +20,8 @@ class Seomatic_SettingsModel extends BaseModel
             'siteSeoTitle'                  	=> array(AttributeType::String, 'default' => 'This is the default global title of the site pages.'),
             'siteSeoDescription'            	=> array(AttributeType::String, 'default' => 'This is the default global natural language description of the content on the site pages.'),
             'siteSeoKeywords'               	=> array(AttributeType::String, 'default' => 'This is the default global list of comma-separated key words that are relevant to the content on the site pages.'),
+            'siteTwitterCardType'				=> array(AttributeType::String, 'default' => 'summary'),
+            'siteOpenGraphType'					=> array(AttributeType::String, 'default' => 'website'),
             'siteSeoImageId'                	=> array(AttributeType::Number, 'default' => null),
 
 /* --------------------------------------------------------------------------------
@@ -31,10 +33,10 @@ class Seomatic_SettingsModel extends BaseModel
 
 /* -- Generic owner fields */
 
-            'genericOwnerName'					=> array(AttributeType::String, 'default' => ''),
+            'genericOwnerName'					=> array(AttributeType::String, 'default' => craft()->getSiteName()),
             'genericOwnerAlternateName'			=> array(AttributeType::String, 'default' => ''),
             'genericOwnerDescription'			=> array(AttributeType::String, 'default' => ''),
-            'genericOwnerUrl'					=> array(AttributeType::String, 'default' => ''),
+            'genericOwnerUrl'					=> array(AttributeType::String, 'default' => craft()->getSiteUrl()),
             'genericOwnerImageId'				=> array(AttributeType::String, 'default' => ''),
             'genericOwnerTelephone'				=> array(AttributeType::String, 'default' => ''),
             'genericOwnerEmail'					=> array(AttributeType::String, 'default' => ''),
@@ -121,7 +123,31 @@ class Seomatic_SettingsModel extends BaseModel
 
             'personCreatorGender'				=> array(AttributeType::String, 'default' => ''),
             'personCreatorBirthPlace'			=> array(AttributeType::String, 'default' => ''),
+
+/* -- Humans.txt */
+
+            'genericCreatorHumansTxt'           => array(AttributeType::Mixed, 'default' => $this->getDefaultHumans()),
         ));
     }
 
+/* --------------------------------------------------------------------------------
+	Get the default Humans.txt template
+-------------------------------------------------------------------------------- */
+
+    public function getDefaultHumans()
+    {
+        $oldPath = craft()->path->getTemplatesPath();
+        $newPath = craft()->path->getPluginsPath().'seomatic/templates';
+        craft()->path->setTemplatesPath($newPath);
+
+/* -- Return the Humans.txt default template */
+
+        $templateName = '_humansDefault';
+		$loader = new TemplateLoader;
+        $template = $loader->getSource($templateName);
+        
+        craft()->path->setTemplatesPath($oldPath);
+        
+        return $template;
+    } /* -- _getDefaultHumans */
 } /* -- class Seomatic_SettingsModel */

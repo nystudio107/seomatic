@@ -1,6 +1,7 @@
 {% extends '_layouts/cp' %}
 {% import '_includes/forms' as forms %}
 
+{% includeCssResource "css/entry.css" %}
 {% includeCssResource "seomatic/css/style.css" %}
 {% includeCssResource "seomatic/css/css-reset.css" %}
 {% includeCssResource "seomatic/css/prism.min.css" %}
@@ -35,6 +36,7 @@
 			{% if meta.id %}<input type="hidden" name="metaId" value="{{ meta.id }}">{% endif %}
 			<input type="hidden" name="metaType" value="{{ meta.metaType }}">
 			<input type="hidden" name="locale" value="{{ meta.locale }}">
+			<input type="hidden" name="elementId" value="{{ meta.elementId }}">
 	
 			<div class="grid first">
 				<div class="item" data-position="left" data-min-colspan="2" data-max-colspan="3">
@@ -55,6 +57,24 @@
 					<div id="preview-tags" class="btn big livepreviewbtn secondbtn">
 						{{ "Preview SEO Meta Tags" |t }}
 					</div>
+
+					{% if craft.isLocalized %}
+						<ul id="locales" class="pane">
+							{% for locale in craft.i18n.getSiteLocales() %}
+								{% if locale == meta.locale %}
+									<li class="sel">{{ locale.name }}</li>
+								{% else %}
+									{% if meta.id %}
+										{% set metaSegment = meta.id %}
+									{% else %}
+										{% set metaSegment = "new" %}
+									{% endif %}
+									<li>{#<a href="{{ url('seomatic/meta') ~ '/' ~ metaSegment ~ '/' ~ locale.id }}">{{ locale.name }}</a>#}{{ locale.name }}</li>
+								{% endif %}
+							{% endfor %}
+							<li><p class="instructions">{{ "If any field is left blank for a setting in a particular locale, it will fall back on the primary locale." |t |raw }}</p></li>
+						</ul>
+					{% endif %}
 
 					<div class="pane">
 						<div style="text-align:center; margin:0 auto;">

@@ -1,102 +1,87 @@
 <!-- BEGIN SEOmatic rendered SEO Meta -->
 
-<title>{{ seomaticMeta.seoTitle }} | {{ seomaticSiteMeta.siteSeoName }}</title>
+<title>{{ seomaticMeta.seoTitle |raw }} | {{ seomaticSiteMeta.siteSeoName |raw }}</title>
 
 <!-- Standard SEO -->
 
-<meta name="keywords" content="{{ seomaticMeta.seoKeywords }}" />
-<meta name="description" content="{{ seomaticMeta.seoDescription }}" />
+<meta name="keywords" content="{{ seomaticMeta.seoKeywords |raw }}" />
+<meta name="description" content="{{ seomaticMeta.seoDescription |raw }}" />
+<meta name="generator" content="SEOmatic" />
 <link rel="canonical" href="{{ seomaticMeta.canonicalUrl }}" />
 {% for locale in craft.i18n.getSiteLocales() %}
 {% if locale != craft.locale and craft.config.siteUrl is iterable %}{% if craft.config.siteUrl[locale.getId()] is defined %}<link rel="alternate" hreflang="{{ locale.getId() }}" href="{{ craft.config.siteUrl[locale.getId()] }}" />{% endif%}{% endif %}
 {% endfor %}
-{% if seomaticIdentity.genericOwnerAddressRegion %}
-<meta name="geo.region" content="{{ seomaticIdentity.genericOwnerAddressRegion }}" />
+{% if seomaticIdentity.address.addressRegion is defined and seomaticIdentity.address.addressRegion %}
+<meta name="geo.region" content="{{ seomaticIdentity.address.addressRegion |raw }}" />
 {% endif %}
-{% if seomaticIdentity.genericOwnerGeoLatitude and seomaticIdentity.genericOwnerGeoLongitude  %}
-<meta name="geo.position" content="{{ seomaticIdentity.genericOwnerGeoLatitude }},{{ seomaticIdentity.genericOwnerGeoLongitude }}" />
-<meta name="ICBM" content="{{ seomaticIdentity.genericOwnerGeoLatitude }},{{ seomaticIdentity.genericOwnerGeoLongitude }}" />
-<meta name="geo.placename" content="{{ seomaticIdentity.genericOwnerName }}" />
+{% if seomaticIdentity.location.geo.latitude is defined and seomaticIdentity.location.geo.latitude and seomaticIdentity.location.geo.latitude is defined and seomaticIdentity.location.geo.latitude %}
+<meta name="geo.position" content="{{ seomaticIdentity.location.geo.latitude |raw }},{{ seomaticIdentity.location.geo.latitude |raw }}" />
+<meta name="ICBM" content="{{ seomaticIdentity.location.geo.latitude |raw }},{{ seomaticIdentity.location.geo.latitude |raw }}" />
+{% endif %}
+{% if seomaticIdentity.location.name is defined and seomaticIdentity.location.name %}
+<meta name="geo.placename" content="{{ seomaticIdentity.location.name |raw }}" />
 {% endif %}
 
 <!-- Dublin Core basic info -->
 
 <meta name="dcterms.Identifier" content="{{ seomaticMeta.canonicalUrl }}" />
 <meta name="dcterms.Format" content="text/html" />
-<meta name="dcterms.Relation" content="{{ seomaticSiteMeta.siteSeoName }}" />
+<meta name="dcterms.Relation" content="{{ seomaticSiteMeta.siteSeoName |raw }}" />
 <meta name="dcterms.Language" content="{{ craft.locale }}" />
-<meta name="dcterms.Publisher" content="{{ seomaticSiteMeta.siteSeoName }}" />
+<meta name="dcterms.Publisher" content="{{ seomaticSiteMeta.siteSeoName |raw }}" />
 <meta name="dcterms.Type" content="text/html" />
 <meta name="dcterms.Coverage" content="{{ siteUrl }}" />
-<meta name="dcterms.Rights" content="{{ seomaticIdentity.copyrightNotice }}" />
-<meta name="dcterms.Title" content="{{ seomaticMeta.seoTitle }}" />
-<meta name="dcterms.Creator" content="{{ seomaticCreator.genericCreatorName }}" />
-<meta name="dcterms.Subject" content="{{ seomaticMeta.seoKeywords }}" /> 
-<meta name="dcterms.Contributor" content="{{ seomaticSiteMeta.siteSeoName }}" />
+<meta name="dcterms.Rights" content="{{ seomaticHelper.ownerCopyrightNotice |raw }}" />
+<meta name="dcterms.Title" content="{{ seomaticMeta.seoTitle |raw }}" />
+{% if seomaticCreator.name is defined and seomaticCreator.name %}
+<meta name="dcterms.Creator" content="{{ seomaticCreator.name |raw }}" />
+{% endif %}
+<meta name="dcterms.Subject" content="{{ seomaticMeta.seoKeywords |raw }}" /> 
+<meta name="dcterms.Contributor" content="{{ seomaticSiteMeta.siteSeoName |raw }}" />
 <meta name="dcterms.Date" content="{{ now | date('Y-m-d') }}" />
-<meta name="dcterms.Description" content="{{ seomaticMeta.seoDescription }}" />
+<meta name="dcterms.Description" content="{{ seomaticMeta.seoDescription |raw }}" />
 
-{% if seomaticSocial.facebookProfileId %}
+{% if seomaticMeta.og is defined and seomaticMeta.og %}
 <!-- Facebook OpenGraph -->
 
-<meta property="fb:profile_id" content="{{ seomaticSocial.facebookProfileId }}" /> 
-<meta property="og:type" content="website" /> 
-<meta property="og:url" content="{{ seomaticMeta.canonicalUrl }}" /> 
-<meta property="og:title" content="{{ seomaticMeta.seoTitle }} | {{ seomaticSiteMeta.siteSeoName }}" />
-{% if seomaticMeta.seoImage is defined and seomaticMeta.seoImage is not null %}
-<meta property="og:image" content="{{ seomaticMeta.seoImage.url }}" />
+<meta property="fb:profile_id" content="{{ seomaticSocial.facebookProfileId |raw }}" /> <!-- {% verbatim %}{{ seomaticSocial.facebookProfileId }}{% endverbatim %} -->
+{% for key, value in seomaticMeta.og %}
+{% if value %}
+{% if value is iterable %}
+{% for subvalue in value %}
+<meta property="og:{{ key }}" content="{{ subvalue }}" />
+{% endfor %}
+{% else %}
+<meta property="og:{{ key }}" content="{{ value }}" />
 {% endif %}
-<meta property="og:site_name" content="{{ seomaticSiteMeta.siteSeoName }}" /> 
-<meta property="og:description" content="{{ seomaticMeta.seoDescription }}" /> 
-<meta property="og:locale" content="{{ craft.locale }}" /> 
-<meta property="og:see_also" content="{{ siteUrl }}" /> 
-{% if seomaticSocial.facebookHandle %}
-<meta property="og:see_also" content="{{ seomaticSocial.facebookUrl }}" /> 
 {% endif %}
-{% if seomaticSocial.twitterHandle %}
-<meta property="og:see_also" content="{{ seomaticSocial.twitterUrl }}" /> 
-{% endif %}
-{% if seomaticSocial.googlePlusHandle %}
-<meta property="og:see_also" content="{{ seomaticSocial.googlePlusUrl }}" /> 
-{% endif %}
-{% if seomaticSocial.linkedInHandle %}
-<meta property="og:see_also" content="{{ seomaticSocial.linkedInUrl }}" /> 
-{% endif %}
-{% if seomaticSocial.youtubeHandle %}
-<meta property="og:see_also" content="{{ seomaticSocial.youtubeUrl }}" /> 
-{% endif %}
-{% if seomaticSocial.instagramHandle %}
-<meta property="og:see_also" content="{{ seomaticSocial.instagramUrl }}" /> 
-{% endif %}
-{% if seomaticSocial.pinterestHandle %}
-<meta property="og:see_also" content="{{ seomaticSocial.pinterestUrl }}" /> 
-{% endif %}
+{% endfor %}
 {% endif %}
 
-{% if seomaticSocial.twitterHandle %}
+{% if seomaticMeta.twitter is defined and seomaticMeta.twitter %}
 <!-- Twitter Card -->
 
-<meta property="twitter:card" content="summary" />
-<meta property="twitter:site" content="@{{ seomaticSocial.twitterHandle }}" />
-<meta property="twitter:title" content="{{ seomaticMeta.seoTitle }} | {{ seomaticSiteMeta.siteSeoName }}" />
-<meta property="twitter:description" content="{{ seomaticMeta.seoDescription }}" />
-{% if seomaticMeta.seoImage is defined and seomaticMeta.seoImage is not null %}
-<meta property="twitter:image" content="{{ seomaticMeta.seoImage.url }}" />
+{% for key, value in seomaticMeta.twitter %}
+{% if value %}
+<meta property="twitter:{{ key }}" content="{{ value }}" />
 {% endif %}
-<meta property="twitter:url" content="{{ siteUrl }}" />
-{% endif %}
+{% endfor %}
 
+{% endif %}
 {% if seomaticSocial.googlePlusHandle %}
-<!-- Google Publisher/Authorship -->
+<!-- Google Publisher -->
 
-<link rel="publisher" href="{{ seomaticSocial.googlePlusUrl }}" />
-<link rel="author" href="{{ seomaticSocial.googlePlusUrl }}" />
+<link rel="publisher" href="{{ seomaticHelper.googlePlusUrl }}" />
 {% endif %}
 
-{% if seomaticIdentity.googleSiteVerification %}
+<!-- Humans.txt authorship http://humanstxt.org -->
+
+<link type="text/plain" rel="author" href="humans.txt" />
+
+{% if seomaticHelper.ownerGoogleSiteVerification %}
 <!-- Domain verification -->
 
-<meta name="google-site-verification" content="{{ seomaticIdentity.googleSiteVerification }}" />
+<meta name="google-site-verification" content="{{ seomaticHelper.ownerGoogleSiteVerification |raw }}" />
 {% endif %}
 
 <!-- END SEOmatic rendered SEO Meta -->

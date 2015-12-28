@@ -106,3 +106,30 @@
 		{% endif %}
 	</div>
 </div>
+
+{{ forms.selectField({
+    first: true,
+    label: "Twitter Card Type"|t,
+    instructions: "With Twitter Cards, you can attach rich photos and information to Tweets that drive traffic to your website. Users who Tweet links to your content will have a “Card” added to the Tweet that’s visible to all of their followers."|t,
+    id: "twitterCardType",
+    options: {
+		"summary": "Summary Card"|t,
+		"summary_large_image": "Summary Card with Large Image"|t,
+    },
+    name: "twitterCardType",
+    value: meta.twitterCardType,
+	locale: meta.locale,
+}) }}
+
+{{ forms.selectField({
+    first: true,
+    label: "Facebook Open Graph Type"|t,
+    instructions: "Adding Open Graph tags to your website influences the performance of your links on social media by allowing you to control what appears when a user posts a link to your content on Facebook."|t,
+    id: "openGraphType",
+    options: {
+		"website": "Website"|t,
+    },
+    name: "openGraphType",
+    value: meta.openGraphType,
+	locale: meta.locale,
+}) }}

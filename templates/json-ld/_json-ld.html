@@ -1,0 +1,10 @@
+{# --------------------------------------------------------------------------------
+This is rendered via 
+-------------------------------------------------------------------------------- #}
+{% set level = 0 %}
+<script type="application/ld+json">
+{
+{%for i in 0..level %}    {% endfor %}"@context": "http://schema.org",
+{% include 'json-ld/_json-ld_core' with {'object': object, 'level': level } only %}
+}
+</script>

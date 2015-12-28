@@ -22,6 +22,8 @@ class Seomatic_SettingsRecord extends BaseRecord
             'siteSeoTitle'                  	=> array(AttributeType::String, 'default' => ''),
             'siteSeoDescription'            	=> array(AttributeType::String, 'default' => ''),
             'siteSeoKeywords'               	=> array(AttributeType::String, 'default' => ''),
+            'siteTwitterCardType'				=> array(AttributeType::String, 'default' => ''),
+            'siteOpenGraphType'					=> array(AttributeType::String, 'default' => ''),
 
 /* --------------------------------------------------------------------------------
 	IDENTITY settings
@@ -126,6 +128,10 @@ class Seomatic_SettingsRecord extends BaseRecord
             'personCreatorGender'				=> array(AttributeType::String, 'default' => ''),
             'personCreatorBirthPlace'			=> array(AttributeType::String, 'default' => ''),
 
+/* -- Humans.txt */
+
+            'genericCreatorHumansTxt'           => array(AttributeType::Mixed, 'default' => ''),
+            
 /* -- This is defined in definteRelations() below, of note:
       You don’t need to specify the foreign key column name in BELONGS_TO relations (defaults to the relation name appended with “Id”)
       https://craftcms.com/docs/plugins/records
@@ -133,6 +139,27 @@ class Seomatic_SettingsRecord extends BaseRecord
 */
         );
     }
+
+/* --------------------------------------------------------------------------------
+	Get the default Humans.txt template
+-------------------------------------------------------------------------------- */
+
+    public function getDefaultHumans()
+    {
+        $oldPath = craft()->path->getTemplatesPath();
+        $newPath = craft()->path->getPluginsPath().'seomatic/templates';
+        craft()->path->setTemplatesPath($newPath);
+
+/* -- Return the Humans.txt default template */
+
+        $templateName = '_humansDefault';
+		$loader = new TemplateLoader;
+        $template = $loader->getSource($templateName);
+        
+        craft()->path->setTemplatesPath($oldPath);
+        
+        return $template;
+    } /* -- _getDefaultHumans */
 
 /* --------------------------------------------------------------------------------
 	Relationships

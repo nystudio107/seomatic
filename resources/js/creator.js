@@ -15,6 +15,16 @@ $(function () {
 	    	$('#generic').show();
     });
 
+    $('#preview-humans').on('click', function(e) {
+    
+        // Prevents the default action to be triggered. 
+        e.preventDefault();
+    
+        // Triggering bPopup when click event is fired
+        $('#preview-humans-popup').bPopup();
+    
+    });
+
     $('#geolookup').on('click', function(e) {
 	    address = $('#genericCreatorStreetAddress').val() + ", "
 	    			+ $('#genericCreatorAddressLocality').val() + ", "

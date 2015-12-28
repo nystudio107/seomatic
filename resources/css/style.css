@@ -33,6 +33,10 @@ p.instructions {
 	color: #8f98a3;
 }
 
+.codeStyle {
+    font-family: Menlo, monospace;
+}
+
 div.preview-modal {
     width: 90vw;
     height: 90vh;
@@ -249,6 +253,10 @@ div.googleDisplay2 {
     text-align: left;
 }
 
+.TwitterCardsGrid-Large {
+	height: 357px;
+}
+
 .TwitterCardGrid-col {
     clear: both;
     color: rgb(0, 0, 0);
@@ -261,6 +269,10 @@ div.googleDisplay2 {
     margin-bottom: 4.526619911193848px;
     text-align: left;
     width: 506px;
+}
+
+.TwitterCardGrid-col-Large {
+	height: 357px;
 }
 
 a.TwitterCard-container {
@@ -306,6 +318,10 @@ a.TwitterCard-container {
     width: 506px;
 }
 
+a.TwitterCard-container-Large {
+	height: 357px;
+}
+
 a.TwitterCard-container:hover {
     outline: 0;
     background: #F5F8FA;
@@ -339,6 +355,11 @@ a.TwitterCard-container:hover {
     width: 123.421875px;
 }
 
+.TwitterCard-summary-image-Large {
+	width: 506px;
+	height: 254px;
+}
+
 .TwitterCard-image-container {
     color: rgb(0, 0, 0);
     cursor: pointer;
@@ -353,6 +374,11 @@ a.TwitterCard-container:hover {
     text-align: left;
     text-decoration: none;
     width: 123.421875px;
+}
+
+.TwitterCard-image-container-Large {
+	width: 506px;
+	height: 254px;
 }
 
 .TwitterCard-image-wrapper {
@@ -378,6 +404,11 @@ a.TwitterCard-container:hover {
     width: 125.421875px;
 }
 
+.TwitterCard-image-wrapper-Large {
+	width: 506px;
+	height: 254px;
+}
+
 .TwitterCard-summary-content-container {
     color: rgb(0, 0, 0);
     cursor: pointer;
@@ -390,6 +421,11 @@ a.TwitterCard-container:hover {
     text-align: left;
     text-decoration: none;
     width: 379.5625px;
+}
+
+.TwitterCard-summary-content-container-Large {
+	width: 504px;
+	height: 102px;
 }
 
 .TwitterCard-summary-content {
@@ -408,6 +444,11 @@ a.TwitterCard-container:hover {
     text-align: left;
     text-decoration: none;
     width: 379.5625px;
+}
+
+.TwitterCard-summary-content-Large {
+	width: 504px;
+	height: 102px;
 }
 
 h2.TwitterCard-title {
@@ -449,6 +490,10 @@ p.TwitterCard-text {
     overflow-y: hidden;
     text-align: left;
     text-decoration: none;
+}
+
+p.TwitterCard-text-Large {
+    height: 36px;
 }
 
 .TwitterCard-destination {

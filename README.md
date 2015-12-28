@@ -2,6 +2,8 @@
 
 A turnkey SEO implementation for Craft CMS that is comprehensive, powerful, and flexible.
 
+![Screenshot](resources/screenshots/seomatic01.jpg)
+
 ## Installation
 
 To install SEOmatic, follow these steps:
@@ -16,6 +18,8 @@ SEOmatic works on Craft 2.4.x and Craft 2.5.x.
 ## Overview
 
 SEOmatic allows you to quickly get a website up and running with a robust, comprehensive SEO strategy.  It is also implemented in a Craft-y way, in that it is also flexible and customizable.
+
+It implements [JSON-LD](https://developers.google.com/schemas/formats/json-ld?hl=en) microdata, [Dublin Core](http://dublincore.org) core metadata, [Twitter Cards](https://dev.twitter.com/cards/overview) core metadata, [Twitter Cards](https://dev.twitter.com/cards/overview) tags, [Facebook OpenGraph](https://developers.facebook.com/docs/sharing/opengraph) tags, [Humans.txt](http://humanstxt.org) authorship accreditation, and as well as HTML meta tags.
 
 The general philosophy is that SEO Site Meta can be overridden by SEO Template Meta which can be overridden by dynamic SEO Twig tags.
 
@@ -49,6 +53,8 @@ You can also dynamically change any of these SEO Meta fields in your Twig templa
 * **Site SEO Keywords** - Google ignores this tag; though other search engines do look at it. Utilize it carefully, as improper or spammy use most likely will hurt you, or even have your site marked as spam. Avoid overstuffing the keywords and do not include keywords that are not related to the specific page you place them on.
 * **Site SEO Image** - This is the image that will be used for display as the global website brand, as well as on Twitter Cards and Facebook OpenGraph that link to the website. It should be an image that displays well when cropped to a square format (for Twitter)
 * **Site Owner** - The type of entity that owns this website.
+* **Site Twitter Card Type** - With Twitter Cards, you can attach rich photos and information to Tweets that drive traffic to your website. Users who Tweet links to your content will have a “Card” added to the Tweet that’s visible to all of their followers.
+* **Site Facebook Open Graph Type** - Adding Open Graph tags to your website influences the performance of your links on social media by allowing you to control what appears when a user posts a link to your content on Facebook.
 
 You can use any Craft `environmentVariables` in these fields in addition to static text, e.g.:
 
@@ -123,13 +129,15 @@ None of these fields are mandatory; if you don't have a given social media accou
 * **Instagram Handle** - Your Instagram handle
 * **Pinterest Handle** - Your Pinterest page handle (the part after `https://www.pinterest.com/`)
 
+You must have a **Twitter Handle** for SEOmatic to generate Twitter Card tags for you.  Similarly, you must have a **Facebook Profile ID** for SEOmatic to generate Facebook Open Graph tags for you.
+
 You can use any Craft `environmentVariables` in these fields in addition to static text, e.g.:
 
     This is my {baseUrl}
 
 ### Site Creator
 
-These Site Creator settings are used to globally define & attribute the creator of the website.  If you're reading this, that's probably you.
+These Site Creator settings are used to globally define & attribute the creator of the website.  The creator is the company/individual that developed the website.
 
 They are used in combination with the SEO Template Meta settings to generate [JSON-LD](https://developers.google.com/schemas/formats/json-ld?hl=en) microdata, [Dublin Core](http://dublincore.org) core metadata, [Twitter Cards](https://dev.twitter.com/cards/overview), [Facebook OpenGraph](https://developers.facebook.com/docs/sharing/opengraph), and as well as HTML meta tags.
 
@@ -171,6 +179,11 @@ Leave any fields blank that aren't applicable or which you do not want as part o
 * **Person Gender** - The gender of the person
 * **Person Birth Place** - The place where the person was born
 
+#### Humans.txt
+* **Humans.txt Template** - [Humans.txt](http://humanstxt.org) is an initiative for knowing the people behind a website. It's a TXT file that contains information about the different people who have contributed to building the website. This is the template used to render it; you have access to all of the SEOmatic variables.  This is the template used to render it; you have access to all of the SEOmatic variables.
+
+The **Preview Humans.txt** button lets you preview what your rendered Humans.txt file will look like.
+
 You can use any Craft `environmentVariables` in these fields in addition to static text, e.g.:
 
     This is my {baseUrl}
@@ -195,6 +208,8 @@ You can also dynamically change any of these SEO Meta fields in your Twig templa
 * **SEO Description** - This should be between 70 and 160 characters (spaces included). Meta descriptions allow you to influence how your web pages are described and displayed in search results. Ensure that all of your web pages have a unique meta description that is explicit and contains your most important keywords.
 * **SEO Keywords** - Google ignores this tag; though other search engines do look at it. Utilize it carefully, as improper or spammy use most likely will hurt you, or even have your site marked as spam. Avoid overstuffing the keywords and do not include keywords that are not related to the specific page you place them on.
 * **SEO Image** - This is the image that will be used for display as the webpage brand for this template, as well as on Twitter Cards and Facebook OpenGraph that link to this page. It should be an image that displays well when cropped to a square format (for Twitter)
+* **Twitter Card Type** - With Twitter Cards, you can attach rich photos and information to Tweets that drive traffic to your website. Users who Tweet links to your content will have a “Card” added to the Tweet that’s visible to all of their followers.
+* **Facebook Open Graph Type** - Adding Open Graph tags to your website influences the performance of your links on social media by allowing you to control what appears when a user posts a link to your content on Facebook.
 
 You can use any Craft `environmentVariables` in these fields in addition to static text, e.g.:
 
@@ -228,23 +243,65 @@ SEOmatic populates your templates with the following global variables for SEO Me
     seomaticMeta.seoImage
     seomaticMeta.canonicalUrl
 
-All of the variables are set by a combination of your SEO Site Meta settings, and the SEO Template Meta settings linked to the currently rendered template (if any).
-
 By default, `seomaticMeta.canonicalUrl` is set to `craft.request.url`.
+
+All of the variables are set by a combination of your SEO Site Meta settings, and the SEO Template Meta settings linked to the currently rendered template (if any).  These are the primary SEOmatic variables that you will be manipulating in your templates.
 
 These work like any other Twig variables; you can output them by doing:
 
     {{ seomaticMeta.seoTitle }}
 
+If you have a **Twitter Handle**, you'll also get variables that are used to generate your Twitter Card tags:
+
+    seomaticMeta.twitter.card
+    seomaticMeta.twitter.site
+    seomaticMeta.twitter.creator
+    seomaticMeta.twitter.title
+    seomaticMeta.twitter.description
+    seomaticMeta.twitter.image
+
+If you have a **Facebook Profile ID**, you'll also get variables that are used to generate your Facebook Open Graph tags:
+
+    seomaticMeta.og.type
+    seomaticMeta.og.locale
+    seomaticMeta.og.url
+    seomaticMeta.og.title
+    seomaticMeta.og.description
+    seomaticMeta.og.image
+    seomaticMeta.og.site_name
+    seomaticMeta.og.see_also
+
+When SEOmatic goes to render the `twitter` and `og` tags, it iterates through the respective arrays, so you can add, remove, or change any of the key-value pairs in the array, and they will be rendered.  Just ensure that the `key` is a valid schema type for the respective meta tags.
+
 You can also change them all at once like this using the Twig [set](http://twig.sensiolabs.org/doc/tags/set.html) syntax:
 
 	{% set seomaticMeta = { 
-	    seoTitle: 'Some Title',
+	    seoTitle: "Some Title",
 	    seoDescription: entry.summary,
-	    seoKeywords: 'Some,Key,Words',
-	    seoImage: '',
+	    seoKeywords: "Some,Key,Words",
+	    seoImage: seomaticMeta.seoImage,
 	    canonicalUrl: entry.url,
+	    twitter: { 
+	        card: seomaticMeta.twitter.card,
+	        site: seomaticMeta.twitter.card,
+	        creator: seomaticMeta.twitter.creator,
+	        title: "Some Title",
+	        description: entry.summary,
+	        image: seomaticMeta.twitter.image
+	    },
+	    og: { 
+	        type: seomaticMeta.og.type,
+	        locale: seomaticMeta.og.locale,
+	        url: entry.url,
+	        title: "Some Title",
+	        description: entry.summary,
+	        image: seomaticMeta.og.image,
+	        site_name: seomaticMeta.og.site_name,
+	        see_also: seomaticMeta.og.see_also
+	    }
 	} %}
+
+Anywhere we are setting a field to `seomaticMeta.*`, we're setting it to what it already is, essentially saying to leave it unchanged.  We do this because Twig requires that you pass in the entire array to the `set` operator.
 
 Or if you want to set just one variable in the array, you can use the Twig function [merge](http://twig.sensiolabs.org/doc/filters/merge.html):
 
@@ -321,7 +378,7 @@ So tying it all together, you might do something like this for a dynamic Blog en
 	    seoTitle: entry.title,
 	    seoDescription: entry.summary,
 	    seoKeywords: extractKeywords(entry.blog),
-	    seoImage: entry.image,
+	    seoImage: entry.image.url,
 	    canonicalUrl: seomaticMeta.canonicalUrl,
 	} %}
 
@@ -352,15 +409,101 @@ So tying it all together, you might do something like this for a dynamic Blog en
 	    seoTitle: entry.title,
 	    seoDescription: extractSummary(entry.blog),
 	    seoKeywords: extractKeywords(entry.blog),
-	    seoImage: entry.image,
+	    seoImage: entry.image.url,
 	    canonicalUrl: seomaticMeta.canonicalUrl,
 	} %}
 
 Note that we set the `canonicalUrl` to `seomaticMeta.canonicalUrl`, effectively leaving it unchanged.
 
+## Humans.txt authorship
+
+[Humans.txt](http://humanstxt.org) is an initiative for knowing the people behind a website. It's a TXT file that contains information about the different people who have contributed to building the website.
+
+SEOmatic automatically generates [Humans.txt](http://humanstxt.org) authorship accreditation with the following tag:
+
+    <link type="text/plain" rel="author" href="humans.txt" />
+
+The rendered `humans.txt` file uses the following template by default (you're free to change it as you wish):
+
+    /* TEAM */
+    
+    {% if seomaticCreator.name is defined and seomaticCreator.name %}
+    Creator: {{ seomaticCreator.name }}
+    {% endif %}
+    {% if seomaticCreator.url is defined and seomaticCreator.url %}
+    URL: {{ seomaticCreator.url }}
+    {% endif %}
+    {% if seomaticCreator.description is defined and seomaticCreator.description %}
+    Description: {{ seomaticCreator.description }}
+    {% endif %}
+    
+    /* THANKS */
+    
+    Pixel & Tonic - https://pixelandtonic.com
+    
+    /* SITE */
+    
+    Standards: HTML5, CSS3
+    Components: Craft CMS, Yii, PHP, Javascript, SEOmatic
+
 ## Utility Filters & Functions
 
 SEOmatic exposes a few useful utility filters & functions that you can use... or not.
+
+### Rendering Arbitary JSON-LD
+
+SEOmatic gives you the ability to render an arbitrary [JSON-LD](https://developers.google.com/schemas/formats/json-ld?hl=en) object, passed in as an array().  All three of these methods accomplish the same thing:
+
+	{# Render arbitrary JSON-LD using the 'renderJSONLD' function #}
+    {{ renderJSONLD( JSONLD_ARRAY ) }}
+    
+    {# Render arbitrary JSON-LD using the 'renderJSONLD' filter #}
+    {{ JSONLD_ARRAY | renderJSONLD }}
+    
+    {# Render arbitrary JSON-LD using the 'renderJSONLD' variable #}
+    {% do craft.seomatic.renderJSONLD( JSONLD_ARRAY ) %}
+
+
+The JSONLD_ARRAY should be in the following format in PHP:
+    
+    $myJSONLD = array(
+	    "type" => "Corporation",
+	    "name" => "nystudio107",
+	    "sameAs" => ["https://Twitter.com/nystudio107","https://plus.google.com/+nystudio107"],
+	    "address" => array(
+		    "type" => 'PostalAddress',
+		    "addressCountry" => "USA",
+		    ),
+	    );
+	
+The JSONLD_ARRAY should be in the following format in Twig:
+
+	{% set myJSONLD = {
+		"type": "Corporation",
+		"name": "nystudio107",
+		"sameAs": ["https://Twitter.com/nystudio107","https://plus.google.com/+nystudio107"],
+		"address": {
+			"type": 'PostalAddress',
+			"addressCountry": "USA",
+		},
+	} %}
+	
+The above arrays will render to the following JSON-LD:
+
+	<script type="application/ld+json">
+	{
+	    "@context": "http://schema.org",
+	    "@type": "Corporation",
+	    "name": "nystudio107",
+	    "sameAs": ["https://Twitter.com/nystudio107","https://plus.google.com/+nystudio107"],
+	    "address": {
+	        "@type": "PostalAddress",
+	        "addressCountry": "USA" 
+	    } 
+	}
+	</script>
+	
+The array can be nested arbitrarily deep with sub-arrays.  The first key in the array, and in each sub-array, should be an "type" with a valid [Schema.org](Schema.org) type as the value.  Because Twig doesn't support array keys with non-alphanumeric characters, SEOmatic transforms the keys "type" into "@type" at render time.
 
 ### truncateStringOnWord()
 
@@ -421,51 +564,30 @@ SEOmatic also automatically strips HTML/PHP tags from the variables, and transla
 
 ## SEOmatic Site Identity Twig Variables
 
-SEOmatic populates your templates with the following global variables for Site Identity:
-
-    seomaticIdentity.googleSiteVerification
-    seomaticIdentity.siteOwnerType
-    seomaticIdentity.genericOwnerName
-    seomaticIdentity.genericOwnerAlternateName
-    seomaticIdentity.genericOwnerDescription
-    seomaticIdentity.genericOwnerUrl
-    seomaticIdentity.genericOwnerTelephone
-    seomaticIdentity.genericOwnerEmail
-    seomaticIdentity.genericOwnerStreetAddress
-    seomaticIdentity.genericOwnerAddressLocality
-    seomaticIdentity.genericOwnerAddressRegion
-    seomaticIdentity.genericOwnerPostalCode
-    seomaticIdentity.genericOwnerAddressCountry
-    seomaticIdentity.genericOwnerGeoLatitude
-    seomaticIdentity.genericOwnerGeoLongitude
-    seomaticIdentity.organizationOwnerDuns
-    seomaticIdentity.organizationOwnerFounder
-    seomaticIdentity.organizationOwnerFoundingDate
-    seomaticIdentity.organizationOwnerFoundingLocation
-    seomaticIdentity.personOwnerGender
-    seomaticIdentity.personOwnerBirthPlace
-    seomaticIdentity.corporationOwnerTickerSymbol
-    seomaticIdentity.restaurantOwnerServesCuisine
-    seomaticIdentity.genericOwnerImage
-
-Additionally, the following variables are generated for you automatically for the respective services, and are links to your website's social media account pages:
-
-    seomaticIdentity.copyrightNotice
-    seomaticIdentity.addressString
-    seomaticIdentity.addressHtml
-    seomaticIdentity.mapUrl
-
-All of the variables are from your Site Identity settings, and will be the same for every template rendered.
+SEOmatic populates your templates with an array of Site Identity variables; see the **Rendered Identity Microdata** section for a complete listing of them.  All of the variables are from your Site Identity settings, and will be the same for every template rendered.
 
 Mostly, you won't need to change them in your Twig templates, but it can be useful to reference or output them.  These work like any other Twig variables; you can output them by doing:
 
-    {{ seomaticIdentity.genericOwnerName }}
+    {{ seomaticIdentity.name }}
 
 You can also change these variables the same way you change the "Dynamic Twig SEO Meta" (using Twig `set` and `merge`), but in practice they typically will just be set in the SEOmatic **Site Identity** settings page in the Admin CP.
 
+Because the `seomaticIdentity` array is directly translated into JSON-LD, you can manipulate it via Twig to modify or add to the JSON-LD.  For example, let's say you want to add a [Brand](https://schema.org/Brand) to your [Corporation](https://schema.org/Corporation)-type Identity JSON-LD:
+
+	{% set myBrand = {
+		type: "Brand",
+		name: "Brad's for Men",
+		description: "Brad Bell's musky essence will intoxicate you.",
+		url: "http://bradsformen.com",
+		logo: "http://bradsformen.com/logo.png",
+		image: "http://bradsformen.com/lifestyle.jpg",
+	} %}
+
+	{% set seomaticIdentity = seomaticIdentity | merge({'brand': myBrand }) %}
+
 SEOmatic also automatically strips HTML/PHP tags from the variables, and translates HTML entities to ensure that they are properly encoded.
 
-The `genericOwnerEmail` variable is ordinal-encoded to obfuscate it.  For instance, `info@nystudio107.com` becomes:
+The `email` variable is ordinal-encoded to obfuscate it.  For instance, `info@nystudio107.com` becomes:
     
     &#105;&#110;&#102;&#111;&#64;&#110;&#121;&#115;&#116;&#117;&#100;&#105;&#111;&#49;&#48;&#55;&#46;&#99;&#111;&#109;
 
@@ -482,22 +604,12 @@ SEOmatic populates your templates with the following global variables for Social
     seomaticSocial.youtubeHandle
     seomaticSocial.instagramHandle
     seomaticSocial.pinterestHandle
-    
-Additionally, the following variables are generated for you automatically for the respective services, and are links to your website's social media account pages:
-    
-    seomaticSocial.twitterUrl
-    seomaticSocial.facebookUrl
-    seomaticSocial.googlePlusUrl
-    seomaticSocial.linkedInUrl
-    seomaticSocial.youtubeUrl
-    seomaticSocial.instagramUrl
-    seomaticSocial.pinterestUrl
-    
+        
 All of the variables are from your Social Media settings, and will be the same for every template rendered.
 
 Mostly, you won't need to change them in your Twig templates, but it can be useful to reference or output them.  These work like any other Twig variables; you can output them by doing:
 
-    {{ seomaticSocial.twitterUrl }}
+    {{ seomaticSocial.twitterHandle }}
 
 You can also change these variables the same way you change the "Dynamic Twig SEO Meta" (using Twig `set` and `merge`), but in practice they typically will just be set in the SEOmatic **Social Media** settings page in the Admin CP.
 
@@ -505,57 +617,40 @@ SEOmatic also automatically strips HTML/PHP tags from the variables, and transla
 
 ## SEOmatic Site Creator Twig Variables
 
-SEOmatic populates your templates with the following global variables for Site Creator:
-
-    seomaticCreator.siteCreatorType
-    seomaticCreator.genericCreatorName
-    seomaticCreator.genericCreatorAlternateName
-    seomaticCreator.genericCreatorDescription
-    seomaticCreator.genericCreatorUrl
-    seomaticCreator.genericCreatorTelephone
-    seomaticCreator.genericCreatorEmail
-    seomaticCreator.genericCreatorStreetAddress
-    seomaticCreator.genericCreatorAddressLocality
-    seomaticCreator.genericCreatorAddressRegion
-    seomaticCreator.genericCreatorPostalCode
-    seomaticCreator.genericCreatorAddressCountry
-    seomaticCreator.genericCreatorGeoLatitude
-    seomaticCreator.genericCreatorGeoLongitude
-    seomaticCreator.organizationCreatorDuns
-    seomaticCreator.organizationCreatorFounder
-    seomaticCreator.organizationCreatorFoundingDate
-    seomaticCreator.organizationCreatorFoundingLocation
-    seomaticCreator.personCreatorGender
-    seomaticCreator.personCreatorBirthPlace
-    seomaticCreator.corporationCreatorTickerSymbol
-    seomaticCreator.genericCreatorImage
-
-Additionally, the following variables are generated for you automatically for the respective services, and are links to your website's social media account pages:
-
-    seomaticCreator.copyrightNotice
-    seomaticCreator.addressString
-    seomaticCreator.addressHtml
-    seomaticCreator.mapUrl
-    
-All of the variables are from your Site Creator settings, and will be the same for every template rendered.
+SEOmatic populates your templates with an array of Site Creator variables; see the **Rendered WebSite Microdata** section for a complete listing of them.  All of the variables are from your Site Creator settings, and will be the same for every template rendered.
 
 Mostly, you won't need to change them in your Twig templates, but it can be useful to reference or output them.  These work like any other Twig variables; you can output them by doing:
 
-    {{ seomaticCreator.genericCreatorName }}
+    {{ seomaticCreator.name }}
 
-You can also change these variables the same way you change the "Dynamic Twig SEO Meta" (using Twig `set` and `merge`), but in practice they typically will just be set in the SEOmatic **Creator Identity** settings page in the Admin CP.
+You can also change these variables the same way you change the "Dynamic Twig SEO Meta" (using Twig `set` and `merge`), but in practice they typically will just be set in the SEOmatic **Site Creator** settings page in the Admin CP.
+
+Because the `seomaticCreator` array is directly translated into JSON-LD, you can manipulate it via Twig to modify or add to the JSON-LD.  For example, let's say you want to add an `affiliation` to your [Person](https://schema.org/Person)-type Creator JSON-LD:
+
+	{% set myAffiliation = {
+		type: "Organization",
+		name: "nystudio107",
+		description: "Impeccable design married with precision craftsmanship.",
+		url: "http://nystudio107.com",
+	} %}
+
+	{% set seomaticCreator = seomaticCreator | merge({'affiliation': myAffiliation }) %}
 
 SEOmatic also automatically strips HTML/PHP tags from the variables, and translates HTML entities to ensure that they are properly encoded.
 
-The `genericCreatorEmail` variable is ordinal-encoded to obfuscate it.  For instance, `info@nystudio107.com` becomes:
+The `email` variable is ordinal-encoded to obfuscate it.  For instance, `info@nystudio107.com` becomes:
 
     &#105;&#110;&#102;&#111;&#64;&#110;&#121;&#115;&#116;&#117;&#100;&#105;&#111;&#49;&#48;&#55;&#46;&#99;&#111;&#109;
+
+## SEOmatic Helper Twig Variables
 
 ## Previewing your SEO Meta
 
 There's a lot going on here, so to make it all more easily understood, SEOmatic offers two ways to preview your SEO Meta.  You have to **Save** the settings first before you preview them; a "Live Preview" feature is on the wish list for future versions.
 
 ### Preview SEO Meta Display
+
+![Screenshot](resources/screenshots/seomatic02.jpg)
 
 Clicking on the **Preview SEO Meta Display** button will show you a preview of what the rendered SEO Meta will look like to various services that scrape your SEO Meta tags, such as Google, Twitter, and Facebook.
 
@@ -569,98 +664,156 @@ Clicking on the **Preview SEO Meta Tags** button will show you Twig/HTML output 
 
 #### Meta Template Variables
 
-These are the Twig variables that SEOmatic pre-populates, and makes available to you in your templates. They are used when rendering the SEO Meta, so you can manipulate them however you want before rendering your SEO Meta. For example, you might change the seoDescription to be the summary field of an entry.
+These are the Twig variables that SEOmatic pre-populates, and makes available to you in your templates. They are used when rendering the SEO Meta, so you can manipulate them however you want before rendering your SEO Meta. For example, you might change the `seomaticMeta.seoDescription` to be the summary field of an entry.
 
 	{% set seomaticMeta = { 
-	    seoTitle: 'This is the default global title of the site pages.',
-	    seoDescription: 'This is the default global natural language description of the content on the site pages.',
-	    seoKeywords: 'This is the default global list of comma-separated key words that are relevant to the content on the site pages.',
-	    seoImage: {nys seo logo},
-	    canonicalUrl: 'http://nystudio107.dev/',
+	    seoTitle: "We make the big stuff big & the little stuff little",
+	    seoDescription: "Big Entity specializes in making the big stuff big, but we also know how to make the little stuff little!",
+	    seoKeywords: "colossal,considerable,enormous,fat,full,gigantic,hefty,huge,immense,massive,sizable,substantial,tremendous,",
+	    seoImage: "http://nystudio107.dev/img/site/big_hq.jpg",
+	    canonicalUrl: "http://nystudio107.dev/",
+	    twitter: { 
+	        card: "summary_large_image",
+	        site: "@nystudio107",
+	        creator: "@nystudio107",
+	        title: "We make the big stuff big & the little stuff little | Big Entity, Inc.",
+	        description: "Big Entity specializes in making the big stuff big, but we also know how to make the little stuff little!",
+	        image: "http://nystudio107.dev/img/site/big_hq.jpg"
+	    },
+	    og: { 
+	        type: "website",
+	        locale: "en",
+	        url: "http://nystudio107.dev/admin/seomatic/social",
+	        title: "We make the big stuff big & the little stuff little | Big Entity, Inc.",
+	        description: "Big Entity specializes in making the big stuff big, but we also know how to make the little stuff little!",
+	        image: "http://nystudio107.dev/img/site/big_hq.jpg",
+	        site_name: "Big Entity, Inc.",
+	        see_also: ["https://twitter.com/nystudio107","https://www.facebook.com/nystudio107","https://plus.google.com/+nystudio107","https://www.linkedin.com/company/nystudio107","https://www.youtube.com/user/nystudio107","https://www.instagram.com/nystudio107","https://www.pinterest.com/nystudio107"]
+	    }
+	} %}
+	
+	{% set seomaticHelper = { 
+	    twitterUrl: "https://twitter.com/nystudio107",
+	    facebookUrl: "https://www.facebook.com/nystudio107",
+	    googlePlusUrl: "https://plus.google.com/+nystudio107",
+	    linkedInUrl: "https://www.linkedin.com/company/nystudio107",
+	    youtubeUrl: "https://www.youtube.com/user/nystudio107",
+	    instagramUrl: "https://www.instagram.com/nystudio107",
+	    pinterestUrl: "https://www.pinterest.com/nystudio107",
+	    ownerGoogleSiteVerification: "BM6VkEojTIASDEWyTLro7VNhZnW_036LNdcYk5j9X_8g",
+	    ownerCopyrightNotice: "Copyright ©2015 Big Entity, Inc. All rights reserved.",
+	    ownerAddressString: "Big Entity, Inc., 123 Some Road, Porchester, NY 11450, USA",
+	    ownerAddressHtml: "Big Entity, Inc.<br />123 Some Road<br />Porchester, NY 11450<br />USA<br />",
+	    ownerMapUrl: "http://maps.google.com/maps?q=Big+Entity%2C+Inc.%2C+123+Some+Road%2C+Porchester%2C+NY+11450%2C+USA",
+	    creatorCopyrightNotice: "Copyright ©2015 NY Studio 107. All rights reserved.",
+	    creatorAddressString: "",
+	    creatorAddressHtml: "",
+	    creatorMapUrl: ""
 	} %}
 	
 	{% set seomaticSiteMeta = { 
-	    siteSeoName: 'nystudio107',
-	    siteSeoTitle: 'This is the default global title of the site pages.',
-	    siteSeoDescription: 'This is the default global natural language description of the content on the site pages.',
-	    siteSeoKeywords: 'This is the default global list of comma-separated key words that are relevant to the content on the site pages.',
-	    siteSeoImage: {nys seo logo},
+	    siteSeoName: "Big Entity, Inc.",
+	    siteSeoTitle: "We make the big stuff big & the little stuff little",
+	    siteSeoDescription: "Big Entity specializes in making the big stuff big, but we also know how to make the little stuff little!",
+	    siteSeoKeywords: "colossal,considerable,enormous,fat,full,gigantic,hefty,huge,immense,massive,sizable,substantial,tremendous,",
+	    siteSeoImage: "http://nystudio107.dev/img/site/big_hq.jpg"
 	} %}
 	
 	{% set seomaticSocial = { 
-	    twitterHandle: 'nystudio107',
-	    facebookHandle: 'nystudio107',
-	    facebookProfileId: '123456',
-	    linkedInHandle: 'nystudio107',
-	    googlePlusHandle: 'nystudio107',
-	    youtubeHandle: 'nystudio107',
-	    instagramHandle: 'nystudio107',
-	    pinterestHandle: 'nystudio107',
-	    twitterUrl: 'https://twitter.com/nystudio107',
-	    facebookUrl: 'https://www.facebook.com/nystudio107',
-	    googlePlusUrl: 'https://plus.google.com/+nystudio107',
-	    linkedInUrl: 'https://www.linkedin.com/company/nystudio107',
-	    youtubeUrl: 'https://www.youtube.com/user/nystudio107',
-	    instagramUrl: 'https://www.instagram.com/nystudio107',
-	    pinterestUrl: 'https://www.pinterest.com/nystudio107',
+	    twitterHandle: "nystudio107",
+	    facebookHandle: "nystudio107",
+	    facebookProfileId: "642246343",
+	    linkedInHandle: "nystudio107",
+	    googlePlusHandle: "nystudio107",
+	    youtubeHandle: "nystudio107",
+	    instagramHandle: "nystudio107",
+	    pinterestHandle: "nystudio107"
 	} %}
 	
 	{% set seomaticIdentity = { 
-	    googleSiteVerification: '12456',
-	    siteOwnerType: 'corporation',
-	    genericOwnerName: 'NY Studio 107',
-	    genericOwnerAlternateName: 'nystudio107',
-	    genericOwnerDescription: 'Impeccable design married with precision craftsmanship.',
-	    genericOwnerUrl: 'http://nystudio107.com',
-	    genericOwnerTelephone: '585-555-1212',
-	    genericOwnerEmail: '&#105;&#110;&#102;&#111;&#64;&#110;&#121;&#115;&#116;&#117;&#100;&#105;&#111;&#49;&#48;&#55;&#46;&#99;&#111;&#109;',
-	    genericOwnerStreetAddress: '123 Main Street',
-	    genericOwnerAddressLocality: 'Portchester',
-	    genericOwnerAddressRegion: 'NY',
-	    genericOwnerPostalCode: '14580',
-	    genericOwnerAddressCountry: 'USA',
-	    genericOwnerGeoLatitude: '-120.5436367',
-	    genericOwnerGeoLongitude: '80.6033588',
-	    organizationOwnerDuns: '',
-	    organizationOwnerFounder: 'Andrew Welch',
-	    organizationOwnerFoundingDate: '10/1/2011',
-	    organizationOwnerFoundingLocation: 'Webster, NY, USA',
-	    personOwnerGender: '',
-	    personOwnerBirthPlace: '',
-	    corporationOwnerTickerSymbol: '',
-	    restaurantOwnerServesCuisine: '',
-	    genericOwnerImage: {nys logo@2x},
+	    type: "Corporation",
+	    name: "Big Entity, Inc.",
+	    alternateName: "Big",
+	    description: "We sell only big stuff... but we'll sell you little stuff too, but only in bulk containers of 1,000 units per container.  So then it's big too.",
+	    url: "http://BigEntity.com",
+	    image: "http://nystudio107.dev/img/site/big_logo.jpg",
+	    telephone: "585.214.9439",
+	    email: "info@BigEntity.com",
+	    address: { 
+	        type: "PostalAddress",
+	        streetAddress: "123 Some Road",
+	        addressLocality: "Porchester",
+	        addressRegion: "NY",
+	        postalCode: "11450",
+	        addressCountry: "USA"
+	    },
+	    logo: "http://nystudio107.dev/img/site/big_logo.jpg",
+	    location: { 
+	        type: "Place",
+	        name: "Big Entity, Inc.",
+	        alternateName: "Big",
+	        description: "We sell only big stuff... but we'll sell you little stuff too, but only in bulk containers of 1,000 units per container.  So then it's big too.",
+	        hasMap: "http://maps.google.com/maps?q=Big+Entity%2C+Inc.%2C+123+Some+Road%2C+Porchester%2C+NY+11450%2C+USA",
+	        geo: { 
+	            type: "GeoCoordinates",
+	            latitude: "-10.447525",
+	            longitude: "105.690449"
+	        },
+	        address: { 
+	            type: "PostalAddress",
+	            streetAddress: "123 Some Road",
+	            addressLocality: "Porchester",
+	            addressRegion: "NY",
+	            postalCode: "11450",
+	            addressCountry: "USA"
+	        }
+	    },
+	    duns: "12345678",
+	    founder: "Mr. Big",
+	    foundingDate: "10/2011",
+	    foundingLocation: "Redding, CT",
+	    tickerSymbol: "BGE"
 	} %}
 	
 	{% set seomaticCreator = { 
-	    googleSiteVerification: '12456',
-	    siteCreatorType: 'corporation',
-	    genericCreatorName: 'NY Studio 107',
-	    genericCreatorAlternateName: 'nystudio107',
-	    genericCreatorDescription: 'Impeccable design married with precision craftsmanship.',
-	    genericCreatorUrl: 'http://nystudio107.com',
-	    genericCreatorTelephone: '585.555.1212',
-	    genericCreatorEmail: '&#105;&#110;&#102;&#111;&#64;&#110;&#121;&#115;&#116;&#117;&#100;&#105;&#111;&#49;&#48;&#55;&#46;&#99;&#111;&#109;',
-	    genericCreatorStreetAddress: '575 Dunfrey Road',
-	    genericCreatorAddressLocality: 'Lansing',
-	    genericCreatorAddressRegion: 'MI',
-	    genericCreatorPostalCode: '11360',
-	    genericCreatorAddressCountry: 'USA',
-	    genericCreatorGeoLatitude: '-120.5436367',
-	    genericCreatorGeoLongitude: '80.6033588',
-	    organizationCreatorDuns: '',
-	    organizationCreatorFounder: 'Andrew Welch',
-	    organizationCreatorFoundingDate: '10/1/2011',
-	    organizationCreatorFoundingLocation: 'Webster, NY',
-	    personCreatorGender: '',
-	    personCreatorBirthPlace: '',
-	    corporationCreatorTickerSymbol: '',
-	    genericCreatorImage: {nys logo@2x},
+	    type: "Corporation",
+	    name: "NY Studio 107",
+	    alternateName: "nystudio107",
+	    description: "Impeccable design married with precision craftsmanship",
+	    url: "http://nystudio107.com",
+	    image: "http://nystudio107.dev/img/site/nys_seo_logo.png",
+	    email: "info@nystudio107.com",
+	    address: { 
+	        type: "PostalAddress",
+	        addressLocality: "Webster",
+	        addressRegion: "NY",
+	        postalCode: "14580",
+	        addressCountry: "USA"
+	    },
+	    logo: "http://nystudio107.dev/img/site/nys_seo_logo.png",
+	    location: { 
+	        type: "Place",
+	        name: "NY Studio 107",
+	        alternateName: "nystudio107",
+	        description: "Impeccable design married with precision craftsmanship",
+	        geo: { 
+	            type: "GeoCoordinates",
+	            latitude: "43.11558",
+	            longitude: "-77.59647199999999"
+	        },
+	        address: { 
+	            type: "PostalAddress",
+	            addressLocality: "Webster",
+	            addressRegion: "NY",
+	            postalCode: "14580",
+	            addressCountry: "USA"
+	        }
+	    }
 	} %}
 	
-	{% set seomaticTemplatePath = '' %}
-	
-You can treat all of these like regular Twig variables; for instance, `{{ seomaticSocial.twitterUrl }}` will output the URL to the website's Twitter page. You can change these variables using the Twig array [set](http://twig.sensiolabs.org/doc/tags/set.html) syntax, or using the Twig function [merge](http://twig.sensiolabs.org/doc/filters/merge.html). Any changes you make will be reflected in the SEO Meta rendered with `{% hook 'seomaticRender' %}` on your page.
+	{% set seomaticTemplatePath = "" %}
+		
+You can treat all of these like regular Twig variables; for instance, `{{ seomaticHelper.twitterUrl }}` will output the URL to the website's Twitter page. You can change these variables using the Twig array [set](http://twig.sensiolabs.org/doc/tags/set.html) syntax, or using the Twig function [merge](http://twig.sensiolabs.org/doc/filters/merge.html). Any changes you make will be reflected in the SEO Meta rendered with `{% hook 'seomaticRender' %}` on your page.
 
 #### Rendered SEO Meta
 
@@ -670,266 +823,267 @@ SEOmatic cascades Meta settings; if you have a Meta associated with the current 
 
 	<!-- BEGIN SEOmatic rendered SEO Meta -->
 	
-	<title>This is the default global title of the site pages. | nystudio107</title> <!-- {{ seomaticMeta.seoTitle }} | {{ seomaticSiteMeta.siteSeoName }} -->
+	<title>We make the big stuff big &amp; the little stuff little | Big Entity, Inc.</title> <!-- {{ seomaticMeta.seoTitle }} | {{ seomaticSiteMeta.siteSeoName }} -->
 	
 	<!-- Standard SEO -->
 	
-	<meta name="keywords" content="This is the default global list of comma-separated key words that are relevant to the content on the site pages." /> <!-- {{ seomaticMeta.seoKeywords }} -->
-	<meta name="description" content="This is the default global natural language description of the content on the site pages." /> <!-- {{ seomaticMeta.seoDescription }} -->
+	<meta name="keywords" content="colossal,considerable,enormous,fat,full,gigantic,hefty,huge,immense,massive,sizable,substantial,tremendous," /> <!-- {{ seomaticMeta.seoKeywords }} -->
+	<meta name="description" content="Big Entity specializes in making the big stuff big, but we also know how to make the little stuff little!" /> <!-- {{ seomaticMeta.seoDescription }} -->
+	<meta name="generator" content="SEOmatic" /> <!-- SEOmatic -->
 	<link rel="canonical" href="http://nystudio107.dev/" /> <!-- {{ seomaticMeta.canonicalUrl }} (defaults to craft.request.url) -->
-	<meta name="geo.region" content="NY" /> <!-- {{ seomaticIdentity.genericOwnerAddressRegion }} -->
-	<meta name="geo.position" content="-120.5436367,80.6033588" /> <!-- {{ seomaticIdentity.genericOwnerGeoLatitude }},{{ seomaticIdentity.genericOwnerGeoLongitude }} -->
-	<meta name="ICBM" content="-120.5436367,80.6033588" /> <!-- {{ seomaticIdentity.genericOwnerGeoLatitude }},{{ seomaticIdentity.genericOwnerGeoLongitude }} -->
-	<meta name="geo.placename" content="NY Studio 107" /> <!-- {{ seomaticIdentity.genericOwnerName }} -->
+	<meta name="geo.region" content="NY" /> <!-- {{ seomaticIdentity.address.addressRegion }} -->
+	<meta name="geo.position" content="-10.447525,105.690449" /> <!-- {{ seomaticIdentity.location.geo.latitude }},{{ seomaticIdentity.location.geo.longitude }} -->
+	<meta name="ICBM" content="-10.447525,105.690449" /> <!-- {{ seomaticIdentity.location.geo.latitude }},{{ seomaticIdentity.location.geo.longitude }} -->
+	<meta name="geo.placename" content="Big Entity, Inc." /> <!-- {{ seomaticIdentity.location.name }} -->
 	
 	<!-- Dublin Core basic info -->
 	
 	<meta name="dcterms.Identifier" content="http://nystudio107.dev/" /> <!-- {{ seomaticMeta.canonicalUrl }} (defaults to craft.request.url) -->
 	<meta name="dcterms.Format" content="text/html" /> <!-- text/html -->
-	<meta name="dcterms.Relation" content="nystudio107" /> <!-- {{ seomaticSiteMeta.siteSeoName }} -->
+	<meta name="dcterms.Relation" content="Big Entity, Inc." /> <!-- {{ seomaticSiteMeta.siteSeoName }} -->
 	<meta name="dcterms.Language" content="en" /> <!-- {{ craft.locale }} -->
-	<meta name="dcterms.Publisher" content="nystudio107" /> <!-- {{ seomaticSiteMeta.siteSeoName }} -->
+	<meta name="dcterms.Publisher" content="Big Entity, Inc." /> <!-- {{ seomaticSiteMeta.siteSeoName }} -->
 	<meta name="dcterms.Type" content="text/html" /> <!-- text/html -->
 	<meta name="dcterms.Coverage" content="http://nystudio107.dev/" /> <!-- {{ siteUrl }} -->
-	<meta name="dcterms.Rights" content="Copyright &copy;2015, NY Studio 107. All rights reserved." /> <!-- Copyright &copy;{{ now | date('Y') }}, {{ seomaticIdentity.genericOwnerName }}. All rights reserved. -->
-	<meta name="dcterms.Title" content="This is the default global title of the site pages." /> <!-- {{ seomaticMeta.seoTitle }} -->
-	<meta name="dcterms.Creator" content="nystudio107" /> <!-- {{ seomaticSiteMeta.siteSeoName }} -->
-	<meta name="dcterms.Subject" content="This is the default global list of comma-separated key words that are relevant to the content on the site pages." /> <!-- {{ seomaticMeta.seoKeywords }} -->
-	<meta name="dcterms.Contributor" content="nystudio107" /> <!-- {{ seomaticSiteMeta.siteSeoName }} -->
-	<meta name="dcterms.Date" content="2015-12-18" /> <!-- {{ now | date('Y-m-d') }} -->
-	<meta name="dcterms.Description" content="This is the default global natural language description of the content on the site pages." /> <!-- {{ seomaticMeta.seoDescription }} -->
+	<meta name="dcterms.Rights" content="Copyright &copy;2015 Big Entity, Inc. All rights reserved." /> <!-- {{ seomaticHelper.ownerCopyrightNotice }} -->
+	<meta name="dcterms.Title" content="We make the big stuff big &amp; the little stuff little" /> <!-- {{ seomaticMeta.seoTitle }} -->
+	<meta name="dcterms.Creator" content="NY Studio 107" /> <!-- {{ seomaticCreator.name }} -->
+	<meta name="dcterms.Subject" content="colossal,considerable,enormous,fat,full,gigantic,hefty,huge,immense,massive,sizable,substantial,tremendous," /> <!-- {{ seomaticMeta.seoKeywords }} -->
+	<meta name="dcterms.Contributor" content="Big Entity, Inc." /> <!-- {{ seomaticSiteMeta.siteSeoName }} -->
+	<meta name="dcterms.Date" content="2015-12-27" /> <!-- {{ now | date('Y-m-d') }} -->
+	<meta name="dcterms.Description" content="Big Entity specializes in making the big stuff big, but we also know how to make the little stuff little!" /> <!-- {{ seomaticMeta.seoDescription }} -->
 	
 	<!-- Facebook OpenGraph -->
 	
-	<meta property="fb:profile_id" content="123456" /> <!-- {{ seomaticSocial.facebookProfileId }} -->
-	<meta property="og:type" content="website" /> <!-- website -->
-	<meta property="og:url" content="http://nystudio107.dev/" /> <!-- {{ seomaticMeta.canonicalUrl }} (defaults to craft.request.url) -->
-	<meta property="og:title" content="This is the default global title of the site pages. | nystudio107" /> <!-- {{ seomaticMeta.seoTitle }} | {{ seomaticSiteMeta.siteSeoName }} -->
-	<meta property="og:image" content="http://NYStudio107.com/img/site/nys_seo_logo.png" /> <!-- {{ seomaticMeta.seoImage.url }} -->
-	<meta property="og:site_name" content="nystudio107" /> <!-- {{ seomaticSiteMeta.siteSeoName }} -->
-	<meta property="og:description" content="This is the default global natural language description of the content on the site pages." /> <!-- {{ seomaticMeta.seoDescription }} -->
-	<meta property="og:locale" content="en" /> <!-- {{ craft.locale }} -->
-	<meta property="og:see_also" content="http://nystudio107.dev/" /> <!-- {{ siteUrl }} -->
-	<meta property="og:see_also" content="https://www.facebook.com/nystudio107" /> <!-- {{ seomaticSocial.facebookUrl }} -->
-	<meta property="og:see_also" content="https://twitter.com/nystudio107" /> <!-- {{ seomaticSocial.twitterUrl }} -->
-	<meta property="og:see_also" content="https://plus.google.com/+nystudio107" /> <!-- {{ seomaticSocial.googlePlusUrl }} -->
-	<meta property="og:see_also" content="https://www.linkedin.com/company/nystudio107" /> <!-- {{ seomaticSocial.linkedInUrl }} -->
-	<meta property="og:see_also" content="https://www.youtube.com/user/nystudio107" /> <!-- {{ seomaticSocial.youtubeUrl }} -->
-	<meta property="og:see_also" content="https://www.instagram.com/nystudio107" /> <!-- {{ seomaticSocial.instagramUrl }} -->
-	<meta property="og:see_also" content="https://www.pinterest.com/nystudio107" /> <!-- {{ seomaticSocial.pinterestUrl }} -->
+	<meta property="fb:profile_id" content="642246343" /> <!-- {{ seomaticSocial.facebookProfileId }} -->
+	<meta property="og:type" content="website" /> <!-- {{ seomatic.og.type }} -->
+	<meta property="og:locale" content="en" /> <!-- {{ seomatic.og.locale }} -->
+	<meta property="og:url" content="http://nystudio107.dev/" /> <!-- {{ seomatic.og.url }} -->
+	<meta property="og:title" content="We make the big stuff big &amp; the little stuff little | Big Entity, Inc." /> <!-- {{ seomatic.og.title }} -->
+	<meta property="og:description" content="Big Entity specializes in making the big stuff big, but we also know how to make the little stuff little!" /> <!-- {{ seomatic.og.description }} -->
+	<meta property="og:image" content="http://nystudio107.dev/img/site/big_hq.jpg" /> <!-- {{ seomatic.og.image }} -->
+	<meta property="og:site_name" content="Big Entity, Inc." /> <!-- {{ seomatic.og.site_name }} -->
+	<meta property="og:see_also" content="https://twitter.com/nystudio107" /> <!-- {{ seomatic.og.see_also[0] }} -->
+	<meta property="og:see_also" content="https://www.facebook.com/nystudio107" /> <!-- {{ seomatic.og.see_also[1] }} -->
+	<meta property="og:see_also" content="https://plus.google.com/+nystudio107" /> <!-- {{ seomatic.og.see_also[2] }} -->
+	<meta property="og:see_also" content="https://www.linkedin.com/company/nystudio107" /> <!-- {{ seomatic.og.see_also[3] }} -->
+	<meta property="og:see_also" content="https://www.youtube.com/user/nystudio107" /> <!-- {{ seomatic.og.see_also[4] }} -->
+	<meta property="og:see_also" content="https://www.instagram.com/nystudio107" /> <!-- {{ seomatic.og.see_also[5] }} -->
+	<meta property="og:see_also" content="https://www.pinterest.com/nystudio107" /> <!-- {{ seomatic.og.see_also[6] }} -->
 	
 	<!-- Twitter Card -->
 	
-	<meta property="twitter:card" content="summary" /> <!-- summary -->
-	<meta property="twitter:site" content="@nystudio107" /> <!-- @{{ seomaticSocial.twitterHandle }} -->
-	<meta property="twitter:title" content="This is the default global title of the site pages. | nystudio107" /> <!-- {{ seomaticMeta.seoTitle }} | {{ seomaticSiteMeta.siteSeoName }} -->
-	<meta property="twitter:description" content="This is the default global natural language description of the content on the site pages." /> <!-- {{ seomaticMeta.seoDescription }} -->
-	<meta property="twitter:image" content="http://NYStudio107.com/img/site/nys_seo_logo.png" /> <!-- {{ seomaticMeta.seoImage.url }} -->
-	<meta property="twitter:url" content="http://nystudio107.dev/" /> <!-- {{ siteUrl }} -->
+	<meta property="twitter:card" content="summary" /> <!-- {{ seomatic.twitter.card }} -->
+	<meta property="twitter:site" content="@nystudio107" /> <!-- {{ seomatic.twitter.site }} -->
+	<meta property="twitter:title" content="We make the big stuff big &amp; the little stuff little | Big Entity, Inc." /> <!-- {{ seomatic.twitter.title }} -->
+	<meta property="twitter:description" content="Big Entity specializes in making the big stuff big, but we also know how to make the little stuff little!" /> <!-- {{ seomatic.twitter.description }} -->
+	<meta property="twitter:image" content="http://nystudio107.dev/img/site/big_hq.jpg" /> <!-- {{ seomatic.twitter.image }} -->
 	
-	<!-- Google Publisher/Authorship -->
+	<!-- Google Publisher -->
 	
-	<link rel="publisher" href="https://plus.google.com/+nystudio107" /> <!-- {{ seomaticSocial.googlePlusUrl }} -->
-	<link rel="author" href="https://plus.google.com/+nystudio107" /> <!-- {{ seomaticSocial.googlePlusUrl }} -->
+	<link rel="publisher" href="https://plus.google.com/+nystudio107" /> <!-- {{ seomaticHelper.googlePlusUrl }} -->
+	
+	<!-- Humans.txt authorship http://humanstxt.org -->
+	
+	<link type="text/plain" rel="author" href="humans.txt" />
 	
 	<!-- Domain verification -->
 	
-	<meta name="google-site-verification" content="12456" /> <!-- {{ seomaticIdentity.googleSiteVerification }} -->
+	<meta name="google-site-verification" content="BM6VkEojTIASDEWyTLro7VNhZnW_036LNdcYk5j9X_8g" /> <!-- {{ seomaticHelper.ownerGoogleSiteVerification }} -->
 	
 	<!-- END SEOmatic rendered SEO Meta -->
 	
 #### Rendered Identity Microdata
 
-The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developers.google.com/schemas/formats/json-ld?hl=en) identity microdata.
+The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developers.google.com/schemas/formats/json-ld?hl=en) identity microdata that tells search engines about the company that owns the website.  JSON-LD is an alternative to microdata you may already be familiar with, such as: `<div itemscope itemtype='http://schema.org/Organization'>`.  JSON-LD has the advantage of not being intertwined with HTML markup, so it's easier to use.  It is parsed and consumed by Google, allowing you to tell Google what your site is about, rather than having it try to guess.
 
 	<script type="application/ld+json">
 	{
-		"@context": "http://schema.org",
-		"@type": "Corporation",
-		"name": "NY Studio 107",
-		"alternateName": "nystudio107",
-		"description": "Impeccable design married with precision craftsmanship.",
-		"url": "http://nystudio107.com",
-		"image": "http://nystudio107.dev/img/site/nys_logo@2x.png",
-		"telephone": "585-555-1212",
-		"email": "&#105;&#110;&#102;&#111;&#64;&#110;&#121;&#115;&#116;&#117;&#100;&#105;&#111;&#49;&#48;&#55;&#46;&#99;&#111;&#109;",
-		"logo": "http://nystudio107.dev/img/site/nys_logo@2x.png",
-		"location": {
-			"@type": "Place",
-			"name": "NY Studio 107",
-			"alternateName": "nystudio107",
-			"description": "Impeccable design married with precision craftsmanship.",
-			"geo": {
-				"@type": "GeoCoordinates",
-				"latitude": "-120.5436367",
-				"longitude": "80.6033588"
-			},
-			"address": {
-				"@type": "PostalAddress",
-				"streetAddress": "123 Main Street",
-				"addressLocality": "Portchester",
-				"addressRegion": "NY",
-				"postalCode": "14580",
-				"addressCountry": "USA"
-			}
-		},
-		"duns": "3456",
-		"founder": "Andrew Welch",
-		"foundingDate": "10/1/2011",
-		"foundingLocation": "Webster, NY, USA",
-		"address": {
-			"@type": "PostalAddress",
-			"streetAddress": "123 Main Street",
-			"addressLocality": "Portchester",
-			"addressRegion": "NY",
-			"postalCode": "14580",
-			"addressCountry": "USA"
-		}
+	    "@context": "http://schema.org",
+	    "@type": "Corporation",
+	    "name": "Big Entity, Inc.",
+	    "alternateName": "Big",
+	    "description": "We sell only big stuff... but we'll sell you little stuff too, but only in bulk containers of 1,000 units per container.  So then it's big too.",
+	    "url": "http://BigEntity.com",
+	    "image": "http://nystudio107.dev/img/site/big_logo.jpg",
+	    "telephone": "585.214.9439",
+	    "email": "&#105;&#110;&#102;&#111;&#64;&#66;&#105;&#103;&#69;&#110;&#116;&#105;&#116;&#121;&#46;&#99;&#111;&#109;",
+	    "address": {
+	        "@type": "PostalAddress",
+	        "streetAddress": "123 Some Road",
+	        "addressLocality": "Porchester",
+	        "addressRegion": "NY",
+	        "postalCode": "11450",
+	        "addressCountry": "USA" 
+	    },
+	    "logo": "http://nystudio107.dev/img/site/big_logo.jpg",
+	    "location": {
+	        "@type": "Place",
+	        "name": "Big Entity, Inc.",
+	        "alternateName": "Big",
+	        "description": "We sell only big stuff... but we'll sell you little stuff too, but only in bulk containers of 1,000 units per container.  So then it's big too.",
+	        "hasMap": "http://maps.google.com/maps?q=Big+Entity%2C+Inc.%2C+123+Some+Road%2C+Porchester%2C+NY+11450%2C+USA",
+	        "geo": {
+	            "@type": "GeoCoordinates",
+	            "latitude": "-10.447525",
+	            "longitude": "105.690449" 
+	        },
+	        "address": {
+	            "@type": "PostalAddress",
+	            "streetAddress": "123 Some Road",
+	            "addressLocality": "Porchester",
+	            "addressRegion": "NY",
+	            "postalCode": "11450",
+	            "addressCountry": "USA" 
+	        } 
+	    },
+	    "duns": "12345678",
+	    "founder": "Mr. Big",
+	    "foundingDate": "10/2011",
+	    "foundingLocation": "Redding, CT",
+	    "tickerSymbol": "BGE" 
 	}
 	</script>
-		
+			
 #### Rendered WebSite Microdata
 
-The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developers.google.com/schemas/formats/json-ld?hl=en) WebSite microdata.
+The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developers.google.com/schemas/formats/json-ld?hl=en) WebSite microdata that tells search engines about the website.  JSON-LD is an alternative to microdata you may already be familiar with, such as: `<div itemscope itemtype='http://schema.org/Organization'>`.  JSON-LD has the advantage of not being intertwined with HTML markup, so it's easier to use.  It is parsed and consumed by Google, allowing you to tell Google what your site is about, rather than having it try to guess.
 
 	<script type="application/ld+json">
 	{
-		"@context": "http://schema.org",
-		"@type": "WebSite",
-		"name": "nystudio107",
-		"description": "This is the default global natural language description of the content on the site pages.",
-		"url": "http://nystudio107.dev/",
-		"image": "http://nystudio107.dev/img/site/nys_seo_logo.png",
-		"sameAs": ["https://www.facebook.com/nystudio107","https://twitter.com/nystudio107","https://plus.google.com/+nystudio107","https://www.linkedin.com/company/nystudio107","https://www.youtube.com/user/nystudio107","https://www.instagram.com/nystudio107","https://www.pinterest.com/nystudio107","http://nystudio107.dev/"],
-		
-		"copyrightHolder": {
-			"@type": "Corporation",
-			"name": "NY Studio 107",
-			"alternateName": "nystudio107",
-			"description": "Impeccable design married with precision craftsmanship.",
-			"url": "http://nystudio107.com",
-			"image": "http://nystudio107.dev/img/site/nys_logo@2x.png",
-			"telephone": "585-555-1212",
-			"email": "&#105;&#110;&#102;&#111;&#64;&#110;&#121;&#115;&#116;&#117;&#100;&#105;&#111;&#49;&#48;&#55;&#46;&#99;&#111;&#109;",
-			"logo": "http://nystudio107.dev/img/site/nys_logo@2x.png",
-			"location": {
-				"@type": "Place",
-				"name": "NY Studio 107",
-				"alternateName": "nystudio107",
-				"description": "Impeccable design married with precision craftsmanship.",
-				"geo": {
-					"@type": "GeoCoordinates",
-					"latitude": "-120.5436367",
-					"longitude": "80.6033588"
-				},
-				"address": {
-					"@type": "PostalAddress",
-					"streetAddress": "123 Main Street",
-					"addressLocality": "Portchester",
-					"addressRegion": "NY",
-					"postalCode": "14580",
-					"addressCountry": "USA"
-				}
-			},
-			"duns": "3456",
-			"founder": "Andrew Welch",
-			"foundingDate": "10/1/2011",
-			"foundingLocation": "Webster, NY, USA",
-			"address": {
-				"@type": "PostalAddress",
-				"streetAddress": "123 Main Street",
-				"addressLocality": "Portchester",
-				"addressRegion": "NY",
-				"postalCode": "14580",
-				"addressCountry": "USA"
-			}
-		},
-		"author": {
-		"@type": "Corporation",
-			"name": "NY Studio 107",
-			"alternateName": "nystudio107",
-			"description": "Impeccable design married with precision craftsmanship.",
-			"url": "http://nystudio107.com",
-			"image": "http://nystudio107.dev/img/site/nys_logo@2x.png",
-			"telephone": "585-555-1212",
-			"email": "&#105;&#110;&#102;&#111;&#64;&#110;&#121;&#115;&#116;&#117;&#100;&#105;&#111;&#49;&#48;&#55;&#46;&#99;&#111;&#109;",
-			"logo": "http://nystudio107.dev/img/site/nys_logo@2x.png",
-			"location": {
-				"@type": "Place",
-				"name": "NY Studio 107",
-				"alternateName": "nystudio107",
-				"description": "Impeccable design married with precision craftsmanship.",
-				"geo": {
-					"@type": "GeoCoordinates",
-					"latitude": "-120.5436367",
-					"longitude": "80.6033588"
-				},
-				"address": {
-					"@type": "PostalAddress",
-					"streetAddress": "123 Main Street",
-					"addressLocality": "Portchester",
-					"addressRegion": "NY",
-					"postalCode": "14580",
-					"addressCountry": "USA"
-				}
-			},
-			"duns": "3456",
-			"founder": "Andrew Welch",
-			"foundingDate": "10/1/2011",
-			"foundingLocation": "Webster, NY, USA",
-			"address": {
-				"@type": "PostalAddress",
-				"streetAddress": "123 Main Street",
-				"addressLocality": "Portchester",
-				"addressRegion": "NY",
-				"postalCode": "14580",
-				"addressCountry": "USA"
-			}
-		},
-		"creator": {
-			"@type": "Corporation",
-			"name": "NY Studio 107",
-			"alternateName": "nystudio107",
-			"description": "Impeccable design married with precision craftsmanship.",
-			"url": "http://nystudio107.com",
-			"image": "http://nystudio107.dev/img/site/nys_logo@2x.png",
-			"telephone": "585.555.1212",
-			"email": "&#105;&#110;&#102;&#111;&#64;&#110;&#121;&#115;&#116;&#117;&#100;&#105;&#111;&#49;&#48;&#55;&#46;&#99;&#111;&#109;",
-			"logo": "http://nystudio107.dev/img/site/nys_logo@2x.png",
-			"location": {
-				"@type": "Place",
-				"name": "NY Studio 107",
-				"alternateName": "nystudio107",
-				"description": "Impeccable design married with precision craftsmanship.",
-				"geo": {
-					"@type": "GeoCoordinates",
-					"latitude": "-120.5436367",
-					"longitude": "80.6033588"
-				},
-				"address": {
-					"@type": "PostalAddress",
-					"streetAddress": "575 Dunfrey Road",
-					"addressLocality": "Lansing",
-					"addressRegion": "MI",
-					"postalCode": "11360",
-					"addressCountry": "USA"
-				}
-			},
-			"founder": "Andrew Welch",
-			"foundingDate": "10/1/2011",
-			"foundingLocation": "Webster, NY",
-			"address": {
-				"@type": "PostalAddress",
-				"streetAddress": "575 Dunfrey Road",
-				"addressLocality": "Lansing",
-				"addressRegion": "MI",
-				"postalCode": "11360",
-				"addressCountry": "USA"
-			}
-		}
+	    "@context": "http://schema.org",
+	    "@type": "WebSite",
+	    "name": "Big Entity, Inc.",
+	    "description": "Big Entity specializes in making the big stuff big, but we also know how to make the little stuff little!",
+	    "url": "http://nystudio107.dev/",
+	    "image": "http://nystudio107.dev/img/site/big_hq.jpg",
+	    "sameAs": ["https://twitter.com/nystudio107","https://www.facebook.com/nystudio107","https://plus.google.com/+nystudio107","https://www.linkedin.com/company/nystudio107","https://www.youtube.com/user/nystudio107","https://www.instagram.com/nystudio107","https://www.pinterest.com/nystudio107"],
+	    "copyrightHolder": {
+	        "@type": "Corporation",
+	        "name": "Big Entity, Inc.",
+	        "alternateName": "Big",
+	        "description": "We sell only big stuff... but we'll sell you little stuff too, but only in bulk containers of 1,000 units per container.  So then it's big too.",
+	        "url": "http://BigEntity.com",
+	        "image": "http://nystudio107.dev/img/site/big_logo.jpg",
+	        "telephone": "585.214.9439",
+	        "email": "&#105;&#110;&#102;&#111;&#64;&#66;&#105;&#103;&#69;&#110;&#116;&#105;&#116;&#121;&#46;&#99;&#111;&#109;",
+	        "address": {
+	            "@type": "PostalAddress",
+	            "streetAddress": "123 Some Road",
+	            "addressLocality": "Porchester",
+	            "addressRegion": "NY",
+	            "postalCode": "11450",
+	            "addressCountry": "USA" 
+	        },
+	        "logo": "http://nystudio107.dev/img/site/big_logo.jpg",
+	        "location": {
+	            "@type": "Place",
+	            "name": "Big Entity, Inc.",
+	            "alternateName": "Big",
+	            "description": "We sell only big stuff... but we'll sell you little stuff too, but only in bulk containers of 1,000 units per container.  So then it's big too.",
+	            "hasMap": "http://maps.google.com/maps?q=Big+Entity%2C+Inc.%2C+123+Some+Road%2C+Porchester%2C+NY+11450%2C+USA",
+	            "geo": {
+	                "@type": "GeoCoordinates",
+	                "latitude": "-10.447525",
+	                "longitude": "105.690449" 
+	            },
+	            "address": {
+	                "@type": "PostalAddress",
+	                "streetAddress": "123 Some Road",
+	                "addressLocality": "Porchester",
+	                "addressRegion": "NY",
+	                "postalCode": "11450",
+	                "addressCountry": "USA" 
+	            } 
+	        },
+	        "duns": "12345678",
+	        "founder": "Mr. Big",
+	        "foundingDate": "10/2011",
+	        "foundingLocation": "Redding, CT",
+	        "tickerSymbol": "BGE" 
+	    },
+	    "author": {
+	        "@type": "Corporation",
+	        "name": "Big Entity, Inc.",
+	        "alternateName": "Big",
+	        "description": "We sell only big stuff... but we'll sell you little stuff too, but only in bulk containers of 1,000 units per container.  So then it's big too.",
+	        "url": "http://BigEntity.com",
+	        "image": "http://nystudio107.dev/img/site/big_logo.jpg",
+	        "telephone": "585.214.9439",
+	        "email": "&#105;&#110;&#102;&#111;&#64;&#66;&#105;&#103;&#69;&#110;&#116;&#105;&#116;&#121;&#46;&#99;&#111;&#109;",
+	        "address": {
+	            "@type": "PostalAddress",
+	            "streetAddress": "123 Some Road",
+	            "addressLocality": "Porchester",
+	            "addressRegion": "NY",
+	            "postalCode": "11450",
+	            "addressCountry": "USA" 
+	        },
+	        "logo": "http://nystudio107.dev/img/site/big_logo.jpg",
+	        "location": {
+	            "@type": "Place",
+	            "name": "Big Entity, Inc.",
+	            "alternateName": "Big",
+	            "description": "We sell only big stuff... but we'll sell you little stuff too, but only in bulk containers of 1,000 units per container.  So then it's big too.",
+	            "hasMap": "http://maps.google.com/maps?q=Big+Entity%2C+Inc.%2C+123+Some+Road%2C+Porchester%2C+NY+11450%2C+USA",
+	            "geo": {
+	                "@type": "GeoCoordinates",
+	                "latitude": "-10.447525",
+	                "longitude": "105.690449" 
+	            },
+	            "address": {
+	                "@type": "PostalAddress",
+	                "streetAddress": "123 Some Road",
+	                "addressLocality": "Porchester",
+	                "addressRegion": "NY",
+	                "postalCode": "11450",
+	                "addressCountry": "USA" 
+	            } 
+	        },
+	        "duns": "12345678",
+	        "founder": "Mr. Big",
+	        "foundingDate": "10/2011",
+	        "foundingLocation": "Redding, CT",
+	        "tickerSymbol": "BGE" 
+	    },
+	    "creator": {
+	        "@type": "Corporation",
+	        "name": "NY Studio 107",
+	        "alternateName": "nystudio107",
+	        "description": "Impeccable design married with precision craftsmanship",
+	        "url": "http://nystudio107.com",
+	        "image": "http://nystudio107.dev/img/site/nys_seo_logo.png",
+	        "email": "&#105;&#110;&#102;&#111;&#64;&#110;&#121;&#115;&#116;&#117;&#100;&#105;&#111;&#49;&#48;&#55;&#46;&#99;&#111;&#109;",
+	        "address": {
+	            "@type": "PostalAddress",
+	            "addressLocality": "Webster",
+	            "addressRegion": "NY",
+	            "postalCode": "14580",
+	            "addressCountry": "USA" 
+	        },
+	        "logo": "http://nystudio107.dev/img/site/nys_seo_logo.png",
+	        "location": {
+	            "@type": "Place",
+	            "name": "NY Studio 107",
+	            "alternateName": "nystudio107",
+	            "description": "Impeccable design married with precision craftsmanship",
+	            "geo": {
+	                "@type": "GeoCoordinates",
+	                "latitude": "43.11558",
+	                "longitude": "-77.59647199999999" 
+	            },
+	            "address": {
+	                "@type": "PostalAddress",
+	                "addressLocality": "Webster",
+	                "addressRegion": "NY",
+	                "postalCode": "14580",
+	                "addressCountry": "USA" 
+	            } 
+	        } 
+	    } 
 	}
 	</script>
-				
+					
 If you click on the **Preview SEO Meta Tags** button when you are editing a SEO Template Meta, you'll see that particular template's SEO Template Meta tags.  Otherwise, you will see the SEO Site Meta tags.
 
 ## Testing Your SEO Meta
@@ -947,13 +1101,28 @@ Some things to do, and ideas for potential features:
 * [bug] Get the Template Metas implemented with full `locale` support, so the settings can all be per-locale based
 * [bug] Enforce *required fields on the various settings pages in the Admin CP by doing proper validation
 * [bug] The `foundingDate` fields probably should be dateTimeField types on the Settings pages
-* [feature] Add support for different types of Twitter cards and Facebook OpenGraph
 * [feature] Add the ability to analyze a page for content vs. keywords for the SEO Template Metas, "just like Yoast"
 * [feature] Change the preview to a live preview when editing things in SEOmatic
 * [feature] Provide SiteMap functionality.  Yes, it's SEO-related, but seems like it might be better to keep SEOmatic focused (?)
 * [feature] Provide Redirect functionality.  Yes, it's SEO-related, but seems like it might be better to keep SEOmatic focused (?)
 
 ## Changelog
+
+### 1.0.5 -- 2015.12.28
+
+* [Added] Added 'renderJSONLD' Twig function & filter, and 'craft.seomatic.renderJSONLD()' variable for rendering arbitary JSON-LD schemas
+* [Added] SEOmatic now uses 'renderJSONLD' internally to render the Identity and WebSite JSON-LD microdata, rather than templates
+* [Added] The 'seomaticIdenity' and 'seomaticCreator' variables are now proper JSON-LD arrays that can be manipulated/added to via Twig
+* [Added] Refactored a bunch of internal code to support the new Identity & WebSite formats
+* [Added] Rolled all of the SEOmatic calculated variables into the 'seomaticHelper' array
+* [Added] Added support for humans.txt authorship accreditation via a tag and template
+* [Fixed] Fixed some sticky encoding issues with meta variables
+* [Fixed] Cleaned up the code base so we're no longer passing objects around into the templates, just pure arrays, for efficiency's sake
+* [Added] Support for Twitter Summary & Summary with Large Image cards
+* [Added] The Twitter Card variables are now rendered into the semomaticMeta array, and thus can be independently manipulated
+* [Added] The Facebook Open Graph variables are now rendered into the semomaticMeta array, and thus can be independently manipulated
+* [Added] Database migrations to support the new features
+* [Improved] Updated the README.md
 
 ### 1.0.4 -- 2015.12.22
 

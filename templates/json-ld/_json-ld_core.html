@@ -1,0 +1,6 @@
+{% for key,value in object %}
+{% if value is iterable %}{% if value|keys|first=="0" %}{%for i in 0..level %}    {% endfor %}"{{ key |raw }}": [{% for subValue in value %}"{{ subValue |raw }}"{% if not loop.last%},{% endif %}{% endfor %}]{% else %}{%for i in 0..level %}    {% endfor %}"{{ key |raw }}": {
+{% include 'json-ld/_json-ld_core' with {'object': value, 'level': (level + 1) } only %}{%for i in 0..level %}    {% endfor %}}{% endif %}{% else %}{%for i in 0..level %}    {% endfor %}"{% if key == "type" %}@{% endif %}{{ key |raw }}": "{{ value |raw }}"{% endif %}{% if not loop.last %},
+{% else %} 
+{% endif %}
+{% endfor %}

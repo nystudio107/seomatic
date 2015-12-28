@@ -171,7 +171,7 @@ class Seomatic_MetaElementType extends BaseElementType
             ->join('seomatic_meta seomatic_meta', 'seomatic_meta.elementid = elements.id')
         	->andWhere(DbHelper::parseParam('seomatic_meta.locale', $criteria->locale, $query->params));
 
-    }
+   }
 
     /**
      * Populates an element model based on a query result.

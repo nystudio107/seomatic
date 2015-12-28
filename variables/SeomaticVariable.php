@@ -9,6 +9,47 @@ class SeomaticVariable
 ================================================================================ */
 
 /* --------------------------------------------------------------------------------
+    Render a generic JSON-LD object, passed in as an array() in the format:
+    
+    PHP:
+    
+    $myJSONLD = array(
+	    "type" => "Corporation",
+	    "name" => "nystudio107",
+	    "sameAs" => ["https://Twitter.com/nystudio107","https://plus.google.com/+nystudio107"],
+	    "address" => array(
+		    "type" => 'PostalAddress',
+		    "addressCountry" => "USA",
+		    ),
+	    );
+	
+	Twig:
+
+	{% set myJSONLD = {
+		"type": "Corporation",
+		"name": "nystudio107",
+		"sameAs": ["https://Twitter.com/nystudio107","https://plus.google.com/+nystudio107"],
+		"address": {
+			"type": 'PostalAddress',
+			"addressCountry": "USA",
+		},
+	} %}
+	
+	The array can be nested arbitrarily deep with sub-arrays.  The first key in
+	the array, and in each sub-array, should be an "type" with a valid
+	Schema.org type as the value.  Because Twig doesn't support array keys with
+	non-alphanumeric characters, SEOmatic transforms the keys "type" into "@type"
+	at render time.
+-------------------------------------------------------------------------------- */
+
+    public function renderJSONLD($object=array())
+    {
+        $result = craft()->seomatic->renderJSONLD($object);
+        
+		return TemplateHelper::getRaw(rtrim($result));
+    } /* -- renderJSONLD */
+
+/* --------------------------------------------------------------------------------
     Extract the most important words from the passed in text via TextRank
 -------------------------------------------------------------------------------- */
 
@@ -91,7 +132,9 @@ class SeomaticVariable
         }
         $fullUrl = $siteUrl . $forTemplate;
         $metaVars['seomaticMeta']['canonicalUrl'] = $fullUrl;
-
+		if (isset($metaVars['seomaticMeta']['og']))
+			$metaVars['seomaticMeta']['og']['url'] = $fullUrl;
+			
         $result = craft()->seomatic->render($templatePath, $metaVars, true);
         
         return rtrim($result);
@@ -126,12 +169,12 @@ class SeomaticVariable
     Render the SEOmatic Identity template
 -------------------------------------------------------------------------------- */
 
-    function renderIdentity($templatePath="", $isPreview=false, $locale=null)
+    function renderIdentity($locale=null)
     {
 	    if (!$locale)
 	    	$locale = craft()->language;
         $metaVars = craft()->seomatic->getGlobals('', $locale);
-        $result = craft()->seomatic->renderIdentity($templatePath, $isPreview, $metaVars, $locale);
+        $result = craft()->seomatic->renderIdentity($metaVars, $locale);
         
         return rtrim($result);
     } /* -- renderIdentity */
@@ -140,12 +183,12 @@ class SeomaticVariable
     Render the SEOmatic Website template
 -------------------------------------------------------------------------------- */
 
-    function renderWebsite($templatePath="", $isPreview=false, $locale=null)
+    function renderWebsite($locale=null)
     {
 	    if (!$locale)
 	    	$locale = craft()->language;
         $metaVars = craft()->seomatic->getGlobals('', $locale);
-        $result = craft()->seomatic->renderWebsite($templatePath, $isPreview, $metaVars, $locale);
+        $result = craft()->seomatic->renderWebsite($metaVars, $locale);
         
         return rtrim($result);
     } /* -- renderWebsite */
@@ -182,6 +225,28 @@ class SeomaticVariable
         
         return rtrim($result);
     } /* -- renderGlobals */
+
+/* --------------------------------------------------------------------------------
+    Render the humans.txt template
+-------------------------------------------------------------------------------- */
+
+    public function renderHumans($isPreview=false)
+    {   
+	    $result = craft()->seomatic->renderHumans($isPreview);
+	    
+	    return $result;
+    } /* -- renderHumans */
+
+/* --------------------------------------------------------------------------------
+    Render the humans.txt user-defined template
+-------------------------------------------------------------------------------- */
+
+    public function renderHumansTemplate()
+    {   
+	    $result = craft()->seomatic->renderHumansTemplate();
+	    
+	    return $result;
+    } /* -- renderHumansTemplate */
 
 /* --------------------------------------------------------------------------------
     Get the identity record

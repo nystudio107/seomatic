@@ -1,5 +1,25 @@
 [
     {
+        "version": "1.0.5",
+        "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
+        "date": "2015-12-28T11:00:00-05:00",
+        "notes": [
+            "[Added] Added 'renderJSONLD' Twig function & filter, and 'craft.seomatic.renderJSONLD()' variable for rendering arbitary JSON-LD schemas",
+            "[Added] SEOmatic now uses 'renderJSONLD' internally to render the Identity and WebSite JSON-LD microdata, rather than templates",
+            "[Added] The 'seomaticIdenity' and 'seomaticCreator' variables are now proper JSON-LD arrays that can be manipulated/added to via Twig",
+            "[Added] Refactored a bunch of internal code to support the new Identity & WebSite formats",
+            "[Added] Rolled all of the SEOmatic calculated variables into the 'seomaticHelper' array",
+            "[Added] Added support for humans.txt authorship accreditation via a tag and template",
+            "[Fixed] Fixed some sticky encoding issues with meta variables",
+            "[Fixed] Cleaned up the code base so we're no longer passing objects around into the templates, just pure arrays, for efficiency's sake",
+            "[Added] Support for Twitter Summary & Summary with Large Image cards",
+            "[Added] The Twitter Card variables are now rendered into the semomaticMeta array, and thus can be independently manipulated",
+            "[Added] The Facebook Open Graph variables are now rendered into the semomaticMeta array, and thus can be independently manipulated",
+            "[Added] Database migrations to support the new features",
+            "[Improved] Updated the README.md"
+        ]
+    },
+    {
         "version": "1.0.4",
         "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
         "date": "2015-12-22T11:00:00-05:00",

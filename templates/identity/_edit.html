@@ -216,8 +216,8 @@
 					</div>
 
 					<div class="buttons">
-						<div class="btngroup submit first">
-							<input id="geolookup" type="button" class="btn submit" value="{{ 'Look up Latitude/Longitude'|t }}">
+						<div class="btngroup first">
+							<input id="geolookup" type="button" class="btn" value="{{ 'Look up Latitude/Longitude'|t }}">
 						</div>
 					</div>
 
@@ -280,7 +280,7 @@
 							class: 'nicetext',
 							name: 'genericOwnerAddressCountry',
 							value: identity.genericOwnerAddressCountry,
-							required: true,
+							required: false,
 							locale: identity.locale,
 						}) }}
 						</div>

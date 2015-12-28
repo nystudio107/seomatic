@@ -19,6 +19,8 @@ class Seomatic_MetaRecord extends BaseRecord
             'seoTitle'          => array(AttributeType::String, 'default' => ''),
             'seoDescription'    => array(AttributeType::String, 'default' => ''),
             'seoKeywords'       => array(AttributeType::String, 'default' => ''),
+            'twitterCardType'	=> array(AttributeType::String, 'default' => 'summary'),
+            'openGraphType'		=> array(AttributeType::String, 'default' => 'website'),
 /* -- This is defined in definteRelations() below, of note:
       You don’t need to specify the foreign key column name in BELONGS_TO relations (defaults to the relation name appended with “Id”)
       https://craftcms.com/docs/plugins/records

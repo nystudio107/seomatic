@@ -31,6 +31,7 @@
 
 	{% include "seomatic/_preview_display_modal" with {'previewMetaPath': '', 'locale': creator.locale } %}
 	{% include "seomatic/_preview_tags_modal" with {'previewMetaPath': '', 'locale': creator.locale } %}
+	{% include "seomatic/_preview_humans_modal" %}
 
 <!-- Needed for for Craft < 2.5 -->
 
@@ -204,8 +205,8 @@
 					</div>
 
 					<div class="buttons">
-						<div class="btngroup submit first">
-							<input id="geolookup" type="button" class="btn submit" value="{{ 'Look up Latitude/Longitude'|t }}">
+						<div class="btngroup first">
+							<input id="geolookup" type="button" class="btn" value="{{ 'Look up Latitude/Longitude'|t }}">
 						</div>
 					</div>
 					
@@ -268,7 +269,7 @@
 							class: 'nicetext',
 							name: 'genericCreatorAddressCountry',
 							value: creator.genericCreatorAddressCountry,
-							required: true,
+							required: false,
 							locale: creator.locale,
 						}) }}
 						</div>
@@ -283,7 +284,7 @@
 							<div class="half-width-field half-width-field-left">
 							{{ forms.textField({
 								label: "Organization DUNS Number"|t,
-								instructions: "The DUNS (Dunn & Bradstreet) number of the organization/company/restaurant that created the website" |t |raw,
+								instructions: "The DUNS (Dunn & Bradstreet) number of the organization/company that created the website" |t |raw,
 								id: 'organizationCreatorDuns',
 								class: 'nicetext',
 								name: 'organizationCreatorDuns',
@@ -295,7 +296,7 @@
 							<div class="half-width-field">
 							{{ forms.textField({
 								label: "Organization Founder"|t,
-								instructions: "The name of the founder of the organization/company/restaurant" |t |raw,
+								instructions: "The name of the founder of the organization/company" |t |raw,
 								id: 'organizationCreatorFounder',
 								class: 'nicetext',
 								name: 'organizationCreatorFounder',
@@ -310,7 +311,7 @@
 							<div class="half-width-field half-width-field-left">
 							{{ forms.textField({
 								label: "Organization Founding Date"|t,
-								instructions: "The date the organization/company/restaurant was founded" |t |raw,
+								instructions: "The date the organization/company was founded" |t |raw,
 								id: 'organizationCreatorFoundingDate',
 								class: 'nicetext',
 								name: 'organizationCreatorFoundingDate',
@@ -322,7 +323,7 @@
 							<div class="half-width-field">
 							{{ forms.textField({
 								label: "Organization Founding Location"|t,
-								instructions: "The location where the organization/company/restaurant was founded" |t |raw,
+								instructions: "The location where the organization/company was founded" |t |raw,
 								id: 'organizationCreatorFoundingLocation',
 								class: 'nicetext',
 								name: 'organizationCreatorFoundingLocation',
@@ -397,6 +398,27 @@
 							</div>
 						</div>
                     </div>
+
+<!-- Humans.txt -->
+
+				<h2>{{ "Humans.txt" |t }}</h2>
+					<div class="field" id="genericCreatorHumansTxt-field">
+						<div class="heading">
+							<label for="genericCreatorHumansTxt">{{ "Humans.txt Template"|t}}{% if craft.isLocalized and creator.locale %}<span class="locale">{{ creator.locale }}</span>{% endif %}</label>
+							<div class="instructions">{{ "<p><a href='http://humanstxt.org' target='_blank'>Humans.txt</a> is an initiative for knowing the people behind a website. It's a TXT file that contains information about the different people who have contributed to building the website.  By adding a txt file, you can prove your authorship (not your property) in an external, fast, easy and accessible way.</p><p>This is the template used to render it; you have access to all of the SEOmatic variables.</p>" |t |raw }}</div>
+						</div>
+						{{ forms.textarea({
+							label: "Humans.txt Template"|t,
+							instructions: "A description of the entity that created the website" |t |raw,
+							id: 'genericCreatorHumansTxt',
+							class: 'nicetext codeStyle',
+							name: 'genericCreatorHumansTxt',
+							value: creator.genericCreatorHumansTxt,
+							required: false,
+							rows: 15,
+							locale: creator.locale,
+						}) }}
+					</div>
                     
                     <p>&nbsp;</p>
  					<p>{{ "<p>You can use any Craft <code>environmentVariables</code> in these fields in addition to static text, e.g.:<br /> <code>This is my {baseUrl}</code></p>" |t |raw }}</p>
@@ -432,9 +454,12 @@
 					<div style="text-align:center; margin:0 auto;">
 						<img src="{{ resourceUrl('seomatic/images/site_creator.svg') }}" width="64px" height="auto" />
 					</div>
-					{{ "<p>These Site Creator settings are used to globally define & attribute the creator of the website.</p><p>They are used in combination with the SEO Template Meta settings to generate <a href='https://developers.google.com/schemas/formats/json-ld?hl=en' target='_blank'>JSON-LD</a> microdata, <a href='http://dublincore.org' target='_blank'>Dublin Core</a> core metadata, <a href='https://dev.twitter.com/cards/overview' target='_blank'>Twitter Cards</a>, <a href='https://developers.facebook.com/docs/sharing/opengraph' target='_blank'>Facebook OpenGraph</a>, and as well as HTML meta tags.<p>The Site Creator information is referenced in the Identity JSON-LD schema that is used to identity the website to search engines.</p><p>Leave any fields blank that aren't applicable or which you do not want as part of the SEO schema.</p>" |t |raw }}
+					{{ "<p>These Site Creator settings are used to globally define & attribute the creator of the website.  The creator is the company/individual that developed the website.</p><p>They are used in combination with the SEO Template Meta settings to generate <a href='https://developers.google.com/schemas/formats/json-ld?hl=en' target='_blank'>JSON-LD</a> microdata, <a href='http://dublincore.org' target='_blank'>Dublin Core</a> core metadata, <a href='https://dev.twitter.com/cards/overview' target='_blank'>Twitter Cards</a>, <a href='https://developers.facebook.com/docs/sharing/opengraph' target='_blank'>Facebook OpenGraph</a>, and as well as HTML meta tags.<p>The Site Creator information is referenced in the WebSite JSON-LD schema that is used to identity the website to search engines.</p><p>Leave any fields blank that aren't applicable or which you do not want as part of the SEO schema.</p>" |t |raw }}
 				</div>
 
+				<div id="preview-humans" class="btn big livepreviewbtn secondbtn">
+					{{ "Preview Humans.txt" |t }}
+				</div>
 			</div>
 			
 <!-- Needed for for Craft < 2.5 -->

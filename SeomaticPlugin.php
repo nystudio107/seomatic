@@ -25,12 +25,12 @@ class SeomaticPlugin extends BasePlugin
     
     public function getVersion()
     {
-        return '1.0.4';
+        return '1.0.5';
     }
 
     public function getSchemaVersion()
     {
-        return '1.0.0';
+        return '1.0.2';
     }
 
     public function getDeveloper()
@@ -54,33 +54,35 @@ class SeomaticPlugin extends BasePlugin
 
         craft()->templates->hook('seomaticRender', function(&$context)
         {
-
-			$locale = craft()->language;
-            $seomaticMeta = $context['seomaticMeta'];
-            $seomaticSiteMeta = $context['seomaticSiteMeta'];
-            $seomaticIdentity = $context['seomaticIdentity'];
-            $seomaticSocial = $context['seomaticSocial'];
-            $seomaticCreator = $context['seomaticCreator'];
-
+			if (craft()->request->isSiteRequest())
+			{
+				$locale = craft()->language;
+	            $seomaticMeta = $context['seomaticMeta'];
+	            $seomaticSiteMeta = $context['seomaticSiteMeta'];
+	            $seomaticIdentity = $context['seomaticIdentity'];
+	            $seomaticSocial = $context['seomaticSocial'];
+	            $seomaticCreator = $context['seomaticCreator'];
+	            $seomaticHelper = $context['seomaticHelper'];
+	
 /* -- We want to pass an up-to-date variable context to the template, so pass everything on in */
-
-            $result="";
-            $metaVars = array(
-                'seomaticMeta' => $seomaticMeta,
-                'seomaticSiteMeta' => $seomaticSiteMeta,
-                'seomaticIdentity' => $seomaticIdentity,
-                'seomaticSocial' => $seomaticSocial,
-                'seomaticCreator' => $seomaticCreator,
-                
-            );
-            
-            craft()->seomatic->sanitizeMetaVars($metaVars);
-            
-            $seomaticTemplatePath = '';
-            if (isset($context['seomaticTemplatePath']))
-                $seomaticTemplatePath = $context['seomaticTemplatePath'];
-            $result = craft()->seomatic->renderSiteMeta($seomaticTemplatePath, $metaVars, $locale);
-            return $result;
+	
+	            $result="";
+	            $metaVars = array(
+	                'seomaticMeta' => $seomaticMeta,
+	                'seomaticSiteMeta' => $seomaticSiteMeta,
+	                'seomaticIdentity' => $seomaticIdentity,
+	                'seomaticSocial' => $seomaticSocial,
+	                'seomaticCreator' => $seomaticCreator,
+	                'seomaticHelper' => $seomaticHelper,
+	                
+	            );
+	                        
+	            $seomaticTemplatePath = '';
+	            if (isset($context['seomaticTemplatePath']))
+	                $seomaticTemplatePath = $context['seomaticTemplatePath'];
+	            $result = craft()->seomatic->renderSiteMeta($seomaticTemplatePath, $metaVars, $locale);
+	            return $result;
+            }
         });
     }
 
@@ -90,6 +92,13 @@ class SeomaticPlugin extends BasePlugin
 
         return new SeomaticTwigExtension();
     }
+
+	public function registerSiteRoutes()
+	{
+        return array(
+            'humans.txt'             								=> array('action' => 'seomatic/renderHumans'),
+        );
+	}
 
     public function registerCpRoutes()
     {
@@ -102,7 +111,8 @@ class SeomaticPlugin extends BasePlugin
             'seomatic/social/(?P<locale>[-\w\.*]+)'             	=> array('action' => 'seomatic/editSocial'),
             'seomatic/creator'             							=> array('action' => 'seomatic/editCreator'),
             'seomatic/creator/(?P<locale>[-\w\.*]+)'             	=> array('action' => 'seomatic/editCreator'),
-            'seomatic/new'                  						=> array('action' => 'seomatic/editMeta'),
+            'seomatic/meta/new'                  					=> array('action' => 'seomatic/editMeta'),
+            'seomatic/meta/new/(?P<locale>[-\w\.*]+)'               => array('action' => 'seomatic/editMeta'),
             'seomatic/meta/(?P<metaId>\d+)' 						=> array('action' => 'seomatic/editMeta'),
             'seomatic/meta/(?P<metaId>\d+)/(?P<locale>[-\w\.*]+)' 	=> array('action' => 'seomatic/editMeta'),
         );

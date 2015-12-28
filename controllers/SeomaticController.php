@@ -4,6 +4,39 @@ namespace Craft;
 class SeomaticController extends BaseController
 {
 
+	protected $allowAnonymous = array('actionRenderHumans');
+	
+/* --------------------------------------------------------------------------------
+    Render the humans.txt template
+-------------------------------------------------------------------------------- */
+
+    public function actionRenderHumans(array $variables = array())
+    {   
+	    $templatePath = '';
+	    $locale = '';
+	    if (!$locale)
+	    	$locale = craft()->language;
+        $metaVars = craft()->seomatic->getGlobals('', $locale);
+			
+        if ($templatePath)
+        {
+            $htmlText = craft()->templates->render($templatePath);
+        }
+        else
+        {
+            $oldPath = craft()->path->getTemplatesPath();
+            $newPath = craft()->path->getPluginsPath().'seomatic/templates';
+            craft()->path->setTemplatesPath($newPath);
+
+/* -- Render the core template */
+
+            $templateName = '_humans';
+			$this->renderTemplate($templateName, $metaVars);
+
+            craft()->path->setTemplatesPath($oldPath);
+        }
+    } /* -- actionRenderHumans */
+
 /* --------------------------------------------------------------------------------
     Edit the SiteMeta record
 -------------------------------------------------------------------------------- */
@@ -172,9 +205,10 @@ class SeomaticController extends BaseController
 
     public function actionEditMeta(array $variables = array())
     {
-        $locale = null;
-        if (isset($variables['locale']))
-            $locale = $variables['locale'];
+	    if (isset($variables['locale']))
+	    	$locale = $variables['locale'];
+	    else
+	    	$locale = craft()->language;
 
 	    $siteMeta = craft()->seomatic->getSiteMeta($locale);
 	    $variables['titleLength'] = (70 - strlen(" | ") - strlen($siteMeta['siteSeoName']));
@@ -184,15 +218,23 @@ class SeomaticController extends BaseController
             if (!empty($variables['metaId']))
             {
                 $variables['meta'] = craft()->seomatic->getMetaById($variables['metaId'], $locale);
+				
+/* -- If we have a metaId but nothing is returned for that locale, make a new element/record using that elementId */
 
                 if (!$variables['meta'])
                 {
+	                /*
+	                $variables['meta'] = new Seomatic_MetaModel();
+	                $variables['meta']['locale'] = $locale;
+	                $variables['meta']['elementId'] = $variables['metaId'];
+	                */
                     throw new HttpException(404);
                 }
             }
             else
             {
                 $variables['meta'] = new Seomatic_MetaModel();
+                $variables['meta']['locale'] = $locale;
             }
         }
         
@@ -254,13 +296,20 @@ class SeomaticController extends BaseController
 
         $metaId = craft()->request->getPost('metaId');
         $locale = craft()->request->getPost('locale');
-
+        /*
+        $elementId = craft()->request->getPost('elementId');
+		*/
+		
         if ($metaId)
         {
             $model = craft()->seomatic->getMetaById($metaId, $locale);
 
             if (!$model)
             {
+	            /*
+            	$model = new Seomatic_MetaModel();
+            	$elementId = $metaId;
+                */
                 throw new Exception(Craft::t('No meta exists with the ID “{id}”', array('id' => $metaId)));
             }
         }
@@ -278,6 +327,8 @@ class SeomaticController extends BaseController
         $model->seoTitle = craft()->request->getPost('seoTitle', $model->seoTitle);
         $model->seoDescription = craft()->request->getPost('seoDescription', $model->seoDescription);
         $model->seoKeywords = craft()->request->getPost('seoKeywords', $model->seoKeywords);
+        $model->twitterCardType = craft()->request->getPost('twitterCardType', $model->twitterCardType);
+        $model->openGraphType = craft()->request->getPost('openGraphType', $model->openGraphType);
         $model->seoImageId = craft()->request->getPost('seoImageId', $model->seoImageId);
         $model->enabled = (bool)craft()->request->getPost('enabled', $model->enabled);
         $model->getContent()->title = craft()->request->getPost('title', $model->title);
@@ -350,6 +401,8 @@ class SeomaticController extends BaseController
         $record->siteSeoTitle = craft()->request->getPost('siteSeoTitle', $record->siteSeoTitle);
         $record->siteSeoDescription = craft()->request->getPost('siteSeoDescription', $record->siteSeoDescription);
         $record->siteSeoKeywords = craft()->request->getPost('siteSeoKeywords', $record->siteSeoKeywords);
+        $record->siteTwitterCardType = craft()->request->getPost('siteTwitterCardType', $record->siteTwitterCardType);
+        $record->siteOpenGraphType = craft()->request->getPost('siteOpenGraphType', $record->siteOpenGraphType);
 
         $record->siteSeoImageId = craft()->request->getPost('siteSeoImageId', $record->siteSeoImageId);
         $assetId = (!empty($record->siteSeoImageId) ? $record->siteSeoImageId[0] : null);
@@ -562,6 +615,10 @@ class SeomaticController extends BaseController
         $record->genericCreatorImageId = craft()->request->getPost('genericCreatorImageId', $record->genericCreatorImageId);
         $assetId = (!empty($record->genericCreatorImageId) ? $record->genericCreatorImageId[0] : null);
         $record->genericCreatorImageId = $assetId;
+
+/* -- Humans.txt */
+
+        $record->genericCreatorHumansTxt = craft()->request->getPost('genericCreatorHumansTxt', $record->genericCreatorHumansTxt);
 
         if ($record->save())
         {

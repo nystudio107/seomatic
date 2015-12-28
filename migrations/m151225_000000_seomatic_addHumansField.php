@@ -4,7 +4,7 @@ namespace Craft;
 /**
  * The class name is the UTC timestamp in the format of mYYMMDD_HHMMSS_pluginHandle_migrationName
  */
-class m151222_000000_seomatic_addTwitterFacebookFields extends BaseMigration
+class m151225_000000_seomatic_addHumansField extends BaseMigration
 {
 	/**
 	 * Any migration code in here is wrapped inside of a transaction.
@@ -15,10 +15,10 @@ class m151222_000000_seomatic_addTwitterFacebookFields extends BaseMigration
 	{
 		// specify columns and AttributeType
 		$newColumns = array (
-			'locale' => ColumnType::Char
+			'genericCreatorHumansTxt' => ColumnType::Text
 		);
 
-		$this->_addColumnsAfter("seomatic_settings", $newColumns, "");
+		$this->_addColumnsAfter("seomatic_settings", $newColumns, "personCreatorBirthPlace");
 
 		// return true and let craft know its done
 		return true;
