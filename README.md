@@ -90,7 +90,7 @@ Leave any fields blank that aren't applicable or which you do not want as part o
 * **Entity Locality** - The locality of the entity that owns the website, e.g.: Portchester
 * **Entity Region** - The region of the entity that owns the website, e.g.: New York or NY
 * **Entity Postal Code** - The postal code of the entity that owns the website, e.g.: 14580
-* **Entity Country** - The country in which the entity that owns the website is located, e.g.: USA
+* **Entity Country** - The country in which the entity that owns the website is located, e.g.: US
 
 #### Organization Info
 * **Organization DUNS Number** - The DUNS (Dunn & Bradstreet) number of the organization/company/restaurant that owns the website
@@ -164,7 +164,7 @@ Leave any fields blank that aren't applicable or which you do not want as part o
 * **Entity Locality** - The locality of the entity that created the website, e.g.: Lansing
 * **Entity Region** - The region of the entity that created the website, e.g.: Michigan or MI
 * **Entity Postal Code** - The postal code of the entity that created the website, e.g.: 11360
-* **Entity Country** - The country in which the entity that created the website is located, e.g.: USA
+* **Entity Country** - The country in which the entity that created the website is located, e.g.: US
 
 #### Organization Info
 * **Organization DUNS Number** - The DUNS (Dunn & Bradstreet) number of the organization/company/restaurant that created the website
@@ -512,7 +512,7 @@ The JSONLD_ARRAY should be in the following format in PHP:
 	    "sameAs" => ["https://Twitter.com/nystudio107","https://plus.google.com/+nystudio107"],
 	    "address" => array(
 		    "type" => 'PostalAddress',
-		    "addressCountry" => "USA",
+		    "addressCountry" => "US",
 		    ),
 	    );
 	
@@ -524,7 +524,7 @@ The JSONLD_ARRAY should be in the following format in Twig:
 		"sameAs": ["https://Twitter.com/nystudio107","https://plus.google.com/+nystudio107"],
 		"address": {
 			"type": 'PostalAddress',
-			"addressCountry": "USA",
+			"addressCountry": "US",
 		},
 	} %}
 	
@@ -538,12 +538,79 @@ The above arrays will render to the following JSON-LD:
 	    "sameAs": ["https://Twitter.com/nystudio107","https://plus.google.com/+nystudio107"],
 	    "address": {
 	        "@type": "PostalAddress",
-	        "addressCountry": "USA" 
+	        "addressCountry": "US" 
 	    } 
 	}
 	</script>
 	
 The array can be nested arbitrarily deep with sub-arrays.  The first key in the array, and in each sub-array, should be an "type" with a valid [Schema.org](Schema.org) type as the value.  Because Twig doesn't support array keys with non-alphanumeric characters, SEOmatic transforms the keys "type" into "@type" at render time.
+
+Here's a practical example.  Let's say you're working on a spiffy new online store using Craft Commerce, and you want to add in some microdata for the products listed in your store, for SEO purposes.  You can do something like this:
+
+	{% set myJSONLD = {
+		type: "Product",
+		name: "Brad's for Men Cologne",
+		image: "http://bradsformen.com/cologne.png",
+		logo: "http://bradsformen.com/cologne_logo.png",
+		description: "Brad Bell's musky essence will intoxicate you.",
+		model: "XQJ-37",
+		offers: {
+			type: "Offer",
+			url: "http://bradsformen.com/cologne",
+			price: "69.99",
+			priceCurrency: "USD",
+			acceptedPaymentMethod: ["CreditCard", "PayPal"],
+			seller: {
+			    type: "Corporation",
+			    name: "Brad Brands Intl.",
+			    url: "http://bradsformen.com"
+			}
+		},
+		manufacturer: {
+		    type: "Organization",
+		    name: "Scents Unlimited",
+		    url: "http://scentsunlimited.com"
+		},
+		aggregateRating: {
+			type: "AggregateRating",
+			bestRating: "100",
+			ratingCount: "24",
+			ratingValue: "87"
+		},
+	} %}
+    {{ myJSONLD | renderJSONLD }}
+
+Obviously, you'll want to substitute in variables for the above, e.g.:
+
+	{% set products = craft.commerce.products.type('normal').find() %}
+	
+	{% for product in products %}
+		{% for variant in products.variants %}
+			{% set myJSONLD = {
+				type: "Product",
+				name: "{{ variant.description }}",
+				image: "{{ variant.myProductShot }}",
+				logo: "{{ variant.myProductLogo }}",
+				description: "{{ variant.myProductDescription }}",
+				model: "{{ variant.myProductModel }}",
+				offers: {
+					type: "Offer",
+					url: "{{ product.url }}",
+					price: "{{ variant.price }}",
+					priceCurrency: "USD",
+					acceptedPaymentMethod: ["CreditCard", "PayPal"],
+					seller: {
+					    type: "Corporation",
+					    name: "{{ seomaticSiteMeta.siteSeoName }}",
+					    url: "{{ siteUrl }}"
+					}
+				}
+			} %}
+		{{ myJSONLD | renderJSONLD }}
+		{% endfor %}
+	{% endfor %}
+
+There are many other values available for you to use; see the [Product](https://developers.google.com/schemas/reference/types/Product) schema for details.
 
 ### truncateStringOnWord()
 
@@ -785,7 +852,7 @@ These are the Twig variables that SEOmatic pre-populates, and makes available to
 	        addressLocality: "Porchester",
 	        addressRegion: "NY",
 	        postalCode: "11450",
-	        addressCountry: "USA"
+	        addressCountry: "US"
 	    },
 	    logo: "http://nystudio107.dev/img/site/big_logo.jpg",
 	    location: { 
@@ -805,7 +872,7 @@ These are the Twig variables that SEOmatic pre-populates, and makes available to
 	            addressLocality: "Porchester",
 	            addressRegion: "NY",
 	            postalCode: "11450",
-	            addressCountry: "USA"
+	            addressCountry: "US"
 	        }
 	    },
 	    duns: "12345678",
@@ -828,7 +895,7 @@ These are the Twig variables that SEOmatic pre-populates, and makes available to
 	        addressLocality: "Webster",
 	        addressRegion: "NY",
 	        postalCode: "14580",
-	        addressCountry: "USA"
+	        addressCountry: "US"
 	    },
 	    logo: "http://nystudio107.dev/img/site/nys_seo_logo.png",
 	    location: { 
@@ -846,7 +913,7 @@ These are the Twig variables that SEOmatic pre-populates, and makes available to
 	            addressLocality: "Webster",
 	            addressRegion: "NY",
 	            postalCode: "14580",
-	            addressCountry: "USA"
+	            addressCountry: "US"
 	        }
 	    }
 	} %}
@@ -954,7 +1021,7 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 	        "addressLocality": "Porchester",
 	        "addressRegion": "NY",
 	        "postalCode": "11450",
-	        "addressCountry": "USA" 
+	        "addressCountry": "US" 
 	    },
 	    "logo": "http://nystudio107.dev/img/site/big_logo.jpg",
 	    "location": {
@@ -974,7 +1041,7 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 	            "addressLocality": "Porchester",
 	            "addressRegion": "NY",
 	            "postalCode": "11450",
-	            "addressCountry": "USA" 
+	            "addressCountry": "US" 
 	        } 
 	    },
 	    "duns": "12345678",
@@ -1013,7 +1080,7 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 	            "addressLocality": "Porchester",
 	            "addressRegion": "NY",
 	            "postalCode": "11450",
-	            "addressCountry": "USA" 
+	            "addressCountry": "US" 
 	        },
 	        "logo": "http://nystudio107.dev/img/site/big_logo.jpg",
 	        "location": {
@@ -1033,7 +1100,7 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 	                "addressLocality": "Porchester",
 	                "addressRegion": "NY",
 	                "postalCode": "11450",
-	                "addressCountry": "USA" 
+	                "addressCountry": "US" 
 	            } 
 	        },
 	        "duns": "12345678",
@@ -1057,7 +1124,7 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 	            "addressLocality": "Porchester",
 	            "addressRegion": "NY",
 	            "postalCode": "11450",
-	            "addressCountry": "USA" 
+	            "addressCountry": "US" 
 	        },
 	        "logo": "http://nystudio107.dev/img/site/big_logo.jpg",
 	        "location": {
@@ -1077,7 +1144,7 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 	                "addressLocality": "Porchester",
 	                "addressRegion": "NY",
 	                "postalCode": "11450",
-	                "addressCountry": "USA" 
+	                "addressCountry": "US" 
 	            } 
 	        },
 	        "duns": "12345678",
@@ -1099,7 +1166,7 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 	            "addressLocality": "Webster",
 	            "addressRegion": "NY",
 	            "postalCode": "14580",
-	            "addressCountry": "USA" 
+	            "addressCountry": "US" 
 	        },
 	        "logo": "http://nystudio107.dev/img/site/nys_seo_logo.png",
 	        "location": {
@@ -1117,7 +1184,7 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 	                "addressLocality": "Webster",
 	                "addressRegion": "NY",
 	                "postalCode": "14580",
-	                "addressCountry": "USA" 
+	                "addressCountry": "US" 
 	            } 
 	        } 
 	    } 
