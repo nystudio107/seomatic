@@ -326,32 +326,29 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Add in the Facebook Open Graph settings to the meta */
 
-		if ($social['facebookProfileId'])
-		{
-			$openGraph = array();
-			$openGraph['type'] = $meta['openGraphType'];
-			$openGraph['locale'] = $locale;
-			$openGraph['url'] = $meta['canonicalUrl'];
-			$openGraph['title'] = $meta['seoTitle'] . " | " . $siteMeta['siteSeoName'];
-			$openGraph['description'] = $meta['seoDescription'];
-			$openGraph['image'] = $meta['seoImage'];
-			$openGraph['site_name'] = $siteMeta['siteSeoName'];
+		$openGraph = array();
+		$openGraph['type'] = $meta['openGraphType'];
+		$openGraph['locale'] = $locale;
+		$openGraph['url'] = $meta['canonicalUrl'];
+		$openGraph['title'] = $meta['seoTitle'] . " | " . $siteMeta['siteSeoName'];
+		$openGraph['description'] = $meta['seoDescription'];
+		$openGraph['image'] = $meta['seoImage'];
+		$openGraph['site_name'] = $siteMeta['siteSeoName'];
 
-			$sameAs = array();
-			array_push($sameAs, $helper['twitterUrl']);
-			array_push($sameAs, $helper['facebookUrl']);
-			array_push($sameAs, $helper['googlePlusUrl']);
-			array_push($sameAs, $helper['linkedInUrl']);
-			array_push($sameAs, $helper['youtubeUrl']);
-			array_push($sameAs, $helper['instagramUrl']);
-			array_push($sameAs, $helper['pinterestUrl']);
-			$sameAs = array_filter($sameAs);
-			$sameAs = array_values($sameAs);
-			if (!empty($sameAs))
-				$openGraph['see_also'] = $sameAs;
+		$sameAs = array();
+		array_push($sameAs, $helper['twitterUrl']);
+		array_push($sameAs, $helper['facebookUrl']);
+		array_push($sameAs, $helper['googlePlusUrl']);
+		array_push($sameAs, $helper['linkedInUrl']);
+		array_push($sameAs, $helper['youtubeUrl']);
+		array_push($sameAs, $helper['instagramUrl']);
+		array_push($sameAs, $helper['pinterestUrl']);
+		$sameAs = array_filter($sameAs);
+		$sameAs = array_values($sameAs);
+		if (!empty($sameAs))
+			$openGraph['see_also'] = $sameAs;
 
-			$meta['og'] = $openGraph;
-		}
+		$meta['og'] = $openGraph;
 
 /* -- Get rid of variables we don't want to expose */
 
