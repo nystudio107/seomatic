@@ -217,7 +217,7 @@ You can use any Craft `environmentVariables` in these fields in addition to stat
 
 ## Rendering your SEO Meta tags
 
-All you need to do in order to output the SEOmatic SEO Meta tags is in the `<head>` tag of your main `layout.twig` (or whatever template all of your other template `extends`), place this tag:
+All you need to do in order to output the SEOmatic SEO Meta tags is in the `<head>` tag of your main `layout.twig` (or whatever template all of your other templates `extends`), place this tag:
 
     {% hook 'seomaticRender' %}
 
@@ -380,9 +380,29 @@ So tying it all together, you might do something like this for a dynamic Blog en
 	    seoKeywords: extractKeywords(entry.blog),
 	    seoImage: entry.image.url,
 	    canonicalUrl: seomaticMeta.canonicalUrl,
+	    twitter: { 
+	        card: seomaticMeta.twitter.card,
+	        site: seomaticMeta.twitter.card,
+	        creator: seomaticMeta.twitter.creator,
+	        title: entry.title,
+	        description: entry.summary,
+	        image: entry.image.url
+	    },
+	    og: { 
+	        type: seomaticMeta.og.type,
+	        locale: seomaticMeta.og.locale,
+	        url: entry.url,
+	        title: entry.title,
+	        description: entry.summary,
+	        image: entry.image.url,
+	        site_name: seomaticMeta.og.site_name,
+	        see_also: seomaticMeta.og.see_also
+	    }
 	} %}
 
 And there you have it, dynamic keywords for your SEO Meta.  Note that we set the `canonicalUrl` to `seomaticMeta.canonicalUrl`, effectively leaving it unchanged.
+
+Anywhere we are setting a field to `seomaticMeta.*`, we're setting it to what it already is, essentially saying to leave it unchanged.  We do this because Twig requires that you pass in the entire array to the `set` operator.
 
 ## Dynamic Summary Generation
 
@@ -411,9 +431,29 @@ So tying it all together, you might do something like this for a dynamic Blog en
 	    seoKeywords: extractKeywords(entry.blog),
 	    seoImage: entry.image.url,
 	    canonicalUrl: seomaticMeta.canonicalUrl,
+	    twitter: { 
+	        card: seomaticMeta.twitter.card,
+	        site: seomaticMeta.twitter.card,
+	        creator: seomaticMeta.twitter.creator,
+	        title: entry.title,
+	        description: extractSummary(entry.blog),
+	        image: entry.image.url
+	    },
+	    og: { 
+	        type: seomaticMeta.og.type,
+	        locale: seomaticMeta.og.locale,
+	        url: entry.url,
+	        title: entry.title,
+	        description: extractSummary(entry.blog),
+	        image: entry.image.url,
+	        site_name: seomaticMeta.og.site_name,
+	        see_also: seomaticMeta.og.see_also
+	    }
 	} %}
 
 Note that we set the `canonicalUrl` to `seomaticMeta.canonicalUrl`, effectively leaving it unchanged.
+
+Anywhere we are setting a field to `seomaticMeta.*`, we're setting it to what it already is, essentially saying to leave it unchanged.  We do this because Twig requires that you pass in the entire array to the `set` operator.
 
 ## Humans.txt authorship
 
