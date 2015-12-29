@@ -313,6 +313,10 @@ class SeomaticService extends BaseApplicationComponent
 				case 'summary_large_image':
 					$twitterCard['creator'] = "@" . ltrim($social['twitterHandle'], '@');
 				break;
+				
+				default:
+					$twitterCard['creator'] = "";
+				break;
 			}
 			$twitterCard['title'] = $meta['seoTitle'] . " | " . $siteMeta['siteSeoName'];
 			$twitterCard['description'] = $meta['seoDescription'];
