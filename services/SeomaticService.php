@@ -1417,7 +1417,7 @@ class SeomaticService extends BaseApplicationComponent
 				if ($key == 'email')
 					$theArray[$key] = $this->encodeEmailAddress($value);
 				else
-                	$theArray[$key] = htmlentities($value, ENT_COMPAT | ENT_HTML401, ini_get("default_charset"), false);
+                	$theArray[$key] = htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, ini_get("default_charset"), false);
             }
             else
             {
@@ -1490,10 +1490,10 @@ class SeomaticService extends BaseApplicationComponent
             else
             {
                 if ($level < 1)
-                    $line = "{% set " . $key . " = \"" . htmlentities($value, ENT_COMPAT | ENT_HTML401, ini_get("default_charset"), false) . "\" %}" . "\n";
+                    $line = "{% set " . $key . " = \"" . htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, ini_get("default_charset"), false) . "\" %}" . "\n";
                 else
                 	{
-						$line = $key . ": \"" . htmlentities($value, ENT_COMPAT | ENT_HTML401, ini_get("default_charset"), false) . "\"" . $comma . "\n";
+						$line = $key . ": \"" . htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, ini_get("default_charset"), false) . "\"" . $comma . "\n";
 						$line = str_pad($line, strlen($line) + ($level * 4), " ", STR_PAD_LEFT);
                     }
             }
