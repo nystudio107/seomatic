@@ -130,7 +130,7 @@ class Seomatic_SettingsRecord extends BaseRecord
 
 /* -- Humans.txt */
 
-            'genericCreatorHumansTxt'           => array(AttributeType::Mixed, 'default' => ''),
+            'genericCreatorHumansTxt'           => array(AttributeType::Mixed),
             
 /* -- This is defined in definteRelations() below, of note:
       You don’t need to specify the foreign key column name in BELONGS_TO relations (defaults to the relation name appended with “Id”)
