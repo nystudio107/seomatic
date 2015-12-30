@@ -8,7 +8,7 @@
 						<h1>{{ "Preview Humans.txt" |t }}</h1>
 						<p>{{ "<a href='http://humanstxt.org' target='_blank'>Humans.txt</a> is an initiative for knowing the people behind a website. It's a TXT file that contains information about the different people who have contributed to building the website.  By adding a txt file, you can prove your authorship (not your property) in an external, fast, easy and accessible way." |t |raw }}</p>
 						<p>{{ "SEOmatic automatically generates <a href='http://humanstxt.org' target='_blank'>Humans.txt</a> authorship accreditation with the following tag:" |t |raw }}</p>
-						<pre><code class="language-markup">{% set humansTag = '<link type="text/plain" rel="author" href="humans.txt" />' %}{{ humansTag }}</code></pre>
+						<pre><code class="language-markup">{% set humansTag = '<link type="text/plain" rel="author" href="/humans.txt" />' %}{{ humansTag }}</code></pre>
 						<p>{{ "The rendered <code>humans.txt</code> file:" |t |raw }}</p>
 						<pre><code class="language-markup">{{ craft.seomatic.renderHumans(true) }}</code></pre>
 					</div>

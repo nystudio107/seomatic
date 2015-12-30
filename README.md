@@ -461,7 +461,7 @@ Anywhere we are setting a field to `seomaticMeta.*`, we're setting it to what it
 
 SEOmatic automatically generates [Humans.txt](http://humanstxt.org) authorship accreditation with the following tag:
 
-    <link type="text/plain" rel="author" href="humans.txt" />
+    <link type="text/plain" rel="author" href="/humans.txt" />
 
 The rendered `humans.txt` file uses the following template by default (you're free to change it as you wish):
 
@@ -992,7 +992,7 @@ SEOmatic cascades Meta settings; if you have a Meta associated with the current 
 	
 	<!-- Humans.txt authorship http://humanstxt.org -->
 	
-	<link type="text/plain" rel="author" href="humans.txt" />
+	<link type="text/plain" rel="author" href="/humans.txt" />
 	
 	<!-- Domain verification -->
 	
