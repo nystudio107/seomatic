@@ -126,7 +126,7 @@ class Seomatic_SettingsModel extends BaseModel
 
 /* -- Humans.txt */
 
-            'genericCreatorHumansTxt'           => array(AttributeType::Mixed),
+            'genericCreatorHumansTxt'           => array(AttributeType::Mixed, 'default' => $this->getDefaultHumans()),
         ));
     }
 
