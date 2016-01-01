@@ -12,8 +12,8 @@ class Seomatic_MetaFieldModel extends Seomatic_MetaModel
     protected function defineAttributes()
     {
         return array_merge(parent::defineAttributes(), array(
-            'seoTitleSource'				=> array(AttributeType::Enum, 'values' => "custom,field", 'default' => 'custom'),
-            'seoTitleSourceField'			=> array(AttributeType::String, 'default' => ''),
+            'seoTitleSource'				=> array(AttributeType::Enum, 'values' => "custom,field", 'default' => 'field'),
+            'seoTitleSourceField'			=> array(AttributeType::String, 'default' => 'title'),
             'seoDescriptionSource'			=> array(AttributeType::Enum, 'values' => "custom,field", 'default' => 'custom'),
             'seoDescriptionSourceField'     => array(AttributeType::String, 'default' => ''),
             'seoKeywordsSource'				=> array(AttributeType::Enum, 'values' => "custom,keywords,field", 'default' => 'custom'),
