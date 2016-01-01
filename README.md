@@ -1243,6 +1243,13 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.0.7 -- 2016.01.01
+
+* [Added] Added a 'robots' field globally to the SEO Meta for specifying noindex/nofollow
+* [Fixed] Added error handling to the 'Look up Latitude/Longitude' buttons
+* [Fixed] Some minor template / logic issues
+* [Improved] Updated the README.md
+
 ### 1.0.6 -- 2015.12.31
 
 * [Added] Added an SEOmatic Meta field type that allows you to attach meta to Entries/Sections
