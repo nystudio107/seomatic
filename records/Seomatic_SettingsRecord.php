@@ -24,6 +24,7 @@ class Seomatic_SettingsRecord extends BaseRecord
             'siteSeoKeywords'               	=> array(AttributeType::String, 'default' => ''),
             'siteTwitterCardType'				=> array(AttributeType::String, 'default' => ''),
             'siteOpenGraphType'					=> array(AttributeType::String, 'default' => ''),
+            'siteRobots'						=> array(AttributeType::String, 'default' => ''),
 
 /* --------------------------------------------------------------------------------
 	IDENTITY settings

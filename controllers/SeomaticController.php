@@ -329,6 +329,7 @@ class SeomaticController extends BaseController
         $model->seoKeywords = craft()->request->getPost('seoKeywords', $model->seoKeywords);
         $model->twitterCardType = craft()->request->getPost('twitterCardType', $model->twitterCardType);
         $model->openGraphType = craft()->request->getPost('openGraphType', $model->openGraphType);
+        $model->robots = craft()->request->getPost('robots', $model->robots);
         $model->seoImageId = craft()->request->getPost('seoImageId', $model->seoImageId);
         $model->enabled = (bool)craft()->request->getPost('enabled', $model->enabled);
         $model->getContent()->title = craft()->request->getPost('title', $model->title);
@@ -403,6 +404,7 @@ class SeomaticController extends BaseController
         $record->siteSeoKeywords = craft()->request->getPost('siteSeoKeywords', $record->siteSeoKeywords);
         $record->siteTwitterCardType = craft()->request->getPost('siteTwitterCardType', $record->siteTwitterCardType);
         $record->siteOpenGraphType = craft()->request->getPost('siteOpenGraphType', $record->siteOpenGraphType);
+        $record->siteRobots = craft()->request->getPost('siteRobots', $record->siteRobots);
 
         $record->siteSeoImageId = craft()->request->getPost('siteSeoImageId', $record->siteSeoImageId);
         $assetId = (!empty($record->siteSeoImageId) ? $record->siteSeoImageId[0] : null);

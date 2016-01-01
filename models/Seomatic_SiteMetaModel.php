@@ -15,6 +15,9 @@ class Seomatic_SiteMetaModel extends BaseModel
             'siteSeoTitle'                  	=> array(AttributeType::String, 'default' => ''),
             'siteSeoDescription'            	=> array(AttributeType::String, 'default' => ''),
             'siteSeoKeywords'               	=> array(AttributeType::String, 'default' => ''),
+            'siteTwitterCardType'				=> array(AttributeType::String, 'default' => ''),
+            'siteOpenGraphType'					=> array(AttributeType::String, 'default' => ''),
+            'siteRobots'						=> array(AttributeType::String, 'default' => ''),
             'siteSeoImageId'                	=> array(AttributeType::Number, 'default' => null),
         ));
     }

@@ -4,6 +4,9 @@
 
 <!-- Standard SEO -->
 
+{% if seomaticMeta.robots is defined and seomaticMeta.robots %}
+<meta name="robots" content="{{ seomaticMeta.robots |raw }}" />
+{% endif %}
 <meta name="keywords" content="{{ seomaticMeta.seoKeywords |raw }}" />
 <meta name="description" content="{{ seomaticMeta.seoDescription |raw }}" />
 <meta name="generator" content="SEOmatic" />

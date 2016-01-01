@@ -255,4 +255,20 @@
 		locale: field.translatable ? locale,
 	}) }}
 
+    {{ forms.selectField({
+        label: "Robots Meta Tag"|t,
+        instructions: "The robots meta tag lets you utilize a granular, page-specific approach to controlling how an individual page should be indexed and served to users in search results.  Setting it to a blank value means 'no change'."|t,
+        id: id ~ "robots",
+        options: {
+	        "": "",
+			"all": "all - Index this page and follow links (default)" |t,
+			"noindex": "noindex - Do not index this page" |t,
+			"nofollow": "nofollow - Do not follow links on this page" |t,
+			"none": "none - Do not index or follow links on this page" |t,
+        },
+        name: name ~ "[robots]",
+        value: meta.robots,
+		locale: field.translatable ? locale,
+    }) }}
+
 </div>

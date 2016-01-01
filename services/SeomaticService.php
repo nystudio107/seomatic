@@ -360,6 +360,10 @@ class SeomaticService extends BaseApplicationComponent
             $meta['openGraphType'] = $entryMeta->openGraphType;
             if (!$meta['openGraphType'])
             	$meta['openGraphType'] = 'website';
+            if (isset($entryMeta->robots))
+				$meta['robots'] = $entryMeta->robots;
+			else
+				$meta['robots'] = '';
 
 /* -- Swap in the seoImageId for the actual asset */
 
@@ -481,6 +485,7 @@ class SeomaticService extends BaseApplicationComponent
         $globalMeta['seoImage'] = $siteMeta['siteSeoImage'];
         $globalMeta['twitterCardType'] = $siteMeta['siteTwitterCardType'];
         $globalMeta['openGraphType'] = $siteMeta['siteOpenGraphType'];
+        $globalMeta['robots'] = $siteMeta['siteRobots'];
         $meta = array_merge($globalMeta, $meta);
 
 /* -- Merge with the entry meta, if any */
@@ -684,6 +689,11 @@ class SeomaticService extends BaseApplicationComponent
 		$siteMeta['siteSeoDescription'] = $settings['siteSeoDescription'];
 		$siteMeta['siteSeoKeywords'] = $settings['siteSeoKeywords'];
 		$siteMeta['siteSeoImageId'] = $settings['siteSeoImageId'];
+
+		if (isset($settings['siteRobots']))
+			$siteMeta['siteRobots'] = $settings['siteRobots'];
+		else
+			$siteMeta['siteRobots'] = '';
 
 		$siteMeta['siteTwitterCardType'] = $settings['siteTwitterCardType'];
 		if (!$siteMeta['siteTwitterCardType'])
@@ -1154,6 +1164,11 @@ class SeomaticService extends BaseApplicationComponent
                 $meta['openGraphType'] = $metaRecord->openGraphType;
                 if (!$meta['openGraphType'])
                 	$meta['openGraphType'] = 'website';
+
+	            if (isset($metaRecord->robots))
+					$meta['robots'] = $metaRecord->robots;
+				else
+					$meta['robots'] = '';
 
 /* -- Swap in the seoImageId for the actual asset */
         

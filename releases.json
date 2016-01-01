@@ -1,8 +1,19 @@
 [
     {
+        "version": "1.0.7",
+        "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
+        "date": "2016-01-01T11:00:00-05:00",
+        "notes": [
+            "[Added] Added a 'robots' field globally to the SEO Meta for specifying noindex/nofollow",
+            "[Fixed] Added error handling to the 'Look up Latitude/Longitude' buttons",
+            "[Fixed] Some minor template / logic issues",
+            "[Improved] Updated the README.md"
+        ]
+    },
+    {
         "version": "1.0.6",
         "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
-        "date": "2016-12-31T11:00:00-05:00",
+        "date": "2015-12-31T11:00:00-05:00",
         "notes": [
             "[Added] Added an SEOmatic Meta field type that allows you to attach meta to Entries/Sections",
             "[Added] The SEOmatic Meta field type can have custom date, or pull from other fields in that Entry, or even extract keywords from other fields",
