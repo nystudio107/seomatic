@@ -28,10 +28,14 @@
 </div>
 						
 <script type="text/javascript">
-	document.getElementById('facebook-post-image').style.backgroundImage = "url(" + "{{ resourceUrl('seomatic/images/no_image_set.png') }}" + ")";
-	{% if seomaticMeta.og.image %}
-		document.getElementById('facebook-post-image').style.backgroundImage = "url(" + "{{ seomaticMeta.seoImage }}" + ")";
-	{% endif %}
+	var x = document.getElementsByClassName("Facebook-post-image");
+	var i;
+	for (i = 0; i < x.length; i++) {
+		x[i].style.backgroundImage = "url(" + "{{ resourceUrl('seomatic/images/no_image_set.png') }}" + ")";
+		{% if seomaticMeta.og.image %}
+			x[i].style.backgroundImage = "url(" + "{{ seomaticMeta.seoImage }}" + ")";
+		{% endif %}
+	}
 </script>
 {% else %}
 <p>No Facebook Profile ID has been set</p>

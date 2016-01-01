@@ -618,6 +618,8 @@ a.Facebook-link {
     transition-timing-function: ease-in-out;
     width: 446px;
     word-wrap: break-word;
+    max-height: 45px;
+    text-overflow: ellipsis;
 }
 
 .Facebook-text {
@@ -632,6 +634,8 @@ a.Facebook-link {
     overflow-y: hidden;
     width: 446px;
     word-wrap: break-word;
+    max-height: 30px;
+    text-overflow: ellipsis;
 }
 
 .Facebook-site-url-wrapper {

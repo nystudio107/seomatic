@@ -1,5 +1,22 @@
 [
     {
+        "version": "1.0.6",
+        "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
+        "date": "2016-12-31T11:00:00-05:00",
+        "notes": [
+            "[Added] Added an SEOmatic Meta field type that allows you to attach meta to Entries/Sections",
+            "[Added] The SEOmatic Meta field type can have custom date, or pull from other fields in that Entry, or even extract keywords from other fields",
+            "[Added] You can preview the settings from SEOmatic Meta field types that are attached to entries",
+            "[Fixed] Fixed db error on install on Windows due to trying to set a default for 'genericCreatorHumansTxt'",
+            "[Fixed] Facebook Open Graph tags weren't being generated if you had no Facebook Profile ID set, which could cause templating errors",
+            "[Fixed] The seomatic.twitter.creator field wasn't set unless summary_large_image was chosen, which could cause templating errors",
+            "[Fixed] The seomaticMeta variables were being overzealously encoded as htmlentities",
+            "[Fixed] Fixed an issue where weird characters would appear in truncated strings on certain versions of PHP",
+            "[Improved] All JSON-LD rendered through SEOmatic is now minified if you have the Minify plugin installed",
+            "[Improved] Updated the README.md"
+        ]
+    },
+    {
         "version": "1.0.5",
         "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
         "date": "2015-12-28T11:00:00-05:00",

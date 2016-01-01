@@ -29,8 +29,8 @@
 
 {% block main %}
 
-	{% include "seomatic/_preview_display_modal" with {'previewMetaPath': '', 'locale': creator.locale } %}
-	{% include "seomatic/_preview_tags_modal" with {'previewMetaPath': '', 'locale': creator.locale } %}
+	{% include "seomatic/_preview_display_modal" with {'previewMetaPath': '', 'elementId': 0,  'locale': creator.locale } %}
+	{% include "seomatic/_preview_tags_modal" with {'previewMetaPath': '', 'elementId': 0, 'locale': creator.locale } %}
 	{% include "seomatic/_preview_humans_modal" %}
 
 <!-- Needed for for Craft < 2.5 -->

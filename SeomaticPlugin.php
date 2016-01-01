@@ -25,7 +25,7 @@ class SeomaticPlugin extends BasePlugin
     
     public function getVersion()
     {
-        return '1.0.5';
+        return '1.0.6';
     }
 
     public function getSchemaVersion()
@@ -76,7 +76,9 @@ class SeomaticPlugin extends BasePlugin
 	                'seomaticHelper' => $seomaticHelper,
 	                
 	            );
-	                        
+				
+/* -- Render the seomaticMeta, this is where the magic happens */
+
 	            $seomaticTemplatePath = '';
 	            if (isset($context['seomaticTemplatePath']))
 	                $seomaticTemplatePath = $context['seomaticTemplatePath'];

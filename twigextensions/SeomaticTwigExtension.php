@@ -23,10 +23,18 @@ class SeomaticTwigExtension extends \Twig_Extension
     public function getGlobals()
     {   
 	    $result = array();
+
 		if (craft()->request->isSiteRequest())
 		{
+
+		    $element = craft()->urlManager->getMatchedElement();
+			$entryMeta = craft()->seomatic->getMetaFromElement($element);
+			$entryMetaUrl = "";
+			
+		    if ($entryMeta)
+				craft()->seomatic->setEntryMeta($entryMeta, $entryMetaUrl);
 	        $currentTemplate = $this->_get_current_template_path();
-	        $result = craft()->seomatic->getGlobals($currentTemplate, craft()->language);	        
+	        $result = craft()->seomatic->getGlobals($currentTemplate, craft()->language);
         }
 	    return $result;
     }

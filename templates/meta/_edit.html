@@ -15,11 +15,11 @@
 {% block main %}
 
 {% if meta.metaType == "default" %}
-	{% include "seomatic/_preview_display_modal" with {'previewMetaPath': ''} %}
-	{% include "seomatic/_preview_tags_modal" with {'previewMetaPath': ''} %}
+	{% include "seomatic/_preview_display_modal" with {'previewMetaPath': '', 'elementId': 0} %}
+	{% include "seomatic/_preview_tags_modal" with {'previewMetaPath': '' 'elementId': 0, } %}
 {% else %}
-	{% include "seomatic/_preview_display_modal" with {'previewMetaPath': meta.metaPath, 'locale': meta.locale } %}
-	{% include "seomatic/_preview_tags_modal" with {'previewMetaPath': meta.metaPath, 'locale': meta.locale } %}
+	{% include "seomatic/_preview_display_modal" with {'previewMetaPath': meta.metaPath, 'elementId': 0, 'locale': meta.locale } %}
+	{% include "seomatic/_preview_tags_modal" with {'previewMetaPath': meta.metaPath, 'elementId': 0, 'locale': meta.locale } %}
 {% endif %}
 	
 	<div class="seomatic-container">

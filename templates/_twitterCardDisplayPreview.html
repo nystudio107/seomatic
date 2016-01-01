@@ -24,10 +24,14 @@
 </div>
 
 <script type="text/javascript">
-	document.getElementById('twitter-card-image').style.backgroundImage = "url(" + "{{ resourceUrl('seomatic/images/no_image_set.png') }}" + ")";
-	{% if seomaticMeta.twitter.image %}
-		document.getElementById('twitter-card-image').style.backgroundImage = "url(" + "{{ seomaticMeta.twitter.image }}" + ")";
-	{% endif %}
+	var x = document.getElementsByClassName("TwitterCard-image-wrapper");
+	var i;
+	for (i = 0; i < x.length; i++) {
+		x[i].style.backgroundImage = "url(" + "{{ resourceUrl('seomatic/images/no_image_set.png') }}" + ")";
+		{% if seomaticMeta.twitter.image %}
+			x[i].style.backgroundImage = "url(" + "{{ seomaticMeta.twitter.image }}" + ")";
+		{% endif %}
+	}
 </script>
 {% else %}
 <p>Twitter Handle has been set</p>

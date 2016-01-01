@@ -1,0 +1,104 @@
+div.seomatic-livepreviewbtn {
+    background-color: #fafafa!important;
+	background-image: -webkit-linear-gradient(white, #fafafa)!important;
+	background-image: -moz-linear-gradient(white, #fafafa)!important;
+	background-image: -ms-linear-gradient(white, #fafafa)!important;
+	background-image: -o-linear-gradient(white, #fafafa)!important;
+	background-image: linear-gradient(white, #fafafa)!important;
+	width: 100%;
+}
+
+div.seomatic-livepreviewbtn:before {
+    content: 'view';
+    margin-left: -2px;
+    margin-right: -2px;
+    font-family: 'Craft';
+    speak: none;
+    -webkit-font-feature-settings: "liga", "dlig";
+    -moz-font-feature-settings: "liga=1, dlig=1";
+    -moz-font-feature-settings: "liga", "dlig";
+    -ms-font-feature-settings: "liga", "dlig";
+    -o-font-feature-settings: "liga", "dlig";
+    font-feature-settings: "liga", "dlig";
+    text-rendering: optimizeLegibility;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: inline-block;
+    text-align: center;
+    font-style: normal;
+    vertical-align: middle;
+    word-wrap: normal !important;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+div.seomatic-meta-field {
+	border: 1px solid #e3e5e8;
+	margin-bottom: 10px;
+	padding: 7px 14px 14px;
+	border-radius: 3px;
+	background: #f9fafa;
+}
+
+div.seomatic-meta-field-title {
+	background: #eef0f1;
+	color: #8f98a3;
+	margin: -7px -14px 14px;
+	padding: 7px 14px 7px 14px;
+	width: calc(100% + 28px);
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	border-radius: 2px 2px 0 0;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	word-wrap: normal;
+	cursor: default;
+}
+
+img.seomatic-field-icon {
+	display: inline-block;
+	width: 16px;
+	height: auto;
+	padding-right: 7px;
+}
+
+div.nomarginfield {
+	margin: 0px;
+}
+
+div.source-container {
+	width: 100%;
+	margin-bottom: 7px;
+}
+
+div.source-item {
+	display: inline-block;
+}
+
+div.seomatic-field-preview-container {
+	float: right;
+	width: 300px;
+}
+
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+	}
+* html .clearfix             { zoom: 1; } /* IE6 */
+*:first-child+html .clearfix { zoom: 1; } /* IE7 */
+
+div.secondbtn {
+	margin-bottom: 0px;
+}

@@ -9,6 +9,7 @@ use \crodas\TextRank\Stopword;
 class SeomaticService extends BaseApplicationComponent
 {
 
+	protected $entryMeta = null;
 	protected $cachedSettings = array();
 	protected $cachedSiteMeta = array();
 	protected $cachedIdentity = array();
@@ -24,10 +25,11 @@ class SeomaticService extends BaseApplicationComponent
 
     public function renderSiteMeta($templatePath="", $metaVars=null, $locale)
     {
-
+	    		
 /* -- Cache the results for speediness; 1 query to rule them all */
 
 	    $shouldCache = ($metaVars != null);
+	    $shouldCache = false;
 		if ($shouldCache)	    
 		{
 			$cacheKey = 'seomatic_metacache_' . $this->getMetaHashStr($templatePath, $metaVars);
@@ -39,17 +41,11 @@ class SeomaticService extends BaseApplicationComponent
 /* -- If Minify is installed, minify all the things */
 
 		if (craft()->plugins->getPlugin('Minify'))
-		{
 	        $htmlText = craft()->minify->htmlMin($this->render($templatePath, $metaVars));
-	        $htmlText .= craft()->minify->jsMin($this->renderIdentity($metaVars, $locale));
-	        $htmlText .= craft()->minify->jsMin($this->renderWebsite($metaVars, $locale));
-		}
 		else
-		{
 	        $htmlText = $this->render($templatePath, $metaVars);
-	        $htmlText .= $this->renderIdentity($metaVars, $locale);
-	        $htmlText .= $this->renderWebsite($metaVars, $locale);
-		}
+        $htmlText .= $this->renderIdentity($metaVars, $locale);
+        $htmlText .= $this->renderWebsite($metaVars, $locale);
 		if ($shouldCache)	    
 			craft()->cache->set($cacheKey, $htmlText, null);
 
@@ -88,7 +84,6 @@ class SeomaticService extends BaseApplicationComponent
 
             craft()->path->setTemplatesPath($oldPath);
             }
-
         return $htmlText;
     } /* -- render */
 
@@ -126,7 +121,7 @@ class SeomaticService extends BaseApplicationComponent
 	at render time.
 -------------------------------------------------------------------------------- */
 
-    public function renderJSONLD($object=array())
+    public function renderJSONLD($object=array(), $isPreview=false)
     {
 		$vars = array("object" => $object);
         $oldPath = craft()->path->getTemplatesPath();
@@ -136,7 +131,10 @@ class SeomaticService extends BaseApplicationComponent
 /* -- Render the core template */
 
         $templateName = 'json-ld/_json-ld';
-        $htmlText = craft()->templates->render($templateName, $vars);
+		if (craft()->plugins->getPlugin('Minify') && !$isPreview)
+	        $htmlText = craft()->minify->jsMin($htmlText = craft()->templates->render($templateName, $vars));
+	    else
+        	$htmlText = craft()->templates->render($templateName, $vars);
 
         craft()->path->setTemplatesPath($oldPath);
 
@@ -167,10 +165,10 @@ class SeomaticService extends BaseApplicationComponent
     Render the SEOmatic Identity template
 -------------------------------------------------------------------------------- */
 
-    public function renderIdentity($metaVars, $locale)
+    public function renderIdentity($metaVars, $locale, $isPreview=false)
     {
 		$this->sanitizeMetaVars($metaVars);
-		$htmlText = $this->renderJSONLD($metaVars['seomaticIdentity']);
+		$htmlText = $this->renderJSONLD($metaVars['seomaticIdentity'], $isPreview);
         return $htmlText;
     } /* -- renderIdentity */
 
@@ -178,11 +176,11 @@ class SeomaticService extends BaseApplicationComponent
     Render the SEOmatic WebSite template
 -------------------------------------------------------------------------------- */
 
-    public function renderWebsite($metaVars, $locale)
+    public function renderWebsite($metaVars, $locale, $isPreview=false)
     {
 		$this->sanitizeMetaVars($metaVars);
 	    $webSite = $this->getWebSiteJSONLD($metaVars, $locale);
-		$htmlText = $this->renderJSONLD($webSite);
+		$htmlText = $this->renderJSONLD($webSite, $isPreview);
         return $htmlText;
     } /* -- renderWebsite */
 
@@ -256,6 +254,197 @@ class SeomaticService extends BaseApplicationComponent
 	} /* -- renderHumansTemplate */
 
 /* --------------------------------------------------------------------------------
+    Try to extract an seomaticMeta field from an element
+-------------------------------------------------------------------------------- */
+
+	public function getMetaFromElement($element)
+	{
+/* -- See if there is an 'entry' automagically put into this template, and if it contains an Seomatic_Meta */
+
+		$entryMeta = null;
+		$entryMetaUrl = "";
+		if (isset($element) && $element)
+		{
+			$attributes = $element->content->attributes;
+			foreach ($attributes as $key => $value)
+			{
+				if (is_object($value))
+				{
+					if ($value->elementType == "Seomatic_FieldMeta")
+					{
+						$entryMeta = $value;
+						$entryMetaUrl = $element->url;
+
+/* -- Swap in any SEOmatic fields that are pulling from other entry fields */
+
+						switch ($entryMeta['seoTitleSource'])
+						{
+							case 'field':
+								if (isset($element[$entryMeta['seoTitleSourceField']]))
+								{
+									$entryMeta['seoTitle'] = strip_tags($element[$entryMeta['seoTitleSourceField']]);
+								}
+							break;
+						}
+
+						switch ($entryMeta['seoDescriptionSource'])
+						{
+							case 'field':
+								if (isset($element[$entryMeta['seoDescriptionSourceField']]))
+								{
+									$entryMeta['seoDescription'] = strip_tags($element[$entryMeta['seoDescriptionSourceField']]);
+								}
+							break;
+						}
+
+						switch ($entryMeta['seoKeywordsSource'])
+						{
+							case 'field':
+								if (isset($element[$entryMeta['seoKeywordsSourceField']]))
+								{
+									$entryMeta['seoKeywords'] = strip_tags($element[$entryMeta['seoKeywordsSourceField']]);
+								}
+							break;
+							
+							case 'keywords':
+								if (isset($element[$entryMeta['seoKeywordsSourceField']]))
+								{
+									$entryMeta['seoKeywords'] = craft()->seomatic->extractKeywords(strip_tags($element[$entryMeta['seoKeywordsSourceField']]));
+								}
+							break;
+						}
+
+						switch ($entryMeta['seoImageIdSource'])
+						{
+							case 'field':
+								if (isset($element[$entryMeta['seoImageIdSourceField']]))
+								{
+									$entryMeta['seoImageId'] = $element[$entryMeta['seoImageIdSourceField']]->first()->id;
+								}
+							break;
+						}
+
+					}
+				}
+			}
+		}
+	return $entryMeta;
+	} /* -- getMetaFromElement */
+	
+/* --------------------------------------------------------------------------------
+    Set the entry-level meta
+-------------------------------------------------------------------------------- */
+
+    public function setEntryMeta($entryMeta, $entryMetaUrl)
+    {
+	    
+	    $meta = null;
+	    
+/* -- If $entryMeta was passed in, merge it with our array */
+
+		if ($entryMeta)
+		{
+			$meta = array();
+            $meta['seoTitle'] = $entryMeta->seoTitle;
+            $meta['seoDescription'] = $entryMeta->seoDescription;
+            $meta['seoKeywords'] = $entryMeta->seoKeywords;
+            if (isset($entryMeta->seoImageId[0]))
+				$meta['seoImageId'] = $entryMeta->seoImageId[0];
+			else
+				$meta['seoImageId'] = null;
+			$meta['canonicalUrl'] =  $entryMetaUrl;
+			
+            $meta['twitterCardType'] = $entryMeta->twitterCardType;
+            if (!$meta['twitterCardType'])
+            	$meta['twitterCardType'] = 'summary';
+            $meta['openGraphType'] = $entryMeta->openGraphType;
+            if (!$meta['openGraphType'])
+            	$meta['openGraphType'] = 'website';
+
+/* -- Swap in the seoImageId for the actual asset */
+
+	        if (isset($entryMeta['seoImageId']))
+	        {
+		        $image = craft()->assets->getFileById($entryMeta['seoImageId']);
+		        if ($image)
+		        	$meta['seoImage'] = $image->url;
+		        else
+		        	$meta['seoImage'] = '';
+				unset($meta['seoImageId']);
+	        }
+	        else
+	        	$meta['seoImage'] = '';
+
+            $meta = array_filter($meta);
+		}
+		$this->entryMeta = $meta;
+	} /* -- setEntryMeta */
+	
+/* --------------------------------------------------------------------------------
+    Set the Twitter Cards and Open Graph arrays for the meta
+-------------------------------------------------------------------------------- */
+
+	public function setSocialForMeta(&$meta, $siteMeta, $social, $helper, $locale)
+	{
+		
+		if ($meta)
+		{
+			
+/* -- Add in the Twitter Card settings to the meta */
+
+			if ($social['twitterHandle'])
+			{
+				$twitterCard = array();
+				$twitterCard['card'] = $meta['twitterCardType'];
+				$twitterCard['site'] = "@" . ltrim($social['twitterHandle'], '@');
+				switch ($twitterCard['card'])
+				{
+					case 'summary_large_image':
+						$twitterCard['creator'] = "@" . ltrim($social['twitterHandle'], '@');
+					break;
+					
+					default:
+						$twitterCard['creator'] = "";
+					break;
+				}
+				$twitterCard['title'] = $meta['seoTitle'] . " | " . $siteMeta['siteSeoName'];
+				$twitterCard['description'] = $meta['seoDescription'];
+				$twitterCard['image'] = $meta['seoImage'];
+				$meta['twitter'] = $twitterCard;
+			}
+	
+	/* -- Add in the Facebook Open Graph settings to the meta */
+	
+			$openGraph = array();
+			$openGraph['type'] = $meta['openGraphType'];
+			if ($locale == "en")
+				$openGraph['locale'] = 'en_US';
+			else
+				$openGraph['locale'] = $locale;
+			$openGraph['url'] = $meta['canonicalUrl'];
+			$openGraph['title'] = $meta['seoTitle'] . " | " . $siteMeta['siteSeoName'];
+			$openGraph['description'] = $meta['seoDescription'];
+			$openGraph['image'] = $meta['seoImage'];
+			$openGraph['site_name'] = $siteMeta['siteSeoName'];
+	
+			$sameAs = array();
+			array_push($sameAs, $helper['twitterUrl']);
+			array_push($sameAs, $helper['facebookUrl']);
+			array_push($sameAs, $helper['googlePlusUrl']);
+			array_push($sameAs, $helper['linkedInUrl']);
+			array_push($sameAs, $helper['youtubeUrl']);
+			array_push($sameAs, $helper['instagramUrl']);
+			array_push($sameAs, $helper['pinterestUrl']);
+			$sameAs = array_filter($sameAs);
+			$sameAs = array_values($sameAs);
+			if (!empty($sameAs))
+				$openGraph['see_also'] = $sameAs;
+	
+			$meta['og'] = $openGraph;
+		}
+	} /* -- setSocialForMeta*/
+
+/* --------------------------------------------------------------------------------
     Get the seomatic globals
 -------------------------------------------------------------------------------- */
 
@@ -294,6 +483,11 @@ class SeomaticService extends BaseApplicationComponent
         $globalMeta['openGraphType'] = $siteMeta['siteOpenGraphType'];
         $meta = array_merge($globalMeta, $meta);
 
+/* -- Merge with the entry meta, if any */
+
+		if ($this->entryMeta)
+	        $meta = array_merge($meta, $this->entryMeta);
+
 /* -- Add the helper vars */
 
 		$helper = array();
@@ -301,54 +495,7 @@ class SeomaticService extends BaseApplicationComponent
 		$this->addIdentityHelpers($helper, $identity);
 		$this->addCreatorHelpers($helper, $creator);
 
-/* -- Add in the Twitter Card settings to the meta */
-
-		if ($social['twitterHandle'])
-		{
-			$twitterCard = array();
-			$twitterCard['card'] = $meta['twitterCardType'];
-			$twitterCard['site'] = "@" . ltrim($social['twitterHandle'], '@');
-			switch ($twitterCard['card'])
-			{
-				case 'summary_large_image':
-					$twitterCard['creator'] = "@" . ltrim($social['twitterHandle'], '@');
-				break;
-				
-				default:
-					$twitterCard['creator'] = "";
-				break;
-			}
-			$twitterCard['title'] = $meta['seoTitle'] . " | " . $siteMeta['siteSeoName'];
-			$twitterCard['description'] = $meta['seoDescription'];
-			$twitterCard['image'] = $meta['seoImage'];
-			$meta['twitter'] = $twitterCard;
-		}
-
-/* -- Add in the Facebook Open Graph settings to the meta */
-
-		$openGraph = array();
-		$openGraph['type'] = $meta['openGraphType'];
-		$openGraph['locale'] = $locale;
-		$openGraph['url'] = $meta['canonicalUrl'];
-		$openGraph['title'] = $meta['seoTitle'] . " | " . $siteMeta['siteSeoName'];
-		$openGraph['description'] = $meta['seoDescription'];
-		$openGraph['image'] = $meta['seoImage'];
-		$openGraph['site_name'] = $siteMeta['siteSeoName'];
-
-		$sameAs = array();
-		array_push($sameAs, $helper['twitterUrl']);
-		array_push($sameAs, $helper['facebookUrl']);
-		array_push($sameAs, $helper['googlePlusUrl']);
-		array_push($sameAs, $helper['linkedInUrl']);
-		array_push($sameAs, $helper['youtubeUrl']);
-		array_push($sameAs, $helper['instagramUrl']);
-		array_push($sameAs, $helper['pinterestUrl']);
-		$sameAs = array_filter($sameAs);
-		$sameAs = array_values($sameAs);
-		if (!empty($sameAs))
-			$openGraph['see_also'] = $sameAs;
-
-		$meta['og'] = $openGraph;
+		$this->setSocialForMeta($meta, $siteMeta, $social, $helper, $locale);
 
 /* -- Get rid of variables we don't want to expose */
 
@@ -365,7 +512,7 @@ class SeomaticService extends BaseApplicationComponent
             'seomaticTemplatePath' => '',
         );
 				
-/* -- Sanitize the global variables to ensure they are properly encoded */
+/* -- Return everything is an array of arrays */
 
         $result = array('seomaticMeta' => $meta,
         				'seomaticHelper' => $helper,
@@ -436,7 +583,7 @@ class SeomaticService extends BaseApplicationComponent
 		
 				if (isset($this->cachedSettings[$baseLocale]))
 				{
-					$baseSettings = $this->cachedSettings[$baseLocale];
+					$baseResult = $this->cachedSettings[$baseLocale];
 				}
 				else
 				{
@@ -452,8 +599,8 @@ class SeomaticService extends BaseApplicationComponent
 			            'locale' => $baseLocale,
 			            ));
 			        }
+					$baseResult = $baseSettings->attributes;
 				}
-		        $baseResult = $baseSettings->attributes;
                 $result = array_filter($result);
 		        $result = array_merge($baseResult, $result);
 			}
@@ -996,6 +1143,10 @@ class SeomaticService extends BaseApplicationComponent
                 $meta['seoTitle'] = $metaRecord->seoTitle;
                 $meta['seoDescription'] = $metaRecord->seoDescription;
                 $meta['seoKeywords'] = $metaRecord->seoKeywords;
+                if (isset($metaRecord->seoImageId))
+                	$meta['seoImageId'] = $metaRecord->seoImageId;
+                else
+                	$meta['seoImageId'] = null;
 
                 $meta['twitterCardType'] = $metaRecord->twitterCardType;
                 if (!$meta['twitterCardType'])
@@ -1013,6 +1164,7 @@ class SeomaticService extends BaseApplicationComponent
 			        	$meta['seoImage'] = $image->url;
 			        else
 			        	$meta['seoImage'] = '';
+					unset($meta['seoImageId']);
 		        }
 		        else
 		        	$meta['seoImage'] = '';
@@ -1417,7 +1569,7 @@ class SeomaticService extends BaseApplicationComponent
 				if ($key == 'email')
 					$theArray[$key] = $this->encodeEmailAddress($value);
 				else
-                	$theArray[$key] = htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, ini_get("default_charset"), false);
+                	$theArray[$key] = htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, 'UTF-8', false);
             }
             else
             {
@@ -1490,10 +1642,10 @@ class SeomaticService extends BaseApplicationComponent
             else
             {
                 if ($level < 1)
-                    $line = "{% set " . $key . " = \"" . htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, ini_get("default_charset"), false) . "\" %}" . "\n";
+                    $line = "{% set " . $key . " = \"" . htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, 'UTF-8', false) . "\" %}" . "\n";
                 else
                 	{
-						$line = $key . ": \"" . htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, ini_get("default_charset"), false) . "\"" . $comma . "\n";
+						$line = $key . ": \"" . htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, 'UTF-8', false) . "\"" . $comma . "\n";
 						$line = str_pad($line, strlen($line) + ($level * 4), " ", STR_PAD_LEFT);
                     }
             }

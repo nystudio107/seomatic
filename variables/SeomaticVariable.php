@@ -117,10 +117,23 @@ class SeomaticVariable
     Render the SEOmatic preview template
 -------------------------------------------------------------------------------- */
 
-    function renderPreview($templatePath="", $forTemplate="", $locale=null)
+    function renderPreview($templatePath="", $forTemplate="", $elementId=null, $locale=null)
     {
+	    
 	    if (!$locale)
 	    	$locale = craft()->language;
+
+		if ($elementId)
+		{
+		    $element = craft()->elements->getElementById($elementId, null, $locale);
+		    if ($element)
+		    {
+			    $entryMeta = craft()->seomatic->getMetaFromElement($element);
+			    if ($entryMeta)
+					craft()->seomatic->setEntryMeta($entryMeta, $element->url);
+			}
+		}
+		
         $metaVars = craft()->seomatic->getGlobals($forTemplate, $locale);
 
 /* -- Fudge the canonicalUrl for the preview */
@@ -144,10 +157,22 @@ class SeomaticVariable
     Render the SEOmatic display preview template
 -------------------------------------------------------------------------------- */
 
-    function renderDisplayPreview($templateName="", $forTemplate="", $locale=null)
+    function renderDisplayPreview($templateName="", $forTemplate="", $elementId=null, $locale=null)
     {
 	    if (!$locale)
 	    	$locale = craft()->language;
+
+		if ($elementId)
+		{
+		    $element = craft()->elements->getElementById($elementId, null, $locale);
+		    if ($element)
+		    {
+			    $entryMeta = craft()->seomatic->getMetaFromElement($element);
+			    if ($entryMeta)
+					craft()->seomatic->setEntryMeta($entryMeta, $element->url);
+			}
+		}
+
         $metaVars = craft()->seomatic->getGlobals($forTemplate, $locale);
 
 /* -- Fudge the canonicalUrl for the preview */
@@ -169,12 +194,24 @@ class SeomaticVariable
     Render the SEOmatic Identity template
 -------------------------------------------------------------------------------- */
 
-    function renderIdentity($locale=null)
+    function renderIdentity($elementId=null, $locale=null, $isPreview=false)
     {
 	    if (!$locale)
 	    	$locale = craft()->language;
+
+		if ($elementId)
+		{
+		    $element = craft()->elements->getElementById($elementId, null, $locale);
+		    if ($element)
+		    {
+			    $entryMeta = craft()->seomatic->getMetaFromElement($element);
+			    if ($entryMeta)
+					craft()->seomatic->setEntryMeta($entryMeta, $element->url);
+			}
+		}
+
         $metaVars = craft()->seomatic->getGlobals('', $locale);
-        $result = craft()->seomatic->renderIdentity($metaVars, $locale);
+        $result = craft()->seomatic->renderIdentity($metaVars, $locale, $isPreview);
         
         return rtrim($result);
     } /* -- renderIdentity */
@@ -183,12 +220,24 @@ class SeomaticVariable
     Render the SEOmatic Website template
 -------------------------------------------------------------------------------- */
 
-    function renderWebsite($locale=null)
+    function renderWebsite($elementId=null, $locale=null, $isPreview=false)
     {
 	    if (!$locale)
 	    	$locale = craft()->language;
+
+		if ($elementId)
+		{
+		    $element = craft()->elements->getElementById($elementId, null, $locale);
+		    if ($element)
+		    {
+			    $entryMeta = craft()->seomatic->getMetaFromElement($element);
+			    if ($entryMeta)
+					craft()->seomatic->setEntryMeta($entryMeta, $element->url);
+			}
+		}
+
         $metaVars = craft()->seomatic->getGlobals('', $locale);
-        $result = craft()->seomatic->renderWebsite($metaVars, $locale);
+        $result = craft()->seomatic->renderWebsite($metaVars, $locale, $isPreview);
         
         return rtrim($result);
     } /* -- renderWebsite */
@@ -197,11 +246,23 @@ class SeomaticVariable
     Render the SEOmatic globals for the preview
 -------------------------------------------------------------------------------- */
 
-    function renderGlobals($forTemplate="", $locale=null)
+    function renderGlobals($forTemplate="", $elementId=null, $locale=null)
     {
 
 	    if (!$locale)
 	    	$locale = craft()->language;
+
+		if ($elementId)
+		{
+		    $element = craft()->elements->getElementById($elementId, null, $locale);
+		    if ($element)
+		    {
+			    $entryMeta = craft()->seomatic->getMetaFromElement($element);
+			    if ($entryMeta)
+					craft()->seomatic->setEntryMeta($entryMeta, $element->url);
+			}
+		}
+
         $metaVars = craft()->seomatic->getGlobals($forTemplate, $locale);
 
 /* -- Fudge the canonicalUrl for the preview */

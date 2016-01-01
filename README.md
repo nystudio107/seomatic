@@ -21,7 +21,7 @@ SEOmatic allows you to quickly get a website up and running with a robust, compr
 
 It implements [JSON-LD](https://developers.google.com/schemas/formats/json-ld?hl=en) microdata, [Dublin Core](http://dublincore.org) core metadata, [Twitter Cards](https://dev.twitter.com/cards/overview) core metadata, [Twitter Cards](https://dev.twitter.com/cards/overview) tags, [Facebook OpenGraph](https://developers.facebook.com/docs/sharing/opengraph) tags, [Humans.txt](http://humanstxt.org) authorship accreditation, and as well as HTML meta tags.
 
-The general philosophy is that SEO Site Meta can be overridden by SEO Template Meta which can be overridden by dynamic SEO Twig tags.
+The general philosophy is that SEO Site Meta can be overridden by SEO Template Meta, which can be overridden by SEO Entry Meta, which can be overridden by dynamic SEO Twig tags.
 
 In this way, the SEO Meta tags on your site cascade, so that they are globally available, but also can be customized in a very granular way.
 
@@ -129,7 +129,7 @@ None of these fields are mandatory; if you don't have a given social media accou
 * **Instagram Handle** - Your Instagram handle
 * **Pinterest Handle** - Your Pinterest page handle (the part after `https://www.pinterest.com/`)
 
-You must have a **Twitter Handle** for SEOmatic to generate Twitter Card tags for you.  Similarly, you must have a **Facebook Profile ID** for SEOmatic to generate Facebook Open Graph tags for you.
+You must have a **Twitter Handle** for SEOmatic to generate Twitter Card tags for you.  Similarly, you should have a **Facebook Profile ID** for the Facebook Open Graph tags, but it's not required.
 
 You can use any Craft `environmentVariables` in these fields in addition to static text, e.g.:
 
@@ -215,6 +215,31 @@ You can use any Craft `environmentVariables` in these fields in addition to stat
 
     This is my {baseUrl}
 
+## SEO Entry Meta
+
+![Screenshot](resources/screenshots/seomatic10.jpg)
+
+SEOmatic provides a FieldType called `SEOmatic Meta` that you can add to your Sections.  It allows you to provide meta information on a per-entry basis.  SEOmatic will automatically override any Site Meta or Tempalate Meta with Entry Meta if an `entry` that has an SEOmatic Meta field is auto-populated by Craft into a template.
+
+If any fields are left blank in an Entry Meta, those fields are pulled from the SEO Site Meta / SEO Template Meta.
+
+You can also dynamically change any of these SEO Meta fields in your Twig templates, and they will appear in the rendered SEO Meta.
+
+* **SEO Title** - This should be between 10 and 70 characters (spaces included). Make sure your title tag is explicit and contains your most important keywords. Be sure that each page has a unique title tag.
+* **SEO Description** - This should be between 70 and 160 characters (spaces included). Meta descriptions allow you to influence how your web pages are described and displayed in search results. Ensure that all of your web pages have a unique meta description that is explicit and contains your most important keywords.
+* **SEO Keywords** - Google ignores this tag; though other search engines do look at it. Utilize it carefully, as improper or spammy use most likely will hurt you, or even have your site marked as spam. Avoid overstuffing the keywords and do not include keywords that are not related to the specific page you place them on.
+* **SEO Image** - This is the image that will be used for display as the webpage brand for this template, as well as on Twitter Cards and Facebook OpenGraph that link to this page. It should be an image that displays well when cropped to a square format (for Twitter)
+* **Twitter Card Type** - With Twitter Cards, you can attach rich photos and information to Tweets that drive traffic to your website. Users who Tweet links to your content will have a “Card” added to the Tweet that’s visible to all of their followers.
+* **Facebook Open Graph Type** - Adding Open Graph tags to your website influences the performance of your links on social media by allowing you to control what appears when a user posts a link to your content on Facebook.
+
+You can use any Craft `environmentVariables` in these fields in addition to static text, e.g.:
+
+    This is my {baseUrl}
+
+In addition to being able to hold custom data that you enter manually, you can also set the Source that **SEO Title**, **SEO Description**, **SEO Keywords**, and **SEO Image** SEOmatic Meta fields to pull data from to an existing field in your Entry.
+
+The **SEO Keywords** field also allows you to extract keywords automatically from an existing field in your Entry via the `Keywords From Field` Source option.
+
 ## Rendering your SEO Meta tags
 
 All you need to do in order to output the SEOmatic SEO Meta tags is in the `<head>` tag of your main `layout.twig` (or whatever template all of your other templates `extends`), place this tag:
@@ -260,7 +285,7 @@ If you have a **Twitter Handle**, you'll also get variables that are used to gen
     seomaticMeta.twitter.description
     seomaticMeta.twitter.image
 
-If you have a **Facebook Profile ID**, you'll also get variables that are used to generate your Facebook Open Graph tags:
+You'll also get variables that are used to generate your Facebook Open Graph tags:
 
     seomaticMeta.og.type
     seomaticMeta.og.locale
@@ -1214,6 +1239,19 @@ Some things to do, and ideas for potential features:
 * [feature] Provide Redirect functionality.  Yes, it's SEO-related, but seems like it might be better to keep SEOmatic focused (?)
 
 ## Changelog
+
+### 1.0.6 -- 2015.12.31
+
+* [Added] Added an SEOmatic Meta field type that allows you to attach meta to Entries/Sections
+* [Added] The SEOmatic Meta field type can have custom date, or pull from other fields in that Entry, or even extract keywords from other fields
+* [Added] You can preview the settings from SEOmatic Meta field types that are attached to entries
+* [Fixed] Fixed db error on install on Windows due to trying to set a default for `genericCreatorHumansTxt`
+* [Fixed] Facebook Open Graph tags weren't being generated if you had no Facebook Profile ID set, which could cause templating errors
+* [Fixed] The `seomatic.twitter.creator` field wasn't set unless `summary_large_image` was chosen, which could cause templating errors
+* [Fixed] The seomaticMeta variables were being overzealously encoded as htmlentities
+* [Fixed] Fixed an issue where weird characters would appear in truncated strings on certain versions of PHP
+* [Improved] All JSON-LD rendered through SEOmatic is now minified if you have the Minify plugin installed
+* [Improved] Updated the README.md
 
 ### 1.0.5 -- 2015.12.28
 

@@ -1,0 +1,112 @@
+/*
+ * Functionality for Seomatic MetaField fieldtype
+ * by Andrew Welch - http://nystudio107.com
+ *
+ * Depends on: jQuery
+ */
+
+ ;(function ( $, window, document, undefined ) {
+
+    var pluginName = "SeomaticFieldType",
+        defaults = {
+        };
+
+    // Plugin constructor
+    function Plugin( element, options ) {
+        this.element = element;
+
+        this.options = $.extend( {}, defaults, options) ;
+console.log(this.options);
+
+        this._defaults = defaults;
+        this._name = pluginName;
+
+        this.init();
+    }
+
+    Plugin.prototype = {
+
+        init: function(id) {
+            var seomatic = this,
+                $field = $(this.element);
+
+			$(function () {
+
+			    $('#' + seomatic.options.prefix + 'preview-tags').on('click', function(e) {
+			    
+			        // Prevents the default action to be triggered. 
+			        e.preventDefault();
+			    
+			        // Triggering bPopup when click event is fired
+			        $('#' + seomatic.options.prefix + 'preview-tags-popup').bPopup();
+			    
+			    });
+			
+			    $('#' + seomatic.options.prefix + 'preview-display').on('click', function(e) {
+			    
+			        // Prevents the default action to be triggered. 
+			        e.preventDefault();
+			    
+			        // Triggering bPopup when click event is fired
+			        $('#' + seomatic.options.prefix + 'preview-display-popup').bPopup();
+			    
+			    });
+
+/* -- Show/hide the select fields initially */
+
+				$('.selectField > select').each(function( index, value ) {
+			    	popupValue = $(this).val();
+				    switch (popupValue) {
+				    	case "custom":
+				    		$(this).closest('.comboField-wrapper').children('.selectFieldWrapper').hide();
+				    		$(this).closest('.comboField-wrapper').children('.customFieldWrapper').show();
+				    	break;
+
+				    	case "keywords":
+				    		$(this).closest('.comboField-wrapper').children('.selectFieldWrapper').show();
+				    		$(this).closest('.comboField-wrapper').children('.customFieldWrapper').hide();
+				    	break;
+				    	
+				    	case "field":
+				    		$(this).closest('.comboField-wrapper').children('.selectFieldWrapper').show();
+				    		$(this).closest('.comboField-wrapper').children('.customFieldWrapper').hide();
+				    	break;
+				    }
+				});
+			
+			    $('.selectField > select').on('change', function(e) {
+			        
+				    switch (this.value) {
+				    	case "custom":
+				    		$(this).closest('.comboField-wrapper').children('.selectFieldWrapper').hide();
+				    		$(this).closest('.comboField-wrapper').children('.customFieldWrapper').show();
+				    	break;
+
+				    	case "keywords":
+				    		$(this).closest('.comboField-wrapper').children('.selectFieldWrapper').show();
+				    		$(this).closest('.comboField-wrapper').children('.customFieldWrapper').hide();
+				    	break;
+				    	
+				    	case "field":
+				    		$(this).closest('.comboField-wrapper').children('.selectFieldWrapper').show();
+				    		$(this).closest('.comboField-wrapper').children('.customFieldWrapper').hide();
+				    	break;
+				    }
+			    });
+			
+			});
+        }
+    };
+
+    // A really lightweight plugin wrapper around the constructor,
+    // preventing against multiple instantiations
+    $.fn[pluginName] = function ( options ) {
+        return this.each(function () {
+            if (!$.data(this, "plugin_" + pluginName)) {
+                $.data(this, "plugin_" + pluginName,
+                new Plugin( this, options ));
+            }
+        });
+    };
+
+})( jQuery, window, document );
