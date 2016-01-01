@@ -9,7 +9,7 @@ class Seomatic_MetaFieldType extends BaseFieldType
 
     public function getName()
     {
-        return Craft::t('Seomatic Meta');
+        return Craft::t('SEOmatic Meta');
     }
 
     public function defineContentAttribute()
