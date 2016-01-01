@@ -25,8 +25,14 @@ $(function () {
 			url:"http://maps.googleapis.com/maps/api/geocode/json?address="+address+"&sensor=false",
 			type: "POST",
 			success:function(res){
-			 $('#genericOwnerGeoLatitude').val(res.results[0].geometry.location.lat);
-			 $('#genericOwnerGeoLongitude').val(res.results[0].geometry.location.lng);
+             if (res.results.length) {
+              $('#genericOwnerGeoLatitude').val(res.results[0].geometry.location.lat);
+              $('#genericOwnerGeoLongitude').val(res.results[0].geometry.location.lng);
+             }
+             else
+             {
+              console.log('No location found');
+             }
 			}
 		});
     });
