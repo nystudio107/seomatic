@@ -29,6 +29,22 @@ SEOmatic populates your templates with SEO Meta in the same way that Craft popul
 
 SEOmatic also caches each unique SEO Meta request so that your website performance is minimally impacted by the rich SEO Meta tags provided.
 
+## Rendering your SEO Meta tags
+
+All you need to do in order to output the SEOmatic SEO Meta tags is in the `<head>` tag of your main `layout.twig` (or whatever template all of your other templates `extends`), place this tag:
+
+    {% hook 'seomaticRender' %}
+
+That's it.  It'll render all of that SEO goodness for you.
+
+SEOmatic uses its own internal template for rendering; but you can provide it with one of your own as well, just use this Twig code instead:
+
+    {% set seomaticTemplatePath = 'path/template' %} {% hook 'seomaticRender' %}
+
+...and it'll use your custom template instead.
+
+If the [Minify](https://github.com/khalwat/minify) plugin is installed, SEOmatic will minify the SEO Meta tags & JSON-LD.
+
 ## Configuring SEOmatic
 
 When you first install SEOmatic you'll see a welcome screen, click on the **Get Started** to, well, get started configuring SEOmatic.
@@ -239,22 +255,6 @@ You can use any Craft `environmentVariables` in these fields in addition to stat
 In addition to being able to hold custom data that you enter manually, you can also set the Source that **SEO Title**, **SEO Description**, **SEO Keywords**, and **SEO Image** SEOmatic Meta fields to pull data from to an existing field in your Entry.
 
 The **SEO Keywords** field also allows you to extract keywords automatically from an existing field in your Entry via the `Keywords From Field` Source option.
-
-## Rendering your SEO Meta tags
-
-All you need to do in order to output the SEOmatic SEO Meta tags is in the `<head>` tag of your main `layout.twig` (or whatever template all of your other templates `extends`), place this tag:
-
-    {% hook 'seomaticRender' %}
-
-That's it.  It'll render all of that SEO goodness for you.
-
-SEOmatic uses its own internal template for rendering; but you can provide it with one of your own as well, just use this Twig code instead:
-
-    {% set seomaticTemplatePath = 'path/template' %} {% hook 'seomaticRender' %}
-
-...and it'll use your custom template instead.
-
-If the [Minify](https://github.com/khalwat/minify) plugin is installed, SEOmatic will minify the SEO Meta tags & JSON-LD.
 
 ## Dynamic Twig SEO Meta
 
