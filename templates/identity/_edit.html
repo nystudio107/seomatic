@@ -220,6 +220,11 @@
 							<input id="geolookup" type="button" class="btn" value="{{ 'Look up Latitude/Longitude'|t }}">
 						</div>
 					</div>
+					<div id="geolookup-errors" class="geolookup-errors-wrapper">
+						<ul class="errors">
+							<li>{{ "No location found.  Perhaps the address is wrong/incomplete?" |t }}</li>
+						</ul>
+					</div>
 
 					{{ forms.textField({
 						label: "Entity Street Address"|t,

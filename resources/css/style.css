@@ -11,6 +11,10 @@ div.seomatic-devmode {
 	cursor: help;
 }
 
+.geolookup-errors-wrapper {
+	display: none;
+}
+
 p.seomatic-devmode-text {
 	margin: 0;
 	padding: 10px;
