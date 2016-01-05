@@ -1633,7 +1633,8 @@ class SeomaticService extends BaseApplicationComponent
 				
 			if (is_array($value))
             {
-	            if (array_keys($value)[0] == "0")
+				$keys = array_keys($value);
+	            if ($keys[0] == "0")
 	            {
 		            $line = $key . ": [\"" . implode("\",\"", $value) . "\"]" . $comma  . "\n";
 					$line = str_pad($line, strlen($line) + ($level * 4), " ", STR_PAD_LEFT);
