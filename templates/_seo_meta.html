@@ -39,7 +39,7 @@
 {% if seomaticCreator.name is defined and seomaticCreator.name %}
 <meta name="dcterms.Creator" content="{{ seomaticCreator.name |raw }}" />
 {% endif %}
-<meta name="dcterms.Subject" content="{{ seomaticMeta.seoKeywords |raw }}" /> 
+<meta name="dcterms.Subject" content="{{ seomaticMeta.seoKeywords |raw }}" />
 <meta name="dcterms.Contributor" content="{{ seomaticSiteMeta.siteSeoName |raw }}" />
 <meta name="dcterms.Date" content="{{ now | date('Y-m-d') }}" />
 <meta name="dcterms.Description" content="{{ seomaticMeta.seoDescription |raw }}" />
@@ -88,5 +88,13 @@
 
 <meta name="google-site-verification" content="{{ seomaticHelper.ownerGoogleSiteVerification |raw }}" />
 {% endif %}
+
+<!-- Identity -->
+
+{{ craft.seomatic.renderIdentity() |raw }}
+
+<!-- WebSite -->
+
+{{ craft.seomatic.renderWebsite() |raw }}
 
 <!-- END SEOmatic rendered SEO Meta -->

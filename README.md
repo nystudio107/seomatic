@@ -1243,6 +1243,13 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.0.8 -- 2016.01.08
+
+* [Improved] The rendering of the Identity and WebSite JSON-LD is now done via a tag in the templates, giving flexibility to people who want to use custom templates
+* [Fixed] Fixed an issue with PHP < 5.4
+* [Fixed] Fixed an issue if a plugin (like A&M forms) renders a template with Twig code in the template name
+* [Improved] Updated the README.md
+
 ### 1.0.7 -- 2016.01.01
 
 * [Added] Added a 'robots' field globally to the SEO Meta for specifying noindex/nofollow

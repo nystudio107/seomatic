@@ -44,8 +44,6 @@ class SeomaticService extends BaseApplicationComponent
             $htmlText = craft()->minify->htmlMin($this->render($templatePath, $metaVars));
         else
             $htmlText = $this->render($templatePath, $metaVars);
-        $htmlText .= $this->renderIdentity($metaVars, $locale);
-        $htmlText .= $this->renderWebsite($metaVars, $locale);
         if ($shouldCache)
             craft()->cache->set($cacheKey, $htmlText, null);
 
