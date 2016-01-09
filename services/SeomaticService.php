@@ -268,7 +268,7 @@ class SeomaticService extends BaseApplicationComponent
             $attributes = $element->content->attributes;
             foreach ($attributes as $key => $value)
             {
-                if (is_object($value))
+                if (is_object($value) && property_exists($value, "elementType"))
                 {
                     if ($value->elementType == "Seomatic_FieldMeta")
                     {
