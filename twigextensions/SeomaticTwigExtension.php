@@ -162,7 +162,7 @@ class SeomaticTwigExtension extends \Twig_Extension
 
     private function _get_current_template_path()
     {
-        $result = "";
+        $result = "DEADBEEF";
         $currentTemplate = craft()->templates->getRenderingTemplate();
         if (!craft()->templates->doesTemplateExist($currentTemplate))
             $currentTemplate = "DEADBEEF";
