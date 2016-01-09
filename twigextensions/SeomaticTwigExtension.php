@@ -170,7 +170,7 @@ class SeomaticTwigExtension extends \Twig_Extension
 
         $path_parts = pathinfo($currentTemplate);
 
-        if ($path_parts && isset($path_parts['dirname'])  && isset($path_parts['filename'])
+        if ($path_parts && isset($path_parts['dirname'])  && isset($path_parts['filename']))
         {
         $result = $path_parts['dirname'] . "/" . $path_parts['filename'];
 
