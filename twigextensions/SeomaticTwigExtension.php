@@ -164,7 +164,8 @@ class SeomaticTwigExtension extends \Twig_Extension
     {
         $currentTemplate = craft()->templates->getRenderingTemplate();
 /* -- In case the template being renders has variables in the name that need parsing */
-        $currentTemplate = craft()->templates->renderObjectTemplate($currentTemplate);
+        $obj = array();
+        $currentTemplate = craft()->templates->renderObjectTemplate($currentTemplate, $obj);
         $templatesPath = craft()->path->templatesPath;
 
         $path_parts = pathinfo($currentTemplate);
