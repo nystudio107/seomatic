@@ -163,7 +163,8 @@ class SeomaticTwigExtension extends \Twig_Extension
     private function _get_current_template_path()
     {
         $currentTemplate = craft()->templates->getRenderingTemplate();
-        $currentTemplate = craft()->config->parseEnvironmentString($currentTemplate);
+/* -- In case the template being renders has variables in the name that need parsing */
+        $currentTemplate = craft()->templates->renderObjectTemplate($currentTemplate);
         $templatesPath = craft()->path->templatesPath;
 
         $path_parts = pathinfo($currentTemplate);
