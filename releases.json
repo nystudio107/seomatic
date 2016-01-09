@@ -5,6 +5,7 @@
         "date": "2016-01-09T11:00:00-05:00",
         "notes": [
             "[Improved] The rendering of the Identity and WebSite JSON-LD is now done via a tag in the templates, giving flexibility to people who want to use custom templates",
+            "[Added] If the site is in devMode, [devMode] is prepended to the <title>",
             "[Fixed] Fixed an issue with PHP < 5.4",
             "[Fixed] Fixed an issue if a plugin (like A&M forms) renders a template with Twig code in the template name",
             "[Improved] Updated the README.md"

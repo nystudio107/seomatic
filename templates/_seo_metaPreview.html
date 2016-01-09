@@ -1,6 +1,6 @@
 <!-- BEGIN SEOmatic rendered SEO Meta -->
 
-<title>{{ seomaticMeta.seoTitle |raw }} | {{ seomaticSiteMeta.siteSeoName |raw }}</title> <!-- {% verbatim %}{{ seomaticMeta.seoTitle }} | {{ seomaticSiteMeta.siteSeoName }}{% endverbatim %} -->
+<title>{% if craft.config.devMode %}[devMode] {% endif %}{{ seomaticMeta.seoTitle |raw }} | {{ seomaticSiteMeta.siteSeoName |raw }}</title> <!-- {% verbatim %}{{ seomaticMeta.seoTitle }} | {{ seomaticSiteMeta.siteSeoName }}{% endverbatim %} -->
 
 <!-- Standard SEO -->
 
