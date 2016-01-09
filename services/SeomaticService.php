@@ -9,15 +9,15 @@ use \crodas\TextRank\Stopword;
 class SeomaticService extends BaseApplicationComponent
 {
 
-	protected $entryMeta = null;
-	protected $cachedSettings = array();
-	protected $cachedSiteMeta = array();
-	protected $cachedIdentity = array();
-	protected $cachedIdentityJSONLD = array();
-	protected $cachedSocial = array();
-	protected $cachedCreator = array();
-	protected $cachedCreatorJSONLD = array();
-	protected $cachedWebSiteJSONLD = array();
+    protected $entryMeta = null;
+    protected $cachedSettings = array();
+    protected $cachedSiteMeta = array();
+    protected $cachedIdentity = array();
+    protected $cachedIdentityJSONLD = array();
+    protected $cachedSocial = array();
+    protected $cachedCreator = array();
+    protected $cachedCreatorJSONLD = array();
+    protected $cachedWebSiteJSONLD = array();
 
 /* --------------------------------------------------------------------------------
     Render the all of the SEO Meta, caching it if possible
@@ -25,29 +25,29 @@ class SeomaticService extends BaseApplicationComponent
 
     public function renderSiteMeta($templatePath="", $metaVars=null, $locale)
     {
-	    		
+
 /* -- Cache the results for speediness; 1 query to rule them all */
 
-	    $shouldCache = ($metaVars != null);
-	    $shouldCache = false;
-		if ($shouldCache)	    
-		{
-			$cacheKey = 'seomatic_metacache_' . $this->getMetaHashStr($templatePath, $metaVars);
-			$cache = craft()->cache->get($cacheKey);
-			if ($cache)
-				return $cache;
-		}
+        $shouldCache = ($metaVars != null);
+        $shouldCache = false;
+        if ($shouldCache)
+        {
+            $cacheKey = 'seomatic_metacache_' . $this->getMetaHashStr($templatePath, $metaVars);
+            $cache = craft()->cache->get($cacheKey);
+            if ($cache)
+                return $cache;
+        }
 
 /* -- If Minify is installed, minify all the things */
 
-		if (craft()->plugins->getPlugin('Minify'))
-	        $htmlText = craft()->minify->htmlMin($this->render($templatePath, $metaVars));
-		else
-	        $htmlText = $this->render($templatePath, $metaVars);
+        if (craft()->plugins->getPlugin('Minify'))
+            $htmlText = craft()->minify->htmlMin($this->render($templatePath, $metaVars));
+        else
+            $htmlText = $this->render($templatePath, $metaVars);
         $htmlText .= $this->renderIdentity($metaVars, $locale);
         $htmlText .= $this->renderWebsite($metaVars, $locale);
-		if ($shouldCache)	    
-			craft()->cache->set($cacheKey, $htmlText, null);
+        if ($shouldCache)
+            craft()->cache->set($cacheKey, $htmlText, null);
 
         return $htmlText;
     } /* -- renderSiteMeta */
@@ -75,8 +75,8 @@ class SeomaticService extends BaseApplicationComponent
             if ($isPreview)
                 $templateName = $templateName . 'Preview';
             if ($metaVars)
-            	{
-				$this->sanitizeMetaVars($metaVars);
+                {
+                $this->sanitizeMetaVars($metaVars);
                 $htmlText = craft()->templates->render($templateName, $metaVars);
                 }
             else
@@ -89,41 +89,41 @@ class SeomaticService extends BaseApplicationComponent
 
 /* --------------------------------------------------------------------------------
     Render a generic JSON-LD object, passed in as an array() in the format:
-    
-    PHP:
-    
-    $myJSONLD = array(
-	    "type" => "Corporation",
-	    "name" => "nystudio107",
-	    "sameAs" => ["https://Twitter.com/nystudio107","https://plus.google.com/+nystudio107"],
-	    "address" => array(
-		    "type" => 'PostalAddress',
-		    "addressCountry" => "USA",
-		    ),
-	    );
-	
-	Twig:
 
-	{% set myJSONLD = {
-		"type": "Corporation",
-		"name": "nystudio107",
-		"sameAs": ["https://Twitter.com/nystudio107","https://plus.google.com/+nystudio107"],
-		"address": {
-			"type": 'PostalAddress',
-			"addressCountry": "USA",
-		},
-	} %}
-	
-	The array can be nested arbitrarily deep with sub-arrays.  The first key in
-	the array, and in each sub-array, should be an "type" with a valid
-	Schema.org type as the value.  Because Twig doesn't support array keys with
-	non-alphanumeric characters, SEOmatic transforms the keys "type" into "@type"
-	at render time.
+    PHP:
+
+    $myJSONLD = array(
+        "type" => "Corporation",
+        "name" => "nystudio107",
+        "sameAs" => ["https://Twitter.com/nystudio107","https://plus.google.com/+nystudio107"],
+        "address" => array(
+            "type" => 'PostalAddress',
+            "addressCountry" => "USA",
+            ),
+        );
+
+    Twig:
+
+    {% set myJSONLD = {
+        "type": "Corporation",
+        "name": "nystudio107",
+        "sameAs": ["https://Twitter.com/nystudio107","https://plus.google.com/+nystudio107"],
+        "address": {
+            "type": 'PostalAddress',
+            "addressCountry": "USA",
+        },
+    } %}
+
+    The array can be nested arbitrarily deep with sub-arrays.  The first key in
+    the array, and in each sub-array, should be an "type" with a valid
+    Schema.org type as the value.  Because Twig doesn't support array keys with
+    non-alphanumeric characters, SEOmatic transforms the keys "type" into "@type"
+    at render time.
 -------------------------------------------------------------------------------- */
 
     public function renderJSONLD($object=array(), $isPreview=false)
     {
-		$vars = array("object" => $object);
+        $vars = array("object" => $object);
         $oldPath = craft()->path->getTemplatesPath();
         $newPath = craft()->path->getPluginsPath().'seomatic/templates';
         craft()->path->setTemplatesPath($newPath);
@@ -131,10 +131,10 @@ class SeomaticService extends BaseApplicationComponent
 /* -- Render the core template */
 
         $templateName = 'json-ld/_json-ld';
-		if (craft()->plugins->getPlugin('Minify') && !$isPreview)
-	        $htmlText = craft()->minify->jsMin($htmlText = craft()->templates->render($templateName, $vars));
-	    else
-        	$htmlText = craft()->templates->render($templateName, $vars);
+        if (craft()->plugins->getPlugin('Minify') && !$isPreview)
+            $htmlText = craft()->minify->jsMin($htmlText = craft()->templates->render($templateName, $vars));
+        else
+            $htmlText = craft()->templates->render($templateName, $vars);
 
         craft()->path->setTemplatesPath($oldPath);
 
@@ -153,7 +153,7 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Render the SEOmatic display preview template */
 
-		$this->sanitizeMetaVars($metaVars);
+        $this->sanitizeMetaVars($metaVars);
         $htmlText = craft()->templates->render($templateName, $metaVars);
 
         craft()->path->setTemplatesPath($oldPath);
@@ -167,8 +167,8 @@ class SeomaticService extends BaseApplicationComponent
 
     public function renderIdentity($metaVars, $locale, $isPreview=false)
     {
-		$this->sanitizeMetaVars($metaVars);
-		$htmlText = $this->renderJSONLD($metaVars['seomaticIdentity'], $isPreview);
+        $this->sanitizeMetaVars($metaVars);
+        $htmlText = $this->renderJSONLD($metaVars['seomaticIdentity'], $isPreview);
         return $htmlText;
     } /* -- renderIdentity */
 
@@ -178,9 +178,9 @@ class SeomaticService extends BaseApplicationComponent
 
     public function renderWebsite($metaVars, $locale, $isPreview=false)
     {
-		$this->sanitizeMetaVars($metaVars);
-	    $webSite = $this->getWebSiteJSONLD($metaVars, $locale);
-		$htmlText = $this->renderJSONLD($webSite, $isPreview);
+        $this->sanitizeMetaVars($metaVars);
+        $webSite = $this->getWebSiteJSONLD($metaVars, $locale);
+        $htmlText = $this->renderJSONLD($webSite, $isPreview);
         return $htmlText;
     } /* -- renderWebsite */
 
@@ -191,9 +191,9 @@ class SeomaticService extends BaseApplicationComponent
     public function renderGlobals($metaVars, $forTemplate="")
     {
         $htmlText = "";
-        
-		$this->sanitizeMetaVars($metaVars);
-        $htmlText = $this->_print_twig_array($metaVars, 0);        
+
+        $this->sanitizeMetaVars($metaVars);
+        $htmlText = $this->_print_twig_array($metaVars, 0);
         return $htmlText;
     } /* -- renderGlobals */
 
@@ -201,14 +201,14 @@ class SeomaticService extends BaseApplicationComponent
     Render the humans.txt template
 -------------------------------------------------------------------------------- */
 
-	public function renderHumans($isPreview=false)
-	{
-	    $templatePath = '';
-	    $locale = '';
-	    if (!$locale)
-	    	$locale = craft()->language;
+    public function renderHumans($isPreview=false)
+    {
+        $templatePath = '';
+        $locale = '';
+        if (!$locale)
+            $locale = craft()->language;
         $metaVars = craft()->seomatic->getGlobals('', $locale);
-			
+
         if ($templatePath)
         {
             $htmlText = craft()->templates->render($templatePath);
@@ -224,229 +224,229 @@ class SeomaticService extends BaseApplicationComponent
             $templateName = '_humans';
             if ($isPreview)
                 $templateName = $templateName . 'Preview';
-			$htmlText = craft()->templates->render($templateName, $metaVars);
+            $htmlText = craft()->templates->render($templateName, $metaVars);
 
             craft()->path->setTemplatesPath($oldPath);
         }
 
         return $htmlText;
-	} /* -- renderHumans */
+    } /* -- renderHumans */
 
 /* --------------------------------------------------------------------------------
     Render the humans.txt user-defined template
 -------------------------------------------------------------------------------- */
 
-	public function renderHumansTemplate()
-	{
-	    $templatePath = '';
-	    $locale = '';
-	    if (!$locale)
-	    	$locale = craft()->language;
+    public function renderHumansTemplate()
+    {
+        $templatePath = '';
+        $locale = '';
+        if (!$locale)
+            $locale = craft()->language;
         $metaVars = craft()->seomatic->getGlobals('', $locale);
         $creator = craft()->seomatic->getCreator($locale);
-        
+
 /* -- Render the user-defined Humans.txt template */
 
         $template = $creator['genericCreatorHumansTxt'];
         $htmlText = craft()->templates->renderString($template, $metaVars);
-       
+
         return $htmlText;
-	} /* -- renderHumansTemplate */
+    } /* -- renderHumansTemplate */
 
 /* --------------------------------------------------------------------------------
     Try to extract an seomaticMeta field from an element
 -------------------------------------------------------------------------------- */
 
-	public function getMetaFromElement($element)
-	{
+    public function getMetaFromElement($element)
+    {
 /* -- See if there is an 'entry' automagically put into this template, and if it contains an Seomatic_Meta */
 
-		$entryMeta = null;
-		$entryMetaUrl = "";
-		if (isset($element) && $element)
-		{
-			$attributes = $element->content->attributes;
-			foreach ($attributes as $key => $value)
-			{
-				if (is_object($value))
-				{
-					if ($value->elementType == "Seomatic_FieldMeta")
-					{
-						$entryMeta = $value;
-						$entryMetaUrl = $element->url;
+        $entryMeta = null;
+        $entryMetaUrl = "";
+        if (isset($element) && $element)
+        {
+            $attributes = $element->content->attributes;
+            foreach ($attributes as $key => $value)
+            {
+                if (is_object($value))
+                {
+                    if ($value->elementType == "Seomatic_FieldMeta")
+                    {
+                        $entryMeta = $value;
+                        $entryMetaUrl = $element->url;
 
 /* -- Swap in any SEOmatic fields that are pulling from other entry fields */
 
-						switch ($entryMeta['seoTitleSource'])
-						{
-							case 'field':
-								if (isset($element[$entryMeta['seoTitleSourceField']]))
-								{
-									$entryMeta['seoTitle'] = strip_tags($element[$entryMeta['seoTitleSourceField']]);
-								}
-							break;
-						}
+                        switch ($entryMeta['seoTitleSource'])
+                        {
+                            case 'field':
+                                if (isset($element[$entryMeta['seoTitleSourceField']]))
+                                {
+                                    $entryMeta['seoTitle'] = strip_tags($element[$entryMeta['seoTitleSourceField']]);
+                                }
+                            break;
+                        }
 
-						switch ($entryMeta['seoDescriptionSource'])
-						{
-							case 'field':
-								if (isset($element[$entryMeta['seoDescriptionSourceField']]))
-								{
-									$entryMeta['seoDescription'] = strip_tags($element[$entryMeta['seoDescriptionSourceField']]);
-								}
-							break;
-						}
+                        switch ($entryMeta['seoDescriptionSource'])
+                        {
+                            case 'field':
+                                if (isset($element[$entryMeta['seoDescriptionSourceField']]))
+                                {
+                                    $entryMeta['seoDescription'] = strip_tags($element[$entryMeta['seoDescriptionSourceField']]);
+                                }
+                            break;
+                        }
 
-						switch ($entryMeta['seoKeywordsSource'])
-						{
-							case 'field':
-								if (isset($element[$entryMeta['seoKeywordsSourceField']]))
-								{
-									$entryMeta['seoKeywords'] = strip_tags($element[$entryMeta['seoKeywordsSourceField']]);
-								}
-							break;
-							
-							case 'keywords':
-								if (isset($element[$entryMeta['seoKeywordsSourceField']]))
-								{
-									$entryMeta['seoKeywords'] = craft()->seomatic->extractKeywords(strip_tags($element[$entryMeta['seoKeywordsSourceField']]));
-								}
-							break;
-						}
+                        switch ($entryMeta['seoKeywordsSource'])
+                        {
+                            case 'field':
+                                if (isset($element[$entryMeta['seoKeywordsSourceField']]))
+                                {
+                                    $entryMeta['seoKeywords'] = strip_tags($element[$entryMeta['seoKeywordsSourceField']]);
+                                }
+                            break;
 
-						switch ($entryMeta['seoImageIdSource'])
-						{
-							case 'field':
-								if (isset($element[$entryMeta['seoImageIdSourceField']]))
-								{
-									$entryMeta['seoImageId'] = $element[$entryMeta['seoImageIdSourceField']]->first()->id;
-								}
-							break;
-						}
+                            case 'keywords':
+                                if (isset($element[$entryMeta['seoKeywordsSourceField']]))
+                                {
+                                    $entryMeta['seoKeywords'] = craft()->seomatic->extractKeywords(strip_tags($element[$entryMeta['seoKeywordsSourceField']]));
+                                }
+                            break;
+                        }
 
-					}
-				}
-			}
-		}
-	return $entryMeta;
-	} /* -- getMetaFromElement */
-	
+                        switch ($entryMeta['seoImageIdSource'])
+                        {
+                            case 'field':
+                                if (isset($element[$entryMeta['seoImageIdSourceField']]))
+                                {
+                                    $entryMeta['seoImageId'] = $element[$entryMeta['seoImageIdSourceField']]->first()->id;
+                                }
+                            break;
+                        }
+
+                    }
+                }
+            }
+        }
+    return $entryMeta;
+    } /* -- getMetaFromElement */
+
 /* --------------------------------------------------------------------------------
     Set the entry-level meta
 -------------------------------------------------------------------------------- */
 
     public function setEntryMeta($entryMeta, $entryMetaUrl)
     {
-	    
-	    $meta = null;
-	    
+
+        $meta = null;
+
 /* -- If $entryMeta was passed in, merge it with our array */
 
-		if ($entryMeta)
-		{
-			$meta = array();
+        if ($entryMeta)
+        {
+            $meta = array();
             $meta['seoTitle'] = $entryMeta->seoTitle;
             $meta['seoDescription'] = $entryMeta->seoDescription;
             $meta['seoKeywords'] = $entryMeta->seoKeywords;
             if (isset($entryMeta->seoImageId[0]))
-				$meta['seoImageId'] = $entryMeta->seoImageId[0];
-			else
-				$meta['seoImageId'] = null;
-			$meta['canonicalUrl'] =  $entryMetaUrl;
-			
+                $meta['seoImageId'] = $entryMeta->seoImageId[0];
+            else
+                $meta['seoImageId'] = null;
+            $meta['canonicalUrl'] =  $entryMetaUrl;
+
             $meta['twitterCardType'] = $entryMeta->twitterCardType;
             if (!$meta['twitterCardType'])
-            	$meta['twitterCardType'] = 'summary';
+                $meta['twitterCardType'] = 'summary';
             $meta['openGraphType'] = $entryMeta->openGraphType;
             if (!$meta['openGraphType'])
-            	$meta['openGraphType'] = 'website';
+                $meta['openGraphType'] = 'website';
             if (isset($entryMeta->robots))
-				$meta['robots'] = $entryMeta->robots;
-			else
-				$meta['robots'] = '';
+                $meta['robots'] = $entryMeta->robots;
+            else
+                $meta['robots'] = '';
 
 /* -- Swap in the seoImageId for the actual asset */
 
-	        if (isset($entryMeta['seoImageId']))
-	        {
-		        $image = craft()->assets->getFileById($entryMeta['seoImageId']);
-		        if ($image)
-		        	$meta['seoImage'] = $image->url;
-		        else
-		        	$meta['seoImage'] = '';
-				unset($meta['seoImageId']);
-	        }
-	        else
-	        	$meta['seoImage'] = '';
+            if (isset($entryMeta['seoImageId']))
+            {
+                $image = craft()->assets->getFileById($entryMeta['seoImageId']);
+                if ($image)
+                    $meta['seoImage'] = $image->url;
+                else
+                    $meta['seoImage'] = '';
+                unset($meta['seoImageId']);
+            }
+            else
+                $meta['seoImage'] = '';
 
             $meta = array_filter($meta);
-		}
-		$this->entryMeta = $meta;
-	} /* -- setEntryMeta */
-	
+        }
+        $this->entryMeta = $meta;
+    } /* -- setEntryMeta */
+
 /* --------------------------------------------------------------------------------
     Set the Twitter Cards and Open Graph arrays for the meta
 -------------------------------------------------------------------------------- */
 
-	public function setSocialForMeta(&$meta, $siteMeta, $social, $helper, $locale)
-	{
-		
-		if ($meta)
-		{
-			
+    public function setSocialForMeta(&$meta, $siteMeta, $social, $helper, $locale)
+    {
+
+        if ($meta)
+        {
+
 /* -- Add in the Twitter Card settings to the meta */
 
-			if ($social['twitterHandle'])
-			{
-				$twitterCard = array();
-				$twitterCard['card'] = $meta['twitterCardType'];
-				$twitterCard['site'] = "@" . ltrim($social['twitterHandle'], '@');
-				switch ($twitterCard['card'])
-				{
-					case 'summary_large_image':
-						$twitterCard['creator'] = "@" . ltrim($social['twitterHandle'], '@');
-					break;
-					
-					default:
-						$twitterCard['creator'] = "";
-					break;
-				}
-				$twitterCard['title'] = $meta['seoTitle'] . " | " . $siteMeta['siteSeoName'];
-				$twitterCard['description'] = $meta['seoDescription'];
-				$twitterCard['image'] = $meta['seoImage'];
-				$meta['twitter'] = $twitterCard;
-			}
-	
-	/* -- Add in the Facebook Open Graph settings to the meta */
-	
-			$openGraph = array();
-			$openGraph['type'] = $meta['openGraphType'];
-			if ($locale == "en")
-				$openGraph['locale'] = 'en_US';
-			else
-				$openGraph['locale'] = $locale;
-			$openGraph['url'] = $meta['canonicalUrl'];
-			$openGraph['title'] = $meta['seoTitle'] . " | " . $siteMeta['siteSeoName'];
-			$openGraph['description'] = $meta['seoDescription'];
-			$openGraph['image'] = $meta['seoImage'];
-			$openGraph['site_name'] = $siteMeta['siteSeoName'];
-	
-			$sameAs = array();
-			array_push($sameAs, $helper['twitterUrl']);
-			array_push($sameAs, $helper['facebookUrl']);
-			array_push($sameAs, $helper['googlePlusUrl']);
-			array_push($sameAs, $helper['linkedInUrl']);
-			array_push($sameAs, $helper['youtubeUrl']);
-			array_push($sameAs, $helper['instagramUrl']);
-			array_push($sameAs, $helper['pinterestUrl']);
-			$sameAs = array_filter($sameAs);
-			$sameAs = array_values($sameAs);
-			if (!empty($sameAs))
-				$openGraph['see_also'] = $sameAs;
-	
-			$meta['og'] = $openGraph;
-		}
-	} /* -- setSocialForMeta*/
+            if ($social['twitterHandle'])
+            {
+                $twitterCard = array();
+                $twitterCard['card'] = $meta['twitterCardType'];
+                $twitterCard['site'] = "@" . ltrim($social['twitterHandle'], '@');
+                switch ($twitterCard['card'])
+                {
+                    case 'summary_large_image':
+                        $twitterCard['creator'] = "@" . ltrim($social['twitterHandle'], '@');
+                    break;
+
+                    default:
+                        $twitterCard['creator'] = "";
+                    break;
+                }
+                $twitterCard['title'] = $meta['seoTitle'] . " | " . $siteMeta['siteSeoName'];
+                $twitterCard['description'] = $meta['seoDescription'];
+                $twitterCard['image'] = $meta['seoImage'];
+                $meta['twitter'] = $twitterCard;
+            }
+
+    /* -- Add in the Facebook Open Graph settings to the meta */
+
+            $openGraph = array();
+            $openGraph['type'] = $meta['openGraphType'];
+            if ($locale == "en")
+                $openGraph['locale'] = 'en_US';
+            else
+                $openGraph['locale'] = $locale;
+            $openGraph['url'] = $meta['canonicalUrl'];
+            $openGraph['title'] = $meta['seoTitle'] . " | " . $siteMeta['siteSeoName'];
+            $openGraph['description'] = $meta['seoDescription'];
+            $openGraph['image'] = $meta['seoImage'];
+            $openGraph['site_name'] = $siteMeta['siteSeoName'];
+
+            $sameAs = array();
+            array_push($sameAs, $helper['twitterUrl']);
+            array_push($sameAs, $helper['facebookUrl']);
+            array_push($sameAs, $helper['googlePlusUrl']);
+            array_push($sameAs, $helper['linkedInUrl']);
+            array_push($sameAs, $helper['youtubeUrl']);
+            array_push($sameAs, $helper['instagramUrl']);
+            array_push($sameAs, $helper['pinterestUrl']);
+            $sameAs = array_filter($sameAs);
+            $sameAs = array_values($sameAs);
+            if (!empty($sameAs))
+                $openGraph['see_also'] = $sameAs;
+
+            $meta['og'] = $openGraph;
+        }
+    } /* -- setSocialForMeta*/
 
 /* --------------------------------------------------------------------------------
     Get the seomatic globals
@@ -454,9 +454,9 @@ class SeomaticService extends BaseApplicationComponent
 
     public function getGlobals($forTemplate="", $locale)
     {
-	    if (!$locale)
-			$locale = craft()->language;
-		
+        if (!$locale)
+            $locale = craft()->language;
+
 /* -- Load in our globals */
 
         $meta = $this->getMeta($forTemplate);
@@ -464,7 +464,7 @@ class SeomaticService extends BaseApplicationComponent
         $identity = $this->getIdentity($locale);
         $social = $this->getSocial($locale);
         $creator = $this->getCreator($locale);
-		
+
 /* -- Get a full qualified URL for the current request */
 
         $siteUrl = craft()->getSiteUrl();
@@ -474,14 +474,14 @@ class SeomaticService extends BaseApplicationComponent
             $siteUrl = rtrim($siteUrl, '/');
         }
         $fullUrl = $siteUrl . $requestUrl;
-        
+
         $meta['canonicalUrl'] = $fullUrl;
-				
+
 /* -- Merge the meta with the global meta */
 
-		$globalMeta['seoTitle'] = $siteMeta['siteSeoTitle'];
-		$globalMeta['seoDescription'] = $siteMeta['siteSeoDescription'];
-		$globalMeta['seoKeywords'] = $siteMeta['siteSeoKeywords'];
+        $globalMeta['seoTitle'] = $siteMeta['siteSeoTitle'];
+        $globalMeta['seoDescription'] = $siteMeta['siteSeoDescription'];
+        $globalMeta['seoKeywords'] = $siteMeta['siteSeoKeywords'];
         $globalMeta['seoImage'] = $siteMeta['siteSeoImage'];
         $globalMeta['twitterCardType'] = $siteMeta['siteTwitterCardType'];
         $globalMeta['openGraphType'] = $siteMeta['siteOpenGraphType'];
@@ -490,47 +490,47 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Merge with the entry meta, if any */
 
-		if ($this->entryMeta)
-	        $meta = array_merge($meta, $this->entryMeta);
+        if ($this->entryMeta)
+            $meta = array_merge($meta, $this->entryMeta);
 
 /* -- Add the helper vars */
 
-		$helper = array();
-		$this->addSocialHelpers($helper, $social, $identity['siteOwnerType']);
-		$this->addIdentityHelpers($helper, $identity);
-		$this->addCreatorHelpers($helper, $creator);
+        $helper = array();
+        $this->addSocialHelpers($helper, $social, $identity['siteOwnerType']);
+        $this->addIdentityHelpers($helper, $identity);
+        $this->addCreatorHelpers($helper, $creator);
 
-		$this->setSocialForMeta($meta, $siteMeta, $social, $helper, $locale);
+        $this->setSocialForMeta($meta, $siteMeta, $social, $helper, $locale);
 
 /* -- Get rid of variables we don't want to expose */
 
-		unset($siteMeta['siteSeoImageId']);
-		unset($siteMeta['siteTwitterCardType']);
-		unset($siteMeta['siteOpenGraphType']);
+        unset($siteMeta['siteSeoImageId']);
+        unset($siteMeta['siteTwitterCardType']);
+        unset($siteMeta['siteOpenGraphType']);
 
-		unset($meta['twitterCardType']);
-		unset($meta['openGraphType']);
+        unset($meta['twitterCardType']);
+        unset($meta['openGraphType']);
 
 /* -- Set some useful runtime variables, too */
 
         $runtimeVars = array(
             'seomaticTemplatePath' => '',
         );
-				
+
 /* -- Return everything is an array of arrays */
 
         $result = array('seomaticMeta' => $meta,
-        				'seomaticHelper' => $helper,
+                        'seomaticHelper' => $helper,
                         'seomaticSiteMeta' => $siteMeta,
                         'seomaticSocial' => $social,
                         'seomaticIdentity' => $identity,
                         'seomaticCreator' => $creator,
-                        );        
+                        );
 
 /* -- Swap in our JSON-LD objects */
 
-		$result['seomaticIdentity'] = $this->getIdentityJSONLD($result['seomaticIdentity'], $helper, $locale);
-		$result['seomaticCreator'] = $this->getCreatorJSONLD($result['seomaticCreator'], $helper, $locale);
+        $result['seomaticIdentity'] = $this->getIdentityJSONLD($result['seomaticIdentity'], $helper, $locale);
+        $result['seomaticCreator'] = $this->getCreatorJSONLD($result['seomaticCreator'], $helper, $locale);
 
 /* -- Return our global variables */
 
@@ -550,16 +550,16 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Cache it in our class; no need to fetch it more than once */
 
-		if (isset($this->cachedSettings[$locale]))
-			{
-			return $this->cachedSettings[$locale];
-			}
-			
+        if (isset($this->cachedSettings[$locale]))
+            {
+            return $this->cachedSettings[$locale];
+            }
+
 /* -- There's only one Seomatic_SettingsRecord per locale */
 
         $settings = Seomatic_SettingsRecord::model()->findByAttributes(array(
-        	'locale' => $locale,
-        	));
+            'locale' => $locale,
+            ));
         if (!$settings)
         {
             $this->saveDefaultSettings($locale);
@@ -567,7 +567,7 @@ class SeomaticService extends BaseApplicationComponent
             'locale' => $locale,
             ));
         }
-            
+
         $result = $settings->attributes;
 
 /* -- If our Humans.txt field is empty, fill it with the default template */
@@ -576,41 +576,41 @@ class SeomaticService extends BaseApplicationComponent
             $result['genericCreatorHumansTxt'] = $settings->getDefaultHumans();
 
 /* -- If this Craft install is localized, and they are asking for a locale other than the main one,
-		merge this local settings with their base language */
+        merge this local settings with their base language */
 
-		if (craft()->isLocalized())
-		{
-			$baseLocales = craft()->i18n->getSiteLocales();
-			$baseLocale = $baseLocales[0]->id;
-			if ($baseLocale != $locale)
-			{
-		/* -- Cache it in our class; no need to fetch it more than once */
-		
-				if (isset($this->cachedSettings[$baseLocale]))
-				{
-					$baseResult = $this->cachedSettings[$baseLocale];
-				}
-				else
-				{
-		/* -- There's only one Seomatic_SettingsRecord per locale */
-		
-			        $baseSettings = Seomatic_SettingsRecord::model()->findByAttributes(array(
-			        	'locale' => $baseLocale,
-			        	));
-			        if (!$baseSettings)
-			        {
-			            $this->saveDefaultSettings($baseLocale);
-			            $baseSettings = Seomatic_SettingsRecord::model()->findByAttributes(array(
-			            'locale' => $baseLocale,
-			            ));
-			        }
-					$baseResult = $baseSettings->attributes;
-				}
+        if (craft()->isLocalized())
+        {
+            $baseLocales = craft()->i18n->getSiteLocales();
+            $baseLocale = $baseLocales[0]->id;
+            if ($baseLocale != $locale)
+            {
+        /* -- Cache it in our class; no need to fetch it more than once */
+
+                if (isset($this->cachedSettings[$baseLocale]))
+                {
+                    $baseResult = $this->cachedSettings[$baseLocale];
+                }
+                else
+                {
+        /* -- There's only one Seomatic_SettingsRecord per locale */
+
+                    $baseSettings = Seomatic_SettingsRecord::model()->findByAttributes(array(
+                        'locale' => $baseLocale,
+                        ));
+                    if (!$baseSettings)
+                    {
+                        $this->saveDefaultSettings($baseLocale);
+                        $baseSettings = Seomatic_SettingsRecord::model()->findByAttributes(array(
+                        'locale' => $baseLocale,
+                        ));
+                    }
+                    $baseResult = $baseSettings->attributes;
+                }
                 $result = array_filter($result);
-		        $result = array_merge($baseResult, $result);
-			}
-		}
-		
+                $result = array_merge($baseResult, $result);
+            }
+        }
+
 /* -- Get rid of properties we don't care about */
 
         if ($result)
@@ -620,9 +620,9 @@ class SeomaticService extends BaseApplicationComponent
             unset($result['dateUpdated']);
             unset($result['uid']);
         }
-        
+
         $this->cachedSettings[$locale] = $result;
-        
+
         return $result;
     } /* -- getSettings */
 
@@ -637,15 +637,15 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Append the locale.id if this isn't the main site language */
 
-		if ($locale != craft()->language)
-		{
-			$suffix = " (" . $locale . ")";
-			$model->siteSeoName .= $suffix;
-			$model->siteSeoTitle .= $suffix;
-			$model->siteSeoDescription .= $suffix;
-			$model->siteSeoKeywords .= $suffix;
-			
-		}
+        if ($locale != craft()->language)
+        {
+            $suffix = " (" . $locale . ")";
+            $model->siteSeoName .= $suffix;
+            $model->siteSeoTitle .= $suffix;
+            $model->siteSeoDescription .= $suffix;
+            $model->siteSeoKeywords .= $suffix;
+
+        }
         $record = new Seomatic_SettingsRecord();
         $record->setAttributes($model->getAttributes(), false);
 
@@ -676,47 +676,47 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Cache it in our class; no need to fetch it more than once */
 
-		if (isset($this->cachedSiteMeta[$locale]))
-			return $this->cachedSiteMeta[$locale];
+        if (isset($this->cachedSiteMeta[$locale]))
+            return $this->cachedSiteMeta[$locale];
 
-		$settings = $this->getSettings($locale);
-		$siteMeta = array();
-		
-		$siteMeta['locale'] = $settings['locale'];
-				
-		$siteMeta['siteSeoName'] = $settings['siteSeoName'];
-		$siteMeta['siteSeoTitle'] = $settings['siteSeoTitle'];
-		$siteMeta['siteSeoDescription'] = $settings['siteSeoDescription'];
-		$siteMeta['siteSeoKeywords'] = $settings['siteSeoKeywords'];
-		$siteMeta['siteSeoImageId'] = $settings['siteSeoImageId'];
+        $settings = $this->getSettings($locale);
+        $siteMeta = array();
 
-		if (isset($settings['siteRobots']))
-			$siteMeta['siteRobots'] = $settings['siteRobots'];
-		else
-			$siteMeta['siteRobots'] = '';
+        $siteMeta['locale'] = $settings['locale'];
 
-		$siteMeta['siteTwitterCardType'] = $settings['siteTwitterCardType'];
-		if (!$siteMeta['siteTwitterCardType'])
-			$siteMeta['siteTwitterCardType'] = 'summary';
-		$siteMeta['siteOpenGraphType'] = $settings['siteOpenGraphType'];
-		if (!$siteMeta['siteOpenGraphType'])
-			$siteMeta['siteOpenGraphType'] = 'website';
+        $siteMeta['siteSeoName'] = $settings['siteSeoName'];
+        $siteMeta['siteSeoTitle'] = $settings['siteSeoTitle'];
+        $siteMeta['siteSeoDescription'] = $settings['siteSeoDescription'];
+        $siteMeta['siteSeoKeywords'] = $settings['siteSeoKeywords'];
+        $siteMeta['siteSeoImageId'] = $settings['siteSeoImageId'];
+
+        if (isset($settings['siteRobots']))
+            $siteMeta['siteRobots'] = $settings['siteRobots'];
+        else
+            $siteMeta['siteRobots'] = '';
+
+        $siteMeta['siteTwitterCardType'] = $settings['siteTwitterCardType'];
+        if (!$siteMeta['siteTwitterCardType'])
+            $siteMeta['siteTwitterCardType'] = 'summary';
+        $siteMeta['siteOpenGraphType'] = $settings['siteOpenGraphType'];
+        if (!$siteMeta['siteOpenGraphType'])
+            $siteMeta['siteOpenGraphType'] = 'website';
 
 /* -- Swap in the seoImageId for the actual asset */
-        
+
         if (isset($siteMeta['siteSeoImageId']))
         {
-	        $image = craft()->assets->getFileById($siteMeta['siteSeoImageId']);
-	        if ($image)
-	        	$siteMeta['siteSeoImage'] = $image->url;
-	        else
-	        	$siteMeta['siteSeoImage'] = '';
+            $image = craft()->assets->getFileById($siteMeta['siteSeoImageId']);
+            if ($image)
+                $siteMeta['siteSeoImage'] = $image->url;
+            else
+                $siteMeta['siteSeoImage'] = '';
         }
         else
-	       $siteMeta['siteSeoImage'] = '';
-	       
+           $siteMeta['siteSeoImage'] = '';
+
         $result = $siteMeta;
-        
+
         $this->cachedSiteMeta[$locale] = $result;
         return $result;
     } /* -- getSiteMeta */
@@ -732,53 +732,53 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Cache it in our class; no need to fetch it more than once */
 
-		if (isset($this->cachedIdentity[$locale]))
-			return $this->cachedIdentity[$locale];
-		
-		$settings = $this->getSettings($locale);
-		$identity = array();
-		
-		$identity['locale'] = $settings['locale'];
-		
-		$identity['googleSiteVerification'] = $settings['googleSiteVerification'];
-		$identity['siteOwnerType'] = $settings['siteOwnerType'];
-		
-		$identity['genericOwnerName'] = $settings['genericOwnerName'];
-		$identity['genericOwnerAlternateName'] = $settings['genericOwnerAlternateName'];
-		$identity['genericOwnerDescription'] = $settings['genericOwnerDescription'];
-		$identity['genericOwnerUrl'] = $settings['genericOwnerUrl'];
+        if (isset($this->cachedIdentity[$locale]))
+            return $this->cachedIdentity[$locale];
+
+        $settings = $this->getSettings($locale);
+        $identity = array();
+
+        $identity['locale'] = $settings['locale'];
+
+        $identity['googleSiteVerification'] = $settings['googleSiteVerification'];
+        $identity['siteOwnerType'] = $settings['siteOwnerType'];
+
+        $identity['genericOwnerName'] = $settings['genericOwnerName'];
+        $identity['genericOwnerAlternateName'] = $settings['genericOwnerAlternateName'];
+        $identity['genericOwnerDescription'] = $settings['genericOwnerDescription'];
+        $identity['genericOwnerUrl'] = $settings['genericOwnerUrl'];
         $identity['genericOwnerImageId'] = $settings['genericOwnerImageId'];
-		$image = craft()->assets->getFileById($settings['genericOwnerImageId']);
-		if ($image)
-        	$identity['genericOwnerImage'] = $image->url;
+        $image = craft()->assets->getFileById($settings['genericOwnerImageId']);
+        if ($image)
+            $identity['genericOwnerImage'] = $image->url;
         else
-        	$identity['genericOwnerImage'] = '';
-		$identity['genericOwnerTelephone'] = $settings['genericOwnerTelephone'];
-		$identity['genericOwnerEmail'] = $settings['genericOwnerEmail'];
-		$identity['genericOwnerStreetAddress'] = $settings['genericOwnerStreetAddress'];
-		$identity['genericOwnerAddressLocality'] = $settings['genericOwnerAddressLocality'];
-		$identity['genericOwnerAddressRegion'] = $settings['genericOwnerAddressRegion'];
-		$identity['genericOwnerPostalCode'] = $settings['genericOwnerPostalCode'];
-		$identity['genericOwnerAddressCountry'] = $settings['genericOwnerAddressCountry'];
-		$identity['genericOwnerGeoLatitude'] = $settings['genericOwnerGeoLatitude'];
-		$identity['genericOwnerGeoLongitude'] = $settings['genericOwnerGeoLongitude'];
-		
-		$identity['organizationOwnerDuns'] = $settings['organizationOwnerDuns'];
-		$identity['organizationOwnerFounder'] = $settings['organizationOwnerFounder'];
-		$identity['organizationOwnerFoundingDate'] = $settings['organizationOwnerFoundingDate'];
-		$identity['organizationOwnerFoundingLocation'] = $settings['organizationOwnerFoundingLocation'];
+            $identity['genericOwnerImage'] = '';
+        $identity['genericOwnerTelephone'] = $settings['genericOwnerTelephone'];
+        $identity['genericOwnerEmail'] = $settings['genericOwnerEmail'];
+        $identity['genericOwnerStreetAddress'] = $settings['genericOwnerStreetAddress'];
+        $identity['genericOwnerAddressLocality'] = $settings['genericOwnerAddressLocality'];
+        $identity['genericOwnerAddressRegion'] = $settings['genericOwnerAddressRegion'];
+        $identity['genericOwnerPostalCode'] = $settings['genericOwnerPostalCode'];
+        $identity['genericOwnerAddressCountry'] = $settings['genericOwnerAddressCountry'];
+        $identity['genericOwnerGeoLatitude'] = $settings['genericOwnerGeoLatitude'];
+        $identity['genericOwnerGeoLongitude'] = $settings['genericOwnerGeoLongitude'];
 
-		$identity['personOwnerGender'] = $settings['personOwnerGender'];
-		$identity['personOwnerBirthPlace'] = $settings['personOwnerBirthPlace'];
+        $identity['organizationOwnerDuns'] = $settings['organizationOwnerDuns'];
+        $identity['organizationOwnerFounder'] = $settings['organizationOwnerFounder'];
+        $identity['organizationOwnerFoundingDate'] = $settings['organizationOwnerFoundingDate'];
+        $identity['organizationOwnerFoundingLocation'] = $settings['organizationOwnerFoundingLocation'];
 
-		$identity['corporationOwnerTickerSymbol'] = $settings['corporationOwnerTickerSymbol'];
+        $identity['personOwnerGender'] = $settings['personOwnerGender'];
+        $identity['personOwnerBirthPlace'] = $settings['personOwnerBirthPlace'];
 
-		$identity['restaurantOwnerServesCuisine'] = $settings['restaurantOwnerServesCuisine'];
-		
+        $identity['corporationOwnerTickerSymbol'] = $settings['corporationOwnerTickerSymbol'];
+
+        $identity['restaurantOwnerServesCuisine'] = $settings['restaurantOwnerServesCuisine'];
+
         $result = $identity;
-        
+
         $this->cachedIdentity[$locale] = $result;
-        
+
         return $result;
     } /* -- getIdentity */
 
@@ -791,101 +791,101 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Cache it in our class; no need to fetch it more than once */
 
-		if (isset($this->cachedIdentityJSONLD[$locale]))
-			return $this->cachedIdentityJSONLD[$locale];
-		
-		$identityJSONLD = array();
+        if (isset($this->cachedIdentityJSONLD[$locale]))
+            return $this->cachedIdentityJSONLD[$locale];
+
+        $identityJSONLD = array();
 
 /* -- Settings generic to all Identity types */
 
-		$identityJSONLD['type'] = ucfirst($identity['siteOwnerType']);
-		$identityJSONLD['name'] = $identity['genericOwnerName'];
-		$identityJSONLD['alternateName'] = $identity['genericOwnerAlternateName'];
-		$identityJSONLD['description'] = $identity['genericOwnerDescription'];
-		$identityJSONLD['url'] = $identity['genericOwnerUrl'];
-		if (isset($identity['genericOwnerImage']))
-			$identityJSONLD['image'] = $identity['genericOwnerImage'];
-		$identityJSONLD['telephone'] = $identity['genericOwnerTelephone'];
-		$identityJSONLD['email'] = $identity['genericOwnerEmail'];
-		$address = array(
-			"type" => "PostalAddress",
-			"streetAddress" => $identity['genericOwnerStreetAddress'],
-			"addressLocality" => $identity['genericOwnerAddressLocality'],
-			"addressRegion" => $identity['genericOwnerAddressRegion'],
-			"postalCode" => $identity['genericOwnerPostalCode'],
-			"addressCountry" => $identity['genericOwnerAddressCountry']
-		);
-		$address = array_filter($address);
-		$identityJSONLD['address'] = $address;
-		if (count($identityJSONLD['address']) == 1)
-			unset($identityJSONLD['address']);
-			
+        $identityJSONLD['type'] = ucfirst($identity['siteOwnerType']);
+        $identityJSONLD['name'] = $identity['genericOwnerName'];
+        $identityJSONLD['alternateName'] = $identity['genericOwnerAlternateName'];
+        $identityJSONLD['description'] = $identity['genericOwnerDescription'];
+        $identityJSONLD['url'] = $identity['genericOwnerUrl'];
+        if (isset($identity['genericOwnerImage']))
+            $identityJSONLD['image'] = $identity['genericOwnerImage'];
+        $identityJSONLD['telephone'] = $identity['genericOwnerTelephone'];
+        $identityJSONLD['email'] = $identity['genericOwnerEmail'];
+        $address = array(
+            "type" => "PostalAddress",
+            "streetAddress" => $identity['genericOwnerStreetAddress'],
+            "addressLocality" => $identity['genericOwnerAddressLocality'],
+            "addressRegion" => $identity['genericOwnerAddressRegion'],
+            "postalCode" => $identity['genericOwnerPostalCode'],
+            "addressCountry" => $identity['genericOwnerAddressCountry']
+        );
+        $address = array_filter($address);
+        $identityJSONLD['address'] = $address;
+        if (count($identityJSONLD['address']) == 1)
+            unset($identityJSONLD['address']);
+
 /* -- Settings for all organization Identity types */
 
-		if ($identity['siteOwnerType'] != "person")
-		{
-			if (isset($identity['genericOwnerImage']))
-				$identityJSONLD['logo'] = $identity['genericOwnerImage'];
-			$geo = array(
-				"type" => "GeoCoordinates",
-				"latitude" => $identity['genericOwnerGeoLatitude'],
-				"longitude" => $identity['genericOwnerGeoLongitude'],
-			);
-			$geo = array_filter($geo);
+        if ($identity['siteOwnerType'] != "person")
+        {
+            if (isset($identity['genericOwnerImage']))
+                $identityJSONLD['logo'] = $identity['genericOwnerImage'];
+            $geo = array(
+                "type" => "GeoCoordinates",
+                "latitude" => $identity['genericOwnerGeoLatitude'],
+                "longitude" => $identity['genericOwnerGeoLongitude'],
+            );
+            $geo = array_filter($geo);
 
-			$location = array(
-				"type" => "Place",
-				"name" => $identity['genericOwnerName'],
-				"alternateName" => $identity['genericOwnerAlternateName'],
-				"description" => $identity['genericOwnerDescription'],
-				"hasMap" => $helper['ownerMapUrl'],
-				"geo" => $geo,
-				"address" => $address,
-			);	
-			$location = array_filter($location);
-			$identityJSONLD['location'] = $location;
+            $location = array(
+                "type" => "Place",
+                "name" => $identity['genericOwnerName'],
+                "alternateName" => $identity['genericOwnerAlternateName'],
+                "description" => $identity['genericOwnerDescription'],
+                "hasMap" => $helper['ownerMapUrl'],
+                "geo" => $geo,
+                "address" => $address,
+            );
+            $location = array_filter($location);
+            $identityJSONLD['location'] = $location;
 
-			if (count($identityJSONLD['location']['geo']) == 1)
-				unset($identityJSONLD['location']['geo']);
+            if (count($identityJSONLD['location']['geo']) == 1)
+                unset($identityJSONLD['location']['geo']);
 
-			if (count($identityJSONLD['location']['address']) == 1)
-				unset($identityJSONLD['location']['address']);
+            if (count($identityJSONLD['location']['address']) == 1)
+                unset($identityJSONLD['location']['address']);
 
-			if (count($identityJSONLD['location']) == 1)
-				unset($identityJSONLD['location']);
-			
-			$identityJSONLD['duns'] = $identity['organizationOwnerDuns'];
-			$identityJSONLD['founder'] = $identity['organizationOwnerFounder'];
-			$identityJSONLD['foundingDate'] = $identity['organizationOwnerFoundingDate'];
-			$identityJSONLD['foundingLocation'] = $identity['organizationOwnerFoundingLocation'];
-		}
+            if (count($identityJSONLD['location']) == 1)
+                unset($identityJSONLD['location']);
+
+            $identityJSONLD['duns'] = $identity['organizationOwnerDuns'];
+            $identityJSONLD['founder'] = $identity['organizationOwnerFounder'];
+            $identityJSONLD['foundingDate'] = $identity['organizationOwnerFoundingDate'];
+            $identityJSONLD['foundingLocation'] = $identity['organizationOwnerFoundingLocation'];
+        }
 
 /* -- Settings on a per-Identity type basis */
 
-		switch ($identity['siteOwnerType'])
-		{
-			case 'corporation':
-				$identityJSONLD['tickerSymbol'] = $identity['corporationOwnerTickerSymbol'];
-			break;
-			
-			case 'organization':
-			break;
-			
-			case 'restaurant':
-				$identityJSONLD['servesCuisine'] = $identity['restaurantOwnerServesCuisine'];
-			break;
-			
-			case 'person':
-				$identityJSONLD['gender'] = $identity['personOwnerGender'];
-				$identityJSONLD['birthPlace'] = $identity['personOwnerBirthPlace'];
-			break;
-			
-		}
-		
+        switch ($identity['siteOwnerType'])
+        {
+            case 'corporation':
+                $identityJSONLD['tickerSymbol'] = $identity['corporationOwnerTickerSymbol'];
+            break;
+
+            case 'organization':
+            break;
+
+            case 'restaurant':
+                $identityJSONLD['servesCuisine'] = $identity['restaurantOwnerServesCuisine'];
+            break;
+
+            case 'person':
+                $identityJSONLD['gender'] = $identity['personOwnerGender'];
+                $identityJSONLD['birthPlace'] = $identity['personOwnerBirthPlace'];
+            break;
+
+        }
+
         $result = array_filter($identityJSONLD);
-        
+
         $this->cachedIdentityJSONLD[$locale] = $result;
-        
+
         return $result;
     } /* -- getIdentityJSONLD */
 
@@ -900,25 +900,25 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Cache it in our class; no need to fetch it more than once */
 
-		if (isset($this->cachedSocial[$locale]))
-			return $this->cachedSocial[$locale];
+        if (isset($this->cachedSocial[$locale]))
+            return $this->cachedSocial[$locale];
 
-		$settings = $this->getSettings($locale);
-		$social = array();
-		
-		$social['locale'] = $settings['locale'];
-				
-		$social['twitterHandle'] = $settings['twitterHandle'];
-		$social['facebookHandle'] = $settings['facebookHandle'];
-		$social['facebookProfileId'] = $settings['facebookProfileId'];
-		$social['linkedInHandle'] = $settings['linkedInHandle'];
-		$social['googlePlusHandle'] = $settings['googlePlusHandle'];
-		$social['youtubeHandle'] = $settings['youtubeHandle'];
-		$social['instagramHandle'] = $settings['instagramHandle'];
-		$social['pinterestHandle'] = $settings['pinterestHandle'];
+        $settings = $this->getSettings($locale);
+        $social = array();
+
+        $social['locale'] = $settings['locale'];
+
+        $social['twitterHandle'] = $settings['twitterHandle'];
+        $social['facebookHandle'] = $settings['facebookHandle'];
+        $social['facebookProfileId'] = $settings['facebookProfileId'];
+        $social['linkedInHandle'] = $settings['linkedInHandle'];
+        $social['googlePlusHandle'] = $settings['googlePlusHandle'];
+        $social['youtubeHandle'] = $settings['youtubeHandle'];
+        $social['instagramHandle'] = $settings['instagramHandle'];
+        $social['pinterestHandle'] = $settings['pinterestHandle'];
 
         $result = $social;
-        
+
         $this->cachedSocial[$locale] = $result;
         return $result;
     } /* -- getSocial */
@@ -934,52 +934,52 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Cache it in our class; no need to fetch it more than once */
 
-		if (isset($this->cachedCreator[$locale]))
-			return $this->cachedCreator[$locale];
-		
-		$settings = $this->getSettings($locale);
-		$creator = array();
-		
-		$creator['locale'] = $settings['locale'];
-		
-		$creator['siteCreatorType'] = $settings['siteCreatorType'];
-		
-		$creator['genericCreatorName'] = $settings['genericCreatorName'];
-		$creator['genericCreatorAlternateName'] = $settings['genericCreatorAlternateName'];
-		$creator['genericCreatorDescription'] = $settings['genericCreatorDescription'];
-		$creator['genericCreatorUrl'] = $settings['genericCreatorUrl'];
+        if (isset($this->cachedCreator[$locale]))
+            return $this->cachedCreator[$locale];
+
+        $settings = $this->getSettings($locale);
+        $creator = array();
+
+        $creator['locale'] = $settings['locale'];
+
+        $creator['siteCreatorType'] = $settings['siteCreatorType'];
+
+        $creator['genericCreatorName'] = $settings['genericCreatorName'];
+        $creator['genericCreatorAlternateName'] = $settings['genericCreatorAlternateName'];
+        $creator['genericCreatorDescription'] = $settings['genericCreatorDescription'];
+        $creator['genericCreatorUrl'] = $settings['genericCreatorUrl'];
         $creator['genericCreatorImageId'] = $settings['genericCreatorImageId'];
-		$image = craft()->assets->getFileById($settings['genericCreatorImageId']);
-		if ($image)
-			$creator['genericCreatorImage'] = $image->url;
-		else
-			$creator['genericCreatorImage'] = '';
-		$creator['genericCreatorTelephone'] = $settings['genericCreatorTelephone'];
-		$creator['genericCreatorEmail'] = $settings['genericCreatorEmail'];
-		$creator['genericCreatorStreetAddress'] = $settings['genericCreatorStreetAddress'];
-		$creator['genericCreatorAddressLocality'] = $settings['genericCreatorAddressLocality'];
-		$creator['genericCreatorAddressRegion'] = $settings['genericCreatorAddressRegion'];
-		$creator['genericCreatorPostalCode'] = $settings['genericCreatorPostalCode'];
-		$creator['genericCreatorAddressCountry'] = $settings['genericCreatorAddressCountry'];
-		$creator['genericCreatorGeoLatitude'] = $settings['genericCreatorGeoLatitude'];
-		$creator['genericCreatorGeoLongitude'] = $settings['genericCreatorGeoLongitude'];
-		
-		$creator['organizationCreatorDuns'] = $settings['organizationCreatorDuns'];
-		$creator['organizationCreatorFounder'] = $settings['organizationCreatorFounder'];
-		$creator['organizationCreatorFoundingDate'] = $settings['organizationCreatorFoundingDate'];
-		$creator['organizationCreatorFoundingLocation'] = $settings['organizationCreatorFoundingLocation'];
+        $image = craft()->assets->getFileById($settings['genericCreatorImageId']);
+        if ($image)
+            $creator['genericCreatorImage'] = $image->url;
+        else
+            $creator['genericCreatorImage'] = '';
+        $creator['genericCreatorTelephone'] = $settings['genericCreatorTelephone'];
+        $creator['genericCreatorEmail'] = $settings['genericCreatorEmail'];
+        $creator['genericCreatorStreetAddress'] = $settings['genericCreatorStreetAddress'];
+        $creator['genericCreatorAddressLocality'] = $settings['genericCreatorAddressLocality'];
+        $creator['genericCreatorAddressRegion'] = $settings['genericCreatorAddressRegion'];
+        $creator['genericCreatorPostalCode'] = $settings['genericCreatorPostalCode'];
+        $creator['genericCreatorAddressCountry'] = $settings['genericCreatorAddressCountry'];
+        $creator['genericCreatorGeoLatitude'] = $settings['genericCreatorGeoLatitude'];
+        $creator['genericCreatorGeoLongitude'] = $settings['genericCreatorGeoLongitude'];
 
-		$creator['personCreatorGender'] = $settings['personCreatorGender'];
-		$creator['personCreatorBirthPlace'] = $settings['personCreatorBirthPlace'];
+        $creator['organizationCreatorDuns'] = $settings['organizationCreatorDuns'];
+        $creator['organizationCreatorFounder'] = $settings['organizationCreatorFounder'];
+        $creator['organizationCreatorFoundingDate'] = $settings['organizationCreatorFoundingDate'];
+        $creator['organizationCreatorFoundingLocation'] = $settings['organizationCreatorFoundingLocation'];
 
-		$creator['corporationCreatorTickerSymbol'] = $settings['corporationCreatorTickerSymbol'];
+        $creator['personCreatorGender'] = $settings['personCreatorGender'];
+        $creator['personCreatorBirthPlace'] = $settings['personCreatorBirthPlace'];
 
-		$creator['genericCreatorHumansTxt'] = $settings['genericCreatorHumansTxt'];
+        $creator['corporationCreatorTickerSymbol'] = $settings['corporationCreatorTickerSymbol'];
+
+        $creator['genericCreatorHumansTxt'] = $settings['genericCreatorHumansTxt'];
 
         $result = $creator;
-        
+
         $this->cachedCreator[$locale] = $result;
-        
+
         return $result;
     } /* -- getCreator */
 
@@ -992,100 +992,100 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Cache it in our class; no need to fetch it more than once */
 
-		if (isset($this->cachedCreatorJSONLD[$locale]))
-			return $this->cachedCreatorJSONLD[$locale];
-		
-		$creatorJSONLD = array();
-		
+        if (isset($this->cachedCreatorJSONLD[$locale]))
+            return $this->cachedCreatorJSONLD[$locale];
+
+        $creatorJSONLD = array();
+
 /* -- Settings generic to all Creator types */
 
-		$creatorJSONLD['type'] = ucfirst($creator['siteCreatorType']);
-		$creatorJSONLD['name'] = $creator['genericCreatorName'];
-		$creatorJSONLD['alternateName'] = $creator['genericCreatorAlternateName'];
-		$creatorJSONLD['description'] = $creator['genericCreatorDescription'];
-		$creatorJSONLD['url'] = $creator['genericCreatorUrl'];
-		if (isset($creator['genericCreatorImage']))
-			$creatorJSONLD['image'] = $creator['genericCreatorImage'];
-		$creatorJSONLD['telephone'] = $creator['genericCreatorTelephone'];
-		$creatorJSONLD['email'] = $creator['genericCreatorEmail'];
-		$address = array(
-			"type" => "PostalAddress",
-			"streetAddress" => $creator['genericCreatorStreetAddress'],
-			"addressLocality" => $creator['genericCreatorAddressLocality'],
-			"addressRegion" => $creator['genericCreatorAddressRegion'],
-			"postalCode" => $creator['genericCreatorPostalCode'],
-			"addressCountry" => $creator['genericCreatorAddressCountry']
-		);
-		$address = array_filter($address);
-		$creatorJSONLD['address'] = $address;
-		if (count($creatorJSONLD['address']) == 1)
-			unset($creatorJSONLD['address']);
-			
+        $creatorJSONLD['type'] = ucfirst($creator['siteCreatorType']);
+        $creatorJSONLD['name'] = $creator['genericCreatorName'];
+        $creatorJSONLD['alternateName'] = $creator['genericCreatorAlternateName'];
+        $creatorJSONLD['description'] = $creator['genericCreatorDescription'];
+        $creatorJSONLD['url'] = $creator['genericCreatorUrl'];
+        if (isset($creator['genericCreatorImage']))
+            $creatorJSONLD['image'] = $creator['genericCreatorImage'];
+        $creatorJSONLD['telephone'] = $creator['genericCreatorTelephone'];
+        $creatorJSONLD['email'] = $creator['genericCreatorEmail'];
+        $address = array(
+            "type" => "PostalAddress",
+            "streetAddress" => $creator['genericCreatorStreetAddress'],
+            "addressLocality" => $creator['genericCreatorAddressLocality'],
+            "addressRegion" => $creator['genericCreatorAddressRegion'],
+            "postalCode" => $creator['genericCreatorPostalCode'],
+            "addressCountry" => $creator['genericCreatorAddressCountry']
+        );
+        $address = array_filter($address);
+        $creatorJSONLD['address'] = $address;
+        if (count($creatorJSONLD['address']) == 1)
+            unset($creatorJSONLD['address']);
+
 /* -- Settings for all organization Creator types */
 
-		if ($creator['siteCreatorType'] != "person")
-		{
-			if (isset($creator['genericCreatorImage']))
-				$creatorJSONLD['logo'] = $creator['genericCreatorImage'];
-			$geo = array(
-				"type" => "GeoCoordinates",
-				"latitude" => $creator['genericCreatorGeoLatitude'],
-				"longitude" => $creator['genericCreatorGeoLongitude'],
-			);
-			$geo = array_filter($geo);
+        if ($creator['siteCreatorType'] != "person")
+        {
+            if (isset($creator['genericCreatorImage']))
+                $creatorJSONLD['logo'] = $creator['genericCreatorImage'];
+            $geo = array(
+                "type" => "GeoCoordinates",
+                "latitude" => $creator['genericCreatorGeoLatitude'],
+                "longitude" => $creator['genericCreatorGeoLongitude'],
+            );
+            $geo = array_filter($geo);
 
-			$location = array(
-				"type" => "Place",
-				"name" => $creator['genericCreatorName'],
-				"alternateName" => $creator['genericCreatorAlternateName'],
-				"description" => $creator['genericCreatorDescription'],
-				"hasMap" => $helper['creatorMapUrl'],
-				"geo" => $geo,
-				"address" => $address,
-			);	
-			$location = array_filter($location);
-			$creatorJSONLD['location'] = $location;
+            $location = array(
+                "type" => "Place",
+                "name" => $creator['genericCreatorName'],
+                "alternateName" => $creator['genericCreatorAlternateName'],
+                "description" => $creator['genericCreatorDescription'],
+                "hasMap" => $helper['creatorMapUrl'],
+                "geo" => $geo,
+                "address" => $address,
+            );
+            $location = array_filter($location);
+            $creatorJSONLD['location'] = $location;
 
-			if (count($creatorJSONLD['location']['geo']) == 1)
-				unset($creatorJSONLD['location']['geo']);
+            if (count($creatorJSONLD['location']['geo']) == 1)
+                unset($creatorJSONLD['location']['geo']);
 
-			if (count($creatorJSONLD['location']['address']) == 1)
-				unset($creatorJSONLD['location']['address']);
+            if (count($creatorJSONLD['location']['address']) == 1)
+                unset($creatorJSONLD['location']['address']);
 
-			if (count($creatorJSONLD['location']) == 1)
-				unset($creatorJSONLD['location']);
-			
-			$creatorJSONLD['duns'] = $creator['organizationCreatorDuns'];
-			$creatorJSONLD['founder'] = $creator['organizationCreatorFounder'];
-			$creatorJSONLD['foundingDate'] = $creator['organizationCreatorFoundingDate'];
-			$creatorJSONLD['foundingLocation'] = $creator['organizationCreatorFoundingLocation'];
-		}
+            if (count($creatorJSONLD['location']) == 1)
+                unset($creatorJSONLD['location']);
+
+            $creatorJSONLD['duns'] = $creator['organizationCreatorDuns'];
+            $creatorJSONLD['founder'] = $creator['organizationCreatorFounder'];
+            $creatorJSONLD['foundingDate'] = $creator['organizationCreatorFoundingDate'];
+            $creatorJSONLD['foundingLocation'] = $creator['organizationCreatorFoundingLocation'];
+        }
 
 /* -- Settings on a per-Creator type basis */
 
-		switch ($creator['siteCreatorType'])
-		{
-			case 'corporation':
-				$creatorJSONLD['tickerSymbol'] = $creator['corporationCreatorTickerSymbol'];
-			break;
-			
-			case 'organization':
-			break;
-			
-			case 'restaurant':
-			break;
-			
-			case 'person':
-				$creatorJSONLD['gender'] = $creator['personCreatorGender'];
-				$creatorJSONLD['birthPlace'] = $creator['personCreatorBirthPlace'];
-			break;
-			
-		}
-		
+        switch ($creator['siteCreatorType'])
+        {
+            case 'corporation':
+                $creatorJSONLD['tickerSymbol'] = $creator['corporationCreatorTickerSymbol'];
+            break;
+
+            case 'organization':
+            break;
+
+            case 'restaurant':
+            break;
+
+            case 'person':
+                $creatorJSONLD['gender'] = $creator['personCreatorGender'];
+                $creatorJSONLD['birthPlace'] = $creator['personCreatorBirthPlace'];
+            break;
+
+        }
+
         $result = array_filter($creatorJSONLD);
-        
+
         $this->cachedCreatorJSONLD[$locale] = $result;
-        
+
         return $result;
     } /* -- getCreatorJSONLD */
 
@@ -1098,41 +1098,41 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Cache it in our class; no need to fetch it more than once */
 
-		if (isset($this->cachedWebSiteJSONLD[$locale]))
-			return $this->cachedWebSiteJSONLD[$locale];
-		
-		$webSiteJSONLD = array();
+        if (isset($this->cachedWebSiteJSONLD[$locale]))
+            return $this->cachedWebSiteJSONLD[$locale];
+
+        $webSiteJSONLD = array();
 
 /* -- Settings generic to all Creator types */
 
-		$webSiteJSONLD['type'] = "WebSite";
-		$webSiteJSONLD['name'] = $metaVars['seomaticSiteMeta']['siteSeoName'];
-		$webSiteJSONLD['description'] = $metaVars['seomaticSiteMeta']['siteSeoDescription'];
-		$webSiteJSONLD['url'] = craft()->getSiteUrl();
-		if (isset($metaVars['seomaticSiteMeta']['siteSeoImage']))
-			$webSiteJSONLD['image'] = $metaVars['seomaticSiteMeta']['siteSeoImage'];
+        $webSiteJSONLD['type'] = "WebSite";
+        $webSiteJSONLD['name'] = $metaVars['seomaticSiteMeta']['siteSeoName'];
+        $webSiteJSONLD['description'] = $metaVars['seomaticSiteMeta']['siteSeoDescription'];
+        $webSiteJSONLD['url'] = craft()->getSiteUrl();
+        if (isset($metaVars['seomaticSiteMeta']['siteSeoImage']))
+            $webSiteJSONLD['image'] = $metaVars['seomaticSiteMeta']['siteSeoImage'];
 
-		$sameAs = array();
-		array_push($sameAs, $metaVars['seomaticHelper']['twitterUrl']);
-		array_push($sameAs, $metaVars['seomaticHelper']['facebookUrl']);
-		array_push($sameAs, $metaVars['seomaticHelper']['googlePlusUrl']);
-		array_push($sameAs, $metaVars['seomaticHelper']['linkedInUrl']);
-		array_push($sameAs, $metaVars['seomaticHelper']['youtubeUrl']);
-		array_push($sameAs, $metaVars['seomaticHelper']['instagramUrl']);
-		array_push($sameAs, $metaVars['seomaticHelper']['pinterestUrl']);
-		$sameAs = array_filter($sameAs);
-		$sameAs = array_values($sameAs);
-		if (!empty($sameAs))
-			$webSiteJSONLD['sameAs'] = $sameAs;
+        $sameAs = array();
+        array_push($sameAs, $metaVars['seomaticHelper']['twitterUrl']);
+        array_push($sameAs, $metaVars['seomaticHelper']['facebookUrl']);
+        array_push($sameAs, $metaVars['seomaticHelper']['googlePlusUrl']);
+        array_push($sameAs, $metaVars['seomaticHelper']['linkedInUrl']);
+        array_push($sameAs, $metaVars['seomaticHelper']['youtubeUrl']);
+        array_push($sameAs, $metaVars['seomaticHelper']['instagramUrl']);
+        array_push($sameAs, $metaVars['seomaticHelper']['pinterestUrl']);
+        $sameAs = array_filter($sameAs);
+        $sameAs = array_values($sameAs);
+        if (!empty($sameAs))
+            $webSiteJSONLD['sameAs'] = $sameAs;
 
-		$webSiteJSONLD['copyrightHolder'] = $metaVars['seomaticIdentity'];
-		$webSiteJSONLD['author'] = $metaVars['seomaticIdentity'];
-		$webSiteJSONLD['creator'] = $metaVars['seomaticCreator'];
-		
+        $webSiteJSONLD['copyrightHolder'] = $metaVars['seomaticIdentity'];
+        $webSiteJSONLD['author'] = $metaVars['seomaticIdentity'];
+        $webSiteJSONLD['creator'] = $metaVars['seomaticCreator'];
+
         $result = array_filter($webSiteJSONLD);
-        
+
         $this->cachedWebSiteJSONLD[$locale] = $result;
-        
+
         return $result;
     } /* -- getWebSiteJSONLD */
 
@@ -1154,41 +1154,41 @@ class SeomaticService extends BaseApplicationComponent
                 $meta['seoDescription'] = $metaRecord->seoDescription;
                 $meta['seoKeywords'] = $metaRecord->seoKeywords;
                 if (isset($metaRecord->seoImageId))
-                	$meta['seoImageId'] = $metaRecord->seoImageId;
+                    $meta['seoImageId'] = $metaRecord->seoImageId;
                 else
-                	$meta['seoImageId'] = null;
+                    $meta['seoImageId'] = null;
 
                 $meta['twitterCardType'] = $metaRecord->twitterCardType;
                 if (!$meta['twitterCardType'])
-                	$meta['twitterCardType'] = 'summary';
+                    $meta['twitterCardType'] = 'summary';
                 $meta['openGraphType'] = $metaRecord->openGraphType;
                 if (!$meta['openGraphType'])
-                	$meta['openGraphType'] = 'website';
+                    $meta['openGraphType'] = 'website';
 
-	            if (isset($metaRecord->robots))
-					$meta['robots'] = $metaRecord->robots;
-				else
-					$meta['robots'] = '';
+                if (isset($metaRecord->robots))
+                    $meta['robots'] = $metaRecord->robots;
+                else
+                    $meta['robots'] = '';
 
 /* -- Swap in the seoImageId for the actual asset */
-        
-		        if (isset($meta['seoImageId']))
-		        {
-			        $image = craft()->assets->getFileById($meta['seoImageId']);
-			        if ($image)
-			        	$meta['seoImage'] = $image->url;
-			        else
-			        	$meta['seoImage'] = '';
-					unset($meta['seoImageId']);
-		        }
-		        else
-		        	$meta['seoImage'] = '';
+
+                if (isset($meta['seoImageId']))
+                {
+                    $image = craft()->assets->getFileById($meta['seoImageId']);
+                    if ($image)
+                        $meta['seoImage'] = $image->url;
+                    else
+                        $meta['seoImage'] = '';
+                    unset($meta['seoImageId']);
+                }
+                else
+                    $meta['seoImage'] = '';
                 $meta = array_filter($meta);
                 $result = array_merge($result, $meta);
             }
-            
+
         }
-        
+
         return $result;
     } /* -- getMeta */
 
@@ -1203,12 +1203,12 @@ class SeomaticService extends BaseApplicationComponent
         if (!$isNewMeta)
         {
             $record = Seomatic_MetaRecord::model()->findById($model->id);
-	        /*
-	        $record = Seomatic_SettingsRecord::model()->findByAttributes(array(
-	        	'locale' => $locale,
-	        	'elementId' => $model->elementId,
-	        	));
-			*/
+            /*
+            $record = Seomatic_SettingsRecord::model()->findByAttributes(array(
+                'locale' => $locale,
+                'elementId' => $model->elementId,
+                ));
+            */
             if (!$record)
             {
                 throw new Exception(Craft::t('No meta exists with the ID “{id}”', array('id' => $model->id)));
@@ -1216,7 +1216,7 @@ class SeomaticService extends BaseApplicationComponent
             else
             {
 
-/* -- If the locale of the saved record is different than the locale of our model, create a new record 
+/* -- If the locale of the saved record is different than the locale of our model, create a new record
 
                 if ($record->locale != $model->locale)
                 {
@@ -1235,7 +1235,7 @@ class SeomaticService extends BaseApplicationComponent
         $record->setAttributes($model->getAttributes(), false);
         $assetId = (!empty($model->seoImageId) ? $model->seoImageId[0] : null);
         $record->seoImageId = $assetId;
-        
+
         if (!$record->validate())
         {
             // Copy the record's errors over to the ad model
@@ -1301,172 +1301,172 @@ class SeomaticService extends BaseApplicationComponent
     Add the social media URLs to 'seomaticHelper'
 -------------------------------------------------------------------------------- */
 
-	private function addSocialHelpers(&$helper, $social, $siteOwnerType)
-	{
-		if ($social['twitterHandle'])
-		{
-			ltrim($social['twitterHandle'], '@');
-			$helper['twitterUrl'] = "https://twitter.com/" . $social['twitterHandle'];
-		}
-		else
-			$helper['twitterUrl'] = '';
-			
-		if ($social['facebookHandle'])
-		{
-			$helper['facebookUrl'] = "https://www.facebook.com/" . $social['facebookHandle'];
-		}
-		else
-			$helper['facebookUrl'] = '';
+    private function addSocialHelpers(&$helper, $social, $siteOwnerType)
+    {
+        if ($social['twitterHandle'])
+        {
+            ltrim($social['twitterHandle'], '@');
+            $helper['twitterUrl'] = "https://twitter.com/" . $social['twitterHandle'];
+        }
+        else
+            $helper['twitterUrl'] = '';
 
-		if ($social['googlePlusHandle'])
-		{
-			ltrim($social['googlePlusHandle'], '+');
-			$helper['googlePlusUrl'] = "https://plus.google.com/+" . $social['googlePlusHandle'];
-		}
-		else
-			$helper['googlePlusUrl'] = '';
+        if ($social['facebookHandle'])
+        {
+            $helper['facebookUrl'] = "https://www.facebook.com/" . $social['facebookHandle'];
+        }
+        else
+            $helper['facebookUrl'] = '';
 
-		if ($social['linkedInHandle'])
-		{
-			if ($siteOwnerType == "person")
-				$helper['linkedInUrl'] = "https://www.linkedin.com/in/" . $social['linkedInHandle'];
-			else
-				$helper['linkedInUrl'] = "https://www.linkedin.com/company/" . $social['linkedInHandle'];
-		}
-		else
-			$helper['linkedInUrl'] = '';
+        if ($social['googlePlusHandle'])
+        {
+            ltrim($social['googlePlusHandle'], '+');
+            $helper['googlePlusUrl'] = "https://plus.google.com/+" . $social['googlePlusHandle'];
+        }
+        else
+            $helper['googlePlusUrl'] = '';
 
-		if ($social['youtubeHandle'])
-		{
-			$helper['youtubeUrl'] = "https://www.youtube.com/user/" . $social['youtubeHandle'];
-		}
-		else
-			$helper['youtubeUrl'] = '';
+        if ($social['linkedInHandle'])
+        {
+            if ($siteOwnerType == "person")
+                $helper['linkedInUrl'] = "https://www.linkedin.com/in/" . $social['linkedInHandle'];
+            else
+                $helper['linkedInUrl'] = "https://www.linkedin.com/company/" . $social['linkedInHandle'];
+        }
+        else
+            $helper['linkedInUrl'] = '';
 
-		if ($social['instagramHandle'])
-		{
-			$helper['instagramUrl'] = "https://www.instagram.com/" . $social['instagramHandle'];
-		}
-		else
-			$helper['instagramUrl'] = '';
+        if ($social['youtubeHandle'])
+        {
+            $helper['youtubeUrl'] = "https://www.youtube.com/user/" . $social['youtubeHandle'];
+        }
+        else
+            $helper['youtubeUrl'] = '';
 
-		if ($social['pinterestHandle'])
-		{
-			$helper['pinterestUrl'] = "https://www.pinterest.com/" . $social['pinterestHandle'];
-		}
-		else
-			$helper['pinterestUrl'] = '';
-	} /* -- addSocialHelpers */
+        if ($social['instagramHandle'])
+        {
+            $helper['instagramUrl'] = "https://www.instagram.com/" . $social['instagramHandle'];
+        }
+        else
+            $helper['instagramUrl'] = '';
+
+        if ($social['pinterestHandle'])
+        {
+            $helper['pinterestUrl'] = "https://www.pinterest.com/" . $social['pinterestHandle'];
+        }
+        else
+            $helper['pinterestUrl'] = '';
+    } /* -- addSocialHelpers */
 
 /* --------------------------------------------------------------------------------
     Add the Identity helper strings to 'seomaticHelper'
 -------------------------------------------------------------------------------- */
 
-	private function addIdentityHelpers(&$helper, $identity)
-	{
-		
+    private function addIdentityHelpers(&$helper, $identity)
+    {
+
 /* -- Computed identity strings */
 
-		$helper['ownerGoogleSiteVerification'] = $identity['googleSiteVerification'];
-		$now = new DateTime;
-		$period = ". ";
-		$name = $identity['genericOwnerName'];
-		if ($name)
-		{
-    		if ($name[strlen($name) -1] == '.')
-    			$period =" ";
+        $helper['ownerGoogleSiteVerification'] = $identity['googleSiteVerification'];
+        $now = new DateTime;
+        $period = ". ";
+        $name = $identity['genericOwnerName'];
+        if ($name)
+        {
+            if ($name[strlen($name) -1] == '.')
+                $period =" ";
         }
-        
-		$helper['ownerCopyrightNotice'] = Craft::t("Copyright") . " &copy;" . $now->year() . " " . $name . $period . Craft::t("All rights reserved.");
 
-		$helper['ownerAddressString'] = '';
-		$helper['ownerAddressHtml'] = '';
-		$helper['ownerMapUrl'] = '';
-		if ($identity['genericOwnerStreetAddress'] &&
-			$identity['genericOwnerAddressLocality'] &&
-			$identity['genericOwnerAddressRegion'] &&
-			$identity['genericOwnerPostalCode'])
-		{
-			$helper['ownerAddressString'] = $identity['genericOwnerName'] . ", "
-										. $identity['genericOwnerStreetAddress'] . ", "
-										. $identity['genericOwnerAddressLocality'] . ", "
-										. $identity['genericOwnerAddressRegion'] . " "
-										. $identity['genericOwnerPostalCode'] . ", "
-										. $identity['genericOwnerAddressCountry'];
-										
-			$helper['ownerAddressHtml'] = $identity['genericOwnerName'] . "<br />"
-										. $identity['genericOwnerStreetAddress'] . "<br />"
-										. $identity['genericOwnerAddressLocality'] . ", " . $identity['genericOwnerAddressRegion'] . " " . $identity['genericOwnerPostalCode'] . "<br />"
-										. $identity['genericOwnerAddressCountry'] . "<br />";
-			
-			$params=array();
-			$params = count($params) ? '&' . http_build_query($params) : '';
-			$query = urlencode($helper['ownerAddressString']);
-			$helper['ownerMapUrl'] = "http://maps.google.com/maps?q={$query}{$params}";
-		}
-	} /* -- addSIdentityHelpers */
+        $helper['ownerCopyrightNotice'] = Craft::t("Copyright") . " &copy;" . $now->year() . " " . $name . $period . Craft::t("All rights reserved.");
+
+        $helper['ownerAddressString'] = '';
+        $helper['ownerAddressHtml'] = '';
+        $helper['ownerMapUrl'] = '';
+        if ($identity['genericOwnerStreetAddress'] &&
+            $identity['genericOwnerAddressLocality'] &&
+            $identity['genericOwnerAddressRegion'] &&
+            $identity['genericOwnerPostalCode'])
+        {
+            $helper['ownerAddressString'] = $identity['genericOwnerName'] . ", "
+                                        . $identity['genericOwnerStreetAddress'] . ", "
+                                        . $identity['genericOwnerAddressLocality'] . ", "
+                                        . $identity['genericOwnerAddressRegion'] . " "
+                                        . $identity['genericOwnerPostalCode'] . ", "
+                                        . $identity['genericOwnerAddressCountry'];
+
+            $helper['ownerAddressHtml'] = $identity['genericOwnerName'] . "<br />"
+                                        . $identity['genericOwnerStreetAddress'] . "<br />"
+                                        . $identity['genericOwnerAddressLocality'] . ", " . $identity['genericOwnerAddressRegion'] . " " . $identity['genericOwnerPostalCode'] . "<br />"
+                                        . $identity['genericOwnerAddressCountry'] . "<br />";
+
+            $params=array();
+            $params = count($params) ? '&' . http_build_query($params) : '';
+            $query = urlencode($helper['ownerAddressString']);
+            $helper['ownerMapUrl'] = "http://maps.google.com/maps?q={$query}{$params}";
+        }
+    } /* -- addSIdentityHelpers */
 
 /* --------------------------------------------------------------------------------
     Add the Creator helper strings to 'seomaticHelper'
 -------------------------------------------------------------------------------- */
 
-	private function addCreatorHelpers(&$helper, $creator)
-	{
+    private function addCreatorHelpers(&$helper, $creator)
+    {
 
 /* -- Computed identity strings */
 
-		$now = new DateTime;
-		$period = ". ";
-		$name = $creator['genericCreatorName'];
-		if ($name)
-		{
-    		if ($name[strlen($name) -1] == '.')
-    			$period =" ";
+        $now = new DateTime;
+        $period = ". ";
+        $name = $creator['genericCreatorName'];
+        if ($name)
+        {
+            if ($name[strlen($name) -1] == '.')
+                $period =" ";
         }
-		$helper['creatorCopyrightNotice'] = Craft::t("Copyright") . " &copy;" . $now->year() . " " . $name . $period . Craft::t("All rights reserved.");
+        $helper['creatorCopyrightNotice'] = Craft::t("Copyright") . " &copy;" . $now->year() . " " . $name . $period . Craft::t("All rights reserved.");
 
-		$helper['creatorAddressString'] = '';
-		$helper['creatorAddressHtml'] = '';
-		$helper['creatorMapUrl'] = '';
-		if ($creator['genericCreatorStreetAddress'] &&
-			$creator['genericCreatorAddressLocality'] &&
-			$creator['genericCreatorAddressRegion'] &&
-			$creator['genericCreatorPostalCode'])
-		{
-			$helper['creatorAddressString'] = $creator['genericCreatorName'] . ", "
-										. $creator['genericCreatorStreetAddress'] . ", "
-										. $creator['genericCreatorAddressLocality'] . ", "
-										. $creator['genericCreatorAddressRegion'] . " "
-										. $creator['genericCreatorPostalCode'] . ", "
-										. $creator['genericCreatorAddressCountry'];
-										
-			$helper['creatorAddressHtml'] = $creator['genericCreatorName'] . "<br />"
-										. $creator['genericCreatorStreetAddress'] . "<br />"
-										. $creator['genericCreatorAddressLocality'] . ", " . $creator['genericCreatorAddressRegion'] . " " . $creator['genericCreatorPostalCode'] . "<br />"
-										. $creator['genericCreatorAddressCountry'] . "<br />";
-	
-			$params=array();
-			$params = count($params) ? '&' . http_build_query($params) : '';
-			$query = urlencode($helper['creatorAddressString']);
-			$helper['creatorMapUrl'] = "http://maps.google.com/maps?q={$query}{$params}";
-		}
-	} /* -- addCreatorHelpers */
+        $helper['creatorAddressString'] = '';
+        $helper['creatorAddressHtml'] = '';
+        $helper['creatorMapUrl'] = '';
+        if ($creator['genericCreatorStreetAddress'] &&
+            $creator['genericCreatorAddressLocality'] &&
+            $creator['genericCreatorAddressRegion'] &&
+            $creator['genericCreatorPostalCode'])
+        {
+            $helper['creatorAddressString'] = $creator['genericCreatorName'] . ", "
+                                        . $creator['genericCreatorStreetAddress'] . ", "
+                                        . $creator['genericCreatorAddressLocality'] . ", "
+                                        . $creator['genericCreatorAddressRegion'] . " "
+                                        . $creator['genericCreatorPostalCode'] . ", "
+                                        . $creator['genericCreatorAddressCountry'];
+
+            $helper['creatorAddressHtml'] = $creator['genericCreatorName'] . "<br />"
+                                        . $creator['genericCreatorStreetAddress'] . "<br />"
+                                        . $creator['genericCreatorAddressLocality'] . ", " . $creator['genericCreatorAddressRegion'] . " " . $creator['genericCreatorPostalCode'] . "<br />"
+                                        . $creator['genericCreatorAddressCountry'] . "<br />";
+
+            $params=array();
+            $params = count($params) ? '&' . http_build_query($params) : '';
+            $query = urlencode($helper['creatorAddressString']);
+            $helper['creatorMapUrl'] = "http://maps.google.com/maps?q={$query}{$params}";
+        }
+    } /* -- addCreatorHelpers */
 
 
 /* --------------------------------------------------------------------------------
     Get a md5 hash string for this combination of $metaVars
 -------------------------------------------------------------------------------- */
 
-	private function getMetaHashStr($templatePath, $metaVars)
-	{
-		$hashStr = $templatePath;
-		
-		$hashStr .= $this->_get_hash_string($metaVars);
+    private function getMetaHashStr($templatePath, $metaVars)
+    {
+        $hashStr = $templatePath;
 
-		$result = md5($hashStr);
-		
-		return $result;
-	} /* -- getMetaHashStr */
+        $hashStr .= $this->_get_hash_string($metaVars);
+
+        $result = md5($hashStr);
+
+        return $result;
+    } /* -- getMetaHashStr */
 
 /* --------------------------------------------------------------------------------
     Sanitize the metaVars
@@ -1483,7 +1483,7 @@ class SeomaticService extends BaseApplicationComponent
 /* -- Truncate seoTitle, seoDescription, and seoKeywords to recommended values */
 
         $vars = array('seoTitle' => (70 - strlen(" | ") - strlen($seomaticSiteMeta['siteSeoName'])), 'seoDescription' => 160, 'seoKeywords' => 200);
-        
+
         foreach ($vars as $key => $value)
         {
             if (isset($seomaticMeta[$key]))
@@ -1494,12 +1494,12 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Make sure all of our variables are properly encoded */
 
-		$this->_sanitizeArray($seomaticMeta);
-		$this->_sanitizeArray($seomaticSiteMeta);
-		$this->_sanitizeArray($seomaticIdentity);
-		$this->_sanitizeArray($seomaticSocial);
-		$this->_sanitizeArray($seomaticCreator);
-		
+        $this->_sanitizeArray($seomaticMeta);
+        $this->_sanitizeArray($seomaticSiteMeta);
+        $this->_sanitizeArray($seomaticIdentity);
+        $this->_sanitizeArray($seomaticSocial);
+        $this->_sanitizeArray($seomaticCreator);
+
         $metaVars['seomaticMeta'] = $seomaticMeta;
         $metaVars['seomaticSiteMeta'] = $seomaticSiteMeta;
         $metaVars['seomaticIdentity'] = $seomaticIdentity;
@@ -1520,7 +1520,7 @@ class SeomaticService extends BaseApplicationComponent
         {
             $config->addListener(new Stopword);
         }
-        
+
         $textRank = new TextRank($config);
 
         try
@@ -1579,21 +1579,21 @@ class SeomaticService extends BaseApplicationComponent
         {
             if (is_string($value))
             {
-				$theArray[$key] = craft()->config->parseEnvironmentString($value);
-				$theArray[$key] = strip_tags($value);
-				if ($key == 'email')
-					$theArray[$key] = $this->encodeEmailAddress($value);
-				else
-                	$theArray[$key] = htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, 'UTF-8', false);
+                $theArray[$key] = craft()->config->parseEnvironmentString($value);
+                $theArray[$key] = strip_tags($value);
+                if ($key == 'email')
+                    $theArray[$key] = $this->encodeEmailAddress($value);
+                else
+                    $theArray[$key] = htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, 'UTF-8', false);
             }
             else
             {
-	            if (is_array($value))
-	            	$this->_sanitizeArray($value);
+                if (is_array($value))
+                    $this->_sanitizeArray($value);
             }
         }
-	} /* -- _sanitizeArray */
-	
+    } /* -- _sanitizeArray */
+
 /* --------------------------------------------------------------------------------
     Cleanup text before extracting keywords/summary
 -------------------------------------------------------------------------------- */
@@ -1603,11 +1603,11 @@ class SeomaticService extends BaseApplicationComponent
 /* -- convert to UTF-8 */
 
         $text = iconv(mb_detect_encoding($text, mb_detect_order(), true), "UTF-8", $text);
-        
+
 /* -- strip HTML tags */
 
         $text = preg_replace('#<[^>]+>#', ' ', $text);
-        
+
 /* -- remove excess whitespace */
 
         $text = preg_replace('/\s+/', ' ', $text);
@@ -1619,40 +1619,40 @@ class SeomaticService extends BaseApplicationComponent
     Print out a Twig array, recursing it as necessary
 -------------------------------------------------------------------------------- */
 
-	private function _print_twig_array($theArray, $level)
-	{
-		$htmlText = "";
-		$i = 0;
-		$len = count($theArray);
+    private function _print_twig_array($theArray, $level)
+    {
+        $htmlText = "";
+        $i = 0;
+        $len = count($theArray);
         foreach ($theArray as $key => $value)
         {
-			if ($i == $len - 1)
-				$comma = "";
-			else
-				$comma = ",";
-				
-			if (is_array($value))
+            if ($i == $len - 1)
+                $comma = "";
+            else
+                $comma = ",";
+
+            if (is_array($value))
             {
-				$keys = array_keys($value);
-	            if ($keys[0] == "0")
-	            {
-		            $line = $key . ": [\"" . implode("\",\"", $value) . "\"]" . $comma  . "\n";
-					$line = str_pad($line, strlen($line) + ($level * 4), " ", STR_PAD_LEFT);
-	            }
-	            else
-	            {
-		            $predicate = $key . ": { " . "\n";
-		            $suffix = $comma;
-	                if ($level < 1)
-	                {
-		                $predicate = "{% set " . $key . " = { " . "\n";
-		                $suffix = " %}" . "\n";
-		            }
-					$predicate = str_pad($predicate, strlen($predicate) + ($level * 4), " ", STR_PAD_LEFT);
-	                $line = $this->_print_twig_array($value, $level + 1);
-	                $suffix = "}" . $suffix . "\n";
-					$suffix = str_pad($suffix, strlen($suffix) + ($level * 4), " ", STR_PAD_LEFT);
-	                $line = $predicate . $line . $suffix;
+                $keys = array_keys($value);
+                if ($keys[0] == "0")
+                {
+                    $line = $key . ": [\"" . implode("\",\"", $value) . "\"]" . $comma  . "\n";
+                    $line = str_pad($line, strlen($line) + ($level * 4), " ", STR_PAD_LEFT);
+                }
+                else
+                {
+                    $predicate = $key . ": { " . "\n";
+                    $suffix = $comma;
+                    if ($level < 1)
+                    {
+                        $predicate = "{% set " . $key . " = { " . "\n";
+                        $suffix = " %}" . "\n";
+                    }
+                    $predicate = str_pad($predicate, strlen($predicate) + ($level * 4), " ", STR_PAD_LEFT);
+                    $line = $this->_print_twig_array($value, $level + 1);
+                    $suffix = "}" . $suffix . "\n";
+                    $suffix = str_pad($suffix, strlen($suffix) + ($level * 4), " ", STR_PAD_LEFT);
+                    $line = $predicate . $line . $suffix;
                 }
             }
             else
@@ -1660,9 +1660,9 @@ class SeomaticService extends BaseApplicationComponent
                 if ($level < 1)
                     $line = "{% set " . $key . " = \"" . htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, 'UTF-8', false) . "\" %}" . "\n";
                 else
-                	{
-						$line = $key . ": \"" . htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, 'UTF-8', false) . "\"" . $comma . "\n";
-						$line = str_pad($line, strlen($line) + ($level * 4), " ", STR_PAD_LEFT);
+                    {
+                        $line = $key . ": \"" . htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, 'UTF-8', false) . "\"" . $comma . "\n";
+                        $line = str_pad($line, strlen($line) + ($level * 4), " ", STR_PAD_LEFT);
                     }
             }
             $htmlText = $htmlText . $line;
@@ -1670,26 +1670,26 @@ class SeomaticService extends BaseApplicationComponent
         }
 
         return $htmlText;
-	} /* -- _print_twig_array */
+    } /* -- _print_twig_array */
 
 /* --------------------------------------------------------------------------------
     Concatenate all of the values in an array recursively
 -------------------------------------------------------------------------------- */
 
-	private function _get_hash_string($theArray)
-	{
-		$result = "";
+    private function _get_hash_string($theArray)
+    {
+        $result = "";
         foreach ($theArray as $key => $value)
         {
-			if (is_array($value))
+            if (is_array($value))
                 $line = $this->_get_hash_string($value);
             else
-	            $line = $value;
+                $line = $value;
             $result .= $line;
         }
 
         return $result;
-	} /* -- _get_hash_string */
+    } /* -- _get_hash_string */
 
 /* --------------------------------------------------------------------------------
     Truncate the the string passed in, breaking it on a word.  $desiredLength
@@ -1699,13 +1699,13 @@ class SeomaticService extends BaseApplicationComponent
 
     public function truncateStringOnWord($theString, $desiredLength)
     {
-        if (strlen($theString) > $desiredLength) 
+        if (strlen($theString) > $desiredLength)
         {
             $theString = wordwrap($theString, $desiredLength);
             $theString = substr($theString, 0, strpos($theString, "\n"));
             $theString = $theString . "…";
         }
-        
+
         return $theString;
     } /* -- truncateStringOnWord */
 
@@ -1715,12 +1715,12 @@ class SeomaticService extends BaseApplicationComponent
 
     public function encodeEmailAddress($emailAddress)
     {
-	    $result = '';
-		for ($i = 0; $i < strlen($emailAddress); $i++)
-		{
-			$result .= '&#'.ord($emailAddress[$i]).';';
-		}
-        
+        $result = '';
+        for ($i = 0; $i < strlen($emailAddress); $i++)
+        {
+            $result .= '&#'.ord($emailAddress[$i]).';';
+        }
+
         return $result;
     } /* -- encodeEmailAddress */
 
