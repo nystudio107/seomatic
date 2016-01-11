@@ -1721,9 +1721,19 @@ class SeomaticService extends BaseApplicationComponent
     {
         if (strlen($theString) > $desiredLength)
         {
+
+/* -- Force-add a space after commas */
+
+            $theString = preg_replace("/,([^\s])/", ", $1", $theString);
+
+/* -- Wrap the string to the right length */
+
             $theString = wordwrap($theString, $desiredLength);
             $theString = substr($theString, 0, strpos($theString, "\n"));
-            $theString = $theString . "…";
+            if (substr($theString, -1) == ',')
+                $theString = rtrim($theString, ',');
+            else
+                $theString = $theString . "…";
         }
 
         return $theString;
