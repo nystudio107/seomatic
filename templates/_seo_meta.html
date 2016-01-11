@@ -1,6 +1,6 @@
 <!-- BEGIN SEOmatic rendered SEO Meta -->
 
-<title>{% if craft.config.devMode %}[devMode] {% endif %}{{ seomaticMeta.seoTitle |raw }} | {{ seomaticSiteMeta.siteSeoName |raw }}</title>
+<title>{% if craft.config.devMode %}[devMode] {% endif %}{% if seomaticSiteMeta.siteSeoTitlePlacement == "before" %}{{ seomaticSiteMeta.siteSeoName |raw }} {{ seomaticSiteMeta.siteSeoTitleSeparator }} {% endif %}{{ seomaticMeta.seoTitle |raw }}{% if seomaticSiteMeta.siteSeoTitlePlacement == "after" %} {{ seomaticSiteMeta.siteSeoTitleSeparator }} {{ seomaticSiteMeta.siteSeoName |raw }}{% endif %}</title>
 
 <!-- Standard SEO -->
 

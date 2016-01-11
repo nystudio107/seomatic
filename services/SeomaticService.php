@@ -392,6 +392,15 @@ class SeomaticService extends BaseApplicationComponent
         if ($meta)
         {
 
+/* -- Set up the title prefix and suffix */
+
+        $titlePrefix = "";
+        if ($siteMeta['siteSeoTitlePlacement'] == "before")
+            $titlePrefix =  $siteMeta['siteSeoName'] . " " . $siteMeta['siteSeoTitleSeparator'] . " ";
+        $titleSuffix = "";
+        if ($siteMeta['siteSeoTitlePlacement'] == "after")
+            $titleSuffix = " " . $siteMeta['siteSeoTitleSeparator'] . " " . $siteMeta['siteSeoName'];
+
 /* -- Add in the Twitter Card settings to the meta */
 
             if ($social['twitterHandle'])
@@ -409,7 +418,7 @@ class SeomaticService extends BaseApplicationComponent
                         $twitterCard['creator'] = "";
                     break;
                 }
-                $twitterCard['title'] = $meta['seoTitle'] . " | " . $siteMeta['siteSeoName'];
+                $twitterCard['title'] = $titlePrefix . $meta['seoTitle'] . $titleSuffix;
                 $twitterCard['description'] = $meta['seoDescription'];
                 $twitterCard['image'] = $meta['seoImage'];
                 $meta['twitter'] = $twitterCard;
@@ -424,7 +433,7 @@ class SeomaticService extends BaseApplicationComponent
             else
                 $openGraph['locale'] = $locale;
             $openGraph['url'] = $meta['canonicalUrl'];
-            $openGraph['title'] = $meta['seoTitle'] . " | " . $siteMeta['siteSeoName'];
+            $openGraph['title'] = $titlePrefix . $meta['seoTitle'] . $titleSuffix;
             $openGraph['description'] = $meta['seoDescription'];
             $openGraph['image'] = $meta['seoImage'];
             $openGraph['site_name'] = $siteMeta['siteSeoName'];
@@ -573,6 +582,13 @@ class SeomaticService extends BaseApplicationComponent
         if ($result['genericCreatorHumansTxt'] == "")
             $result['genericCreatorHumansTxt'] = $settings->getDefaultHumans();
 
+/* -- If our siteSeoTitleSeparator &  empty, fill it with the default template */
+
+        if ($result['siteSeoTitleSeparator'] == "")
+            $result['siteSeoTitleSeparator'] = '|';
+        if ($result['siteSeoTitlePlacement'] == "")
+            $result['siteSeoTitlePlacement'] = 'after';
+
 /* -- If this Craft install is localized, and they are asking for a locale other than the main one,
         merge this local settings with their base language */
 
@@ -684,6 +700,8 @@ class SeomaticService extends BaseApplicationComponent
 
         $siteMeta['siteSeoName'] = $settings['siteSeoName'];
         $siteMeta['siteSeoTitle'] = $settings['siteSeoTitle'];
+        $siteMeta['siteSeoTitleSeparator'] = $settings['siteSeoTitleSeparator'];
+        $siteMeta['siteSeoTitlePlacement'] = $settings['siteSeoTitlePlacement'];
         $siteMeta['siteSeoDescription'] = $settings['siteSeoDescription'];
         $siteMeta['siteSeoKeywords'] = $settings['siteSeoKeywords'];
         $siteMeta['siteSeoImageId'] = $settings['siteSeoImageId'];
@@ -1480,7 +1498,11 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Truncate seoTitle, seoDescription, and seoKeywords to recommended values */
 
-        $vars = array('seoTitle' => (70 - strlen(" | ") - strlen($seomaticSiteMeta['siteSeoName'])), 'seoDescription' => 160, 'seoKeywords' => 200);
+        if ($seomaticSiteMeta['siteSeoTitlePlacement'] == "none")
+            $titleLength = 70;
+        else
+            $titleLength = (70 - strlen(" | ") - strlen($seomaticSiteMeta['siteSeoName']));
+        $vars = array('seoTitle' => $titleLength, 'seoDescription' => 160, 'seoKeywords' => 200);
 
         foreach ($vars as $key => $value)
         {
@@ -1600,7 +1622,7 @@ class SeomaticService extends BaseApplicationComponent
     {
 /* -- convert to UTF-8 */
 
-        $text = iconv(mb_detect_encoding($text, mb_detect_order(), true), "UTF-8", $text);
+        $text = iconv(mb_detect_encoding($text, mb_detect_order(), true), "UTF-8//IGNORE", $text);
 
 /* -- strip HTML tags */
 

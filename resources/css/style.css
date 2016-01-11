@@ -21,6 +21,18 @@ p.seomatic-devmode-text {
 	color: white;
 }
 
+.smallfield {
+    width: 30px;
+    text-align: center;
+}
+
+div.tokenfield {
+    border: 1px solid #e3e5e8;
+    border-radius: 3px;
+    padding: 5px 7px;
+    box-sizing: border-box;
+}
+
 div.half-width-field {
 	display: inline-block;
 	width: 45%;

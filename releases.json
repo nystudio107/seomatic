@@ -1,5 +1,18 @@
 [
     {
+        "version": "1.0.9",
+        "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
+        "date": "2016-01-10T11:00:00-05:00",
+        "notes": [
+            "[Added] Added tokenized input fields for the keywords for the Site Meta, Template Meta, and Field Meta",
+            "[Added] You can now specify the position of the SEO Site Title relative to the Title",
+            "[Added] You can now specify the separator character that appears between the SEO Site Title and the Title",
+            "[Fixed] Potentially fixed an issue with iconv when using the extractKeywords() or extractSummary() filters",
+            "[Fixed] Fixed a regression that caused the Template Metas to stop working on the front-end",
+            "[Improved] Updated the README.md"
+        ]
+    },
+    {
         "version": "1.0.8",
         "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
         "date": "2016-01-09T11:00:00-05:00",

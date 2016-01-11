@@ -5,9 +5,12 @@
 {% includeCssResource "seomatic/css/style.css" %}
 {% includeCssResource "seomatic/css/css-reset.css" %}
 {% includeCssResource "seomatic/css/prism.min.css" %}
+{% includeCssResource "seomatic/css/bootstrap-tokenfield.css" %}
 {% includeJsResource "seomatic/js/seomatic.js" %}
 {% includeJsResource "seomatic/js/jquery.bpopup.min.js" %}
+{% includeJsResource "seomatic/js/bootstrap-tokenfield.min.js" %}
 {% includeJsResource "seomatic/js/prism.min.js" %}
+{% includeJsResource "seomatic/js/meta.js" %}
 
 {% set fullPageForm = true %}
 {% set docsUrl = "https://github.com/khalwat/seomatic/blob/master/README.md" %}
@@ -15,104 +18,104 @@
 {% block main %}
 
 {% if meta.metaType == "default" %}
-	{% include "seomatic/_preview_display_modal" with {'previewMetaPath': '', 'elementId': 0} %}
-	{% include "seomatic/_preview_tags_modal" with {'previewMetaPath': '', 'elementId': 0, } %}
+    {% include "seomatic/_preview_display_modal" with {'previewMetaPath': '', 'elementId': 0} %}
+    {% include "seomatic/_preview_tags_modal" with {'previewMetaPath': '', 'elementId': 0, } %}
 {% else %}
-	{% include "seomatic/_preview_display_modal" with {'previewMetaPath': meta.metaPath, 'elementId': 0, 'locale': meta.locale } %}
-	{% include "seomatic/_preview_tags_modal" with {'previewMetaPath': meta.metaPath, 'elementId': 0, 'locale': meta.locale } %}
+    {% include "seomatic/_preview_display_modal" with {'previewMetaPath': meta.metaPath, 'elementId': 0, 'locale': meta.locale } %}
+    {% include "seomatic/_preview_tags_modal" with {'previewMetaPath': meta.metaPath, 'elementId': 0, 'locale': meta.locale } %}
 {% endif %}
-	
-	<div class="seomatic-container">
+
+    <div class="seomatic-container">
 
 <!-- Needed for for Craft < 2.5 -->
 
-		{% if craft.app.version < 2.5 %}
-		<form id="meta-form" method="post" accept-charset="UTF-8" data-saveshortcut="1" data-saveshortcut-redirect="{{ continueEditingUrl }}">
-		{% endif %}
+        {% if craft.app.version < 2.5 %}
+        <form id="meta-form" method="post" accept-charset="UTF-8" data-saveshortcut="1" data-saveshortcut-redirect="{{ continueEditingUrl }}">
+        {% endif %}
 
-			{{ getCsrfInput() }}
-			<input type="hidden" name="action" value="seomatic/saveMeta">
-			<input type="hidden" name="redirect" value="seomatic/meta">
-			{% if meta.id %}<input type="hidden" name="metaId" value="{{ meta.id }}">{% endif %}
-			<input type="hidden" name="metaType" value="{{ meta.metaType }}">
-			<input type="hidden" name="locale" value="{{ meta.locale }}">
-			<input type="hidden" name="elementId" value="{{ meta.elementId }}">
-	
-			<div class="grid first">
-				<div class="item" data-position="left" data-min-colspan="2" data-max-colspan="3">
-					<div id="fields" class="pane">
-						{% include "seomatic/meta/_main" %}
+            {{ getCsrfInput() }}
+            <input type="hidden" name="action" value="seomatic/saveMeta">
+            <input type="hidden" name="redirect" value="seomatic/meta">
+            {% if meta.id %}<input type="hidden" name="metaId" value="{{ meta.id }}">{% endif %}
+            <input type="hidden" name="metaType" value="{{ meta.metaType }}">
+            <input type="hidden" name="locale" value="{{ meta.locale }}">
+            <input type="hidden" name="elementId" value="{{ meta.elementId }}">
+
+            <div class="grid first">
+                <div class="item" data-position="left" data-min-colspan="2" data-max-colspan="3">
+                    <div id="fields" class="pane">
+                        {% include "seomatic/meta/_main" %}
 
                         <p>&nbsp;</p>
-	 					<p>{{ "<p>You can use any Craft <code>environmentVariables</code> in these fields in addition to static text, e.g.:<br /> <code>This is my {baseUrl}</code></p>" |t |raw }}</p>
-					</div>
-				</div>
-	
-				<div class="item" data-position="right" data-colspan="1">
-	
-					<div id="preview-display" class="btn big livepreviewbtn">
-						{{ "Preview SEO Meta Display" |t }}
-					</div>
+                        <p>{{ "<p>You can use any Craft <code>environmentVariables</code> in these fields in addition to static text, e.g.:<br /> <code>This is my {baseUrl}</code></p>" |t |raw }}</p>
+                    </div>
+                </div>
 
-					<div id="preview-tags" class="btn big livepreviewbtn secondbtn">
-						{{ "Preview SEO Meta Tags" |t }}
-					</div>
+                <div class="item" data-position="right" data-colspan="1">
 
-					{% if craft.isLocalized %}
-						<ul id="locales" class="pane">
-							{% for locale in craft.i18n.getSiteLocales() %}
-								{% if locale == meta.locale %}
-									<li class="sel">{{ locale.name }}</li>
-								{% else %}
-									{% if meta.id %}
-										{% set metaSegment = meta.id %}
-									{% else %}
-										{% set metaSegment = "new" %}
-									{% endif %}
-									<li>{#<a href="{{ url('seomatic/meta') ~ '/' ~ metaSegment ~ '/' ~ locale.id }}">{{ locale.name }}</a>#}{{ locale.name }}</li>
-								{% endif %}
-							{% endfor %}
-							<li><p class="instructions">{{ "If any field is left blank for a setting in a particular locale, it will fall back on the primary locale." |t |raw }}</p></li>
-						</ul>
-					{% endif %}
+                    <div id="preview-display" class="btn big livepreviewbtn">
+                        {{ "Preview SEO Meta Display" |t }}
+                    </div>
 
-					<div class="pane">
-						<div style="text-align:center; margin:0 auto;">
-							<img src="{{ resourceUrl('seomatic/images/seo_meta.svg') }}" width="64px" height="auto" />
-						</div>
-						{{ "<p>These SEO Meta settings are used to render the SEO Meta for the website.  You can create any number of SEO Template Metas associated with your Twig templates on the website.</p><p>They are used in combination with the Site Identity & Social Media settings to generate <a href='https://developers.google.com/schemas/formats/json-ld?hl=en' target='_blank'>JSON-LD</a> microdata, <a href='http://dublincore.org' target='_blank'>Dublin Core</a> core metadata, <a href='https://dev.twitter.com/cards/overview' target='_blank'>Twitter Cards</a>, <a href='https://developers.facebook.com/docs/sharing/opengraph' target='_blank'>Facebook OpenGraph</a>, and as well as HTML meta tags. <p>If a no Template Meta exists for a template, the SEO Site Meta is used.</p>  <p>If any fields are left blank in a Template Meta, those fields are pulled from the SEO Site Meta.</p><p>You can also dynamically change the <code>seomaticMeta.*</code> variables in your Twig templates, and they will appear in the rendered SEO Meta.</p>" |t |raw }}
-					</div>
-					
-					{% if meta.id and meta.metaType != "default" %}
-						<div class="pane">
-							<input type="button" class="btn small formsubmit" value="{{ 'Delete'|t }}" data-action="seomatic/deleteMeta"
-								data-confirm="{{ 'Are you sure you want to delete this Template Meta?'|t }}"
-								data-redirect="seomatic/meta">
-						</div>
-					{% endif %}
-	
-				</div>
+                    <div id="preview-tags" class="btn big livepreviewbtn secondbtn">
+                        {{ "Preview SEO Meta Tags" |t }}
+                    </div>
 
-<!-- Needed for for Craft < 2.5 -->
+                    {% if craft.isLocalized %}
+                        <ul id="locales" class="pane">
+                            {% for locale in craft.i18n.getSiteLocales() %}
+                                {% if locale == meta.locale %}
+                                    <li class="sel">{{ locale.name }}</li>
+                                {% else %}
+                                    {% if meta.id %}
+                                        {% set metaSegment = meta.id %}
+                                    {% else %}
+                                        {% set metaSegment = "new" %}
+                                    {% endif %}
+                                    <li>{#<a href="{{ url('seomatic/meta') ~ '/' ~ metaSegment ~ '/' ~ locale.id }}">{{ locale.name }}</a>#}{{ locale.name }}</li>
+                                {% endif %}
+                            {% endfor %}
+                            <li><p class="instructions">{{ "If any field is left blank for a setting in a particular locale, it will fall back on the primary locale." |t |raw }}</p></li>
+                        </ul>
+                    {% endif %}
 
-				{% if craft.app.version < 2.5 %}
-				<div class="item" data-position="left" data-colspan="1">
-					<div class="buttons">
-						<div class="btngroup submit first">
-							<input type="submit" class="btn submit" value="{{ 'Save'|t }}">
-						</div>
-					</div>
-				</div>
-				{% endif %}
+                    <div class="pane">
+                        <div style="text-align:center; margin:0 auto;">
+                            <img src="{{ resourceUrl('seomatic/images/seo_meta.svg') }}" width="64px" height="auto" />
+                        </div>
+                        {{ "<p>These SEO Meta settings are used to render the SEO Meta for the website.  You can create any number of SEO Template Metas associated with your Twig templates on the website.</p><p>They are used in combination with the Site Identity & Social Media settings to generate <a href='https://developers.google.com/schemas/formats/json-ld?hl=en' target='_blank'>JSON-LD</a> microdata, <a href='http://dublincore.org' target='_blank'>Dublin Core</a> core metadata, <a href='https://dev.twitter.com/cards/overview' target='_blank'>Twitter Cards</a>, <a href='https://developers.facebook.com/docs/sharing/opengraph' target='_blank'>Facebook OpenGraph</a>, and as well as HTML meta tags. <p>If a no Template Meta exists for a template, the SEO Site Meta is used.</p>  <p>If any fields are left blank in a Template Meta, those fields are pulled from the SEO Site Meta.</p><p>You can also dynamically change the <code>seomaticMeta.*</code> variables in your Twig templates, and they will appear in the rendered SEO Meta.</p>" |t |raw }}
+                    </div>
 
-			</div>
+                    {% if meta.id and meta.metaType != "default" %}
+                        <div class="pane">
+                            <input type="button" class="btn small formsubmit" value="{{ 'Delete'|t }}" data-action="seomatic/deleteMeta"
+                                data-confirm="{{ 'Are you sure you want to delete this Template Meta?'|t }}"
+                                data-redirect="seomatic/meta">
+                        </div>
+                    {% endif %}
+
+                </div>
 
 <!-- Needed for for Craft < 2.5 -->
 
-		{% if craft.app.version < 2.5 %}
-		</form>
-		{% endif %}
+                {% if craft.app.version < 2.5 %}
+                <div class="item" data-position="left" data-colspan="1">
+                    <div class="buttons">
+                        <div class="btngroup submit first">
+                            <input type="submit" class="btn submit" value="{{ 'Save'|t }}">
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
 
-	</div>
-	
+            </div>
+
+<!-- Needed for for Craft < 2.5 -->
+
+        {% if craft.app.version < 2.5 %}
+        </form>
+        {% endif %}
+
+    </div>
+
 {% endblock %}

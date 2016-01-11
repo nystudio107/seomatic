@@ -65,6 +65,8 @@ You can also dynamically change any of these SEO Meta fields in your Twig templa
 
 * **Site SEO Name** - This field is used wherever the name of the site is referenced, both at the trailing end of the `<title>` tag, and in other meta tags on the site. It is initially set to your Craft `{{ siteName }}`.
 * **Site SEO Title** - This should be between 10 and 70 characters (spaces included). Make sure your title tag is explicit and contains your most important keywords. Be sure that each page has a unique title tag.
+* **Site SEO Title Placement** - Where the Site SEO Title is placed relative to the Title in the `<title>` tag
+* **Site SEO Title Separator** - The character that should be used to separate the Site SEO Title and Title in the `<title>` tag
 * **Site SEO Description** - This should be between 70 and 160 characters (spaces included). Meta descriptions allow you to influence how your web pages are described and displayed in search results. Ensure that all of your web pages have a unique meta description that is explicit and contains your most important keywords.
 * **Site SEO Keywords** - Google ignores this tag; though other search engines do look at it. Utilize it carefully, as improper or spammy use most likely will hurt you, or even have your site marked as spam. Avoid overstuffing the keywords and do not include keywords that are not related to the specific page you place them on.
 * **Site SEO Image** - This is the image that will be used for display as the global website brand, as well as on Twitter Cards and Facebook OpenGraph that link to the website. It should be an image that displays well when cropped to a square format (for Twitter)
@@ -1242,6 +1244,15 @@ Some things to do, and ideas for potential features:
 * [feature] Provide Redirect functionality.  Yes, it's SEO-related, but seems like it might be better to keep SEOmatic focused (?)
 
 ## Changelog
+
+### 1.0.9 -- 2016.01.11
+
+* [Added] Added tokenized input fields for the keywords for the Site Meta, Template Meta, and Field Meta
+* [Added] You can now specify the position of the SEO Site Title relative to the Title
+* [Added] You can now specify the separator character that appears between the SEO Site Title and the Title
+* [Fixed] Potentially fixed an issue with iconv when using the extractKeywords() or extractSummary() filters
+* [Fixed] Fixed a regression that caused the Template Metas to stop working on the front-end
+* [Improved] Updated the README.md
 
 ### 1.0.8 -- 2016.01.08
 

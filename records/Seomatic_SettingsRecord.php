@@ -20,6 +20,8 @@ class Seomatic_SettingsRecord extends BaseRecord
 
             'siteSeoName'                   	=> array(AttributeType::String, 'default' => ''),
             'siteSeoTitle'                  	=> array(AttributeType::String, 'default' => ''),
+            'siteSeoTitleSeparator'             => array(AttributeType::String, 'default' => '|'),
+            'siteSeoTitlePlacement'             => array(AttributeType::Enum, 'values' => "before,after,none", 'default' => 'after'),
             'siteSeoDescription'            	=> array(AttributeType::String, 'default' => ''),
             'siteSeoKeywords'               	=> array(AttributeType::String, 'default' => ''),
             'siteTwitterCardType'				=> array(AttributeType::String, 'default' => ''),

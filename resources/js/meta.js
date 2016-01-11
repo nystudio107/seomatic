@@ -1,6 +1,8 @@
 // LOAD EVENTS
 
 $(function () {
+    $('#seoKeywords').tokenfield();
+
     // Behavior for "New Meta" button
     $('#new-meta').on('click', function () {
         // Redirect

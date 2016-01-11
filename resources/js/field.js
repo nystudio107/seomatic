@@ -30,71 +30,73 @@ console.log(this.options);
             var seomatic = this,
                 $field = $(this.element);
 
-			$(function () {
+            $(function () {
 
-			    $('#' + seomatic.options.prefix + 'preview-tags').on('click', function(e) {
-			    
-			        // Prevents the default action to be triggered. 
-			        e.preventDefault();
-			    
-			        // Triggering bPopup when click event is fired
-			        $('#' + seomatic.options.prefix + 'preview-tags-popup').bPopup();
-			    
-			    });
-			
-			    $('#' + seomatic.options.prefix + 'preview-display').on('click', function(e) {
-			    
-			        // Prevents the default action to be triggered. 
-			        e.preventDefault();
-			    
-			        // Triggering bPopup when click event is fired
-			        $('#' + seomatic.options.prefix + 'preview-display-popup').bPopup();
-			    
-			    });
+                $('#' + seomatic.options.prefix + seomatic.options.id + 'seoKeywords').tokenfield();
+
+                $('#' + seomatic.options.prefix + 'preview-tags').on('click', function(e) {
+
+                    // Prevents the default action to be triggered.
+                    e.preventDefault();
+
+                    // Triggering bPopup when click event is fired
+                    $('#' + seomatic.options.prefix + 'preview-tags-popup').bPopup();
+
+                });
+
+                $('#' + seomatic.options.prefix + 'preview-display').on('click', function(e) {
+
+                    // Prevents the default action to be triggered.
+                    e.preventDefault();
+
+                    // Triggering bPopup when click event is fired
+                    $('#' + seomatic.options.prefix + 'preview-display-popup').bPopup();
+
+                });
 
 /* -- Show/hide the select fields initially */
 
-				$('.selectField > select').each(function( index, value ) {
-			    	popupValue = $(this).val();
-				    switch (popupValue) {
-				    	case "custom":
-				    		$(this).closest('.comboField-wrapper').children('.selectFieldWrapper').hide();
-				    		$(this).closest('.comboField-wrapper').children('.customFieldWrapper').show();
-				    	break;
+                $('.selectField > select').each(function( index, value ) {
+                    popupValue = $(this).val();
+                    switch (popupValue) {
+                        case "custom":
+                            $(this).closest('.comboField-wrapper').children('.selectFieldWrapper').hide();
+                            $(this).closest('.comboField-wrapper').children('.customFieldWrapper').show();
+                        break;
 
-				    	case "keywords":
-				    		$(this).closest('.comboField-wrapper').children('.selectFieldWrapper').show();
-				    		$(this).closest('.comboField-wrapper').children('.customFieldWrapper').hide();
-				    	break;
-				    	
-				    	case "field":
-				    		$(this).closest('.comboField-wrapper').children('.selectFieldWrapper').show();
-				    		$(this).closest('.comboField-wrapper').children('.customFieldWrapper').hide();
-				    	break;
-				    }
-				});
-			
-			    $('.selectField > select').on('change', function(e) {
-			        
-				    switch (this.value) {
-				    	case "custom":
-				    		$(this).closest('.comboField-wrapper').children('.selectFieldWrapper').hide();
-				    		$(this).closest('.comboField-wrapper').children('.customFieldWrapper').show();
-				    	break;
+                        case "keywords":
+                            $(this).closest('.comboField-wrapper').children('.selectFieldWrapper').show();
+                            $(this).closest('.comboField-wrapper').children('.customFieldWrapper').hide();
+                        break;
 
-				    	case "keywords":
-				    		$(this).closest('.comboField-wrapper').children('.selectFieldWrapper').show();
-				    		$(this).closest('.comboField-wrapper').children('.customFieldWrapper').hide();
-				    	break;
-				    	
-				    	case "field":
-				    		$(this).closest('.comboField-wrapper').children('.selectFieldWrapper').show();
-				    		$(this).closest('.comboField-wrapper').children('.customFieldWrapper').hide();
-				    	break;
-				    }
-			    });
-			
-			});
+                        case "field":
+                            $(this).closest('.comboField-wrapper').children('.selectFieldWrapper').show();
+                            $(this).closest('.comboField-wrapper').children('.customFieldWrapper').hide();
+                        break;
+                    }
+                });
+
+                $('.selectField > select').on('change', function(e) {
+
+                    switch (this.value) {
+                        case "custom":
+                            $(this).closest('.comboField-wrapper').children('.selectFieldWrapper').hide();
+                            $(this).closest('.comboField-wrapper').children('.customFieldWrapper').show();
+                        break;
+
+                        case "keywords":
+                            $(this).closest('.comboField-wrapper').children('.selectFieldWrapper').show();
+                            $(this).closest('.comboField-wrapper').children('.customFieldWrapper').hide();
+                        break;
+
+                        case "field":
+                            $(this).closest('.comboField-wrapper').children('.selectFieldWrapper').show();
+                            $(this).closest('.comboField-wrapper').children('.customFieldWrapper').hide();
+                        break;
+                    }
+                });
+
+            });
         }
     };
 

@@ -21,7 +21,7 @@ class Seomatic_MetaFieldType extends BaseFieldType
     {
 
         if (!$value)
-        	$value = new Seomatic_MetaFieldModel();
+            $value = new Seomatic_MetaFieldModel();
 
         $id = craft()->templates->formatInputId($name);
         $namespacedId = craft()->templates->namespaceInputId($id);
@@ -29,38 +29,43 @@ class Seomatic_MetaFieldType extends BaseFieldType
         // Include our Javascript & CSS
         craft()->templates->includeCssResource('seomatic/css/css-reset.css');
         craft()->templates->includeCssResource('seomatic/css/prism.min.css');
+        craft()->templates->includeCssResource('seomatic/css/bootstrap-tokenfield.css');
         craft()->templates->includeCssResource('seomatic/css/style.css');
         craft()->templates->includeCssResource('seomatic/css/field.css');
         craft()->templates->includeJsResource('seomatic/js/field.js');
         craft()->templates->includeJsResource('seomatic/js/jquery.bpopup.min.js');
         craft()->templates->includeJsResource('seomatic/js/prism.min.js');
-		
-		$variables = array(
+        craft()->templates->includeJsResource('seomatic/js/bootstrap-tokenfield.min.js');
+
+        $variables = array(
             'id' => $id,
             'name' => $name,
             'meta' => $value,
             'element' => $this->element,
             'field' => $this->model,
-			);
+            );
 
-		$jsonVars = array(
+        $jsonVars = array(
             'id' => $id,
             'name' => $name,
             'namespace' => $namespacedId,
             'prefix' => craft()->templates->namespaceInputId(""),
-			);
-		
-		$jsonVars = json_encode($jsonVars);
+            );
+
+        $jsonVars = json_encode($jsonVars);
         craft()->templates->includeJs("$('#{$namespacedId}').SeomaticFieldType(" . $jsonVars . ");");
 
-	    if (isset($variables['locale']))
-	    	$locale = $variables['locale'];
-	    else
-	    	$locale = craft()->language;
+        if (isset($variables['locale']))
+            $locale = $variables['locale'];
+        else
+            $locale = craft()->language;
 
-	    $siteMeta = craft()->seomatic->getSiteMeta($locale);
-	    $variables['titleLength'] = (70 - strlen(" | ") - strlen($siteMeta['siteSeoName']));
-			
+        $siteMeta = craft()->seomatic->getSiteMeta($locale);
+        if ($siteMeta['siteSeoTitlePlacement'] == "none")
+            $variables['titleLength'] = 70;
+        else
+            $variables['titleLength'] = (70 - strlen(" | ") - strlen($siteMeta['siteSeoName']));
+
 /* -- Prep some parameters */
 
         // Whether any assets sources exist
@@ -89,29 +94,53 @@ class Seomatic_MetaFieldType extends BaseFieldType
 
 /* -- Extract a list of the other plain text fields that are in this entry's layout */
 
-		$fieldList = array('title' => 'Title');
-		$imageFieldList = array();
-		$fieldLayouts = $this->element->fieldLayout->getFields();
-		foreach ($fieldLayouts as $fieldLayout)
-		{
-			$field = craft()->fields->getFieldById($fieldLayout->fieldId);
-			if ($field->fieldType->name == "Plain Text"
-				|| $field->fieldType->name == "Rich Text"
-				|| $field->fieldType->name == "Rich Text (Redactor I)"
-				)
-				$fieldList[$field->handle] = $field->name;
-			if ($field->fieldType->name == "Assets")
-				$imageFieldList[$field->handle] = $field->name;
-		}
-		$variables['fieldList'] = $fieldList;
-		$variables['imageFieldList'] = $imageFieldList;
-		$variables['elementId'] = $this->element->id;
-		
+        $fieldList = array('title' => 'Title');
+        $imageFieldList = array();
+        $fieldLayouts = $this->element->fieldLayout->getFields();
+        foreach ($fieldLayouts as $fieldLayout)
+        {
+            $field = craft()->fields->getFieldById($fieldLayout->fieldId);
+            if ($field->fieldType->name == "Plain Text"
+                || $field->fieldType->name == "Rich Text"
+                || $field->fieldType->name == "Rich Text (Redactor I)"
+                )
+                $fieldList[$field->handle] = $field->name;
+            if ($field->fieldType->name == "Assets")
+                $imageFieldList[$field->handle] = $field->name;
+        }
+        $variables['fieldList'] = $fieldList;
+        $variables['imageFieldList'] = $imageFieldList;
+        $variables['elementId'] = $this->element->id;
+
         return craft()->templates->render('seomatic/field', $variables);
     }
 
+    /**
+     * Define our settings
+     * @return none
+     */
+    protected function defineSettings()
+        {
+            return array(
+            );
+        }
+
+    /**
+     * Render the field settings
+     * @return none
+     */
+    public function getSettingsHtml()
+    {
+    }
+
+    /**
+     * [prepValueFromPost description]
+     * @param  [type] $value [description]
+     * @return none          n/a
+     */
     public function prepValueFromPost($value)
     {
+
         if (empty($value))
         {
             return new Seomatic_MetaFieldModel();
@@ -125,11 +154,10 @@ class Seomatic_MetaFieldType extends BaseFieldType
     public function prepValue($value)
     {
 
-		if (craft()->request->isSiteRequest())
-		{
-			SeomaticPlugin::log("prepValue() called as a site request", LogLevel::Info, true);
-		}
-		
+        if (craft()->request->isSiteRequest())
+        {
+        }
+
         return $value;
     }
 

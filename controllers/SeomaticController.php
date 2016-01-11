@@ -4,20 +4,20 @@ namespace Craft;
 class SeomaticController extends BaseController
 {
 
-	protected $allowAnonymous = array('actionRenderHumans');
-	
+    protected $allowAnonymous = array('actionRenderHumans');
+
 /* --------------------------------------------------------------------------------
     Render the humans.txt template
 -------------------------------------------------------------------------------- */
 
     public function actionRenderHumans(array $variables = array())
-    {   
-	    $templatePath = '';
-	    $locale = '';
-	    if (!$locale)
-	    	$locale = craft()->language;
+    {
+        $templatePath = '';
+        $locale = '';
+        if (!$locale)
+            $locale = craft()->language;
         $metaVars = craft()->seomatic->getGlobals('', $locale);
-			
+
         if ($templatePath)
         {
             $htmlText = craft()->templates->render($templatePath);
@@ -31,7 +31,7 @@ class SeomaticController extends BaseController
 /* -- Render the core template */
 
             $templateName = '_humans';
-			$this->renderTemplate($templateName, $metaVars);
+            $this->renderTemplate($templateName, $metaVars);
 
             craft()->path->setTemplatesPath($oldPath);
         }
@@ -42,18 +42,21 @@ class SeomaticController extends BaseController
 -------------------------------------------------------------------------------- */
 
     public function actionEditSiteMeta(array $variables = array())
-    {   
-	    
-	    if (isset($variables['locale']))
-	    	$locale = $variables['locale'];
-	    else
-	    	$locale = craft()->language;
+    {
 
-	    $siteMeta = craft()->seomatic->getSiteMeta($locale);
-	    $variables['titleLength'] = (70 - strlen(" | ") - strlen($siteMeta['siteSeoName']));
+        if (isset($variables['locale']))
+            $locale = $variables['locale'];
+        else
+            $locale = craft()->language;
+
+        $siteMeta = craft()->seomatic->getSiteMeta($locale);
+        if ($siteMeta['siteSeoTitlePlacement'] == "none")
+            $variables['titleLength'] = 70;
+        else
+            $variables['titleLength'] = (70 - strlen(" | ") - strlen($siteMeta['siteSeoName']));
 
         $variables['siteMeta'] = $siteMeta;
-        
+
         // Whether any assets sources exist
         $sources = craft()->assets->findFolders();
         $variables['assetsSourceExists'] = count($sources);
@@ -91,13 +94,13 @@ class SeomaticController extends BaseController
 
     public function actionEditIdentity(array $variables = array())
     {
-            
-	    if (isset($variables['locale']))
-	    	$locale = $variables['locale'];
-	    else
-	    	$locale = craft()->language;
+
+        if (isset($variables['locale']))
+            $locale = $variables['locale'];
+        else
+            $locale = craft()->language;
         $variables['identity'] = craft()->seomatic->getIdentity($locale);
-        
+
         // Whether any assets sources exist
         $sources = craft()->assets->findFolders();
         $variables['assetsSourceExists'] = count($sources);
@@ -135,13 +138,13 @@ class SeomaticController extends BaseController
 
     public function actionEditSocial(array $variables = array())
     {
-            
- 	    if (isset($variables['locale']))
-	    	$locale = $variables['locale'];
-	    else
-	    	$locale = craft()->language;
+
+        if (isset($variables['locale']))
+            $locale = $variables['locale'];
+        else
+            $locale = craft()->language;
        $variables['social'] = craft()->seomatic->getSocial($locale);
-        
+
         // Set the "Continue Editing" URL
         $variables['continueEditingUrl'] = 'seomatic/social';
 
@@ -155,14 +158,14 @@ class SeomaticController extends BaseController
 
     public function actionEditCreator(array $variables = array())
     {
-            
-	    if (isset($variables['locale']))
-	    	$locale = $variables['locale'];
-	    else
-	    	$locale = craft()->language;
+
+        if (isset($variables['locale']))
+            $locale = $variables['locale'];
+        else
+            $locale = craft()->language;
 
         $variables['creator'] = craft()->seomatic->getCreator($locale);
-        
+
         // Whether any assets sources exist
         $sources = craft()->assets->findFolders();
         $variables['assetsSourceExists'] = count($sources);
@@ -205,29 +208,32 @@ class SeomaticController extends BaseController
 
     public function actionEditMeta(array $variables = array())
     {
-	    if (isset($variables['locale']))
-	    	$locale = $variables['locale'];
-	    else
-	    	$locale = craft()->language;
+        if (isset($variables['locale']))
+            $locale = $variables['locale'];
+        else
+            $locale = craft()->language;
 
-	    $siteMeta = craft()->seomatic->getSiteMeta($locale);
-	    $variables['titleLength'] = (70 - strlen(" | ") - strlen($siteMeta['siteSeoName']));
-            
+        $siteMeta = craft()->seomatic->getSiteMeta($locale);
+        if ($siteMeta['siteSeoTitlePlacement'] == "none")
+            $variables['titleLength'] = 70;
+        else
+            $variables['titleLength'] = (70 - strlen(" | ") - strlen($siteMeta['siteSeoName']));
+
         if (empty($variables['meta']))
         {
             if (!empty($variables['metaId']))
             {
                 $variables['meta'] = craft()->seomatic->getMetaById($variables['metaId'], $locale);
-				
+
 /* -- If we have a metaId but nothing is returned for that locale, make a new element/record using that elementId */
 
                 if (!$variables['meta'])
                 {
-	                /*
-	                $variables['meta'] = new Seomatic_MetaModel();
-	                $variables['meta']['locale'] = $locale;
-	                $variables['meta']['elementId'] = $variables['metaId'];
-	                */
+                    /*
+                    $variables['meta'] = new Seomatic_MetaModel();
+                    $variables['meta']['locale'] = $locale;
+                    $variables['meta']['elementId'] = $variables['metaId'];
+                    */
                     throw new HttpException(404);
                 }
             }
@@ -237,7 +243,7 @@ class SeomaticController extends BaseController
                 $variables['meta']['locale'] = $locale;
             }
         }
-        
+
         // Whether any assets sources exist
         $sources = craft()->assets->findFolders();
         $variables['assetsSourceExists'] = count($sources);
@@ -298,17 +304,17 @@ class SeomaticController extends BaseController
         $locale = craft()->request->getPost('locale');
         /*
         $elementId = craft()->request->getPost('elementId');
-		*/
-		
+        */
+
         if ($metaId)
         {
             $model = craft()->seomatic->getMetaById($metaId, $locale);
 
             if (!$model)
             {
-	            /*
-            	$model = new Seomatic_MetaModel();
-            	$elementId = $metaId;
+                /*
+                $model = new Seomatic_MetaModel();
+                $elementId = $metaId;
                 */
                 throw new Exception(Craft::t('No meta exists with the ID “{id}”', array('id' => $metaId)));
             }
@@ -383,23 +389,25 @@ class SeomaticController extends BaseController
     public function actionSaveSiteMeta()
     {
         $this->requirePostRequest();
-		$locale = craft()->request->getPost('locale');
-		if (!$locale)
-			$locale = craft()->language;
+        $locale = craft()->request->getPost('locale');
+        if (!$locale)
+            $locale = craft()->language;
 
         $record = Seomatic_SettingsRecord::model()->findByAttributes(array(
-        	'locale' => $locale,
-        	));
+            'locale' => $locale,
+            ));
 
         if (!$record)
         {
             throw new Exception(Craft::t('No SEOmatic Site Meta exists'));
         }
-        
+
 /* -- Set the SiteMeta attributes, defaulting to the existing values for whatever is missing from the post data */
 
         $record->siteSeoName = craft()->request->getPost('siteSeoName', $record->siteSeoName);
         $record->siteSeoTitle = craft()->request->getPost('siteSeoTitle', $record->siteSeoTitle);
+        $record->siteSeoTitleSeparator = craft()->request->getPost('siteSeoTitleSeparator', $record->siteSeoTitleSeparator);
+        $record->siteSeoTitlePlacement = craft()->request->getPost('siteSeoTitlePlacement', $record->siteSeoTitlePlacement);
         $record->siteSeoDescription = craft()->request->getPost('siteSeoDescription', $record->siteSeoDescription);
         $record->siteSeoKeywords = craft()->request->getPost('siteSeoKeywords', $record->siteSeoKeywords);
         $record->siteTwitterCardType = craft()->request->getPost('siteTwitterCardType', $record->siteTwitterCardType);
@@ -421,7 +429,7 @@ class SeomaticController extends BaseController
             $this->redirectToPostedUrl($record);
         }
     } /* -- actionSaveSiteMeta */
-    
+
 /* ================================================================================
     IDENTITY records
 ================================================================================ */
@@ -434,19 +442,19 @@ class SeomaticController extends BaseController
     {
         $this->requirePostRequest();
 
-		$locale = craft()->request->getPost('locale');
-		if (!$locale)
-			$locale = craft()->language;
+        $locale = craft()->request->getPost('locale');
+        if (!$locale)
+            $locale = craft()->language;
 
         $record = Seomatic_SettingsRecord::model()->findByAttributes(array(
-        	'locale' => $locale,
-        	));
+            'locale' => $locale,
+            ));
 
         if (!$record)
         {
             throw new Exception(Craft::t('No SEOmatic Settings record exists'));
         }
-        
+
 /* -- Set the Identity attributes, defaulting to the existing values for whatever is missing from the post data */
 
         $record->googleSiteVerification = craft()->request->getPost('googleSiteVerification', $record->googleSiteVerification);
@@ -516,19 +524,19 @@ class SeomaticController extends BaseController
     {
         $this->requirePostRequest();
 
-		$locale = craft()->request->getPost('locale');
-		if (!$locale)
-			$locale = craft()->language;
+        $locale = craft()->request->getPost('locale');
+        if (!$locale)
+            $locale = craft()->language;
 
         $record = Seomatic_SettingsRecord::model()->findByAttributes(array(
-        	'locale' => $locale,
-        	));
+            'locale' => $locale,
+            ));
 
         if (!$record)
         {
             throw new Exception(Craft::t('No SEOmatic Settings Record exists'));
         }
-        
+
 /* -- Set the Social attributes, defaulting to the existing values for whatever is missing from the post data */
 
         $record->twitterHandle = craft()->request->getPost('twitterHandle', $record->twitterHandle);
@@ -564,19 +572,19 @@ class SeomaticController extends BaseController
     {
         $this->requirePostRequest();
 
-		$locale = craft()->request->getPost('locale');
-		if (!$locale)
-			$locale = craft()->language;
+        $locale = craft()->request->getPost('locale');
+        if (!$locale)
+            $locale = craft()->language;
 
         $record = Seomatic_SettingsRecord::model()->findByAttributes(array(
-        	'locale' => $locale,
-        	));
+            'locale' => $locale,
+            ));
 
         if (!$record)
         {
             throw new Exception(Craft::t('No SEOmatic Settings record exists'));
         }
-        
+
 /* -- Set the Creator attributes, defaulting to the existing values for whatever is missing from the post data */
 
         $record->googleSiteVerification = craft()->request->getPost('googleSiteVerification', $record->googleSiteVerification);
