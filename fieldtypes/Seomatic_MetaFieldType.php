@@ -104,6 +104,7 @@ class Seomatic_MetaFieldType extends BaseFieldType
                 || $field->fieldType->name == "Rich Text"
                 || $field->fieldType->name == "Rich Text (Redactor I)"
                 || $field->fieldType->name == "Matrix"
+                || $field->fieldType->name == "Tags"
                 )
                 $fieldList[$field->handle] = $field->name;
             if ($field->fieldType->name == "Assets")

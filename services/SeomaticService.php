@@ -280,11 +280,7 @@ class SeomaticService extends BaseApplicationComponent
                             case 'field':
                                 if (isset($element[$entryMeta['seoTitleSourceField']]))
                                 {
-                                    $srcField = $element[$entryMeta['seoTitleSourceField']];
-                                    if (isset($srcField->elementType) && $srcField->elementType->classHandle == ElementType::MatrixBlock)
-                                        $entryMeta['seoTitle'] = $this->extractTextFromMatrix($srcField);
-                                    else
-                                        $entryMeta['seoTitle'] = strip_tags($element[$entryMeta['seoTitleSourceField']]);
+                                    $entryMeta['seoTitle'] = $this->getTextFromEntryField($element[$entryMeta['seoTitleSourceField']]);
                                 }
                             break;
                         }
@@ -294,11 +290,7 @@ class SeomaticService extends BaseApplicationComponent
                             case 'field':
                                 if (isset($element[$entryMeta['seoDescriptionSourceField']]))
                                 {
-                                    $srcField = $element[$entryMeta['seoDescriptionSourceField']];
-                                    if (isset($srcField->elementType) && $srcField->elementType->classHandle == ElementType::MatrixBlock)
-                                        $entryMeta['seoDescription'] = $this->extractTextFromMatrix($srcField);
-                                    else
-                                        $entryMeta['seoDescription'] = strip_tags($element[$entryMeta['seoDescriptionSourceField']]);
+                                    $entryMeta['seoDescription'] = $this->getTextFromEntryField($element[$entryMeta['seoDescriptionSourceField']]);
                                 }
                             break;
                         }
@@ -308,22 +300,15 @@ class SeomaticService extends BaseApplicationComponent
                             case 'field':
                                 if (isset($element[$entryMeta['seoKeywordsSourceField']]))
                                 {
-                                    $srcField = $element[$entryMeta['seoKeywordsSourceField']];
-                                    if (isset($srcField->elementType) && $srcField->elementType->classHandle == ElementType::MatrixBlock)
-                                        $entryMeta['seoKeywords'] = $this->extractTextFromMatrix($srcField);
-                                    else
-                                        $entryMeta['seoKeywords'] = strip_tags($element[$entryMeta['seoKeywordsSourceField']]);
+                                    $entryMeta['seoKeywords'] = $this->getTextFromEntryField($element[$entryMeta['seoKeywordsSourceField']]);
                                 }
                             break;
 
                             case 'keywords':
                                 if (isset($element[$entryMeta['seoKeywordsSourceField']]))
                                 {
-                                    $srcField = $element[$entryMeta['seoKeywordsSourceField']];
-                                    if (isset($srcField->elementType) && $srcField->elementType->classHandle == ElementType::MatrixBlock)
-                                        $entryMeta['seoKeywords'] = craft()->seomatic->extractKeywords($this->extractTextFromMatrix($srcField));
-                                    else
-                                        $entryMeta['seoKeywords'] = craft()->seomatic->extractKeywords(strip_tags($element[$entryMeta['seoKeywordsSourceField']]));
+                                    $text = $this->getTextFromEntryField($element[$entryMeta['seoKeywordsSourceField']]);
+                                    $entryMeta['seoKeywords'] = $this->extractKeywords($text);
                                 }
                             break;
                         }
@@ -344,6 +329,50 @@ class SeomaticService extends BaseApplicationComponent
         }
     return $entryMeta;
     } /* -- getMetaFromElement */
+
+/* --------------------------------------------------------------------------------
+    Extract text from a generix field, do different things based on the classHandle
+-------------------------------------------------------------------------------- */
+    public function getTextFromEntryField($srcField)
+    {
+        $result = "";
+        if (isset($srcField->elementType))
+        {
+            switch ($srcField->elementType->classHandle)
+            {
+                case ElementType::MatrixBlock:
+                    $result= $this->extractTextFromMatrix($srcField);
+                    break;
+
+                case ElementType::Tag:
+                    $result= $this->extractTextFromTags($srcField);
+                    break;
+
+                default:
+                    $result = strip_tags($srcField);
+                    break;
+            }
+        }
+        else
+            $result = strip_tags($srcField);
+
+        return $result;
+    }
+
+/* --------------------------------------------------------------------------------
+    Extract text from a tags field
+-------------------------------------------------------------------------------- */
+
+    public function extractTextFromTags($tags)
+    {
+        $result = "";
+        foreach($tags as $tag)
+        {
+            $result .= $tag->title . ", ";
+        }
+        $result = rtrim($result, ", ");
+        return $result;
+    }
 
 /* --------------------------------------------------------------------------------
     Extract text from a matrix field
@@ -1597,6 +1626,8 @@ class SeomaticService extends BaseApplicationComponent
             $keywords = null;
         }
 
+        if ($keywords == "")
+            $keywords = str_replace(' ', ',' , $text);
         return (is_array($keywords)) ? implode(", ", array_slice(array_keys($keywords), 0, $limit)) : $keywords;
     } /* -- extractKeywords */
 
@@ -1628,6 +1659,8 @@ class SeomaticService extends BaseApplicationComponent
         {
             $summary = $text;
         }
+        if ($summary == "")
+            $keywords = $text;
 
         return $summary;
     } /* -- extractSummary */
