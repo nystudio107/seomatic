@@ -259,7 +259,7 @@ You can use any Craft `environmentVariables` in these fields in addition to stat
 
 In addition to being able to hold custom data that you enter manually, you can also set the Source that **SEO Title**, **SEO Description**, **SEO Keywords**, and **SEO Image** SEOmatic Meta fields to pull data from to an existing field in your Entry.  
 
-**SEO Image** only can pull from an existing Assets field, while **SEO Title**, **SEO Description**, and **SEO Keywords** can pull from Text, Rich Text, and Matrix fields.  If you pull from a Matrix field, SEOmatic goes through and concatenates all of the Text & Rich Text fields together (this is useful for **SEO Keywords** generation).
+**SEO Image** only can pull from an existing Assets field, while **SEO Title**, **SEO Description**, and **SEO Keywords** can pull from Text, Rich Text, Tags, and Matrix fields.  If you pull from a Matrix field, SEOmatic goes through and concatenates all of the Text & Rich Text fields together (this is useful for **SEO Keywords** generation).
 
 The **SEO Keywords** field also allows you to extract keywords automatically from an existing field in your Entry via the `Keywords From Field` Source option.
 
