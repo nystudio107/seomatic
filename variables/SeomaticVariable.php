@@ -95,6 +95,17 @@ class SeomaticVariable
         return $result;
     } /* -- encodeEmailAddress */
 
+/* --------------------------------------------------------------------------------
+    Extract all of the text and rich text from the fields in MatrixBlockModels
+-------------------------------------------------------------------------------- */
+
+    public function extractTextFromMatrix($matrixBlocks)
+    {
+        $result = craft()->seomatic->extractTextFromMatrix($matrixBlocks);
+
+        return $result;
+    } /* -- extractTextFromMatrix */
+
 /* ================================================================================
     INTERNAL methods for SEOmatic use
 ================================================================================ */

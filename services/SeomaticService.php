@@ -261,7 +261,7 @@ class SeomaticService extends BaseApplicationComponent
 
         $entryMeta = null;
         $entryMetaUrl = "";
-        if (isset($element) && $element)
+        if (isset($element) && $element && $element->getElementType() == ElementType::Entry)
         {
             $attributes = $element->content->attributes;
             foreach ($attributes as $key => $value)
@@ -280,7 +280,11 @@ class SeomaticService extends BaseApplicationComponent
                             case 'field':
                                 if (isset($element[$entryMeta['seoTitleSourceField']]))
                                 {
-                                    $entryMeta['seoTitle'] = strip_tags($element[$entryMeta['seoTitleSourceField']]);
+                                    $srcField = $element[$entryMeta['seoTitleSourceField']];
+                                    if (isset($srcField->elementType) && $srcField->elementType->classHandle == ElementType::MatrixBlock)
+                                        $entryMeta['seoTitle'] = $this->extractTextFromMatrix($srcField);
+                                    else
+                                        $entryMeta['seoTitle'] = strip_tags($element[$entryMeta['seoTitleSourceField']]);
                                 }
                             break;
                         }
@@ -290,7 +294,11 @@ class SeomaticService extends BaseApplicationComponent
                             case 'field':
                                 if (isset($element[$entryMeta['seoDescriptionSourceField']]))
                                 {
-                                    $entryMeta['seoDescription'] = strip_tags($element[$entryMeta['seoDescriptionSourceField']]);
+                                    $srcField = $element[$entryMeta['seoDescriptionSourceField']];
+                                    if (isset($srcField->elementType) && $srcField->elementType->classHandle == ElementType::MatrixBlock)
+                                        $entryMeta['seoDescription'] = $this->extractTextFromMatrix($srcField);
+                                    else
+                                        $entryMeta['seoDescription'] = strip_tags($element[$entryMeta['seoDescriptionSourceField']]);
                                 }
                             break;
                         }
@@ -300,14 +308,22 @@ class SeomaticService extends BaseApplicationComponent
                             case 'field':
                                 if (isset($element[$entryMeta['seoKeywordsSourceField']]))
                                 {
-                                    $entryMeta['seoKeywords'] = strip_tags($element[$entryMeta['seoKeywordsSourceField']]);
+                                    $srcField = $element[$entryMeta['seoKeywordsSourceField']];
+                                    if (isset($srcField->elementType) && $srcField->elementType->classHandle == ElementType::MatrixBlock)
+                                        $entryMeta['seoKeywords'] = $this->extractTextFromMatrix($srcField);
+                                    else
+                                        $entryMeta['seoKeywords'] = strip_tags($element[$entryMeta['seoKeywordsSourceField']]);
                                 }
                             break;
 
                             case 'keywords':
                                 if (isset($element[$entryMeta['seoKeywordsSourceField']]))
                                 {
-                                    $entryMeta['seoKeywords'] = craft()->seomatic->extractKeywords(strip_tags($element[$entryMeta['seoKeywordsSourceField']]));
+                                    $srcField = $element[$entryMeta['seoKeywordsSourceField']];
+                                    if (isset($srcField->elementType) && $srcField->elementType->classHandle == ElementType::MatrixBlock)
+                                        $entryMeta['seoKeywords'] = craft()->seomatic->extractKeywords($this->extractTextFromMatrix($srcField));
+                                    else
+                                        $entryMeta['seoKeywords'] = craft()->seomatic->extractKeywords(strip_tags($element[$entryMeta['seoKeywordsSourceField']]));
                                 }
                             break;
                         }
@@ -328,6 +344,33 @@ class SeomaticService extends BaseApplicationComponent
         }
     return $entryMeta;
     } /* -- getMetaFromElement */
+
+/* --------------------------------------------------------------------------------
+    Extract text from a matrix field
+-------------------------------------------------------------------------------- */
+
+    public function extractTextFromMatrix($matrixBlocks)
+    {
+        $result = "";
+        foreach ($matrixBlocks as $block)
+        {
+            $matrixBlockTypeModel = $block->getType();
+            $fields = $matrixBlockTypeModel->getFields();
+
+            foreach ($fields as $field)
+            {
+                if ($field->fieldType->name == "Plain Text"
+                    || $field->fieldType->name == "Rich Text"
+                    || $field->fieldType->name == "Rich Text (Redactor I)"
+                    )
+                    {
+                        $result .= strip_tags($block[$field->handle]) . " ";
+                    }
+            }
+
+        }
+        return $result;
+    } /* -- extractTextFromMatrix */
 
 /* --------------------------------------------------------------------------------
     Set the entry-level meta

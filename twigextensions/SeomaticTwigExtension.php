@@ -51,6 +51,7 @@ class SeomaticTwigExtension extends \Twig_Extension
             'extractSummary' => new \Twig_Filter_Method($this, 'extractSummary'),
             'truncateStringOnWord' => new \Twig_Filter_Method($this, 'truncateStringOnWord'),
             'encodeEmailAddress' => new \Twig_Filter_Method($this, 'encodeEmailAddress'),
+            'extractTextFromMatrix' => new \Twig_Filter_Method($this, 'extractTextFromMatrix'),
         );
     }
 
@@ -66,6 +67,7 @@ class SeomaticTwigExtension extends \Twig_Extension
             'extractSummary' => new \Twig_Function_Method($this, 'extractSummary'),
             'truncateStringOnWord' => new \Twig_Function_Method($this, 'truncateStringOnWord'),
             'encodeEmailAddress' => new \Twig_Function_Method($this, 'encodeEmailAddress'),
+            'extractTextFromMatrix' => new \Twig_Function_Method($this, 'extractTextFromMatrix'),
         );
     }
 
@@ -155,6 +157,17 @@ class SeomaticTwigExtension extends \Twig_Extension
 
         return $result;
     } /* -- encodeEmailAddress */
+
+/* --------------------------------------------------------------------------------
+    Extract all of the text and rich text from the fields in MatrixBlockModels
+-------------------------------------------------------------------------------- */
+
+    public function extractTextFromMatrix($matrixBlocks)
+    {
+        $result = craft()->seomatic->extractTextFromMatrix($matrixBlocks);
+
+        return $result;
+    } /* -- extractTextFromMatrix */
 
 /* --------------------------------------------------------------------------------
     Get the current template path

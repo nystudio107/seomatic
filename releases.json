@@ -1,8 +1,20 @@
 [
     {
+        "version": "1.0.10",
+        "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
+        "date": "2016-01-12T11:00:00-05:00",
+        "notes": [
+            "[Added] You can now set Matrix blocks to be a Source for SEO FieldType Meta fields; it iterates through all text and rich text fields",
+            "[Added] Added a extractTextFromMatrix() Twig filter/function/variable for templating use",
+            "[Improved] The truncateStringOnWord() function does a much better job on comma-delimited keywords now",
+            "[Fixed] Fixed a regression that caused the 'New Template Meta' button to be broken",
+            "[Improved] Updated the README.md"
+        ]
+    },
+    {
         "version": "1.0.9",
         "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
-        "date": "2016-01-10T11:00:00-05:00",
+        "date": "2016-01-11T11:00:00-05:00",
         "notes": [
             "[Added] Added tokenized input fields for the keywords for the Site Meta, Template Meta, and Field Meta",
             "[Added] You can now specify the position of the SEO Site Title relative to the Title",

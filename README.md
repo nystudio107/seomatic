@@ -257,13 +257,15 @@ You can use any Craft `environmentVariables` in these fields in addition to stat
 
     This is my {baseUrl}
 
-In addition to being able to hold custom data that you enter manually, you can also set the Source that **SEO Title**, **SEO Description**, **SEO Keywords**, and **SEO Image** SEOmatic Meta fields to pull data from to an existing field in your Entry.
+In addition to being able to hold custom data that you enter manually, you can also set the Source that **SEO Title**, **SEO Description**, **SEO Keywords**, and **SEO Image** SEOmatic Meta fields to pull data from to an existing field in your Entry.  
+
+**SEO Image** only can pull from an existing Assets field, while **SEO Title**, **SEO Description**, and **SEO Keywords** can pull from Text, Rich Text, and Matrix fields.  If you pull from a Matrix field, SEOmatic goes through and concatenates all of the Text & Rich Text fields together (this is useful for **SEO Keywords** generation).
 
 The **SEO Keywords** field also allows you to extract keywords automatically from an existing field in your Entry via the `Keywords From Field` Source option.
 
 ## Dynamic Twig SEO Meta
 
-All this SEO is great, but what if you want to generate dynamic SEO in an Twig template, for example on a Blog page where each blog entry should have different SEO Meta?  SEOmatic makes it easy.
+All this SEO is great, but what if you want to generate dynamic SEO in an Twig template, with custom or specific requirements that the SEOmatic FieldType can't handle?  SEOmatic makes it easy.
 
 SEOmatic populates your templates with the following global variables for SEO Meta:
 
@@ -302,6 +304,16 @@ You'll also get variables that are used to generate your Facebook Open Graph tag
     seomaticMeta.og.see_also
 
 When SEOmatic goes to render the `twitter` and `og` tags, it iterates through the respective arrays, so you can add, remove, or change any of the key-value pairs in the array, and they will be rendered.  Just ensure that the `key` is a valid schema type for the respective meta tags.
+
+You can even do fun things like:
+
+    	{% set seomaticMeta = seomaticMeta | merge({'og':
+    	    {
+			    'image': ['one.jpg', 'two.jpg', 'three.jpg']
+			}
+		}) %}
+    
+...and SEOmatic will output 3 `og:image` tags, one for each image in the array.
 
 You can also change them all at once like this using the Twig [set](http://twig.sensiolabs.org/doc/tags/set.html) syntax:
 
@@ -658,6 +670,21 @@ All three of these methods accomplish the same thing:
 **THESTRING** is the string to be truncated, and the optional **DESIREDLENGTH** parameter specifies the desired length in characters.  The returned string will be broken on a whole-word boundary, with an … appended to the end if it is truncated.
 
 You shouldn't need to use truncateStringOnWord() for SEO Meta like `seoTitle` & `seoDescription` that have character limitations, because SEOmatic will truncate them for you automatically.  However you may find this function handy for other purposes.
+
+### extractTextFromMatrix()
+
+All three of these methods accomplish the same thing:
+
+    {# Extract all and concatenate all of the text fields from a Matrix block using the 'extractTextFromMatrix' function #}
+    {{ extractTextFromMatrix( THEMATRIXBLOCK ) }}
+    
+    {# Extract all and concatenate all of the text fields from a Matrix block using the 'extractTextFromMatrix' filter #}
+    {{ THEMATRIXBLOCK | extractTextFromMatrix() }}
+    
+    {# Extract all and concatenate all of the text fields from a Matrix block using the 'extractTextFromMatrix' variable #}
+    {% do craft.seomatic. extractTextFromMatrix( THEMATRIXBLOCK ) %}
+
+**THEMATRIXBLOCK** is the Matrix block to extract text from.  It iterates through all of the 'Text' and 'Rich Text' fields in a Matrix block, and concatenates the text together for you.  This is a useful precursor for the `extractKeywords()` function.
 
 ### encodeEmailAddress()
 
