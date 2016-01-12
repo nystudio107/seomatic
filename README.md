@@ -307,11 +307,18 @@ When SEOmatic goes to render the `twitter` and `og` tags, it iterates through th
 
 You can even do fun things like:
 
-    	{% set seomaticMeta = seomaticMeta | merge({'og':
-    	    {
-			    'image': ['one.jpg', 'two.jpg', 'three.jpg']
-			}
-		}) %}
+	{% set seomaticMeta = seomaticMeta | merge(
+	    og: { 
+	        type: seomaticMeta.og.type,
+	        locale: seomaticMeta.og.locale,
+	        url: entry.url,
+	        title: "Some Title",
+	        description: entry.summary,
+	        image: ['one.jpg', 'two.jpg', 'three.jpg'],
+	        site_name: seomaticMeta.og.site_name,
+	        see_also: seomaticMeta.og.see_also
+	    }
+	}) %}
     
 ...and SEOmatic will output 3 `og:image` tags, one for each image in the array.
 
