@@ -1675,12 +1675,13 @@ class SeomaticService extends BaseApplicationComponent
         {
             if (is_string($value))
             {
-                $theArray[$key] = craft()->config->parseEnvironmentString($value);
-                $theArray[$key] = strip_tags($value);
+                $value = craft()->config->parseEnvironmentString($value);
+                $value= strip_tags($value);
                 if ($key == 'email')
-                    $theArray[$key] = $this->encodeEmailAddress($value);
+                    $value = $this->encodeEmailAddress($value);
                 else
-                    $theArray[$key] = htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, 'UTF-8', false);
+                    $value = htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, 'UTF-8', false);
+                $theArray[$key] = $value;
             }
             else
             {

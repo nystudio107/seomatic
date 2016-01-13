@@ -2,7 +2,7 @@
 
 A turnkey SEO implementation for Craft CMS that is comprehensive, powerful, and flexible.
 
-![Screenshot](resources/screenshots/seomatic01.jpg)
+![Screenshot](resources/screenshots/seomatic01.png)
 
 ## Installation
 
@@ -237,7 +237,7 @@ You can use any Craft `environmentVariables` in these fields in addition to stat
 
 ## SEO Entry Meta
 
-![Screenshot](resources/screenshots/seomatic10.jpg)
+![Screenshot](resources/screenshots/seomatic03.png)
 
 SEOmatic provides a FieldType called `SEOmatic Meta` that you can add to your Sections.  It allows you to provide meta information on a per-entry basis.  SEOmatic will automatically override any Site Meta or Tempalate Meta with Entry Meta if an `entry` that has an SEOmatic Meta field is auto-populated by Craft into a template.
 
@@ -821,7 +821,7 @@ There's a lot going on here, so to make it all more easily understood, SEOmatic 
 
 ### Preview SEO Meta Display
 
-![Screenshot](resources/screenshots/seomatic02.jpg)
+![Screenshot](resources/screenshots/seomatic02.png)
 
 Clicking on the **Preview SEO Meta Display** button will show you a preview of what the rendered SEO Meta will look like to various services that scrape your SEO Meta tags, such as Google, Twitter, and Facebook.
 
@@ -1279,13 +1279,22 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.0.11 -- 2016.01.13
+
+* [Added] You can now set Tags fields to be a Source for SEO FieldType Meta fields
+* [Added] Added a meta referrer tag to the template (set to 'always')
+* [Added] Added a http-equiv='Content-Type' content='text/html; charset=utf-8' meta tag
+* [Fixed] If the SEO Title is empty, it no longer appear in the title
+* [Fixed] Fixed an issue that would cause the seomatic* variables to not be properly sanitized
+* [Improved] Updated the README.md
+
 ### 1.0.10 -- 2016.01.12
 
 * [Added] You can now set Matrix blocks to be a Source for SEO FieldType Meta fields; it iterates through all text and rich text fields
 * [Added] Added a extractTextFromMatrix() Twig filter/function/variable for templating use
 * [Improved] The truncateStringOnWord() function does a much better job on comma-delimited keywords now
 * [Fixed] Fixed a regression that caused the 'New Template Meta' button to be broken
-* [Improved] Updated the README.md"
+* [Improved] Updated the README.md
 
 ### 1.0.9 -- 2016.01.11
 

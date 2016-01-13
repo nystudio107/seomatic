@@ -52,9 +52,6 @@ class Seomatic_MetaFieldType extends BaseFieldType
             'prefix' => craft()->templates->namespaceInputId(""),
             );
 
-        $jsonVars = json_encode($jsonVars);
-        craft()->templates->includeJs("$('#{$namespacedId}').SeomaticFieldType(" . $jsonVars . ");");
-
         if (isset($variables['locale']))
             $locale = $variables['locale'];
         else
@@ -95,25 +92,56 @@ class Seomatic_MetaFieldType extends BaseFieldType
 /* -- Extract a list of the other plain text fields that are in this entry's layout */
 
         $fieldList = array('title' => 'Title');
+        $fieldData = array('title' => $this->element->content['title']);
         $imageFieldList = array();
         $fieldLayouts = $this->element->fieldLayout->getFields();
         foreach ($fieldLayouts as $fieldLayout)
         {
             $field = craft()->fields->getFieldById($fieldLayout->fieldId);
-            if ($field->fieldType->name == "Plain Text"
-                || $field->fieldType->name == "Rich Text"
-                || $field->fieldType->name == "Rich Text (Redactor I)"
-                || $field->fieldType->name == "Matrix"
-                || $field->fieldType->name == "Tags"
-                )
-                $fieldList[$field->handle] = $field->name;
-            if ($field->fieldType->name == "Assets")
-                $imageFieldList[$field->handle] = $field->name;
+
+            switch ($field->type)
+            {
+                case "PlainText":
+                case "RichText":
+                case "RedactorI":
+                    $fieldList[$field->handle] = $field->name;
+                    $fieldData[$field->handle] = craft()->seomatic->truncateStringOnWord(
+                            $this->element->content[$field->handle],
+                            200);
+                    break;
+
+                case "Matrix":
+                    $fieldList[$field->handle] = $field->name;
+                    $fieldData[$field->handle] = craft()->seomatic->truncateStringOnWord(
+                            craft()->seomatic->extractTextFromMatrix($this->element[$field->handle]),
+                            200);
+                    break;
+
+                case "Tags":
+                    $fieldList[$field->handle] = $field->name;
+                    $fieldData[$field->handle] = craft()->seomatic->truncateStringOnWord(
+                            craft()->seomatic->extractTextFromTags($this->element[$field->handle]),
+                            200);
+                    break;
+
+                case "Assets":
+                    $imageFieldList[$field->handle] = $field->name;
+                    $img = $this->element[$field->handle]->first();
+                    if ($img)
+                        {
+                            $fieldImage[$field->handle] = $img->url;
+                        }
+                    break;
+            }
         }
         $variables['fieldList'] = $fieldList;
         $variables['imageFieldList'] = $imageFieldList;
         $variables['elementId'] = $this->element->id;
-
+        $jsonVars['fieldData'] = $fieldData;
+        $jsonVars['fieldImage'] = $fieldImage;
+        $jsonVars['missing_image'] = UrlHelper::getResourceUrl('seomatic/images/missing_image.png');
+        $jsonVars = json_encode($jsonVars);
+        craft()->templates->includeJs("$('#{$namespacedId}').SeomaticFieldType(" . $jsonVars . ");");
         return craft()->templates->render('seomatic/field', $variables);
     }
 

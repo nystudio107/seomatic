@@ -53,7 +53,8 @@
                 value: meta.seoTitleSourceField,
                 locale: field.translatable ? locale,
             }) }}
-        </div>
+            <p class="textpreview" id="{{ id ~ 'seoTitle-preview' }}"></p>
+       </div>
         <div id ="seoTitle-wrapper" class="customFieldWrapper">
             {{ forms.textField({
                 fieldClass: 'nomarginfield',
@@ -103,6 +104,7 @@
                 value: meta.seoDescriptionSourceField,
                 locale: field.translatable ? locale,
             }) }}
+            <p class="textpreview" id="{{ id ~ 'seoDescription-preview' }}"></p>
         </div>
         <div id ="seoDescription-wrapper" class="customFieldWrapper">
             {{ forms.textarea({
@@ -154,6 +156,7 @@
                 value: meta.seoKeywordsSourceField,
                 locale: field.translatable ? locale,
             }) }}
+            <p class="textpreview" id="{{ id ~ 'seoKeywords-preview' }}"></p>
         </div>
         <div id ="seoKeywords-wrapper" class="customFieldWrapper">
             {{ forms.textarea({
@@ -203,7 +206,8 @@
                 value: meta.seoImageIdSourceField,
                 locale: field.translatable ? locale,
             }) }}
-        </div>
+        <img id="{{ id ~ 'seoImageIdSource-preview' }}" class="scale-with-grid" src="{{ resourceUrl('seomatic/images/missing_image.png') }}" alt="Image Preview" />
+       </div>
         <div id ="seoImageId-wrapper" class="customFieldWrapper">
             <div class="input">
                 {% if assetsSourceExists %}

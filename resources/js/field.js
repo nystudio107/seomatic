@@ -16,7 +16,6 @@
         this.element = element;
 
         this.options = $.extend( {}, defaults, options) ;
-console.log(this.options);
 
         this._defaults = defaults;
         this._name = pluginName;
@@ -30,8 +29,36 @@ console.log(this.options);
             var seomatic = this,
                 $field = $(this.element);
 
+            function setPreviewFields() {
+                var handle = $('#' + seomatic.options.prefix + seomatic.options.id + 'seoTitleSourceField').val();
+                var text = seomatic.options.fieldData[handle];
+                if (text == "")
+                    text = "&nbsp;";
+                $('#' + seomatic.options.prefix + seomatic.options.id + 'seoTitle-preview').html(text);
+
+                var handle = $('#' + seomatic.options.prefix + seomatic.options.id + 'seoDescriptionSourceField').val();
+                var text = seomatic.options.fieldData[handle];
+                if (text == "")
+                    text = "&nbsp;";
+                $('#' + seomatic.options.prefix + seomatic.options.id + 'seoDescription-preview').html(text);
+
+                var handle = $('#' + seomatic.options.prefix + seomatic.options.id + 'seoKeywordsSourceField').val();
+                var text = seomatic.options.fieldData[handle];
+                if (text == "")
+                    text = "&nbsp;";
+                $('#' + seomatic.options.prefix + seomatic.options.id + 'seoKeywords-preview').html(text);
+
+                var handle = $('#' + seomatic.options.prefix + seomatic.options.id + 'seoImageIdSourceField').val();
+                var url = seomatic.options.fieldImage[handle];
+                console.log(url);
+                if (url == "" || typeof url == 'undefined')
+                    url = seomatic.options.missing_image;
+                $('#' + seomatic.options.prefix + seomatic.options.id + 'seoImageIdSource-preview').attr('src', url);
+                }
+
             $(function () {
 
+                setPreviewFields();
                 $('#' + seomatic.options.prefix + seomatic.options.id + 'seoKeywords').tokenfield();
 
                 $('#' + seomatic.options.prefix + 'preview-tags').on('click', function(e) {
@@ -53,6 +80,12 @@ console.log(this.options);
                     $('#' + seomatic.options.prefix + 'preview-display-popup').bPopup();
 
                 });
+
+/* -- Show/hide the select fields initially */
+
+                $('.selectFieldWrapper > div > div > div > select').on('change', function(e) {
+                    setPreviewFields();
+                    });
 
 /* -- Show/hide the select fields initially */
 

@@ -1,5 +1,19 @@
 [
     {
+        "version": "1.0.11",
+        "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
+        "date": "2016-01-13T11:00:00-05:00",
+        "notes": [
+            "[Added] Added a preview of the Source fields in SEOmatic FieldTypes",
+            "[Added] You can now set Tags fields to be a Source for SEO FieldType Meta fields",
+            "[Added] Added a meta referrer tag to the template (set to 'always')",
+            "[Added] Added a http-equiv='Content-Type' content='text/html; charset=utf-8' meta tag",
+            "[Fixed] If the SEO Title is empty, it no longer appear in the title",
+            "[Fixed] Fixed an issue that would cause the seomatic* variables to not be properly sanitized",
+            "[Improved] Updated the README.md"
+        ]
+    },
+    {
         "version": "1.0.10",
         "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
         "date": "2016-01-12T11:00:00-05:00",
