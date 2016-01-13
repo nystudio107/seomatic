@@ -93,6 +93,7 @@ class Seomatic_MetaFieldType extends BaseFieldType
 
         $fieldList = array('title' => 'Title');
         $fieldData = array('title' => $this->element->content['title']);
+        $fieldImage = array();
         $imageFieldList = array();
         $fieldLayouts = $this->element->fieldLayout->getFields();
         foreach ($fieldLayouts as $fieldLayout)
