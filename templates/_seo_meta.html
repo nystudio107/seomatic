@@ -20,8 +20,8 @@
 <meta name="geo.region" content="{{ seomaticIdentity.address.addressRegion |raw }}" />
 {% endif %}
 {% if seomaticIdentity.location.geo.latitude is defined and seomaticIdentity.location.geo.latitude and seomaticIdentity.location.geo.latitude is defined and seomaticIdentity.location.geo.latitude %}
-<meta name="geo.position" content="{{ seomaticIdentity.location.geo.latitude |raw }},{{ seomaticIdentity.location.geo.latitude |raw }}" />
-<meta name="ICBM" content="{{ seomaticIdentity.location.geo.latitude |raw }},{{ seomaticIdentity.location.geo.latitude |raw }}" />
+<meta name="geo.position" content="{{ seomaticIdentity.location.geo.latitude |raw }},{{ seomaticIdentity.location.geo.longitude |raw }}" />
+<meta name="ICBM" content="{{ seomaticIdentity.location.geo.latitude |raw }},{{ seomaticIdentity.location.geo.longitude |raw }}" />
 {% endif %}
 {% if seomaticIdentity.location.name is defined and seomaticIdentity.location.name %}
 <meta name="geo.placename" content="{{ seomaticIdentity.location.name |raw }}" />
