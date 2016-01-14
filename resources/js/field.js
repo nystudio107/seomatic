@@ -59,7 +59,9 @@
             $(function () {
 
                 setPreviewFields();
-                $('#' + seomatic.options.prefix + seomatic.options.id + 'seoKeywords').tokenfield();
+                $('#' + seomatic.options.prefix + seomatic.options.id + 'seoKeywords').tokenfield({
+                    createTokensOnBlur: true,
+                    });
 
                 $('#' + seomatic.options.prefix + 'preview-tags').on('click', function(e) {
 

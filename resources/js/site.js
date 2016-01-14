@@ -2,6 +2,8 @@
 
 $(function () {
 
-    $('#siteSeoKeywords').tokenfield();
+    $('#siteSeoKeywords').tokenfield({
+        createTokensOnBlur: true,
+        });
 
 });

@@ -107,7 +107,7 @@ class Seomatic_MetaFieldType extends BaseFieldType
                 case "RedactorI":
                     $fieldList[$field->handle] = $field->name;
                     $fieldData[$field->handle] = craft()->seomatic->truncateStringOnWord(
-                            $this->element->content[$field->handle],
+                            strip_tags($this->element->content[$field->handle]),
                             200);
                     break;
 

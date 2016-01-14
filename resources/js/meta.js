@@ -1,6 +1,7 @@
 // LOAD EVENTS
 
 $(function () {
-    $('#seoKeywords').tokenfield();
-
+    $('#seoKeywords').tokenfield({
+        createTokensOnBlur: true,
+        });
 });
