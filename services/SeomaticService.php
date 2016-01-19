@@ -1234,7 +1234,8 @@ class SeomaticService extends BaseApplicationComponent
 
         if ($forTemplate)
         {
-            $whereQuery = '`metaPath` = ' . '\'' .$forTemplate . '\'';
+            $forTemplate = craft()->db->quoteValue($forTemplate);
+            $whereQuery = '`metaPath` = ' . $forTemplate;
             $metaRecord = Seomatic_MetaRecord::model()->find($whereQuery);
             if ($metaRecord)
             {

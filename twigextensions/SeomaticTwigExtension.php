@@ -190,10 +190,12 @@ class SeomaticTwigExtension extends \Twig_Extension
                     $result = substr($result, strlen($templatesPath));
                 }
         }
-/* -- Make sure this template actually exists */
+/* -- Handle the below condition by using mysql_real_escape_string() instead, for performance reasons */
+
+/* -- Make sure this template actually exists
         if ($result && !craft()->templates->doesTemplateExist($result))
             $result = "";
-
+*/
         return $result;
     }
 
