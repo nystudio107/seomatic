@@ -910,7 +910,7 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Settings for all organization Identity types */
 
-        if ($identity['siteOwnerType'] != "person")
+        if ($identity['siteOwnerType'] != "Person")
         {
             if (isset($identity['genericOwnerImage']))
                 $identityJSONLD['logo'] = $identity['genericOwnerImage'];
@@ -952,18 +952,21 @@ class SeomaticService extends BaseApplicationComponent
 
         switch ($identity['siteOwnerType'])
         {
-            case 'corporation':
+            case 'Corporation':
                 $identityJSONLD['tickerSymbol'] = $identity['corporationOwnerTickerSymbol'];
             break;
 
-            case 'organization':
+            case 'LocalBusiness':
             break;
 
-            case 'restaurant':
+            case 'Organization':
+            break;
+
+            case 'Restaurant':
                 $identityJSONLD['servesCuisine'] = $identity['restaurantOwnerServesCuisine'];
             break;
 
-            case 'person':
+            case 'Person':
                 $identityJSONLD['gender'] = $identity['personOwnerGender'];
                 $identityJSONLD['birthPlace'] = $identity['personOwnerBirthPlace'];
             break;
@@ -1030,7 +1033,7 @@ class SeomaticService extends BaseApplicationComponent
 
         $creator['locale'] = $settings['locale'];
 
-        $creator['siteCreatorType'] = $settings['siteCreatorType'];
+        $creator['siteCreatorType'] = ucfirst($settings['siteCreatorType']);
 
         $creator['genericCreatorName'] = $settings['genericCreatorName'];
         $creator['genericCreatorAlternateName'] = $settings['genericCreatorAlternateName'];
@@ -1111,7 +1114,7 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Settings for all organization Creator types */
 
-        if ($creator['siteCreatorType'] != "person")
+        if ($creator['siteCreatorType'] != "Person")
         {
             if (isset($creator['genericCreatorImage']))
                 $creatorJSONLD['logo'] = $creator['genericCreatorImage'];
@@ -1153,17 +1156,20 @@ class SeomaticService extends BaseApplicationComponent
 
         switch ($creator['siteCreatorType'])
         {
-            case 'corporation':
+            case 'Corporation':
                 $creatorJSONLD['tickerSymbol'] = $creator['corporationCreatorTickerSymbol'];
             break;
 
-            case 'organization':
+            case 'LocalBusiness':
             break;
 
-            case 'restaurant':
+            case 'Organization':
             break;
 
-            case 'person':
+            case 'Restaurant':
+            break;
+
+            case 'Person':
                 $creatorJSONLD['gender'] = $creator['personCreatorGender'];
                 $creatorJSONLD['birthPlace'] = $creator['personCreatorBirthPlace'];
             break;
@@ -1417,7 +1423,7 @@ class SeomaticService extends BaseApplicationComponent
 
         if ($social['linkedInHandle'])
         {
-            if ($siteOwnerType == "person")
+            if ($siteOwnerType == "Person")
                 $helper['linkedInUrl'] = "https://www.linkedin.com/in/" . $social['linkedInHandle'];
             else
                 $helper['linkedInUrl'] = "https://www.linkedin.com/company/" . $social['linkedInHandle'];

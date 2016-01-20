@@ -69,10 +69,11 @@
                         instructions: "The type of entity that owns this website."|t,
                         id: "siteOwnerType",
                         options: {
-                            corporation: "Corporation"|t,
-                            organization: "Organization"|t,
-                            restaurant: "Restaurant"|t,
-                            person: "Person"|t,
+                            "Corporation": "Corporation"|t,
+                            "Organization": "Organization"|t,
+                            "LocalBusiness": "Local Business"|t,
+                            "Restaurant": "Restaurant"|t,
+                            "Person": "Person"|t,
                         },
                         name: "siteOwnerType",
                         value: identity.siteOwnerType,
@@ -354,7 +355,7 @@
 
 <!-- Corporation-specific fields -->
 
-                    <div id="corporation" class="metaPane field">
+                    <div id="Corporation" class="metaPane field">
                         <h2>{{ "Corporation Info" |t }}</h2>
                         {{ forms.textField({
                             label: "Corporation Ticker Symbol"|t,
@@ -368,14 +369,60 @@
                         }) }}
                     </div>
 
+<!-- LocalBusiness-specific fields -->
+
+                    <div id="LocalBusiness" class="metaPane field">
+                    {% macro day(id, name, value, day) %}
+                        {% from "_includes/forms" import time %}
+                            <tr>
+                                <th>
+                                    {{ craft.i18n.getLocaleData().getWeekDayName(day) }}
+                                </th>
+                                <td>
+                                    {{ time({
+                                        id: id~'-'~day~'-open',
+                                        name: name~'['~day~'][open]',
+                                        value: value ? value[day].open
+                                    }) }}
+                                </td>
+                                <td>
+                                    {{ time({
+                                        id: id~'-'~day~'-close',
+                                        name: name~'['~day~'][close]',
+                                        value: value ? value[day].close
+                                    }) }}
+                                </td>
+                            </tr>
+                    {% endmacro %}
+
+                    {% from _self import day %}
+
+                    {% set localeData = craft.i18n.getLocaleData() %}
+
+                    <table class="data">
+                        <thead>
+                            <tr>
+                                <td></td>
+                                <th>Opening Time</th>
+                                <th>Closing Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in 0..6 %}
+                                {{ day('woof', 'skank', "", i) }}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+
 <!-- Organization-specific fields -->
 
-                    <div id="organization" class="metaPane field">
+                    <div id="Organization" class="metaPane field">
                     </div>
 
 <!-- Restaurant-specific fields -->
 
-                    <div id="restaurant" class="metaPane field">
+                    <div id="Restaurant" class="metaPane field">
                         <h2>{{ "Restaurant Info" |t }}</h2>
                         {{ forms.textField({
                             label: "Restaurant Cuisine"|t,
@@ -391,7 +438,7 @@
 
 <!-- Person-specific fields -->
 
-                    <div id="person" class="metaPane field">
+                    <div id="Person" class="metaPane field">
                         <h2>{{ "Person Info" |t }}</h2>
                         <div class="field">
                             <div class="half-width-field half-width-field-left">

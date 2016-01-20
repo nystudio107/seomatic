@@ -32,7 +32,7 @@ class Seomatic_SettingsModel extends BaseModel
 -------------------------------------------------------------------------------- */
 
             'googleSiteVerification'            => array(AttributeType::String, 'default' => ''),
-            'siteOwnerType'                     => array(AttributeType::String, 'default' => 'corporation'),
+            'siteOwnerType'                     => array(AttributeType::String, 'default' => 'Corporation'),
 
 /* -- Generic owner fields */
 
@@ -88,7 +88,7 @@ class Seomatic_SettingsModel extends BaseModel
     CEATOR settings
 -------------------------------------------------------------------------------- */
 
-            'siteCreatorType'                   => array(AttributeType::String, 'default' => 'corporation'),
+            'siteCreatorType'                   => array(AttributeType::String, 'default' => 'Corporation'),
 
 /* -- Generic Creator fields */
 

@@ -3,15 +3,17 @@
 $(function () {
 
     $('.metaPane').hide();
-    value = $('#siteOwnerType').val();
+    var value = $('#siteOwnerType').val();
+    value = value.capitalizeFirstLetter();
+
     $('#'+value).show();
-    if (value != "person")
+    if (value != "Person")
     	$('#generic').show();
 
     $('#siteOwnerType').on('change', function(e) {
         $('.metaPane').hide();
         $('#'+this.value).show();
-	    if (this.value != "person")
+	    if (this.value != "Person")
 	    	$('#generic').show();
     });
 
@@ -37,3 +39,7 @@ $(function () {
     });
 
 });
+
+String.prototype.capitalizeFirstLetter = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}
