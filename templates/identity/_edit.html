@@ -124,6 +124,11 @@
                             </div>
                         </div>
                     </div>
+                    {% set myJs %}
+                        setSelectedValue("{{ identity.siteOwnerSpecificType }}");
+                    {% endset %}
+                    {% includeJs myJs %}
+
 <!-- General Info -->
                     <h2>{{ "General Info" |t }}</h2>
 

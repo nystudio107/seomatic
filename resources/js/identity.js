@@ -2,6 +2,8 @@
 
 /* -- Define our dynamic XXX drop-down menu items */
 
+var selectedItem = "";
+
 var items = {
     'Airline':  [
         ],
@@ -35,6 +37,10 @@ var items = {
             {name: 'Sports Team', value:'SportsTeam'},
         ],
     };
+
+function setSelectedValue(whichValue) {
+    selectedItem = whichValue;
+} /* -- setSelectedValue */
 
 function fillDynamicMenu(whichValue) {
     var menu = $("#siteOwnerSpecificType");
@@ -78,6 +84,7 @@ $(function () {
 
     fillDynamicMenu(value);
 
+    $('#siteOwnerSpecificType').val(selectedItem);
     var value = $('#siteOwnerSpecificType').val();
     if ($('#'+value).length != 0)
         $('#'+value).show();
