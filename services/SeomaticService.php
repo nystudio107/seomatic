@@ -189,7 +189,7 @@ class SeomaticService extends BaseApplicationComponent
     public function renderPlace($metaVars, $locale, $isPreview=false)
     {
         $htmlText = "";
-        if ($metaVars['seomaticIdentity']['type'] != "Person")
+        if (($metaVars['seomaticIdentity']['type'] != "Person") && (isset($metaVars['seomaticIdentity']['location'])))
         {
             $this->sanitizeMetaVars($metaVars);
             $place = $metaVars['seomaticIdentity']['location'];
