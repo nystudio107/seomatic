@@ -459,6 +459,8 @@ class SeomaticController extends BaseController
 
         $record->googleSiteVerification = craft()->request->getPost('googleSiteVerification', $record->googleSiteVerification);
         $record->siteOwnerType = craft()->request->getPost('siteOwnerType', $record->siteOwnerType);
+        $record->siteOwnerSubType = craft()->request->getPost('siteOwnerSubType', $record->siteOwnerSubType);
+        $record->siteOwnerSpecificType = craft()->request->getPost('siteOwnerSpecificType', $record->siteOwnerSpecificType);
 
 /* -- Generic owner fields */
 
@@ -589,6 +591,8 @@ class SeomaticController extends BaseController
 
         $record->googleSiteVerification = craft()->request->getPost('googleSiteVerification', $record->googleSiteVerification);
         $record->siteCreatorType = craft()->request->getPost('siteCreatorType', $record->siteCreatorType);
+        $record->siteCreatorSubType = craft()->request->getPost('siteCreatorSubType', $record->siteCreatorSubType);
+        $record->siteCreatorSpecificType = craft()->request->getPost('siteCreatorSpecificType', $record->siteCreatorSpecificType);
 
 /* -- Generic Creator fields */
 

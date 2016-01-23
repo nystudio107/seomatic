@@ -33,6 +33,19 @@ div.tokenfield {
     box-sizing: border-box;
 }
 
+div.inline-item {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+}
+
+.inline-item > div,
+.inline-item > div > label {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+}
+
 div.half-width-field {
 	display: inline-block;
 	width: 45%;

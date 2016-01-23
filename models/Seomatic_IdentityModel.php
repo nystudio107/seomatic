@@ -12,7 +12,9 @@ class Seomatic_IdentityModel extends BaseModel
         return array_merge(parent::defineAttributes(), array(
             'locale'                        	=> array(AttributeType::String, 'default' => ''),
 			'googleSiteVerification'    		=> array(AttributeType::String, 'default' => ''),
-			'siteOwnerType'                 	=> array(AttributeType::String, 'default' => ''),
+            'siteOwnerType'                     => array(AttributeType::String, 'default' => 'Organization'),
+            'siteOwnerSubType'                  => array(AttributeType::String, 'default' => 'Corporation'),
+            'siteOwnerSpecificType'             => array(AttributeType::String, 'default' => ''),
 
 /* -- Generic owner fields */
 

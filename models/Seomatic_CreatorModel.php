@@ -11,7 +11,9 @@ class Seomatic_CreatorModel extends BaseModel
     {
         return array_merge(parent::defineAttributes(), array(
             'locale'                        	=> array(AttributeType::String, 'default' => ''),
-			'siteCreatorType'                 	=> array(AttributeType::String, 'default' => ''),
+            'siteCreatorType'                   => array(AttributeType::String, 'default' => 'Organization'),
+            'siteCreatorSubType'                => array(AttributeType::String, 'default' => 'Corporation'),
+            'siteCreatorSpecificType'           => array(AttributeType::String, 'default' => ''),
 
 /* -- Generic Creator fields */
 

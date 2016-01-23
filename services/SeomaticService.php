@@ -575,7 +575,7 @@ class SeomaticService extends BaseApplicationComponent
 /* -- Add the helper vars */
 
         $helper = array();
-        $this->addSocialHelpers($helper, $social, $identity['siteOwnerType']);
+        $this->addSocialHelpers($helper, $social, $identity);
         $this->addIdentityHelpers($helper, $identity);
         $this->addCreatorHelpers($helper, $creator);
 
@@ -829,7 +829,23 @@ class SeomaticService extends BaseApplicationComponent
         $identity['locale'] = $settings['locale'];
 
         $identity['googleSiteVerification'] = $settings['googleSiteVerification'];
-        $identity['siteOwnerType'] = $settings['siteOwnerType'];
+        $identity['siteOwnerType'] = ucfirst($settings['siteOwnerType']);
+        $identity['siteOwnerSubType'] = $settings['siteOwnerSubType'];
+        $identity['siteOwnerSpecificType'] = $settings['siteOwnerSpecificType'];
+
+/* -- Handle migrating the old way of storing siteOwnerType */
+
+        if (($identity['siteOwnerType'] != "Organization") && ($identity['siteOwnerType'] != "Person"))
+        {
+            $identity['siteOwnerSubType'] = $identity['siteOwnerType'];
+            $identity['siteOwnerType'] = "Organization";
+        }
+
+        if ($identity['siteOwnerSubType'] == "Restaurant")
+        {
+            $identity['siteOwnerSpecificType'] = $identity['siteOwnerSubType'];
+            $identity['siteOwnerSubType'] = "LocalBusiness";
+        }
 
         $identity['genericOwnerName'] = $settings['genericOwnerName'];
         $identity['genericOwnerAlternateName'] = $settings['genericOwnerAlternateName'];
@@ -887,6 +903,11 @@ class SeomaticService extends BaseApplicationComponent
 /* -- Settings generic to all Identity types */
 
         $identityJSONLD['type'] = ucfirst($identity['siteOwnerType']);
+        if ($identity['siteOwnerSubType'])
+            $identityJSONLD['type'] = $identity['siteOwnerSubType'];
+        if ($identity['siteOwnerSpecificType'])
+            $identityJSONLD['type'] = $identity['siteOwnerSpecificType'];
+
         $identityJSONLD['name'] = $identity['genericOwnerName'];
         $identityJSONLD['alternateName'] = $identity['genericOwnerAlternateName'];
         $identityJSONLD['description'] = $identity['genericOwnerDescription'];
@@ -908,9 +929,17 @@ class SeomaticService extends BaseApplicationComponent
         if (count($identityJSONLD['address']) == 1)
             unset($identityJSONLD['address']);
 
+/* -- Settings for all person Identity types */
+
+        if ($identity['siteOwnerType'] == "Person")
+        {
+            $identityJSONLD['gender'] = $identity['personOwnerGender'];
+            $identityJSONLD['birthPlace'] = $identity['personOwnerBirthPlace'];
+        }
+
 /* -- Settings for all organization Identity types */
 
-        if ($identity['siteOwnerType'] != "Person")
+        if ($identity['siteOwnerType'] == "Organization")
         {
             if (isset($identity['genericOwnerImage']))
                 $identityJSONLD['logo'] = $identity['genericOwnerImage'];
@@ -948,29 +977,44 @@ class SeomaticService extends BaseApplicationComponent
             $identityJSONLD['foundingLocation'] = $identity['organizationOwnerFoundingLocation'];
         }
 
-/* -- Settings on a per-Identity type basis */
+/* -- Settings on a per-Identity sub-type basis */
 
-        switch ($identity['siteOwnerType'])
+        switch ($identity['siteOwnerSubType'])
         {
+            case 'Airline':
+            break;
+
             case 'Corporation':
                 $identityJSONLD['tickerSymbol'] = $identity['corporationOwnerTickerSymbol'];
+            break;
+
+            case 'EducationalOrganization':
+            break;
+
+            case 'GovernmentOrganization':
             break;
 
             case 'LocalBusiness':
             break;
 
-            case 'Organization':
+            case 'NGO':
             break;
 
+            case 'PerformingGroup':
+            break;
+
+            case 'SportsOrganization':
+            break;
+
+        }
+
+/* -- Settings on a per-Identity specific-type basis */
+
+        switch ($identity['siteOwnerSpecificType'])
+        {
             case 'Restaurant':
                 $identityJSONLD['servesCuisine'] = $identity['restaurantOwnerServesCuisine'];
             break;
-
-            case 'Person':
-                $identityJSONLD['gender'] = $identity['personOwnerGender'];
-                $identityJSONLD['birthPlace'] = $identity['personOwnerBirthPlace'];
-            break;
-
         }
 
         $result = array_filter($identityJSONLD);
@@ -1034,6 +1078,22 @@ class SeomaticService extends BaseApplicationComponent
         $creator['locale'] = $settings['locale'];
 
         $creator['siteCreatorType'] = ucfirst($settings['siteCreatorType']);
+        $creator['siteCreatorSubType'] = $settings['siteCreatorSubType'];
+        $creator['siteCreatorSpecificType'] = $settings['siteCreatorSpecificType'];
+
+/* -- Handle migrating the old way of storing siteCreatorType */
+
+        if (($creator['siteCreatorType'] != "Organization") && ($creator['siteCreatorType'] != "Person"))
+        {
+            $creator['siteCreatorSubType'] = $creator['siteCreatorType'];
+            $creator['siteCreatorType'] = "Organization";
+        }
+
+        if ($creator['siteCreatorSubType'] == "Restaurant")
+        {
+            $creator['siteCreatorSpecificType'] = $creator['siteCreatorSubType'];
+            $creator['siteCreatorSubType'] = "LocalBusiness";
+        }
 
         $creator['genericCreatorName'] = $settings['genericCreatorName'];
         $creator['genericCreatorAlternateName'] = $settings['genericCreatorAlternateName'];
@@ -1091,6 +1151,11 @@ class SeomaticService extends BaseApplicationComponent
 /* -- Settings generic to all Creator types */
 
         $creatorJSONLD['type'] = ucfirst($creator['siteCreatorType']);
+        if ($creator['siteCreatorSubType'])
+            $creatorJSONLD['type'] = $creator['siteCreatorSubType'];
+        if ($creator['siteCreatorSpecificType'])
+            $creatorJSONLD['type'] = $creator['siteCreatorSpecificType'];
+
         $creatorJSONLD['name'] = $creator['genericCreatorName'];
         $creatorJSONLD['alternateName'] = $creator['genericCreatorAlternateName'];
         $creatorJSONLD['description'] = $creator['genericCreatorDescription'];
@@ -1112,9 +1177,17 @@ class SeomaticService extends BaseApplicationComponent
         if (count($creatorJSONLD['address']) == 1)
             unset($creatorJSONLD['address']);
 
+/* -- Settings for all person Creator types */
+
+        if ($creator['siteCreatorType'] == "Person")
+        {
+            $creatorJSONLD['gender'] = $creator['personOwnerGender'];
+            $creatorJSONLD['birthPlace'] = $creator['personOwnerBirthPlace'];
+        }
+
 /* -- Settings for all organization Creator types */
 
-        if ($creator['siteCreatorType'] != "Person")
+        if ($creator['siteCreatorType'] == "Organization")
         {
             if (isset($creator['genericCreatorImage']))
                 $creatorJSONLD['logo'] = $creator['genericCreatorImage'];
@@ -1152,28 +1225,44 @@ class SeomaticService extends BaseApplicationComponent
             $creatorJSONLD['foundingLocation'] = $creator['organizationCreatorFoundingLocation'];
         }
 
-/* -- Settings on a per-Creator type basis */
+/* -- Settings on a per-Creator sub-type basis */
 
-        switch ($creator['siteCreatorType'])
+        switch ($creator['siteCreatorSubType'])
         {
+            case 'Airline':
+            break;
+
             case 'Corporation':
-                $creatorJSONLD['tickerSymbol'] = $creator['corporationCreatorTickerSymbol'];
+                $creatorJSONLD['tickerSymbol'] = $creator['corporationOwnerTickerSymbol'];
+            break;
+
+            case 'EducationalOrganization':
+            break;
+
+            case 'GovernmentOrganization':
             break;
 
             case 'LocalBusiness':
             break;
 
-            case 'Organization':
+            case 'NGO':
             break;
 
+            case 'PerformingGroup':
+            break;
+
+            case 'SportsOrganization':
+            break;
+
+        }
+
+/* -- Settings on a per-Creator specific-type basis */
+
+        switch ($creator['siteCreatorSpecificType'])
+        {
             case 'Restaurant':
+                $creatorJSONLD['servesCuisine'] = $creator['restaurantOwnerServesCuisine'];
             break;
-
-            case 'Person':
-                $creatorJSONLD['gender'] = $creator['personCreatorGender'];
-                $creatorJSONLD['birthPlace'] = $creator['personCreatorBirthPlace'];
-            break;
-
         }
 
         $result = array_filter($creatorJSONLD);
@@ -1396,7 +1485,7 @@ class SeomaticService extends BaseApplicationComponent
     Add the social media URLs to 'seomaticHelper'
 -------------------------------------------------------------------------------- */
 
-    private function addSocialHelpers(&$helper, $social, $siteOwnerType)
+    private function addSocialHelpers(&$helper, $social, $identity)
     {
         if ($social['twitterHandle'])
         {
@@ -1423,7 +1512,7 @@ class SeomaticService extends BaseApplicationComponent
 
         if ($social['linkedInHandle'])
         {
-            if ($siteOwnerType == "Person")
+            if ($identity['siteOwnerType'] == "Person")
                 $helper['linkedInUrl'] = "https://www.linkedin.com/in/" . $social['linkedInHandle'];
             else
                 $helper['linkedInUrl'] = "https://www.linkedin.com/company/" . $social['linkedInHandle'];

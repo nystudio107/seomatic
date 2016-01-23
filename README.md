@@ -332,7 +332,7 @@ You can also change them all at once like this using the Twig [set](http://twig.
 	    canonicalUrl: entry.url,
 	    twitter: { 
 	        card: seomaticMeta.twitter.card,
-	        site: seomaticMeta.twitter.card,
+	        site: seomaticMeta.twitter.site,
 	        creator: seomaticMeta.twitter.creator,
 	        title: "Some Title",
 	        description: entry.summary,
@@ -431,7 +431,7 @@ So tying it all together, you might do something like this for a dynamic Blog en
 	    canonicalUrl: seomaticMeta.canonicalUrl,
 	    twitter: { 
 	        card: seomaticMeta.twitter.card,
-	        site: seomaticMeta.twitter.card,
+	        site: seomaticMeta.twitter.site,
 	        creator: seomaticMeta.twitter.creator,
 	        title: entry.title,
 	        description: entry.summary,
@@ -482,7 +482,7 @@ So tying it all together, you might do something like this for a dynamic Blog en
 	    canonicalUrl: seomaticMeta.canonicalUrl,
 	    twitter: { 
 	        card: seomaticMeta.twitter.card,
-	        site: seomaticMeta.twitter.card,
+	        site: seomaticMeta.twitter.site,
 	        creator: seomaticMeta.twitter.creator,
 	        title: entry.title,
 	        description: extractSummary(entry.blog),

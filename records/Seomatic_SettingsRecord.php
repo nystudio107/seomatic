@@ -33,7 +33,9 @@ class Seomatic_SettingsRecord extends BaseRecord
 -------------------------------------------------------------------------------- */
 
 			'googleSiteVerification'    		=> array(AttributeType::String, 'default' => ''),
-            'siteOwnerType'                 	=> array(AttributeType::String, 'default' => ''),
+            'siteOwnerType'                     => array(AttributeType::String, 'default' => ''),
+            'siteOwnerSubType'                  => array(AttributeType::String, 'default' => ''),
+            'siteOwnerSpecificType'             => array(AttributeType::String, 'default' => ''),
 
 /* -- Generic owner fields */
 
