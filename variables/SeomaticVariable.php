@@ -254,6 +254,32 @@ class SeomaticVariable
     } /* -- renderWebsite */
 
 /* --------------------------------------------------------------------------------
+    Render the SEOmatic Place template
+-------------------------------------------------------------------------------- */
+
+    function renderPlace($elementId=null, $locale=null, $isPreview=false)
+    {
+        if (!$locale)
+            $locale = craft()->language;
+
+        if ($elementId)
+        {
+            $element = craft()->elements->getElementById($elementId, null, $locale);
+            if ($element)
+            {
+                $entryMeta = craft()->seomatic->getMetaFromElement($element);
+                if ($entryMeta)
+                    craft()->seomatic->setEntryMeta($entryMeta, $element->url);
+            }
+        }
+
+        $metaVars = craft()->seomatic->getGlobals('', $locale);
+        $result = craft()->seomatic->renderPlace($metaVars, $locale, $isPreview);
+
+        return rtrim($result);
+    } /* -- renderPlace */
+
+/* --------------------------------------------------------------------------------
     Render the SEOmatic globals for the preview
 -------------------------------------------------------------------------------- */
 

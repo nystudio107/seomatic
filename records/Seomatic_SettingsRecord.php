@@ -60,6 +60,10 @@ class Seomatic_SettingsRecord extends BaseRecord
             'organizationOwnerFoundingDate'		=> array(AttributeType::String, 'default' => ''),
             'organizationOwnerFoundingLocation'	=> array(AttributeType::String, 'default' => ''),
 
+/* -- LocalBusiness owner fields https://schema.org/LocalBusiness */
+
+            'localBusinessOwnerOpeningHours'    => array(AttributeType::String, 'default' => ''),
+
 /* -- Corporation owner fields http://schema.org/Corporation */
 
             'corporationOwnerTickerSymbol'		=> array(AttributeType::String, 'default' => ''),
@@ -122,11 +126,17 @@ class Seomatic_SettingsRecord extends BaseRecord
             'organizationCreatorFoundingDate'	=> array(AttributeType::String, 'default' => ''),
             'organizationCreatorFoundingLocation'	=> array(AttributeType::String, 'default' => ''),
 
+/* -- LocalBusiness Creator fields https://schema.org/LocalBusiness */
+
+            'localBusinessCreatorOpeningHours'  => array(AttributeType::String, 'default' => ''),
+
 /* -- Corporation Creator fields http://schema.org/Corporation */
 
             'corporationCreatorTickerSymbol'	=> array(AttributeType::String, 'default' => ''),
 
 /* -- Restaurant Creator fields https://schema.org/Restaurant */
+
+            'restaurantCreatorServesCuisine'    => array(AttributeType::String, 'default' => ''),
 
 /* -- Person Creator fields https://schema.org/Person */
 
@@ -136,7 +146,7 @@ class Seomatic_SettingsRecord extends BaseRecord
 /* -- Humans.txt */
 
             'genericCreatorHumansTxt'           => array(AttributeType::Mixed),
-            
+
 /* -- This is defined in definteRelations() below, of note:
       You don’t need to specify the foreign key column name in BELONGS_TO relations (defaults to the relation name appended with “Id”)
       https://craftcms.com/docs/plugins/records
@@ -160,9 +170,9 @@ class Seomatic_SettingsRecord extends BaseRecord
         $templateName = '_humansDefault';
 		$loader = new TemplateLoader;
         $template = $loader->getSource($templateName);
-        
+
         craft()->path->setTemplatesPath($oldPath);
-        
+
         return $template;
     } /* -- _getDefaultHumans */
 

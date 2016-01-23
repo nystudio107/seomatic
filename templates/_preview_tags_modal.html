@@ -1,40 +1,46 @@
-	<div id="preview-tags-popup" style="display: none;">
-		<div class="preview-modal">
-			<div class="preview-modal-inner">
+    <div id="preview-tags-popup" style="display: none;">
+        <div class="preview-modal">
+            <div class="preview-modal-inner">
 
-				<div class="displaypreview-container">
-										
-					<h1>{{ "Rendered For" |t }}</h1>
-					<p>{% if elementId%}{{ "<code>Entry</code> Meta.  This is what is generated for the this Entry with data from the SEOmatic Meta field." |t | raw }}{% else %}{% if previewMetaPath %}<code>{{ previewMetaPath }}</code> {{ "SEO Template Meta.  This is what is generated when this template is displayed." |t | raw }}{% else %}{{ "<code>SEO Site</code> Meta.  This is what is generated for the global Site Meta, with no Template Meta overrides." |t | raw }}{% endif %}{% endif %}</p>
+                <div class="displaypreview-container">
 
-					<div class="preview-column">
-						<h1><br />{{ "Meta Template Variables" |t }}</h1>
-						<p>{{ "These are the Twig variables that SEOmatic pre-populates, and makes available to you in your templates.  They are used when rendering the SEO Meta, so you can manipulate them however you want before rendering your SEO Meta.  For example, you might change the <code>seomaticMeta.seoDescription</code> to be the summary field of an entry." |t |raw }}</p>
-						<pre><code class="language-twig">{{ craft.seomatic.renderGlobals(previewMetaPath, elementId, locale) | raw }}</code></pre>
-						<p>{{ "You can treat all of these like regular Twig variables; for instance, <code>{{ seomaticHelper.twitterUrl }}</code> will output the URL to the website's Twitter page.  You can change these variables using the Twig array <a href='http://twig.sensiolabs.org/doc/tags/set.html' target='_blank'>set</a> syntax, or using the Twig function <a href='http://twig.sensiolabs.org/doc/filters/merge.html' target='_blank'>merge</a>.  Any changes you make will be reflected in the SEO Meta rendered with <code>{% hook 'seomaticRender' %}</code> on your page.  The <code>email</code> variables are ordinal-encoded to obfuscate them.  See the documentation for details by clicking on the ? link below." |t |raw }}</p>
-					</div>
-		
-					<div class="preview-column">
-						<h1><br />{{ "Rendered SEO Meta" |t }}</h1>
-						<p>{{ "The <code>{% hook 'seomaticRender' %}</code> tag generates these SEO Meta for you, based on the Meta Template Variables (see below).  By default, it uses an internal template, but you can pass your own template to be used instead, like this: <code>{% set seomaticTemplatePath = 'path/template' %} {% hook 'seomaticRender' %}</code>" |t |raw }}</p>
-						<p>{{ "SEOmatic cascades Meta settings; if you have a Meta associated with the current template, it uses that.  Otherwise it falls back on the SEO Site Meta settings.  If a field is empty for a Template Meta, it falls back on the SEO Site Meta setting for that field." |t |raw }}</p>
-						<pre><code class="language-markup">{{ craft.seomatic.renderPreview('', previewMetaPath, elementId, locale) }}</code></pre>
-					</div>
-	
-					<div class="preview-column">
-						<h1><br />{{ "Rendered Identity Microdata" |t }}</h1>
-						<p>{{ "The <code>{% hook 'seomaticRender' %}</code> tag also generates <a href='https://developers.google.com/schemas/formats/json-ld?hl=en' target='_blank'>JSON-LD</a> identity microdata that tells search engines about the company that owns the website.  JSON-LD is an alternative to microdata you may already be familiar with, such as: <code>&lt;div itemscope itemtype='http://schema.org/Organization'&gt;</code>.  JSON-LD has the advantage of not being intertwined with HTML markup, so it's easier to use.  It is parsed and consumed by Google, allowing you to tell Google what your site is about, rather than having it try to guess." |t |raw }}</p>
-						<pre><code class="language-javascript">{{ craft.seomatic.renderIdentity(elementId, locale, true) }}</code></pre>
-					</div>
-	
-					<div class="preview-column">
-						<h1><br />{{ "Rendered WebSite Microdata" |t }}</h1>
-						<p>{{ "The <code>{% hook 'seomaticRender' %}</code> tag also generates <a href='https://developers.google.com/schemas/formats/json-ld?hl=en' target='_blank'>JSON-LD</a> WebSite microdata that tells search engines about the website.  JSON-LD is an alternative to microdata you may already be familiar with, such as: <code>&lt;div itemscope itemtype='http://schema.org/Organization'&gt;</code>.  JSON-LD has the advantage of not being intertwined with HTML markup, so it's easier to use.  It is parsed and consumed by Google, allowing you to tell Google what your site is about, rather than having it try to guess." |t |raw }}</p>
-						<pre><code class="language-javascript">{{ craft.seomatic.renderWebsite(elementId, locale, true) }}</code></pre>
-					</div>
-				
-				</div>
+                    <h1>{{ "Rendered For" |t }}</h1>
+                    <p>{% if elementId%}{{ "<code>Entry</code> Meta.  This is what is generated for the this Entry with data from the SEOmatic Meta field." |t | raw }}{% else %}{% if previewMetaPath %}<code>{{ previewMetaPath }}</code> {{ "SEO Template Meta.  This is what is generated when this template is displayed." |t | raw }}{% else %}{{ "<code>SEO Site</code> Meta.  This is what is generated for the global Site Meta, with no Template Meta overrides." |t | raw }}{% endif %}{% endif %}</p>
 
-			</div>
-		</div>
-	</div>
+                    <div class="preview-column">
+                        <h1><br />{{ "Meta Template Variables" |t }}</h1>
+                        <p>{{ "These are the Twig variables that SEOmatic pre-populates, and makes available to you in your templates.  They are used when rendering the SEO Meta, so you can manipulate them however you want before rendering your SEO Meta.  For example, you might change the <code>seomaticMeta.seoDescription</code> to be the summary field of an entry." |t |raw }}</p>
+                        <pre><code class="language-twig">{{ craft.seomatic.renderGlobals(previewMetaPath, elementId, locale) | raw }}</code></pre>
+                        <p>{{ "You can treat all of these like regular Twig variables; for instance, <code>{{ seomaticHelper.twitterUrl }}</code> will output the URL to the website's Twitter page.  You can change these variables using the Twig array <a href='http://twig.sensiolabs.org/doc/tags/set.html' target='_blank'>set</a> syntax, or using the Twig function <a href='http://twig.sensiolabs.org/doc/filters/merge.html' target='_blank'>merge</a>.  Any changes you make will be reflected in the SEO Meta rendered with <code>{% hook 'seomaticRender' %}</code> on your page.  The <code>email</code> variables are ordinal-encoded to obfuscate them.  See the documentation for details by clicking on the ? link below." |t |raw }}</p>
+                    </div>
+
+                    <div class="preview-column">
+                        <h1><br />{{ "Rendered SEO Meta" |t }}</h1>
+                        <p>{{ "The <code>{% hook 'seomaticRender' %}</code> tag generates these SEO Meta for you, based on the Meta Template Variables (see below).  By default, it uses an internal template, but you can pass your own template to be used instead, like this: <code>{% set seomaticTemplatePath = 'path/template' %} {% hook 'seomaticRender' %}</code>" |t |raw }}</p>
+                        <p>{{ "SEOmatic cascades Meta settings; if you have a Meta associated with the current template, it uses that.  Otherwise it falls back on the SEO Site Meta settings.  If a field is empty for a Template Meta, it falls back on the SEO Site Meta setting for that field." |t |raw }}</p>
+                        <pre><code class="language-markup">{{ craft.seomatic.renderPreview('', previewMetaPath, elementId, locale) }}</code></pre>
+                    </div>
+
+                    <div class="preview-column">
+                        <h1><br />{{ "Rendered Identity Microdata" |t }}</h1>
+                        <p>{{ "The <code>{% hook 'seomaticRender' %}</code> tag also generates <a href='https://developers.google.com/schemas/formats/json-ld?hl=en' target='_blank'>JSON-LD</a> identity microdata that tells search engines about the company that owns the website.  JSON-LD is an alternative to microdata you may already be familiar with, such as: <code>&lt;div itemscope itemtype='http://schema.org/Organization'&gt;</code>.  JSON-LD has the advantage of not being intertwined with HTML markup, so it's easier to use.  It is parsed and consumed by Google, allowing you to tell Google what your site is about, rather than having it try to guess." |t |raw }}</p>
+                        <pre><code class="language-javascript">{{ craft.seomatic.renderIdentity(elementId, locale, true) }}</code></pre>
+                    </div>
+
+                    <div class="preview-column">
+                        <h1><br />{{ "Rendered WebSite Microdata" |t }}</h1>
+                        <p>{{ "The <code>{% hook 'seomaticRender' %}</code> tag also generates <a href='https://developers.google.com/schemas/formats/json-ld?hl=en' target='_blank'>JSON-LD</a> WebSite microdata that tells search engines about the website.  JSON-LD is an alternative to microdata you may already be familiar with, such as: <code>&lt;div itemscope itemtype='http://schema.org/Organization'&gt;</code>.  JSON-LD has the advantage of not being intertwined with HTML markup, so it's easier to use.  It is parsed and consumed by Google, allowing you to tell Google what your site is about, rather than having it try to guess." |t |raw }}</p>
+                        <pre><code class="language-javascript">{{ craft.seomatic.renderWebsite(elementId, locale, true) }}</code></pre>
+                    </div>
+
+                    <div class="preview-column">
+                        <h1><br />{{ "Rendered Place Microdata" |t }}</h1>
+                        <p>{{ "The <code>{% hook 'seomaticRender' %}</code> tag also generates <a href='https://developers.google.com/schemas/formats/json-ld?hl=en' target='_blank'>JSON-LD</a> Place microdata for Organizations that tells search engines where the organization is located.  JSON-LD is an alternative to microdata you may already be familiar with, such as: <code>&lt;div itemscope itemtype='http://schema.org/Organization'&gt;</code>.  JSON-LD has the advantage of not being intertwined with HTML markup, so it's easier to use.  It is parsed and consumed by Google, allowing you to tell Google what your site is about, rather than having it try to guess." |t |raw }}</p>
+                        <pre><code class="language-javascript">{{ craft.seomatic.renderPlace(elementId, locale, true) }}</code></pre>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>

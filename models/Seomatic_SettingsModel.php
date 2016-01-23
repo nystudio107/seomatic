@@ -60,6 +60,10 @@ class Seomatic_SettingsModel extends BaseModel
             'organizationOwnerFoundingDate'     => array(AttributeType::String, 'default' => ''),
             'organizationOwnerFoundingLocation' => array(AttributeType::String, 'default' => ''),
 
+/* -- LocalBusiness owner fields https://schema.org/LocalBusiness */
+
+            'localBusinessOwnerOpeningHours'    => array(AttributeType::String, 'default' => ''),
+
 /* -- Corporation owner fields http://schema.org/Corporation */
 
             'corporationOwnerTickerSymbol'      => array(AttributeType::String, 'default' => ''),
@@ -117,6 +121,10 @@ class Seomatic_SettingsModel extends BaseModel
             'organizationCreatorFounder'        => array(AttributeType::String, 'default' => ''),
             'organizationCreatorFoundingDate'   => array(AttributeType::String, 'default' => ''),
             'organizationCreatorFoundingLocation'   => array(AttributeType::String, 'default' => ''),
+
+/* -- LocalBusiness Creator fields https://schema.org/LocalBusiness */
+
+            'localBusinessCreatorOpeningHours'  => array(AttributeType::String, 'default' => ''),
 
 /* -- Corporation Creator fields http://schema.org/Corporation */
 

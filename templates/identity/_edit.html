@@ -6,6 +6,7 @@
 {% includeCssResource "seomatic/css/css-reset.css" %}
 {% includeCssResource "seomatic/css/prism.min.css" %}
 {% includeJsResource "seomatic/js/seomatic.js" %}
+{% includeJsResource "seomatic/js/type_list.js" %}
 {% includeJsResource "seomatic/js/identity.js" %}
 {% includeJsResource "seomatic/js/jquery.bpopup.min.js" %}
 {% includeJsResource "seomatic/js/prism.min.js" %}
@@ -476,47 +477,56 @@
 <!-- LocalBusiness-specific fields -->
 
                     <div id="LocalBusiness" class="metaSubPane field">
-                    {% macro day(id, name, value, day) %}
-                        {% from "_includes/forms" import time %}
-                            <tr>
-                                <th>
-                                    {{ craft.i18n.getLocaleData().getWeekDayName(day) }}
-                                </th>
-                                <td>
-                                    {{ time({
-                                        id: id~'-'~day~'-open',
-                                        name: name~'['~day~'][open]',
-                                        value: value ? value[day].open
-                                    }) }}
-                                </td>
-                                <td>
-                                    {{ time({
-                                        id: id~'-'~day~'-close',
-                                        name: name~'['~day~'][close]',
-                                        value: value ? value[day].close
-                                    }) }}
-                                </td>
-                            </tr>
-                    {% endmacro %}
+                        <h2>{{ "Local Business Info" |t }}</h2>
 
-                    {% from _self import day %}
+                        <div class="field" id="localBusinessOwnerOpeningHours-field">
+                            <div class="heading">
+                                <label for="localBusinessOwnerOpeningHours">{{ "Opening Hours"|t}}{% if craft.isLocalized and identity.locale %}<span class="locale">{{ identity.locale }}</span>{% endif %}</label>
+                                <div class="instructions"><p>{{ "The opening hours for this local business." |t |raw}}</p></div>
+                            </div>
 
-                    {% set localeData = craft.i18n.getLocaleData() %}
+                            {% macro day(id, name, value, day) %}
+                                {% from "_includes/forms" import time %}
+                                    <tr>
+                                        <th>
+                                            {{ craft.i18n.getLocaleData().getWeekDayName(day) }}
+                                        </th>
+                                        <td>
+                                            {{ time({
+                                                id: id~'-'~day~'-open',
+                                                name: name~'['~day~'][open]',
+                                                value: value ? value[day].open
+                                            }) }}
+                                        </td>
+                                        <td>
+                                            {{ time({
+                                                id: id~'-'~day~'-close',
+                                                name: name~'['~day~'][close]',
+                                                value: value ? value[day].close
+                                            }) }}
+                                        </td>
+                                    </tr>
+                            {% endmacro %}
 
-                    <table class="data">
-                        <thead>
-                            <tr>
-                                <td></td>
-                                <th>Opening Time</th>
-                                <th>Closing Time</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for i in 0..6 %}
-                                {{ day('woof', 'skank', "", i) }}
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                            {% from _self import day %}
+
+                            {% set localeData = craft.i18n.getLocaleData() %}
+
+                            <table class="data">
+                                <thead>
+                                    <tr>
+                                        <td></td>
+                                        <th>Opening Time</th>
+                                        <th>Closing Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for i in 0..6 %}
+                                        {{ day('woof', 'skank', "", i) }}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
 <!-- NGO-specific fields -->

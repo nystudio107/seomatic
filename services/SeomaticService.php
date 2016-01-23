@@ -183,6 +183,22 @@ class SeomaticService extends BaseApplicationComponent
     } /* -- renderWebsite */
 
 /* --------------------------------------------------------------------------------
+    Render the SEOmatic Place template
+-------------------------------------------------------------------------------- */
+
+    public function renderPlace($metaVars, $locale, $isPreview=false)
+    {
+        $htmlText = "";
+        if ($metaVars['seomaticIdentity']['type'] != "Person")
+        {
+            $this->sanitizeMetaVars($metaVars);
+            $place = $metaVars['seomaticIdentity']['location'];
+            $htmlText = $this->renderJSONLD($place, $isPreview);
+        }
+        return $htmlText;
+    } /* -- renderPlace */
+
+/* --------------------------------------------------------------------------------
     Render the SEOmatic globals
 -------------------------------------------------------------------------------- */
 
@@ -912,6 +928,20 @@ class SeomaticService extends BaseApplicationComponent
         $identityJSONLD['alternateName'] = $identity['genericOwnerAlternateName'];
         $identityJSONLD['description'] = $identity['genericOwnerDescription'];
         $identityJSONLD['url'] = $identity['genericOwnerUrl'];
+
+        $sameAs = array();
+        array_push($sameAs, $helper['twitterUrl']);
+        array_push($sameAs, $helper['facebookUrl']);
+        array_push($sameAs, $helper['googlePlusUrl']);
+        array_push($sameAs, $helper['linkedInUrl']);
+        array_push($sameAs, $helper['youtubeUrl']);
+        array_push($sameAs, $helper['instagramUrl']);
+        array_push($sameAs, $helper['pinterestUrl']);
+        $sameAs = array_filter($sameAs);
+        $sameAs = array_values($sameAs);
+        if (!empty($sameAs))
+            $identityJSONLD['sameAs'] = $sameAs;
+
         if (isset($identity['genericOwnerImage']))
             $identityJSONLD['image'] = $identity['genericOwnerImage'];
         $identityJSONLD['telephone'] = $identity['genericOwnerTelephone'];
@@ -950,12 +980,21 @@ class SeomaticService extends BaseApplicationComponent
             );
             $geo = array_filter($geo);
 
+            $locImage = "";
+            if (isset($identity['genericOwnerImage']))
+                $locImage = $identity['genericOwnerImage'];
+
             $location = array(
                 "type" => "Place",
                 "name" => $identity['genericOwnerName'],
                 "alternateName" => $identity['genericOwnerAlternateName'],
                 "description" => $identity['genericOwnerDescription'],
                 "hasMap" => $helper['ownerMapUrl'],
+                "telephone" =>  $identity['genericOwnerTelephone'],
+                "image" =>  $locImage,
+                "logo" =>  $locImage,
+                "url" =>  $identity['genericOwnerUrl'],
+                "sameAs" =>  $sameAs,
                 "geo" => $geo,
                 "address" => $address,
             );
@@ -1160,6 +1199,7 @@ class SeomaticService extends BaseApplicationComponent
         $creatorJSONLD['alternateName'] = $creator['genericCreatorAlternateName'];
         $creatorJSONLD['description'] = $creator['genericCreatorDescription'];
         $creatorJSONLD['url'] = $creator['genericCreatorUrl'];
+
         if (isset($creator['genericCreatorImage']))
             $creatorJSONLD['image'] = $creator['genericCreatorImage'];
         $creatorJSONLD['telephone'] = $creator['genericCreatorTelephone'];
@@ -1198,12 +1238,20 @@ class SeomaticService extends BaseApplicationComponent
             );
             $geo = array_filter($geo);
 
+            $locImage = "";
+            if (isset($identity['genericCreatorImage']))
+                $locImage = $identity['genericCreatorImage'];
+
             $location = array(
                 "type" => "Place",
                 "name" => $creator['genericCreatorName'],
                 "alternateName" => $creator['genericCreatorAlternateName'],
                 "description" => $creator['genericCreatorDescription'],
                 "hasMap" => $helper['creatorMapUrl'],
+                "telephone" =>  $creator['genericCreatorTelephone'],
+                "image" =>  $locImage,
+                "logo" =>  $locImage,
+                "url" =>  $creator['genericCreatorUrl'],
                 "geo" => $geo,
                 "address" => $address,
             );
@@ -1233,7 +1281,7 @@ class SeomaticService extends BaseApplicationComponent
             break;
 
             case 'Corporation':
-                $creatorJSONLD['tickerSymbol'] = $creator['corporationOwnerTickerSymbol'];
+                $creatorJSONLD['tickerSymbol'] = $creator['corporationCreatorTickerSymbol'];
             break;
 
             case 'EducationalOrganization':

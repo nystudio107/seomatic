@@ -4,40 +4,6 @@
 
 var selectedItem = "";
 
-var items = {
-    'Airline':  [
-        ],
-    'Corporation': [
-        ],
-    'EducationalOrganization': [
-            {name: '', value:''},
-            {name: 'College Or University', value:'CollegeOrUniversity'},
-            {name: 'Elementary School', value:'ElementarySchool'},
-            {name: 'High School', value:'HighSchool'},
-            {name: 'Middle School', value:'MiddleSchool'},
-            {name: 'Preschool', value:'Preschool'},
-            {name: 'School', value:'School'},
-        ],
-    'GovernmentOrganization': [
-        ],
-    'LocalBusiness': [
-            {name: '', value:''},
-            {name: 'Animal Shelter', value:'AnimalShelter'},
-        ],
-    'NGO': [
-        ],
-    'PerformingGroup': [
-            {name: '', value:''},
-            {name: 'DanceGroup', value:'DanceGroup'},
-            {name: 'Music Group', value:'MusicGroup'},
-            {name: 'Theater Group', value:'TheaterGroup'},
-        ],
-    'SportsOrganization': [
-            {name: '', value:''},
-            {name: 'Sports Team', value:'SportsTeam'},
-        ],
-    };
-
 function setSelectedValue(whichValue) {
     selectedItem = whichValue;
 } /* -- setSelectedValue */
@@ -52,6 +18,7 @@ function fillDynamicMenu(whichValue) {
             .attr("value", this.value)
             .html(this.name)
             .appendTo(menu);
+        console.log(this.name);
         });
     }
 } /* -- fillDynamicMenu */
@@ -73,8 +40,6 @@ $(function () {
         $('#siteOwnerSpecificType-field').hide();
         $('#siteOwnerSubType').val("");
         $('#siteOwnerSpecificType').val("");
-        $('#siteOwnerSubType').prop('selectedIndex', -1);
-        $('#siteOwnerSpecificType').prop('selectedIndex', -1);
     }
 
     var value = $('#siteOwnerSubType').val();
@@ -88,11 +53,10 @@ $(function () {
     var value = $('#siteOwnerSpecificType').val();
     if ($('#'+value).length != 0)
         $('#'+value).show();
-
-    if ($("#siteOwnerSpecificType option").length == 0) {
+console.log($("#siteOwnerSpecificType > option").length);
+    if ($("#siteOwnerSpecificType > option").length <= 1) {
         $('#siteOwnerSpecificType-field').hide();
         $('#siteOwnerSpecificType').val("");
-        $('#siteOwnerSpecificType').prop('selectedIndex', -1);
     }
 
 /* -- Handle clicks on the siteOwnerType dropdown */
@@ -111,8 +75,6 @@ $(function () {
             $('#siteOwnerSpecificType-field').hide();
             $('#siteOwnerSubType').val("");
             $('#siteOwnerSpecificType').val("");
-            $('#siteOwnerSubType').prop('selectedIndex', -1);
-            $('#siteOwnerSpecificType').prop('selectedIndex', -1);
         }
 
         fillDynamicMenu(value);
@@ -120,10 +82,9 @@ $(function () {
         var value = $('#siteOwnerSpecificType').val();
         if ($('#'+value).length != 0)
             $('#'+value).show();
-        if ($("#siteOwnerSpecificType option").length == 0) {
+        if ($("#siteOwnerSpecificType > option").length <= 1) {
             $('#siteOwnerSpecificType-field').hide();
             $('#siteOwnerSpecificType').val("");
-            $('#siteOwnerSpecificType').prop('selectedIndex', -1);
         }
     });
 
@@ -140,10 +101,9 @@ $(function () {
         if ($('#'+value).length != 0)
             $('#'+value).show();
         $('#siteOwnerSpecificType-field').show();
-        if ($("#siteOwnerSpecificType option").length == 0) {
+        if ($("#siteOwnerSpecificType > option").length <= 1) {
             $('#siteOwnerSpecificType-field').hide();
             $('#siteOwnerSpecificType').val("");
-            $('#siteOwnerSpecificType').prop('selectedIndex', -1);
         }
     });
 
