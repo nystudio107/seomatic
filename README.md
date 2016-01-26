@@ -1279,6 +1279,12 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.0 -- 2016.01.28
+
+* [Added] Twitter Card and Facebook types can now have null values in the Field, and Template meta settings
+* [Added] Added all of the schema.org Organization types to Identity and Creator settings
+* [Improved] Updated the README.md
+
 ### 1.0.12 -- 2016.01.19
 
 * [Improved] Performance improvement by not checking to see if a template exists before matching it

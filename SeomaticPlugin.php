@@ -54,7 +54,7 @@ class SeomaticPlugin extends BasePlugin
 
         craft()->templates->hook('seomaticRender', function(&$context)
         {
-            if (craft()->request->isSiteRequest())
+            if ((craft()->request->isSiteRequest()) && (isset($context['seomaticMeta'])))
             {
                 $locale = craft()->language;
                 $seomaticMeta = $context['seomaticMeta'];
