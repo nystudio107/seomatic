@@ -1750,6 +1750,8 @@ class SeomaticService extends BaseApplicationComponent
 
     public function extractKeywords($text = null, $limit = 15, $withoutStopWords = true)
     {
+        if (!$text)
+            return;
         $text = strtolower($text);
         $config = new Config;
         if ($withoutStopWords)
@@ -1781,6 +1783,8 @@ class SeomaticService extends BaseApplicationComponent
 
     public function extractSummary($text = null, $limit = null, $withoutStopWords = true)
     {
+        if (!$text)
+            return;
         $config = new Config;
         if ($withoutStopWords)
         {
