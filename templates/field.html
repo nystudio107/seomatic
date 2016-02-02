@@ -28,7 +28,7 @@
             <label for="seoTitle">{{ "SEO Title"|t}}{% if locale %}<span class="locale">{{ locale }}</span>{% endif %}</label>
             <div class="instructions"><p>{{ "This should be between 10 and 70 characters (spaces included).  Make sure your title tag is explicit and contains your most important keywords. Be sure that each page has a unique title tag.  The <code>siteSeoName</code> length is subtracted from the 70 character limit automatically, since it is appended to the <code>seoTitle</code>." |t |raw}}</p></div>
         </div>
-        <div class="source-container">
+        <div class="source-container"{% if not seoTitleSourceChangeable %} style="display: none;"{% endif %}>
             <div class="source-item">
                 <p>{{ "Source" |t }} </p>
             </div>
@@ -48,6 +48,7 @@
             </div>
         </div>
         <div id="seoTitleSourceField-wrapper" class="selectFieldWrapper">
+            <div {% if not seoTitleSourceChangeable %} style="display: none;"{% endif %}>
             {{ forms.selectField({
                 fieldClass: 'nomarginfield',
                 id: id ~ "seoTitleSourceField",
@@ -56,6 +57,7 @@
                 value: meta.seoTitleSourceField,
                 locale: field.translatable ? locale,
             }) }}
+            </div>
             <p class="textpreview" id="{{ id ~ 'seoTitle-preview' }}"></p>
        </div>
         <div id ="seoTitle-wrapper" class="customFieldWrapper">
@@ -79,7 +81,7 @@
             <label for="{{ id }}seoDescription">{{ "SEO Description"|t}}{% if locale %}<span class="locale">{{ locale }}</span>{% endif %}</label>
             <div class="instructions"><p>{{ "This should be between 70 and 160 characters (spaces included).  Meta descriptions allow you to influence how your web pages are described and displayed in search results.  Ensure that all of your web pages have a unique meta description that is explicit and contains your most important keywords." |t |raw}}</p></div>
         </div>
-        <div class="source-container">
+        <div class="source-container"{% if not seoDescriptionSourceChangeable %} style="display: none;"{% endif %}>
             <div class="source-item">
                 <p>{{ "Source" |t }} </p>
             </div>
@@ -99,6 +101,7 @@
             </div>
         </div>
         <div id="seoDescriptionSourceField-wrapper" class="selectFieldWrapper">
+            <div {% if not seoDescriptionSourceChangeable %} style="display: none;"{% endif %}>
             {{ forms.selectField({
                 fieldClass: 'nomarginfield',
                 id: id ~ "seoDescriptionSourceField",
@@ -107,6 +110,7 @@
                 value: meta.seoDescriptionSourceField,
                 locale: field.translatable ? locale,
             }) }}
+            </div>
             <p class="textpreview" id="{{ id ~ 'seoDescription-preview' }}"></p>
         </div>
         <div id ="seoDescription-wrapper" class="customFieldWrapper">
@@ -130,7 +134,7 @@
             <label for="seoKeywords">{{ "SEO Keywords"|t}}{% if locale %}<span class="locale">{{ locale }}</span>{% endif %}</label>
             <div class="instructions"><p>{{ "Google ignores this tag; though other search engines do look at it.  Utilize it carefully, as improper or spammy use most likely will hurt you, or even have your site marked as spam.  Avoid overstuffing the keywords and do not include keywords that are not related to the specific page you place them on." |t |raw}}</p></div>
         </div>
-        <div class="source-container">
+        <div class="source-container"{% if not seoKeywordsSourceChangeable %} style="display: none;"{% endif %}>
             <div class="source-item">
                 <p>{{ "Source" |t }} </p>
             </div>
@@ -151,6 +155,7 @@
             </div>
         </div>
         <div id="seoKeywordsSourceField-wrapper" class="selectFieldWrapper">
+            <div {% if not seoKeywordsSourceChangeable %} style="display: none;"{% endif %}>
             {{ forms.selectField({
                 fieldClass: 'nomarginfield',
                 id: id ~ "seoKeywordsSourceField",
@@ -159,6 +164,7 @@
                 value: meta.seoKeywordsSourceField,
                 locale: field.translatable ? locale,
             }) }}
+            </div>
             <p class="textpreview" id="{{ id ~ 'seoKeywords-preview' }}"></p>
         </div>
         <div id ="seoKeywords-wrapper" class="customFieldWrapper">
@@ -181,7 +187,7 @@
             <label for="{{ id }}seoImageId">{{ "SEO Image"|t}}{% if locale %}<span class="locale">{{ locale }}</span>{% endif %}</label>
             <div class="instructions"><p>{{ "This is the image that will be used for display as the webpage brand for this template, as well as on Twitter Cards and Facebook OpenGraph that link to this page.  It should be an image that displays well when cropped to a square format (for Twitter)" |t |raw}}</p></div>
         </div>
-        <div class="source-container">
+        <div class="source-container"{% if not seoImageIdSourceChangeable %} style="display: none;"{% endif %}>
             <div class="source-item">
                 <p>{{ "Source" |t }} </p>
             </div>
@@ -201,6 +207,7 @@
             </div>
         </div>
         <div id="seoImageIdSourceField-wrapper" class="selectFieldWrapper">
+            <div {% if not seoImageIdSourceChangeable %} style="display: none;"{% endif %}>
             {{ forms.selectField({
                 fieldClass: 'nomarginfield',
                 id: id ~ "seoImageIdSourceField",
@@ -209,6 +216,7 @@
                 value: meta.seoImageIdSourceField,
                 locale: field.translatable ? locale,
             }) }}
+            </div>
         <img id="{{ id ~ 'seoImageIdSource-preview' }}" class="scale-with-grid" src="{{ resourceUrl('seomatic/images/missing_image.png') }}" alt="Image Preview" />
        </div>
         <div id ="seoImageId-wrapper" class="customFieldWrapper">
@@ -225,6 +233,7 @@
                             'locale': craft.locale,
                         },
                         sourceElementId: seoImageId,
+                        sources: assetSources,
                         jsClass: 'Craft.AssetSelectInput',
                         addButtonLabel: "Select SEO Image" |t,
                         limit: 1,

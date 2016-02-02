@@ -1,17 +1,29 @@
 {% import "_includes/forms" as forms %}
 
-{% set locale = craft.isLocalized() ? (element ? element.locale : craft.locale) %}
+<div>
+    {% if assetSources %}
+        {{ forms.checkboxSelectField({
+            label: "Asset Sources"|t,
+            instructions: "Which sources do you want to select assets from?"|t,
+            id: 'assetSources',
+            name: 'assetSources',
+            options: assetSources,
+            values: settings.assetSources
+        })}}
+    {% else %}
+        {{ forms.field({
+            label: "Asset Sources"|t,
+        }, '<p class="error">' ~ "No asset sources exist yet."|t ~ '</p>') }}
+    {% endif %}
 
-<div id="{{ id }}" class="seomatic-meta-field">
+    <!-- seoTitleSource -->
 
-    <div class="seomatic-meta-field-title">
-        <img class="seomatic-field-icon" src="{{ resourceUrl('seomatic/icon.svg') }}" width="16px" height="auto" /><span>SEOmatic Meta</span>
-    </div>
     <div class="field comboField-wrapper first">
         <div class="heading">
-            <label for="seoTitle">{{ "SEO Title"|t}}{% if locale %}<span class="locale">{{ locale }}</span>{% endif %}</label>
-            <div class="instructions"><p>{{ "This should be between 10 and 70 characters (spaces included).  Make sure your title tag is explicit and contains your most important keywords. Be sure that each page has a unique title tag.  The <code>siteSeoName</code> length is subtracted from the 70 character limit automatically, since it is appended to the <code>seoTitle</code>." |t |raw}}</p></div>
+            <label for="seoTitleSource">{{ "Default SEO Title"|t}}</label>
+            <div class="instructions"><p>{{ "Set what the SEO Title should default to for each entry." |t |raw}}</p></div>
         </div>
+
         <div class="source-container">
             <div class="source-item">
                 <p>{{ "Source" |t }} </p>
@@ -20,48 +32,42 @@
                 {{ forms.selectField({
                     fieldClass: 'nomarginfield',
                     class: 'selectField',
-                    id: id ~ "seoTitleSource",
+                    id: 'seoTitleSource',
                     options: {
                         "custom": "Custom Text"|t,
                         "field": "From Field"|t,
                     },
-                    name: name ~ "[seoTitleSource]",
+                    name: 'seoTitleSource',
                     value: settings.seoTitleSource,
-                    locale: field.translatable ? locale,
                 }) }}
             </div>
         </div>
         <div id="seoTitleSourceField-wrapper" class="selectFieldWrapper">
             {{ forms.selectField({
                 fieldClass: 'nomarginfield',
-                id: id ~ "seoTitleSourceField",
+                id: 'seoTitleSourceField',
                 options: fieldList,
-                name: name ~ "[seoTitleSourceField]",
+                name: 'seoTitleSourceField',
                 value: settings.seoTitleSourceField,
-                locale: field.translatable ? locale,
             }) }}
         </div>
-        <div id ="seoTitle-wrapper" class="customFieldWrapper">
-            {{ forms.textField({
-                fieldClass: 'nomarginfield',
-                id: id ~ 'seoTitle',
-                class: 'nicetext',
-                name: name ~ '[seoTitle]',
-                value: settings.seoTitle,
-                errors: settings.getErrors('seoTitle'),
-                maxlength: titleLength,
-                showCharsLeft: true,
-                required: false,
-                locale: field.translatable ? locale,
-            }) }}
-        </div>
+
+        {{ forms.lightswitchField({
+            label: "SEO Title Source Changeable"|t,
+            name: 'seoTitleSourceChangeable',
+            instructions: "Whether to allow the user to change the SEO Title source while editing the entry"|t,
+            on: settings.seoTitleSourceChangeable,
+        }) }}
     </div>
 
-    <div class="field comboField-wrapper" id="{{ id }}seoDescription-field">
+    <!-- seoDescriptionSource -->
+
+    <div class="field comboField-wrapper" id="seoDescription-field">
         <div class="heading">
-            <label for="{{ id }}seoDescription">{{ "SEO Description"|t}}{% if locale %}<span class="locale">{{ locale }}</span>{% endif %}</label>
-            <div class="instructions"><p>{{ "This should be between 70 and 160 characters (spaces included).  Meta descriptions allow you to influence how your web pages are described and displayed in search results.  Ensure that all of your web pages have a unique meta description that is explicit and contains your most important keywords." |t |raw}}</p></div>
+            <label for="seoDescriptionSource">{{ "Default SEO Description"|t}}</label>
+            <div class="instructions"><p>{{ "Set what the SEO Description should default to for each entry." |t |raw}}</p></div>
         </div>
+
         <div class="source-container">
             <div class="source-item">
                 <p>{{ "Source" |t }} </p>
@@ -70,48 +76,41 @@
                 {{ forms.selectField({
                     fieldClass: 'nomarginfield',
                     class: 'selectField',
-                    id: id ~ "seoDescriptionSource",
+                    id: 'seoDescriptionSource',
                     options: {
                         "custom": "Custom Text"|t,
                         "field": "From Field"|t,
                     },
-                    name: name ~ "[seoDescriptionSource]",
+                    name: 'seoDescriptionSource',
                     value: settings.seoDescriptionSource,
-                    locale: field.translatable ? locale,
                 }) }}
             </div>
         </div>
         <div id="seoDescriptionSourceField-wrapper" class="selectFieldWrapper">
             {{ forms.selectField({
                 fieldClass: 'nomarginfield',
-                id: id ~ "seoDescriptionSourceField",
+                id: 'seoDescriptionSourceField',
                 options: fieldList,
-                name: name ~ "[seoDescriptionSourceField]",
+                name: 'seoDescriptionSourceField',
                 value: settings.seoDescriptionSourceField,
-                locale: field.translatable ? locale,
             }) }}
         </div>
-        <div id ="seoDescription-wrapper" class="customFieldWrapper">
-            {{ forms.textarea({
-                id: id ~ 'seoDescription',
-                fieldClass: 'nomarginfield',
-                class: 'nicetext',
-                name: name ~ '[seoDescription]',
-                value: settings.seoDescription,
-                errors: settings.getErrors('seoDescription'),
-                maxlength: 160,
-                showCharsLeft: true,
-                required: false,
-                locale: field.translatable ? locale,
-            }) }}
-        </div>
+        {{ forms.lightswitchField({
+            label: "SEO Description Source Changeable"|t,
+            name: 'seoDescriptionSourceChangeable',
+            instructions: "Whether to allow the user to change the SEO Description source while editing the entry"|t,
+            on: settings.seoDescriptionSourceChangeable,
+        }) }}
     </div>
 
-    <div class="field comboField-wrapper" id="{{ id }}seoKeywords-field">
+    <!-- seoKeywordsSource -->
+
+    <div class="field comboField-wrapper" id="seoKeywords-field">
         <div class="heading">
-            <label for="seoKeywords">{{ "SEO Keywords"|t}}{% if locale %}<span class="locale">{{ locale }}</span>{% endif %}</label>
-            <div class="instructions"><p>{{ "Google ignores this tag; though other search engines do look at it.  Utilize it carefully, as improper or spammy use most likely will hurt you, or even have your site marked as spam.  Avoid overstuffing the keywords and do not include keywords that are not related to the specific page you place them on." |t |raw}}</p></div>
+            <label for="seoKeywordsSource">{{ "Default SEO Keywords"|t}}</label>
+            <div class="instructions"><p>{{ "Set what the SEO Keywords should default to for each entry." |t |raw}}</p></div>
         </div>
+
         <div class="source-container">
             <div class="source-item">
                 <p>{{ "Source" |t }} </p>
@@ -120,48 +119,42 @@
                 {{ forms.selectField({
                     fieldClass: 'nomarginfield',
                     class: 'selectField',
-                    id: id ~ "seoKeywordsSource",
+                    id: 'seoKeywordsSource',
                     options: {
                         "custom": "Custom Text"|t,
                         "field": "From Field"|t,
                         "keywords": "Keywords From Field"|t,
                     },
-                    name: name ~ "[seoKeywordsSource]",
+                    name: 'seoKeywordsSource',
                     value: settings.seoKeywordsSource,
-                    locale: field.translatable ? locale,
                 }) }}
             </div>
         </div>
         <div id="seoKeywordsSourceField-wrapper" class="selectFieldWrapper">
             {{ forms.selectField({
                 fieldClass: 'nomarginfield',
-                id: id ~ "seoKeywordsSourceField",
+                id: 'seoKeywordsSourceField',
                 options: fieldList,
-                name: name ~ "[seoKeywordsSourceField]",
+                name: 'seoKeywordsSourceField',
                 value: settings.seoKeywordsSourceField,
-                locale: field.translatable ? locale,
             }) }}
         </div>
-        <div id ="seoKeywords-wrapper" class="customFieldWrapper">
-            {{ forms.textarea({
-                id: id ~ 'seoKeywords',
-                class: 'nicetext',
-                name: name ~ '[seoKeywords]',
-                value: settings.seoKeywords,
-                errors: settings.getErrors('seoKeywords'),
-                maxlength: 200,
-                showCharsLeft: true,
-                required: false,
-                locale: field.translatable ? locale,
-            }) }}
-        </div>
+        {{ forms.lightswitchField({
+            label: "SEO Keywords Source Changeable"|t,
+            name: 'seoKeywordsSourceChangeable',
+            instructions: "Whether to allow the user to change the SEO Keywords source while editing the entry"|t,
+            on: settings.seoKeywordsSourceChangeable,
+        }) }}
     </div>
 
-    <div class="field comboField-wrapper" id="{{ id }}seoImageId-field">
+    <!-- seoImageIdSource -->
+
+    <div class="field comboField-wrapper" id="seoImageId-field">
         <div class="heading">
-            <label for="{{ id }}seoImageId">{{ "SEO Image"|t}}{% if locale %}<span class="locale">{{ locale }}</span>{% endif %}</label>
-            <div class="instructions"><p>{{ "This is the image that will be used for display as the webpage brand for this template, as well as on Twitter Cards and Facebook OpenGraph that link to this page.  It should be an image that displays well when cropped to a square format (for Twitter)" |t |raw}}</p></div>
+            <label for="seoImageIdSource">{{ "Default SEO Image"|t}}</label>
+            <div class="instructions"><p>{{ "Set what the SEO Image should default to for each entry." |t |raw}}</p></div>
         </div>
+
         <div class="source-container">
             <div class="source-item">
                 <p>{{ "Source" |t }} </p>
@@ -170,92 +163,31 @@
                 {{ forms.selectField({
                     fieldClass: 'nomarginfield',
                     class: 'selectField',
-                    id: id ~ "seoImageIdSource",
+                    id: 'seoImageIdSource',
                     options: {
                         "custom": "Custom Image"|t,
                         "field": "From Field"|t,
                     },
-                    name: name ~ "[seoImageIdSource]",
+                    name: 'seoImageIdSource',
                     value: settings.seoImageIdSource,
-                    locale: field.translatable ? locale,
                 }) }}
             </div>
         </div>
         <div id="seoImageIdSourceField-wrapper" class="selectFieldWrapper">
             {{ forms.selectField({
                 fieldClass: 'nomarginfield',
-                id: id ~ "seoImageIdSourceField",
+                id: 'seoImageIdSourceField',
                 options: imageFieldList,
-                name: name ~ "[seoImageIdSourceField]",
+                name: 'seoImageIdSourceField',
                 value: settings.seoImageIdSourceField,
-                locale: field.translatable ? locale,
             }) }}
         </div>
-        <div id ="seoImageId-wrapper" class="customFieldWrapper">
-            <div class="input">
-                {% if assetsSourceExists %}
-                    {{ forms.elementSelect({
-                        elements: elements,
-                        id: id ~ 'seoImageId',
-                        name: name ~ '[seoImageId]',
-                        elementType: elementType,
-                        criteria: {
-                            'kind': [],
-                            'localeEnabled': null,
-                            'locale': craft.locale,
-                        },
-                        sourceElementId: seoImageId,
-                        jsClass: 'Craft.AssetSelectInput',
-                        addButtonLabel: "Select SEO Image" |t,
-                        limit: 1,
-                        locale: field.translatable ? locale,
-                    }) }}
-                {% else %}
-                    <p class="error">No assets sources currently exist. <a href="{{ newAssetsSourceUrl }}">Create one now...</a></p>
-                {% endif %}
-            </div>
-        </div>
+        {{ forms.lightswitchField({
+            label: "SEO Image Source Changeable"|t,
+            name: 'seoImageIdSourceChangeable',
+            instructions: "Whether to allow the user to change the SEO Image source while editing the entry"|t,
+            on: settings.seoImageIdSourceChangeable,
+        }) }}
     </div>
-
-    {{ forms.selectField({
-        label: "Twitter Card Type"|t,
-        instructions: "With Twitter Cards, you can attach rich photos and information to Tweets that drive traffic to your website. Users who Tweet links to your content will have a “Card” added to the Tweet that’s visible to all of their followers."|t,
-        id: id ~ "twitterCardType",
-        options: {
-            "summary": "Summary Card"|t,
-            "summary_large_image": "Summary Card with Large Image"|t,
-        },
-        name: name ~ "[twitterCardType]",
-        value: settings.twitterCardType,
-        locale: field.translatable ? locale,
-    }) }}
-
-    {{ forms.selectField({
-        label: "Facebook Open Graph Type"|t,
-        instructions: "Adding Open Graph tags to your website influences the performance of your links on social media by allowing you to control what appears when a user posts a link to your content on Facebook."|t,
-        id: id ~ "openGraphType",
-        options: {
-            "website": "Website"|t,
-        },
-        name: name ~ "[openGraphType]",
-        value: settings.openGraphType,
-        locale: field.translatable ? locale,
-    }) }}
-
-    {{ forms.selectField({
-        label: "Robots Meta Tag"|t,
-        instructions: "The robots meta tag lets you utilize a granular, page-specific approach to controlling how an individual page should be indexed and served to users in search results.  Setting it to a blank value means 'no change'."|t,
-        id: id ~ "robots",
-        options: {
-            "": "",
-            "all": "all - Index this page and follow links (default)" |t,
-            "noindex": "noindex - Do not index this page" |t,
-            "nofollow": "nofollow - Do not follow links on this page" |t,
-            "none": "none - Do not index or follow links on this page" |t,
-        },
-        name: name ~ "[robots]",
-        value: settings.robots,
-        locale: field.translatable ? locale,
-    }) }}
 
 </div>

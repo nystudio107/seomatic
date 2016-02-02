@@ -1279,10 +1279,13 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
-### 1.1.0 -- 2016.01.28
+### 1.1.0 -- 2016.02.10
 
-* [Added] Twitter Card and Facebook types can now have null values in the Field, and Template meta settings
 * [Added] Added all of the schema.org Organization types to Identity and Creator settings
+* SEOmatic Meta FieldTypes now have settings that let you restrict the Asset Sources available to them
+* SEOmatic Meta FieldTypes now let you set the default Source settings for each field
+* SEOmatic Meta FieldTypes now let you choose if the Source can be changed when editing an entry
+* [Added] Twitter Card and Facebook types can now have null values in the Field, and Template meta settings
 * [Improved] Updated the README.md
 
 ### 1.0.12 -- 2016.01.19

@@ -21,7 +21,17 @@ class Seomatic_MetaFieldType extends BaseFieldType
     {
 
         if (!$value)
+        {
             $value = new Seomatic_MetaFieldModel();
+            $value->seoTitleSource = $this->getSettings()->seoTitleSource;
+            $value->seoTitleSourceField = $this->getSettings()->seoTitleSourceField;
+            $value->seoDescriptionSource = $this->getSettings()->seoDescriptionSource;
+            $value->seoDescriptionSourceField = $this->getSettings()->seoDescriptionSourceField;
+            $value->seoKeywordsSource = $this->getSettings()->seoKeywordsSource;
+            $value->seoKeywordsSourceField = $this->getSettings()->seoKeywordsSourceField;
+            $value->seoImageIdSource = $this->getSettings()->seoImageIdSource;
+            $value->seoImageIdSourceField = $this->getSettings()->seoImageIdSourceField;
+        }
 
         $id = craft()->templates->formatInputId($name);
         $namespacedId = craft()->templates->namespaceInputId($id);
@@ -89,6 +99,13 @@ class Seomatic_MetaFieldType extends BaseFieldType
         // Set element type
         $variables['elementType'] = craft()->elements->getElementType(ElementType::Asset);
 
+        $variables['assetSources'] = $this->getSettings()->assetSources;
+
+        $variables['seoTitleSourceChangeable'] = $this->getSettings()->seoTitleSourceChangeable;
+        $variables['seoDescriptionSourceChangeable'] = $this->getSettings()->seoDescriptionSourceChangeable;
+        $variables['seoKeywordsSourceChangeable'] = $this->getSettings()->seoKeywordsSourceChangeable;
+        $variables['seoImageIdSourceChangeable'] = $this->getSettings()->seoImageIdSourceChangeable;
+
 /* -- Extract a list of the other plain text fields that are in this entry's layout */
 
         $fieldList = array('title' => 'Title');
@@ -153,6 +170,19 @@ class Seomatic_MetaFieldType extends BaseFieldType
     protected function defineSettings()
         {
             return array(
+                'assetSources' => AttributeType::Mixed,
+                'seoTitleSource' => array(AttributeType::String, 'default' => 'field'),
+                'seoTitleSourceField' => array(AttributeType::String, 'default' => 'title'),
+                'seoTitleSourceChangeable' => array(AttributeType::Bool, 'default' => 1),
+                'seoDescriptionSource' => AttributeType::String,
+                'seoDescriptionSourceField' => AttributeType::String,
+                'seoDescriptionSourceChangeable' => array(AttributeType::Bool, 'default' => 1),
+                'seoKeywordsSource' => AttributeType::String,
+                'seoKeywordsSourceField' => AttributeType::String,
+                'seoKeywordsSourceChangeable' => array(AttributeType::Bool, 'default' => 1),
+                'seoImageIdSource' => AttributeType::String,
+                'seoImageIdSourceField' => AttributeType::String,
+                'seoImageIdSourceChangeable' => array(AttributeType::Bool, 'default' => 1),
             );
         }
 
@@ -162,7 +192,47 @@ class Seomatic_MetaFieldType extends BaseFieldType
      */
     public function getSettingsHtml()
     {
-    }
+        $fields = craft()->fields->fieldsWithContent;
+
+        $fieldList = array('title' => 'Title');
+        $imageFieldList = array();
+        foreach ($fields as $field)
+        {
+
+            switch ($field->type)
+            {
+                case "PlainText":
+                case "RichText":
+                case "RedactorI":
+                    $fieldList[$field->handle] = $field->name;
+                    break;
+
+                case "Matrix":
+                    $fieldList[$field->handle] = $field->name;
+                    break;
+
+                case "Tags":
+                    $fieldList[$field->handle] = $field->name;
+                    break;
+
+                case "Assets":
+                    $imageFieldList[$field->handle] = $field->name;
+                    break;
+            }
+        }
+
+        craft()->templates->includeCssResource('seomatic/css/style.css');
+        craft()->templates->includeCssResource('seomatic/css/field.css');
+        craft()->templates->includeJsResource('seomatic/js/field_settings.js');
+
+        $assetElementType = craft()->elements->getElementType(ElementType::Asset);
+        return craft()->templates->render('seomatic/field_settings', array(
+            'assetSources'          => $this->getElementSources($assetElementType),
+            'fieldList'             => $fieldList,
+            'imageFieldList'        => $imageFieldList,
+            'settings'              => $this->getSettings()
+        ));
+   }
 
     /**
      * [prepValueFromPost description]
@@ -190,6 +260,27 @@ class Seomatic_MetaFieldType extends BaseFieldType
         }
 
         return $value;
+    }
+
+    /**
+     * Returns sources avaible to an element type.
+     *
+     * @access protected
+     * @return mixed
+     */
+    protected function getElementSources($elementType)
+    {
+        $sources = array();
+
+        foreach ($elementType->getSources() as $key => $source)
+        {
+            if (!isset($source['heading']))
+            {
+                $sources[] = array('label' => $source['label'], 'value' => $key);
+            }
+        }
+
+        return $sources;
     }
 
 } /* -- Seomatic_MetaFieldType */
