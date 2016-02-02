@@ -307,7 +307,7 @@ When SEOmatic goes to render the `twitter` and `og` tags, it iterates through th
 
 You can even do fun things like:
 
-	{% set seomaticMeta = seomaticMeta | merge(
+	{% set seomaticMeta = seomaticMeta | merge({
 	    og: { 
 	        type: seomaticMeta.og.type,
 	        locale: seomaticMeta.og.locale,
