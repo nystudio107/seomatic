@@ -38,6 +38,14 @@ div.seomatic-livepreviewbtn:before {
     -ms-user-select: none;
 }
 
+div.preview-field-wrapper {
+    display: inline-block;
+    width: 45%;
+    min-width: 240px;
+    padding-left: 2.3%;
+    padding-right: 2.3%;
+}
+
 div.seomatic-meta-field {
 	border: 1px solid #e3e5e8;
 	margin-bottom: 10px;

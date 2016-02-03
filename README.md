@@ -90,8 +90,8 @@ The Site Owner type determines the JSON-LD schema that will be used to identity 
 Leave any fields blank that aren't applicable or which you do not want as part of the SEO schema.
 
 #### Site Ownership
-* **Google Site Verification** - For the `<meta name='google-site-verification'>` tag. [Here's how to get it](https://www.google.com/webmasters/verification/).
-* **Site Owner Entity Type** - The type of entity that owns this website.
+* **Google Site Verification** - For the `<meta name='google-site-verification'>` tag. Only enter the code in the `content=''`, not the entire tag. [Here's how to get it.](https://www.google.com/webmasters/verification/).
+* **Site Owner Entity Type** - The type of entity that owns this website.  Choose as general or specific of a type as you like.  Any entity sub-type left blank is ignored.
 
 #### General Info
 * **Entity Name** - The name of the entity that owns the website
@@ -143,10 +143,12 @@ None of these fields are mandatory; if you don't have a given social media accou
 * **Facebook Handle** - Your Facebook company/fan page handle (the part after `https://www.Facebook.com/`
 * **Facebook Profile ID** - Your Facebook Profile/Page ID. Click on the 'About' tab on your Facebook company/fan page, click on 'Page Info', then scroll to the bottom to find your 'Facebook Page ID'
 * **LinkedIn Handle** - Your LinkedIn page handle (the part after `https://www.linkedin.com/in/` or `https://www.linkedin.com/company/`)
-* **Google+ Handle** - Your Google+ page handle, without the preceding +
-* **YouTube Handle** - Your YouTube handle (the part after `https://www.youtube.com/user/`)
+* **Google+ Handle** - Your Google+ page handle, without the preceding +. If you have a numeric Google+ account still, just enter that.
+* **YouTube User Handle** - Your YouTube handle (the part after `https://www.youtube.com/user/`)
+* **YouTube Channel Handle** - Your YouTube handle (the part after `https://www.youtube.com/c/`)
 * **Instagram Handle** - Your Instagram handle
 * **Pinterest Handle** - Your Pinterest page handle (the part after `https://www.pinterest.com/`)
+* **Github Handle** - Your Github page handle (the part after `https://github.com/`)
 
 You must have a **Twitter Handle** for SEOmatic to generate Twitter Card tags for you.  Similarly, you should have a **Facebook Profile ID** for the Facebook Open Graph tags, but it's not required.
 
@@ -592,7 +594,7 @@ The above arrays will render to the following JSON-LD:
 	}
 	</script>
 	
-The array can be nested arbitrarily deep with sub-arrays.  The first key in the array, and in each sub-array, should be an "type" with a valid [Schema.org](Schema.org) type as the value.  Because Twig doesn't support array keys with non-alphanumeric characters, SEOmatic transforms the keys "type" into "@type" at render time.
+The array can be nested arbitrarily deep with sub-arrays.  The first key in the array, and in each sub-array, should be an "type" with a valid [Schema.org](http://Schema.org) type as the value.  Because Twig doesn't support array keys with non-alphanumeric characters, SEOmatic transforms the keys "type" into "@type" at render time.
 
 Here's a practical example.  Let's say you're working on a spiffy new online store using Craft Commerce, and you want to add in some microdata for the products listed in your store, for SEO purposes.  You can do something like this:
 
@@ -1288,6 +1290,7 @@ Some things to do, and ideas for potential features:
 * [Added] Twitter Card and Facebook types can now have null values in the FieldType, and Template meta settings
 * [Added] We now include separate Place JSON-LD for Organizations (in addition to being part of the Identity)
 * [Fixed] We now handle numeric Google+ accounts properly
+* [Fixed] The Preview buttons display properly on mobile devices for the SEOmatic FieldType now
 * [Improved] Updated the README.md
 
 ### 1.0.12 -- 2016.01.19
