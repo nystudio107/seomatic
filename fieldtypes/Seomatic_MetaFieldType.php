@@ -31,6 +31,8 @@ class Seomatic_MetaFieldType extends BaseFieldType
             $value->seoKeywordsSourceField = $this->getSettings()->seoKeywordsSourceField;
             $value->seoImageIdSource = $this->getSettings()->seoImageIdSource;
             $value->seoImageIdSourceField = $this->getSettings()->seoImageIdSourceField;
+            $value->twitterCardType = $this->getSettings()->twitterCardType;
+            $value->openGraphType = $this->getSettings()->openGraphType;
         }
 
         $id = craft()->templates->formatInputId($name);
@@ -105,6 +107,9 @@ class Seomatic_MetaFieldType extends BaseFieldType
         $variables['seoDescriptionSourceChangeable'] = $this->getSettings()->seoDescriptionSourceChangeable;
         $variables['seoKeywordsSourceChangeable'] = $this->getSettings()->seoKeywordsSourceChangeable;
         $variables['seoImageIdSourceChangeable'] = $this->getSettings()->seoImageIdSourceChangeable;
+        $variables['twitterCardTypeChangeable'] = $this->getSettings()->twitterCardTypeChangeable;
+        $variables['openGraphTypeChangeable'] = $this->getSettings()->openGraphTypeChangeable;
+        $variables['robotsChangeable'] = $this->getSettings()->robotsChangeable;
 
 /* -- Extract a list of the other plain text fields that are in this entry's layout */
 
@@ -183,6 +188,14 @@ class Seomatic_MetaFieldType extends BaseFieldType
                 'seoImageIdSource' => AttributeType::String,
                 'seoImageIdSourceField' => AttributeType::String,
                 'seoImageIdSourceChangeable' => array(AttributeType::Bool, 'default' => 1),
+                'twitterCardType' => AttributeType::String,
+                'twitterCardTypeChangeable' => array(AttributeType::Bool, 'default' => 1),
+                'openGraphType' => AttributeType::String,
+                'openGraphTypeChangeable' => array(AttributeType::Bool, 'default' => 1),
+                'openGraphType' => AttributeType::String,
+                'openGraphTypeChangeable' => array(AttributeType::Bool, 'default' => 1),
+                'robots' => AttributeType::String,
+                'robotsChangeable' => array(AttributeType::Bool, 'default' => 1),
             );
         }
 
@@ -192,7 +205,7 @@ class Seomatic_MetaFieldType extends BaseFieldType
      */
     public function getSettingsHtml()
     {
-        $fields = craft()->fields->fieldsWithContent;
+        $fields = craft()->fields->getAllFields();
 
         $fieldList = array('title' => 'Title');
         $imageFieldList = array();

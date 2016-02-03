@@ -87,8 +87,10 @@ class Seomatic_SettingsModel extends BaseModel
             'linkedInHandle'                    => array(AttributeType::String, 'default' => ''),
             'googlePlusHandle'                  => array(AttributeType::String, 'default' => ''),
             'youtubeHandle'                     => array(AttributeType::String, 'default' => ''),
+            'youtubeChannelHandle'              => array(AttributeType::String, 'default' => ''),
             'instagramHandle'                   => array(AttributeType::String, 'default' => ''),
             'pinterestHandle'                   => array(AttributeType::String, 'default' => ''),
+            'githubHandle'                      => array(AttributeType::String, 'default' => ''),
 
 /* --------------------------------------------------------------------------------
     CEATOR settings

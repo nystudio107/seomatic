@@ -246,9 +246,10 @@
         </div>
     </div>
 
+    <div class="field comboField-wrapper"{% if not twitterCardTypeChangeable %} style="display: none;"{% endif %}>
     {{ forms.selectField({
         label: "Twitter Card Type"|t,
-        instructions: "With Twitter Cards, you can attach rich photos and information to Tweets that drive traffic to your website. Users who Tweet links to your content will have a “Card” added to the Tweet that’s visible to all of their followers."|t,
+        instructions: "With Twitter Cards, you can attach rich photos and information to Tweets that drive traffic to your website. Users who Tweet links to your content will have a “Card” added to the Tweet that’s visible to all of their followers.  Setting it to a blank value means 'no change'."|t,
         id: id ~ "twitterCardType",
         options: {
             "": "",
@@ -259,10 +260,12 @@
         value: meta.twitterCardType,
         locale: field.translatable ? locale,
     }) }}
+    </div>
 
+    <div class="field comboField-wrapper"{% if not openGraphTypeChangeable %} style="display: none;"{% endif %}>
     {{ forms.selectField({
         label: "Facebook Open Graph Type"|t,
-        instructions: "Adding Open Graph tags to your website influences the performance of your links on social media by allowing you to control what appears when a user posts a link to your content on Facebook."|t,
+        instructions: "Adding Open Graph tags to your website influences the performance of your links on social media by allowing you to control what appears when a user posts a link to your content on Facebook.  Setting it to a blank value means 'no change'."|t,
         id: id ~ "openGraphType",
         options: {
             "": "",
@@ -272,7 +275,9 @@
         value: meta.openGraphType,
         locale: field.translatable ? locale,
     }) }}
+    </div>
 
+    <div class="field comboField-wrapper"{% if not robotsChangeable %} style="display: none;"{% endif %}>
     {{ forms.selectField({
         label: "Robots Meta Tag"|t,
         instructions: "The robots meta tag lets you utilize a granular, page-specific approach to controlling how an individual page should be indexed and served to users in search results.  Setting it to a blank value means 'no change'."|t,
@@ -288,5 +293,5 @@
         value: meta.robots,
         locale: field.translatable ? locale,
     }) }}
-
+    </div>
 </div>

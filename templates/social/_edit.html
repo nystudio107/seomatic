@@ -93,7 +93,7 @@
 
                 {{ forms.textField({
                     label: "Google+ Handle"|t,
-                    instructions: ("Your Google+ page handle, without the preceding <code>+</code>") |t |raw,
+                    instructions: ("Your Google+ page handle, without the preceding <code>+</code>.  If you have a numeric Google+ account still, just enter that.") |t |raw,
                     id: "googlePlusHandle",
                     class: 'nicetext',
                     name: "googlePlusHandle",
@@ -103,12 +103,23 @@
                 }) }}
 
                 {{ forms.textField({
-                    label: "YouTube Handle"|t,
-                    instructions: ("Your YouTube handle (the part after <code>https://www.youtube.com/user/</code>)") |t |raw,
+                    label: "YouTube User Handle"|t,
+                    instructions: ("Your YouTube user handle (the part after <code>https://www.youtube.com/user/</code>)") |t |raw,
                     id: "youtubeHandle",
                     class: 'nicetext',
                     name: "youtubeHandle",
                     value: social.youtubeHandle,
+                    required: false,
+                    locale:  social.locale,
+                }) }}
+
+                {{ forms.textField({
+                    label: "YouTube Channel Handle"|t,
+                    instructions: ("Your YouTube channel handle (the part after <code>https://www.youtube.com/c/</code>)") |t |raw,
+                    id: "youtubeChannelHandle",
+                    class: 'nicetext',
+                    name: "youtubeChannelHandle",
+                    value: social.youtubeChannelHandle,
                     required: false,
                     locale:  social.locale,
                 }) }}
@@ -131,6 +142,17 @@
                     class: 'nicetext',
                     name: "pinterestHandle",
                     value: social.pinterestHandle,
+                    required: false,
+                    locale:  social.locale,
+                }) }}
+
+                {{ forms.textField({
+                    label: "Github Handle"|t,
+                    instructions: ("Your Github page handle (the part after <code>https://github.com/</code>)") |t |raw,
+                    id: "githubHandle",
+                    class: 'nicetext',
+                    name: "githubHandle",
+                    value: social.githubHandle,
                     required: false,
                     locale:  social.locale,
                 }) }}

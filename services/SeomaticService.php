@@ -532,8 +532,10 @@ class SeomaticService extends BaseApplicationComponent
             array_push($sameAs, $helper['googlePlusUrl']);
             array_push($sameAs, $helper['linkedInUrl']);
             array_push($sameAs, $helper['youtubeUrl']);
+            array_push($sameAs, $helper['youtubeChannelUrl']);
             array_push($sameAs, $helper['instagramUrl']);
             array_push($sameAs, $helper['pinterestUrl']);
+            array_push($sameAs, $helper['githubUrl']);
             $sameAs = array_filter($sameAs);
             $sameAs = array_values($sameAs);
             if (!empty($sameAs))
@@ -935,8 +937,10 @@ class SeomaticService extends BaseApplicationComponent
         array_push($sameAs, $helper['googlePlusUrl']);
         array_push($sameAs, $helper['linkedInUrl']);
         array_push($sameAs, $helper['youtubeUrl']);
+        array_push($sameAs, $helper['youtubeChannelUrl']);
         array_push($sameAs, $helper['instagramUrl']);
         array_push($sameAs, $helper['pinterestUrl']);
+        array_push($sameAs, $helper['githubUrl']);
         $sameAs = array_filter($sameAs);
         $sameAs = array_values($sameAs);
         if (!empty($sameAs))
@@ -1088,8 +1092,10 @@ class SeomaticService extends BaseApplicationComponent
         $social['linkedInHandle'] = $settings['linkedInHandle'];
         $social['googlePlusHandle'] = $settings['googlePlusHandle'];
         $social['youtubeHandle'] = $settings['youtubeHandle'];
+        $social['youtubeChannelHandle'] = $settings['youtubeChannelHandle'];
         $social['instagramHandle'] = $settings['instagramHandle'];
         $social['pinterestHandle'] = $settings['pinterestHandle'];
+        $social['githubHandle'] = $settings['githubHandle'];
 
         $result = $social;
 
@@ -1349,8 +1355,10 @@ class SeomaticService extends BaseApplicationComponent
         array_push($sameAs, $metaVars['seomaticHelper']['googlePlusUrl']);
         array_push($sameAs, $metaVars['seomaticHelper']['linkedInUrl']);
         array_push($sameAs, $metaVars['seomaticHelper']['youtubeUrl']);
+        array_push($sameAs, $metaVars['seomaticHelper']['youtubeChannelUrl']);
         array_push($sameAs, $metaVars['seomaticHelper']['instagramUrl']);
         array_push($sameAs, $metaVars['seomaticHelper']['pinterestUrl']);
+        array_push($sameAs, $metaVars['seomaticHelper']['githubUrl']);
         $sameAs = array_filter($sameAs);
         $sameAs = array_values($sameAs);
         if (!empty($sameAs))
@@ -1553,7 +1561,10 @@ class SeomaticService extends BaseApplicationComponent
         if ($social['googlePlusHandle'])
         {
             ltrim($social['googlePlusHandle'], '+');
-            $helper['googlePlusUrl'] = "https://plus.google.com/+" . $social['googlePlusHandle'];
+            if (is_numeric(substr($social['googlePlusHandle'], 0, 1)))
+                $helper['googlePlusUrl'] = "https://plus.google.com/" . $social['googlePlusHandle'];
+            else
+                $helper['googlePlusUrl'] = "https://plus.google.com/+" . $social['googlePlusHandle'];
         }
         else
             $helper['googlePlusUrl'] = '';
@@ -1575,6 +1586,14 @@ class SeomaticService extends BaseApplicationComponent
         else
             $helper['youtubeUrl'] = '';
 
+        if ($social['youtubeChannelHandle'])
+        {
+            $helper['youtubeChannelUrl'] = "https://www.youtube.com/c/" . $social['youtubeChannelHandle'];
+        }
+        else
+            $helper['youtubeChannelUrl'] = '';
+
+
         if ($social['instagramHandle'])
         {
             $helper['instagramUrl'] = "https://www.instagram.com/" . $social['instagramHandle'];
@@ -1588,6 +1607,13 @@ class SeomaticService extends BaseApplicationComponent
         }
         else
             $helper['pinterestUrl'] = '';
+
+        if ($social['githubHandle'])
+        {
+            $helper['githubUrl'] = "https://github.com/" . $social['githubHandle'];
+        }
+        else
+            $helper['githubUrl'] = '';
     } /* -- addSocialHelpers */
 
 /* --------------------------------------------------------------------------------
@@ -1601,7 +1627,7 @@ class SeomaticService extends BaseApplicationComponent
 
         $helper['ownerGoogleSiteVerification'] = $identity['googleSiteVerification'];
         $now = new DateTime;
-        $period = ". ";
+        $period = ".";
         $name = $identity['genericOwnerName'];
         if ($name)
         {
@@ -1609,7 +1635,7 @@ class SeomaticService extends BaseApplicationComponent
                 $period =" ";
         }
 
-        $helper['ownerCopyrightNotice'] = Craft::t("Copyright") . " &copy;" . $now->year() . " " . $name . $period . Craft::t("All rights reserved.");
+        $helper['ownerCopyrightNotice'] = Craft::t("Copyright") . " &copy;" . $now->year() . " " . $name . $period;
 
         $helper['ownerAddressString'] = '';
         $helper['ownerAddressHtml'] = '';
@@ -1648,14 +1674,14 @@ class SeomaticService extends BaseApplicationComponent
 /* -- Computed identity strings */
 
         $now = new DateTime;
-        $period = ". ";
+        $period = ".";
         $name = $creator['genericCreatorName'];
         if ($name)
         {
             if ($name[strlen($name) -1] == '.')
                 $period =" ";
         }
-        $helper['creatorCopyrightNotice'] = Craft::t("Copyright") . " &copy;" . $now->year() . " " . $name . $period . Craft::t("All rights reserved.");
+        $helper['creatorCopyrightNotice'] = Craft::t("Copyright") . " &copy;" . $now->year() . " " . $name . $period;
 
         $helper['creatorAddressString'] = '';
         $helper['creatorAddressHtml'] = '';

@@ -547,8 +547,10 @@ class SeomaticController extends BaseController
         $record->linkedInHandle = craft()->request->getPost('linkedInHandle', $record->linkedInHandle);
         $record->googlePlusHandle = craft()->request->getPost('googlePlusHandle', $record->googlePlusHandle);
         $record->youtubeHandle = craft()->request->getPost('youtubeHandle', $record->youtubeHandle);
+        $record->youtubeChannelHandle = craft()->request->getPost('youtubeChannelHandle', $record->youtubeChannelHandle);
         $record->instagramHandle = craft()->request->getPost('instagramHandle', $record->instagramHandle);
         $record->pinterestHandle = craft()->request->getPost('pinterestHandle', $record->pinterestHandle);
+        $record->githubHandle = craft()->request->getPost('githubHandle', $record->githubHandle);
 
         if ($record->save())
         {

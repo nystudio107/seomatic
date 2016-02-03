@@ -19,8 +19,8 @@ class Seomatic_MetaModel extends BaseElementModel
             'seoTitle'          => array(AttributeType::String, 'default' => ''),
             'seoDescription'    => array(AttributeType::String, 'default' => ''),
             'seoKeywords'       => array(AttributeType::String, 'default' => ''),
-            'twitterCardType'	=> array(AttributeType::String, 'default' => 'summary'),
-            'openGraphType'		=> array(AttributeType::String, 'default' => 'website'),
+            'twitterCardType'	=> array(AttributeType::String, 'default' => ''),
+            'openGraphType'		=> array(AttributeType::String, 'default' => ''),
             'robots'			=> array(AttributeType::String, 'default' => ''),
             'seoImageId'        => array(AttributeType::Number, 'default' => 0),
         ));

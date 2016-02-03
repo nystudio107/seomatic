@@ -1285,7 +1285,9 @@ Some things to do, and ideas for potential features:
 * SEOmatic Meta FieldTypes now have settings that let you restrict the Asset Sources available to them
 * SEOmatic Meta FieldTypes now let you set the default Source settings for each field
 * SEOmatic Meta FieldTypes now let you choose if the Source can be changed when editing an entry
-* [Added] Twitter Card and Facebook types can now have null values in the Field, and Template meta settings
+* [Added] Twitter Card and Facebook types can now have null values in the FieldType, and Template meta settings
+* [Added] We now include separate Place JSON-LD for Organizations (in addition to being part of the Identity)
+* [Fixed] We now handle numeric Google+ accounts properly
 * [Improved] Updated the README.md
 
 ### 1.0.12 -- 2016.01.19

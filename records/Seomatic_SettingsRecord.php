@@ -92,9 +92,11 @@ class Seomatic_SettingsRecord extends BaseRecord
             'facebookProfileId'         		=> array(AttributeType::String, 'default' => ''),
             'linkedInHandle'            		=> array(AttributeType::String, 'default' => ''),
             'googlePlusHandle'          		=> array(AttributeType::String, 'default' => ''),
-            'youtubeHandle'						=> array(AttributeType::String, 'default' => ''),
+            'youtubeHandle'                     => array(AttributeType::String, 'default' => ''),
+            'youtubeChannelHandle'              => array(AttributeType::String, 'default' => ''),
             'instagramHandle'					=> array(AttributeType::String, 'default' => ''),
-            'pinterestHandle'					=> array(AttributeType::String, 'default' => ''),
+            'pinterestHandle'                   => array(AttributeType::String, 'default' => ''),
+            'githubHandle'                      => array(AttributeType::String, 'default' => ''),
 
 
 /* --------------------------------------------------------------------------------

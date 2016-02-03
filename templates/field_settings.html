@@ -190,4 +190,71 @@
         }) }}
     </div>
 
+<!-- twitterCardType -->
+
+    {{ forms.selectField({
+        label: "Default Twitter Card Type"|t,
+        instructions: "Set what the Twitter Card Type should default to for each entry.  Setting it to a blank value means 'no change'."|t,
+        id: "twitterCardType",
+        options: {
+            "": "",
+            "summary": "Summary Card"|t,
+            "summary_large_image": "Summary Card with Large Image"|t,
+        },
+        name: "twitterCardType",
+        value: settings.twitterCardType,
+    }) }}
+
+    {{ forms.lightswitchField({
+        label: "Twitter Card Type Changeable"|t,
+        name: 'twitterCardTypeChangeable',
+        instructions: "Whether to allow the user to change the Twitter Card Type while editing the entry"|t,
+        on: settings.twitterCardTypeChangeable,
+    }) }}
+
+<!-- openGraphType -->
+
+    {{ forms.selectField({
+        label: "Default Facebook Open Graph Type"|t,
+        instructions: "Set what the Facebook Open Graph Type should default to for each entry.  Setting it to a blank value means 'no change'."|t,
+        id: "openGraphType",
+        options: {
+            "": "",
+            "website": "Website"|t,
+        },
+        name: "openGraphType",
+        value: settings.openGraphType,
+    }) }}
+
+    {{ forms.lightswitchField({
+        label: "Facebook Open Graph Type Changeable"|t,
+        name: 'openGraphTypeChangeable',
+        instructions: "Whether to allow the user to change the Facebook Open Graph Type while editing the entry"|t,
+        on: settings.openGraphTypeChangeable,
+    }) }}
+
+<!-- robots -->
+
+    {{ forms.selectField({
+        label: "Default Robots Meta Tag"|t,
+        instructions: "Set what the Robots Meta Tag should default to for each entry.  Setting it to a blank value means 'no change'."|t,
+        id: "robots",
+        options: {
+            "": "",
+            "all": "all - Index this page and follow links (default)" |t,
+            "noindex": "noindex - Do not index this page" |t,
+            "nofollow": "nofollow - Do not follow links on this page" |t,
+            "none": "none - Do not index or follow links on this page" |t,
+        },
+        name: "robots",
+        value: settings.robots,
+    }) }}
+
+    {{ forms.lightswitchField({
+        label: "Robots Meta Tag Changeable"|t,
+        name: 'robotsChangeable',
+        instructions: "Whether to allow the user to change the Robots Meta Tag while editing the entry"|t,
+        on: settings.robotsChangeable,
+    }) }}
+
 </div>
