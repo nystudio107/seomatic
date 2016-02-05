@@ -63,7 +63,7 @@
 
                     {{ forms.textField({
                         label: "Site SEO Title"|t,
-                        instructions: "This should be between 10 and 70 characters (spaces included).  Make sure your title tag is explicit and contains your most important keywords. Be sure that each page has a unique title tag.  The <code>siteSeoName</code> length is subtracted from the 70 character limit automatically, since it is appended to the <code>seoTitle</code>." |t |raw,
+                        instructions: "<a href='http://blog.woorank.com/2014/07/15-title-tag-optimization-guidelines-usability-seo/' target='_blank'>The SEO Title</a> should be between 10 and 70 characters (spaces included).  Make sure your title tag is explicit and contains your most important keywords. Be sure that each page has a unique title tag.  The <code>siteSeoName</code> length is subtracted from the 70 character limit automatically, since it is appended to the <code>seoTitle</code>." |t |raw,
                         id: 'siteSeoTitle',
                         class: 'nicetext',
                         name: 'siteSeoTitle',
@@ -110,11 +110,9 @@
                     <div class="field" id="siteSeoDescription-field">
                         <div class="heading">
                             <label for="siteSeoDescription">{{ "Site SEO Description"|t}}{% if craft.isLocalized and siteMeta.locale %}<span class="locale">{{ siteMeta.locale }}</span>{% endif %}</label>
-                            <div class="instructions"><p>{{ "This should be between 70 and 160 characters (spaces included).  Meta descriptions allow you to influence how your web pages are described and displayed in search results.  Ensure that all of your web pages have a unique meta description that is explicit and contains your most important keywords." |t |raw}}</p></div>
+                            <div class="instructions"><p>{{ "<a href='http://blog.woorank.com/2013/03/the-importance-of-meta-descriptions/' target='_blank'>The SEO Description</a> should be between 70 and 160 characters (spaces included).  Meta descriptions allow you to influence how your web pages are described and displayed in search results.  Ensure that all of your web pages have a unique meta description that is explicit and contains your most important keywords." |t |raw}}</p></div>
                         </div>
                     {{ forms.textarea({
-                        label: "siteSeoDescription"|t,
-                        instructions: "siteSeoDescription_help" |t |raw,
                         id: 'siteSeoDescription',
                         class: 'nicetext',
                         name: 'siteSeoDescription',
@@ -129,11 +127,9 @@
                     <div class="field" id="siteSeoKeywords-field">
                         <div class="heading">
                             <label for="siteSeoDescription">{{ "Site SEO Keywords"|t}}{% if craft.isLocalized and siteMeta.locale %}<span class="locale">{{ siteMeta.locale }}</span>{% endif %}</label>
-                            <div class="instructions"><p>{{ "Google ignores this tag; though other search engines do look at it.  Utilize it carefully, as improper or spammy use most likely will hurt you, or even have your site marked as spam.  Avoid overstuffing the keywords and do not include keywords that are not related to the specific page you place them on." |t |raw}}</p></div>
+                            <div class="instructions"><p>{{ "Google ignores <a href='http://blog.woorank.com/2014/06/meta-element-a-beguiners-guide/#metakeyword' target='_blank'>SEO Keywords tag</a>; though other search engines do look at it.  Utilize it carefully, as improper or spammy use most likely will hurt you, or even have your site marked as spam.  Avoid overstuffing the keywords and do not include keywords that are not related to the specific page you place them on." |t |raw}}</p></div>
                         </div>
                     {{ forms.textarea({
-                        label: "siteSeoKeywords"|t,
-                        instructions: "siteSeoKeywords_help" |t |raw,
                         id: 'siteSeoKeywords',
                         class: 'nicetext',
                         name: 'siteSeoKeywords',

@@ -124,7 +124,7 @@ console.log($("#siteOwnerSpecificType > option").length);
                     + $('#genericOwnerPostalCode').val() + ", "
                     + $('#genericOwnerAddressCountry').val();
         $.ajax({
-            url:"http://maps.googleapis.com/maps/api/geocode/json?address="+address+"&sensor=false",
+            url:"//maps.googleapis.com/maps/api/geocode/json?address="+address+"&sensor=false",
             type: "POST",
             success:function(res) {
                 $('#geolookup-errors').hide();

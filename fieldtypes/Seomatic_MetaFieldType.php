@@ -19,18 +19,25 @@ class Seomatic_MetaFieldType extends BaseFieldType
 
     public function getInputHtml($name, $value)
     {
-
         if (!$value)
         {
             $value = new Seomatic_MetaFieldModel();
+
+            $value->seoTitle = $this->getSettings()->seoTitle;
             $value->seoTitleSource = $this->getSettings()->seoTitleSource;
             $value->seoTitleSourceField = $this->getSettings()->seoTitleSourceField;
+
+            $value->seoDescription = $this->getSettings()->seoDescription;
             $value->seoDescriptionSource = $this->getSettings()->seoDescriptionSource;
             $value->seoDescriptionSourceField = $this->getSettings()->seoDescriptionSourceField;
+
+            $value->seoKeywords = $this->getSettings()->seoKeywords;
             $value->seoKeywordsSource = $this->getSettings()->seoKeywordsSource;
             $value->seoKeywordsSourceField = $this->getSettings()->seoKeywordsSourceField;
+
             $value->seoImageIdSource = $this->getSettings()->seoImageIdSource;
             $value->seoImageIdSourceField = $this->getSettings()->seoImageIdSourceField;
+
             $value->twitterCardType = $this->getSettings()->twitterCardType;
             $value->openGraphType = $this->getSettings()->openGraphType;
         }
@@ -176,24 +183,32 @@ class Seomatic_MetaFieldType extends BaseFieldType
         {
             return array(
                 'assetSources' => AttributeType::Mixed,
+
+                'seoTitle' => AttributeType::String,
                 'seoTitleSource' => array(AttributeType::String, 'default' => 'field'),
                 'seoTitleSourceField' => array(AttributeType::String, 'default' => 'title'),
                 'seoTitleSourceChangeable' => array(AttributeType::Bool, 'default' => 1),
+
+                'seoDescription' => AttributeType::String,
                 'seoDescriptionSource' => AttributeType::String,
                 'seoDescriptionSourceField' => AttributeType::String,
                 'seoDescriptionSourceChangeable' => array(AttributeType::Bool, 'default' => 1),
+
+                'seoKeywords' => AttributeType::String,
                 'seoKeywordsSource' => AttributeType::String,
                 'seoKeywordsSourceField' => AttributeType::String,
                 'seoKeywordsSourceChangeable' => array(AttributeType::Bool, 'default' => 1),
+
                 'seoImageIdSource' => AttributeType::String,
                 'seoImageIdSourceField' => AttributeType::String,
                 'seoImageIdSourceChangeable' => array(AttributeType::Bool, 'default' => 1),
+
                 'twitterCardType' => AttributeType::String,
                 'twitterCardTypeChangeable' => array(AttributeType::Bool, 'default' => 1),
+
                 'openGraphType' => AttributeType::String,
                 'openGraphTypeChangeable' => array(AttributeType::Bool, 'default' => 1),
-                'openGraphType' => AttributeType::String,
-                'openGraphTypeChangeable' => array(AttributeType::Bool, 'default' => 1),
+
                 'robots' => AttributeType::String,
                 'robotsChangeable' => array(AttributeType::Bool, 'default' => 1),
             );
@@ -205,6 +220,9 @@ class Seomatic_MetaFieldType extends BaseFieldType
      */
     public function getSettingsHtml()
     {
+        $locale = craft()->language;
+        $siteMeta = craft()->seomatic->getSiteMeta($locale);
+
         $fields = craft()->fields->getAllFields();
 
         $fieldList = array('title' => 'Title');
@@ -234,6 +252,11 @@ class Seomatic_MetaFieldType extends BaseFieldType
             }
         }
 
+        if ($siteMeta['siteSeoTitlePlacement'] == "none")
+            $titleLength = 70;
+        else
+            $titleLength = (70 - strlen(" | ") - strlen($siteMeta['siteSeoName']));
+
         craft()->templates->includeCssResource('seomatic/css/style.css');
         craft()->templates->includeCssResource('seomatic/css/field.css');
         craft()->templates->includeJsResource('seomatic/js/field_settings.js');
@@ -243,6 +266,7 @@ class Seomatic_MetaFieldType extends BaseFieldType
             'assetSources'          => $this->getElementSources($assetElementType),
             'fieldList'             => $fieldList,
             'imageFieldList'        => $imageFieldList,
+            'titleLength'           => $titleLength,
             'settings'              => $this->getSettings()
         ));
    }

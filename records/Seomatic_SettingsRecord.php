@@ -32,7 +32,9 @@ class Seomatic_SettingsRecord extends BaseRecord
 	IDENTITY settings
 -------------------------------------------------------------------------------- */
 
-			'googleSiteVerification'    		=> array(AttributeType::String, 'default' => ''),
+            'googleSiteVerification'            => array(AttributeType::String, 'default' => ''),
+            'googleAnalyticsUID'                => array(AttributeType::String, 'default' => ''),
+            'googleAnalyticsAdvertising'        => array(AttributeType::Bool, 'default' => false),
             'siteOwnerType'                     => array(AttributeType::String, 'default' => ''),
             'siteOwnerSubType'                  => array(AttributeType::String, 'default' => ''),
             'siteOwnerSpecificType'             => array(AttributeType::String, 'default' => ''),

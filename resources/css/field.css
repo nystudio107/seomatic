@@ -71,6 +71,10 @@ div.seomatic-meta-field-title {
 	cursor: default;
 }
 
+div.customFieldWrapper {
+	margin-top: 0;
+}
+
 img.scale-with-grid {
     margin-top: 8px;
     max-width: 100%;

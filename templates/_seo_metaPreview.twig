@@ -91,4 +91,8 @@
 <meta name="google-site-verification" content="{{ seomaticHelper.ownerGoogleSiteVerification |raw }}" /> <!-- {% verbatim %}{{ seomaticHelper.ownerGoogleSiteVerification }}{% endverbatim %} -->
 {% endif %}
 
+<!-- Google Analytics -->
+
+{{ craft.seomatic.renderGoogleAnalytics(null, null, true) |raw }}
+
 <!-- END SEOmatic rendered SEO Meta -->

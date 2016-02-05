@@ -103,4 +103,8 @@
 
 {{ craft.seomatic.renderPlace() |raw }}
 
+<!-- Google Analytics -->
+
+{% if not craft.config.devMode %}{{ craft.seomatic.renderGoogleAnalytics() |raw }}{% endif %}
+
 <!-- END SEOmatic rendered SEO Meta -->

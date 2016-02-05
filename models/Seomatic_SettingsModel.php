@@ -32,6 +32,8 @@ class Seomatic_SettingsModel extends BaseModel
 -------------------------------------------------------------------------------- */
 
             'googleSiteVerification'            => array(AttributeType::String, 'default' => ''),
+            'googleAnalyticsUID'                => array(AttributeType::String, 'default' => ''),
+            'googleAnalyticsAdvertising'        => array(AttributeType::Bool, 'default' => false),
             'siteOwnerType'                     => array(AttributeType::String, 'default' => 'Organization'),
             'siteOwnerSubType'                  => array(AttributeType::String, 'default' => 'Corporation'),
             'siteOwnerSpecificType'             => array(AttributeType::String, 'default' => ''),

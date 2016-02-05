@@ -26,7 +26,7 @@
     <div class="field comboField-wrapper first">
         <div class="heading">
             <label for="seoTitle">{{ "SEO Title"|t}}{% if locale %}<span class="locale">{{ locale }}</span>{% endif %}</label>
-            <div class="instructions"><p>{{ "This should be between 10 and 70 characters (spaces included).  Make sure your title tag is explicit and contains your most important keywords. Be sure that each page has a unique title tag.  The <code>siteSeoName</code> length is subtracted from the 70 character limit automatically, since it is appended to the <code>seoTitle</code>." |t |raw}}</p></div>
+            <div class="instructions"><p>{{ "<a href='http://blog.woorank.com/2014/07/15-title-tag-optimization-guidelines-usability-seo/' target='_blank'>The SEO Title</a> should be between 10 and 70 characters (spaces included).  Make sure your title tag is explicit and contains your most important keywords. Be sure that each page has a unique title tag.  The <code>siteSeoName</code> length is subtracted from the 70 character limit automatically, since it is appended to the <code>seoTitle</code>." |t |raw}}</p></div>
         </div>
         <div class="source-container"{% if not seoTitleSourceChangeable %} style="display: none;"{% endif %}>
             <div class="source-item">
@@ -60,8 +60,11 @@
             </div>
             <p class="textpreview" id="{{ id ~ 'seoTitle-preview' }}"></p>
        </div>
-        <div id ="seoTitle-wrapper" class="customFieldWrapper">
-            {{ forms.textField({
+        <div id ="seoTitle-wrapper" class="field customFieldWrapper">
+            <div class="heading">
+                <div class="instructions"><p>{{ "You can include tags that output entry properties, such as <code>{title}</code> or <code>{myCustomField}</code> in the text field below." |t |raw}}</p></div>
+            </div>
+           {{ forms.textField({
                 fieldClass: 'nomarginfield',
                 id: id ~ 'seoTitle',
                 class: 'nicetext',
@@ -79,7 +82,7 @@
     <div class="field comboField-wrapper" id="{{ id }}seoDescription-field">
         <div class="heading">
             <label for="{{ id }}seoDescription">{{ "SEO Description"|t}}{% if locale %}<span class="locale">{{ locale }}</span>{% endif %}</label>
-            <div class="instructions"><p>{{ "This should be between 70 and 160 characters (spaces included).  Meta descriptions allow you to influence how your web pages are described and displayed in search results.  Ensure that all of your web pages have a unique meta description that is explicit and contains your most important keywords." |t |raw}}</p></div>
+            <div class="instructions"><p>{{ "<a href='http://blog.woorank.com/2013/03/the-importance-of-meta-descriptions/' target='_blank'>The SEO Description</a> should be between 70 and 160 characters (spaces included).  Meta descriptions allow you to influence how your web pages are described and displayed in search results.  Ensure that all of your web pages have a unique meta description that is explicit and contains your most important keywords." |t |raw}}</p></div>
         </div>
         <div class="source-container"{% if not seoDescriptionSourceChangeable %} style="display: none;"{% endif %}>
             <div class="source-item">
@@ -113,7 +116,10 @@
             </div>
             <p class="textpreview" id="{{ id ~ 'seoDescription-preview' }}"></p>
         </div>
-        <div id ="seoDescription-wrapper" class="customFieldWrapper">
+        <div id ="seoDescription-wrapper" class="field customFieldWrapper">
+            <div class="heading">
+                <div class="instructions"><p>{{ "You can include tags that output entry properties, such as <code>{title}</code> or <code>{myCustomField}</code> in the text field below." |t |raw}}</p></div>
+            </div>
             {{ forms.textarea({
                 id: id ~ 'seoDescription',
                 fieldClass: 'nomarginfield',
@@ -132,7 +138,7 @@
     <div class="field comboField-wrapper" id="{{ id }}seoKeywords-field">
         <div class="heading">
             <label for="seoKeywords">{{ "SEO Keywords"|t}}{% if locale %}<span class="locale">{{ locale }}</span>{% endif %}</label>
-            <div class="instructions"><p>{{ "Google ignores this tag; though other search engines do look at it.  Utilize it carefully, as improper or spammy use most likely will hurt you, or even have your site marked as spam.  Avoid overstuffing the keywords and do not include keywords that are not related to the specific page you place them on." |t |raw}}</p></div>
+            <div class="instructions"><p>{{ "Google ignores the <a href='http://blog.woorank.com/2014/06/meta-element-a-beguiners-guide/#metakeyword' target='_blank'>SEO Keywords tag</a>; though other search engines do look at it.  Utilize it carefully, as improper or spammy use most likely will hurt you, or even have your site marked as spam.  Avoid overstuffing the keywords and do not include keywords that are not related to the specific page you place them on." |t |raw}}</p></div>
         </div>
         <div class="source-container"{% if not seoKeywordsSourceChangeable %} style="display: none;"{% endif %}>
             <div class="source-item">
@@ -167,7 +173,10 @@
             </div>
             <p class="textpreview" id="{{ id ~ 'seoKeywords-preview' }}"></p>
         </div>
-        <div id ="seoKeywords-wrapper" class="customFieldWrapper">
+        <div id ="seoKeywords-wrapper" class="field customFieldWrapper">
+            <div class="heading">
+                <div class="instructions"><p>{{ "You can include tags that output entry properties, such as <code>{title}</code> or <code>{myCustomField}</code> in the text field below." |t |raw}}</p></div>
+            </div>
             {{ forms.textarea({
                 id: id ~ 'seoKeywords',
                 class: 'nicetext',

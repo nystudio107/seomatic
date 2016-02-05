@@ -51,6 +51,21 @@
                 value: settings.seoTitleSourceField,
             }) }}
         </div>
+        <div id ="seoTitle-wrapper" class="field customFieldWrapper">
+            <div class="heading">
+                <div class="instructions"><p>{{ "You can include tags that output entry properties, such as <code>{title}</code> or <code>{myCustomField}</code> in the text field below." |t |raw}}</p></div>
+            </div>
+           {{ forms.textField({
+                fieldClass: 'nomarginfield',
+                id: 'seoTitle',
+                class: 'nicetext',
+                name: 'seoTitle',
+                value: settings.seoTitle,
+                maxlength: titleLength,
+                showCharsLeft: true,
+                required: false,
+            }) }}
+        </div>
 
         {{ forms.lightswitchField({
             label: "SEO Title Source Changeable"|t,
@@ -95,6 +110,22 @@
                 value: settings.seoDescriptionSourceField,
             }) }}
         </div>
+        <div id ="seoDescription-wrapper" class="field customFieldWrapper">
+            <div class="heading">
+                <div class="instructions"><p>{{ "You can include tags that output entry properties, such as <code>{title}</code> or <code>{myCustomField}</code> in the text field below." |t |raw}}</p></div>
+            </div>
+            {{ forms.textarea({
+                id: 'seoDescription',
+                fieldClass: 'nomarginfield',
+                class: 'nicetext',
+                name: 'seoDescription',
+                value: settings.seoDescription,
+                maxlength: 160,
+                showCharsLeft: true,
+                required: false,
+            }) }}
+        </div>
+
         {{ forms.lightswitchField({
             label: "SEO Description Source Changeable"|t,
             name: 'seoDescriptionSourceChangeable',
@@ -139,6 +170,21 @@
                 value: settings.seoKeywordsSourceField,
             }) }}
         </div>
+        <div id ="seoKeywords-wrapper" class="field customFieldWrapper">
+            <div class="heading">
+                <div class="instructions"><p>{{ "You can include tags that output entry properties, such as <code>{title}</code> or <code>{myCustomField}</code> in the text field below." |t |raw}}</p></div>
+            </div>
+            {{ forms.textarea({
+                id: 'seoKeywords',
+                class: 'nicetext',
+                name: 'seoKeywords',
+                value: settings.seoKeywords,
+                maxlength: 200,
+                showCharsLeft: true,
+                required: false,
+            }) }}
+        </div>
+
         {{ forms.lightswitchField({
             label: "SEO Keywords Source Changeable"|t,
             name: 'seoKeywordsSourceChangeable',

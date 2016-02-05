@@ -9,7 +9,7 @@ A turnkey SEO implementation for Craft CMS that is comprehensive, powerful, and 
 To install SEOmatic, follow these steps:
 
 1. Download & unzip the file and place the `seomatic` directory into your `craft/plugins` directory
-2.  -OR- do a `git clone https://github.com/khalwat/seomatic.git` directly into your `craft/plugins` folder.  You can then update it with `git pull`
+2.  -OR- do a `git clone https://github.com/nystudio107/seomatic.git` directly into your `craft/plugins` folder.  You can then update it with `git pull`
 3. Install plugin in the Craft Control Panel under Settings > Plugins
 4. The plugin folder should be named `seomatic` for Craft to see it.  GitHub recently started appending `-master` (the branch name) to the name of the folder for zip file downloads.
 
@@ -43,7 +43,7 @@ SEOmatic uses its own internal template for rendering; but you can provide it wi
 
 ...and it'll use your custom template instead.
 
-If the [Minify](https://github.com/khalwat/minify) plugin is installed, SEOmatic will minify the SEO Meta tags & JSON-LD.
+If the [Minify](https://github.com/nystudio107/minify) plugin is installed, SEOmatic will minify the SEO Meta tags & JSON-LD.
 
 ## Configuring SEOmatic
 
@@ -91,6 +91,8 @@ Leave any fields blank that aren't applicable or which you do not want as part o
 
 #### Site Ownership
 * **Google Site Verification** - For the `<meta name='google-site-verification'>` tag. Only enter the code in the `content=''`, not the entire tag. [Here's how to get it.](https://www.google.com/webmasters/verification/).
+* **Google Analytics Tracking ID** - If you enter your Google Analytics Tracking ID here, the Google Analytics script tags will be included in your `<head>` (the script is not included if `devMode` is on). Only enter the ID, e.g.: `UA-XXXXXX-XX`, not the entire script code. [Here's how to get it.](https://support.google.com/analytics/answer/1032385?hl=en)
+* **Enable Google Analytics Demographics and Interest Reports** - Demographics and Interest Reports make Age, Gender, and Interest data available so you can better understand who your users are. To see this data, you need to enable Advertising Features first. This will include `ga('require', 'displayfeatures');` in your Google Analytics script. [Learn More](https://support.google.com/analytics/answer/2444872?hl=en_US&utm_id=ad)
 * **Site Owner Entity Type** - The type of entity that owns this website.  Choose as general or specific of a type as you like.  Any entity sub-type left blank is ignored.
 
 #### General Info
@@ -254,6 +256,8 @@ You can also dynamically change any of these SEO Meta fields in your Twig templa
 * **Twitter Card Type** - With Twitter Cards, you can attach rich photos and information to Tweets that drive traffic to your website. Users who Tweet links to your content will have a “Card” added to the Tweet that’s visible to all of their followers.
 * **Facebook Open Graph Type** - Adding Open Graph tags to your website influences the performance of your links on social media by allowing you to control what appears when a user posts a link to your content on Facebook.
 * **Robots** - The [robots meta tag](https://developers.google.com/webmasters/control-crawl-index/docs/robots_meta_tag?hl=en) lets you utilize a granular, page-specific approach to controlling how an individual page should be indexed and served to users in search results.  Setting it to a blank value means 'no change'.
+
+The **SEO Title**, **SEO Description**, and **SEO Keywords** fields can include tags that output entry properties, such as `{title}` or `{myCustomField}` in them.
 
 You can use any Craft `environmentVariables` in these fields in addition to static text, e.g.:
 
@@ -1284,13 +1288,18 @@ Some things to do, and ideas for potential features:
 ### 1.1.0 -- 2016.02.10
 
 * [Added] Added all of the schema.org Organization types to Identity and Creator settings
-* SEOmatic Meta FieldTypes now have settings that let you restrict the Asset Sources available to them
-* SEOmatic Meta FieldTypes now let you set the default Source settings for each field
-* SEOmatic Meta FieldTypes now let you choose if the Source can be changed when editing an entry
+* [Added] SEOmatic Meta FieldTypes now have settings that let you restrict the Asset Sources available to them
+* [Added] SEOmatic Meta FieldTypes now let you set the default Source settings for each field
+* [Added] SEOmatic Meta FieldTypes now let you choose if the Source can be changed when editing an entry
+* [Added] You can include tags that output entry properties, such as `{title}` or `{myCustomField}` in SEOmatic FieldType fields.
 * [Added] Twitter Card and Facebook types can now have null values in the FieldType, and Template meta settings
 * [Added] We now include separate Place JSON-LD for Organizations (in addition to being part of the Identity)
+* [Added] Added support for Google Analytics on the Site Identity tab 
 * [Fixed] We now handle numeric Google+ accounts properly
 * [Fixed] The Preview buttons display properly on mobile devices for the SEOmatic FieldType now
+* [Improved] Added links to WooRank.com for the SEO Title, SEO Description, and SEO Keywords tags that explain best practices for them
+* [Added] Added a `config.php` file where you can override some of SEOmatic's default behaviors
+* [Improved] Converted all of the `.html` template files over to `.twig`
 * [Improved] Updated the README.md
 
 ### 1.0.12 -- 2016.01.19
@@ -1396,7 +1405,7 @@ Some things to do, and ideas for potential features:
 
 ### 1.0.1 -- 2015.12.19
 
-* [Added] If the [Minify](https://github.com/khalwat/minify) plugin is installed, SEOmatic will minify the SEO Meta tags & JSON-LD
+* [Added] If the [Minify](https://github.com/nystudio107/minify) plugin is installed, SEOmatic will minify the SEO Meta tags & JSON-LD
 * [Improved] Improved the caching mechanism to span all of the meta
 * [Fixed] Fixed a few of small errors
 * [Improved] Updated the README.md to better document SEOmatic

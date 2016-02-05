@@ -1,7 +1,7 @@
 [
     {
         "version": "1.1.0",
-        "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-01-23T11:00:00-05:00",
         "notes": [
             "[Added] Added the complete schema.org types for Organizations to Site Identity, with sub-types and specific-types",
@@ -13,7 +13,7 @@
     },
     {
         "version": "1.0.12",
-        "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-01-19T11:00:00-05:00",
         "notes": [
             "[Improved] Performance improvement by not checking to see if a template exists before matching it",
@@ -24,7 +24,7 @@
     },
     {
         "version": "1.0.11",
-        "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-01-13T11:00:00-05:00",
         "notes": [
             "[Added] Added a preview of the Source fields in SEOmatic FieldTypes",
@@ -38,7 +38,7 @@
     },
     {
         "version": "1.0.10",
-        "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-01-12T11:00:00-05:00",
         "notes": [
             "[Added] You can now set Matrix blocks to be a Source for SEO FieldType Meta fields; it iterates through all text and rich text fields",
@@ -50,7 +50,7 @@
     },
     {
         "version": "1.0.9",
-        "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-01-11T11:00:00-05:00",
         "notes": [
             "[Added] Added tokenized input fields for the keywords for the Site Meta, Template Meta, and Field Meta",
@@ -63,7 +63,7 @@
     },
     {
         "version": "1.0.8",
-        "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-01-09T11:00:00-05:00",
         "notes": [
             "[Improved] The rendering of the Identity and WebSite JSON-LD is now done via a tag in the templates, giving flexibility to people who want to use custom templates",
@@ -75,7 +75,7 @@
     },
     {
         "version": "1.0.7",
-        "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-01-01T11:00:00-05:00",
         "notes": [
             "[Added] Added a 'robots' field globally to the SEO Meta for specifying noindex/nofollow",
@@ -86,7 +86,7 @@
     },
     {
         "version": "1.0.6",
-        "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2015-12-31T11:00:00-05:00",
         "notes": [
             "[Added] Added an SEOmatic Meta field type that allows you to attach meta to Entries/Sections",
@@ -103,7 +103,7 @@
     },
     {
         "version": "1.0.5",
-        "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2015-12-28T11:00:00-05:00",
         "notes": [
             "[Added] Added 'renderJSONLD' Twig function & filter, and 'craft.seomatic.renderJSONLD()' variable for rendering arbitary JSON-LD schemas",
@@ -123,7 +123,7 @@
     },
     {
         "version": "1.0.4",
-        "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2015-12-22T11:00:00-05:00",
         "notes": [
             "[Added] Added 'copyrightNotice', 'addressString', 'addressHtml', & 'mapUrl' to 'seomaticIdentity'",
@@ -137,7 +137,7 @@
     },
     {
         "version": "1.0.3",
-        "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2015-12-21T11:00:00-05:00",
         "notes": [
             "[Fixed] Fixed an issue with the TextRank lib not being properly in the git repo, causing it to error when used",
@@ -147,7 +147,7 @@
     },
     {
         "version": "1.0.2",
-        "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2015-12-20T11:00:00-05:00",
         "notes": [
             "[Added] Exposed a few more utility functions via Twig filters & functions",
@@ -159,7 +159,7 @@
     },
     {
         "version": "1.0.1",
-        "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2015-12-19T11:00:00-05:00",
         "notes": [
             "[Added] If the Minify plugin is installed, SEOmatic will minify the SEO Meta tags & JSON-LD",
@@ -170,7 +170,7 @@
     },
     {
         "version": "1.0.0",
-        "downloadUrl": "https://github.com/khalwat/seomatic/archive/master.zip",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2015-12-18T11:00:00-05:00",
         "notes": [
             "[Added] Initial release"

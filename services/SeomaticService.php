@@ -199,6 +199,33 @@ class SeomaticService extends BaseApplicationComponent
     } /* -- renderPlace */
 
 /* --------------------------------------------------------------------------------
+    Render the Google Analytics <script> tags
+-------------------------------------------------------------------------------- */
+
+    public function renderGoogleAnalytics($metaVars, $locale, $isPreview=false)
+    {
+        $htmlText = "";
+        $shouldRenderGA = craft()->config->get("renderGoogleAnalyticsScript", "seomatic");
+        if (($shouldRenderGA) || ($isPreview))
+        {
+            $oldPath = craft()->path->getTemplatesPath();
+            $newPath = craft()->path->getPluginsPath().'seomatic/templates';
+            craft()->path->setTemplatesPath($newPath);
+
+    /* -- Render the core template */
+
+            $templateName = '_googleAnalytics';
+            if (craft()->plugins->getPlugin('Minify') && !$isPreview)
+                $htmlText = craft()->minify->jsMin($htmlText = craft()->templates->render($templateName, $metaVars));
+            else
+                $htmlText = craft()->templates->render($templateName, $metaVars);
+
+            craft()->path->setTemplatesPath($oldPath);
+        }
+        return $htmlText;
+    } /* -- renderGoogleAnalytics */
+
+/* --------------------------------------------------------------------------------
     Render the SEOmatic globals
 -------------------------------------------------------------------------------- */
 
@@ -299,6 +326,11 @@ class SeomaticService extends BaseApplicationComponent
                                     $entryMeta['seoTitle'] = $this->getTextFromEntryField($element[$entryMeta['seoTitleSourceField']]);
                                 }
                             break;
+
+                            case 'custom':
+                                $entryMeta['seoTitle'] = craft()->config->parseEnvironmentString($entryMeta['seoTitle']);
+                                $entryMeta['seoTitle'] = craft()->templates->renderObjectTemplate($entryMeta['seoTitle'], $element);
+                            break;
                         }
 
                         switch ($entryMeta['seoDescriptionSource'])
@@ -308,6 +340,11 @@ class SeomaticService extends BaseApplicationComponent
                                 {
                                     $entryMeta['seoDescription'] = $this->getTextFromEntryField($element[$entryMeta['seoDescriptionSourceField']]);
                                 }
+                            break;
+
+                            case 'custom':
+                                $entryMeta['seoDescription'] = craft()->config->parseEnvironmentString($entryMeta['seoDescription']);
+                                $entryMeta['seoDescription'] = craft()->templates->renderObjectTemplate($entryMeta['seoDescription'], $element);
                             break;
                         }
 
@@ -326,6 +363,11 @@ class SeomaticService extends BaseApplicationComponent
                                     $text = $this->getTextFromEntryField($element[$entryMeta['seoKeywordsSourceField']]);
                                     $entryMeta['seoKeywords'] = $this->extractKeywords($text);
                                 }
+                            break;
+
+                            case 'custom':
+                                $entryMeta['seoKeywords'] = craft()->config->parseEnvironmentString($entryMeta['seoKeywords']);
+                                $entryMeta['seoKeywords'] = craft()->templates->renderObjectTemplate($entryMeta['seoKeywords'], $element);
                             break;
                         }
 
@@ -847,6 +889,8 @@ class SeomaticService extends BaseApplicationComponent
         $identity['locale'] = $settings['locale'];
 
         $identity['googleSiteVerification'] = $settings['googleSiteVerification'];
+        $identity['googleAnalyticsUID'] = $settings['googleAnalyticsUID'];
+        $identity['googleAnalyticsAdvertising'] = $settings['googleAnalyticsAdvertising'];
         $identity['siteOwnerType'] = ucfirst($settings['siteOwnerType']);
         $identity['siteOwnerSubType'] = $settings['siteOwnerSubType'];
         $identity['siteOwnerSpecificType'] = $settings['siteOwnerSpecificType'];
@@ -1626,6 +1670,8 @@ class SeomaticService extends BaseApplicationComponent
 /* -- Computed identity strings */
 
         $helper['ownerGoogleSiteVerification'] = $identity['googleSiteVerification'];
+        $helper['ownerGoogleAnalyticsUID'] = $identity['googleAnalyticsUID'];
+        $helper['ownerGoogleAnalyticsAdvertising'] = $identity['googleAnalyticsAdvertising'];
         $now = new DateTime;
         $period = ".";
         $name = $identity['genericOwnerName'];
@@ -1740,10 +1786,20 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Truncate seoTitle, seoDescription, and seoKeywords to recommended values */
 
-        if ($seomaticSiteMeta['siteSeoTitlePlacement'] == "none")
-            $titleLength = 70;
+        $shouldTruncate = craft()->config->get("truncateTitleTags", "seomatic");
+        if ($shouldTruncate)
+        {
+            // We use 69 because we append a … character when strings are truncated, so the real length is 70
+            if ($seomaticSiteMeta['siteSeoTitlePlacement'] == "none")
+                $titleLength = 69;
+            else
+                $titleLength = (69 - strlen(" | ") - strlen($seomaticSiteMeta['siteSeoName']));
+        }
         else
-            $titleLength = (70 - strlen(" | ") - strlen($seomaticSiteMeta['siteSeoName']));
+        {
+            $titleLength = 200;
+        }
+
         $vars = array('seoTitle' => $titleLength, 'seoDescription' => 160, 'seoKeywords' => 200);
 
         foreach ($vars as $key => $value)

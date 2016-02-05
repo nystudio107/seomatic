@@ -65,10 +65,28 @@
                         locale: identity.locale,
                     }) }}
 
+                    {{ forms.textField({
+                        label: "Google Analytics Tracking ID"|t,
+                        instructions: "If you enter your Google Analytics Tracking ID here, the Google Analytics script tags will be included in your <code>&lt;head&gt;</code> (the script is not included if <code>devMode</code> is on).  Only enter the ID, e.g.: <code>UA-XXXXXX-XX</code>, not the entire script code.  <a href='https://support.google.com/analytics/answer/1032385?hl=en' target='_blank'>Here's how to get it.</a>" |t |raw,
+                        id: 'googleAnalyticsUID',
+                        class: 'nicetext',
+                        name: 'googleAnalyticsUID',
+                        value: identity.googleAnalyticsUID,
+                        required: false,
+                        locale: identity.locale,
+                    }) }}
+
+                    {{ forms.lightswitchField({
+                        label: "Enable Google Analytics Demographics and Interest Reports"|t,
+                        name: 'googleAnalyticsAdvertising',
+                        instructions: "Demographics and Interest Reports make Age, Gender, and Interest data available so you can better understand who your users are. To see this data, you need to enable Advertising Features first.  This will include <code>ga('require', 'displayfeatures');</code> in your Google Analytics script.  <a href='https://support.google.com/analytics/answer/2444872?hl=en_US&amp;utm_id=ad' target='_blank'>Learn More</a>" |t,
+                        on: identity.googleAnalyticsAdvertising,
+                    }) }}
+
                     <div class="field">
                         <div class="heading">
                             <label for="siteOwnerType">{{ "Site Owner Entity Type"|t}}{% if identity.locale %}<span class="locale">{{ identity.locale }}</span>{% endif %}</label>
-                            <div class="instructions"><p>{{ "The type of entity that owns this website." |t |raw}}</p></div>
+                            <div class="instructions"><p>{{ "The type of entity that owns this website.  Choose as general or specific of an Entity Type as you wish.  Leave a sub-type blank if you don't want to specify a sub-type." |t |raw}}</p></div>
                         </div>
                         <div>
                             <div class="inline-item">
