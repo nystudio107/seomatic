@@ -564,17 +564,39 @@
 
 <!-- ========== siteCreatorSpecificType ========== -->
 
-<!-- Restaurant-specific fields -->
+<!-- FoodEstablishment-specific fields -->
 
-                    <div id="Restaurant" class="metaSpecificPane field">
-                        <h2>{{ "Restaurant Info" |t }}</h2>
+                    <div  class="metaSpecificPane field FoodEstablishment Bakery BarOrPub Brewery CafeOrCoffeeShop FastFoodRestaurant IceCreamShop Restaurant Winery">
+                        <h2>{{ "Food Establishment Info" |t }}</h2>
                         {{ forms.textField({
-                            label: "Restaurant Cuisine"|t,
-                            instructions: "The primary type of cuisine that the restaurant serves" |t |raw,
+                            label: "Food Establishment Cuisine"|t,
+                            instructions: "The primary type of cuisine that the food establishment serves" |t |raw,
                             id: 'restaurantOwnerServesCuisine',
                             class: 'nicetext',
                             name: 'restaurantOwnerServesCuisine',
                             value: identity.restaurantOwnerServesCuisine,
+                            required: false,
+                            locale: identity.locale,
+                        }) }}
+
+                        {{ forms.textField({
+                            label: "Food Establishment Menu URL"|t,
+                            instructions: "URL to the food establishment's menu" |t |raw,
+                            id: 'restaurantOwnerMenuUrl',
+                            class: 'nicetext',
+                            name: 'restaurantOwnerMenuUrl',
+                            value: identity.restaurantOwnerMenuUrl,
+                            required: false,
+                            locale: identity.locale,
+                        }) }}
+
+                        {{ forms.textField({
+                            label: "Food Establishment Reservations URL"|t,
+                            instructions: "URL to the food establishment's reservations page" |t |raw,
+                            id: 'restaurantOwnerReservationsUrl',
+                            class: 'nicetext',
+                            name: 'restaurantOwnerReservationsUrl',
+                            value: identity.restaurantOwnerReservationsUrl,
                             required: false,
                             locale: identity.locale,
                         }) }}

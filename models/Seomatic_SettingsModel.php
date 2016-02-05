@@ -73,6 +73,8 @@ class Seomatic_SettingsModel extends BaseModel
 /* -- Restaurant owner fields https://schema.org/Restaurant */
 
             'restaurantOwnerServesCuisine'      => array(AttributeType::String, 'default' => ''),
+            'restaurantOwnerMenuUrl'            => array(AttributeType::String, 'default' => ''),
+            'restaurantOwnerReservationsUrl'    => array(AttributeType::String, 'default' => ''),
 
 /* -- Person owner fields https://schema.org/Person */
 
@@ -137,6 +139,8 @@ class Seomatic_SettingsModel extends BaseModel
 /* -- Restaurant Creator fields https://schema.org/Restaurant */
 
             'restaurantCreatorServesCuisine'    => array(AttributeType::String, 'default' => ''),
+            'restaurantCreatorSMenuUrl'         => array(AttributeType::String, 'default' => ''),
+            'restaurantCreatorSReservationsUrl' => array(AttributeType::String, 'default' => ''),
 
 /* -- Person Creator fields https://schema.org/Person */
 

@@ -608,11 +608,13 @@ class SeomaticService extends BaseApplicationComponent
 
         $siteUrl = craft()->getSiteUrl();
         $requestUrl = craft()->request->url;
+        /*
         if (($siteUrl[strlen($siteUrl) -1] == '/') && ($requestUrl[0] == '/'))
         {
             $siteUrl = rtrim($siteUrl, '/');
         }
-        $fullUrl = $siteUrl . $requestUrl;
+        */
+        $fullUrl = $requestUrl;
 
         $meta['canonicalUrl'] = $fullUrl;
 
@@ -940,6 +942,8 @@ class SeomaticService extends BaseApplicationComponent
         $identity['corporationOwnerTickerSymbol'] = $settings['corporationOwnerTickerSymbol'];
 
         $identity['restaurantOwnerServesCuisine'] = $settings['restaurantOwnerServesCuisine'];
+        $identity['restaurantOwnerMenuUrl'] = $settings['restaurantOwnerMenuUrl'];
+        $identity['restaurantOwnerReservationsUrl'] = $settings['restaurantOwnerReservationsUrl'];
 
         $result = $identity;
 
@@ -1099,8 +1103,18 @@ class SeomaticService extends BaseApplicationComponent
 
         switch ($identity['siteOwnerSpecificType'])
         {
+            case 'FoodEstablishment':
+            case 'Bakery':
+            case 'BarOrPub':
+            case 'Brewery':
+            case 'CafeOrCoffeeShop':
+            case 'FastFoodRestaurant':
+            case 'IceCreamShop':
             case 'Restaurant':
+            case 'Winery':
                 $identityJSONLD['servesCuisine'] = $identity['restaurantOwnerServesCuisine'];
+                $identityJSONLD['menu'] = $identity['restaurantOwnerMenuUrl'];
+                $identityJSONLD['acceptsReservations'] = $identity['restaurantOwnerReservationsUrl'];
             break;
         }
 
@@ -1213,6 +1227,10 @@ class SeomaticService extends BaseApplicationComponent
         $creator['personCreatorBirthPlace'] = $settings['personCreatorBirthPlace'];
 
         $creator['corporationCreatorTickerSymbol'] = $settings['corporationCreatorTickerSymbol'];
+
+        $identity['restaurantCreatorServesCuisine'] = $settings['restaurantCreatorServesCuisine'];
+        $identity['restaurantCreatorMenuUrl'] = $settings['restaurantCreatorMenuUrl'];
+        $identity['restaurantCreatorReservationsUrl'] = $settings['restaurantCreatorReservationsUrl'];
 
         $creator['genericCreatorHumansTxt'] = $settings['genericCreatorHumansTxt'];
 
@@ -1358,8 +1376,18 @@ class SeomaticService extends BaseApplicationComponent
 
         switch ($creator['siteCreatorSpecificType'])
         {
+            case 'FoodEstablishment':
+            case 'Bakery':
+            case 'BarOrPub':
+            case 'Brewery':
+            case 'CafeOrCoffeeShop':
+            case 'FastFoodRestaurant':
+            case 'IceCreamShop':
             case 'Restaurant':
-                $creatorJSONLD['servesCuisine'] = $creator['restaurantOwnerServesCuisine'];
+            case 'Winery':
+                $creatorJSONLD['servesCuisine'] = $creator['restaurantCreatorServesCuisine'];
+                $creatorJSONLD['menu'] = $creator['restaurantCreatorMenuUrl'];
+                $creatorJSONLD['acceptsReservations'] = $creator['restaurantCreatorReservationsUrl'];
             break;
         }
 

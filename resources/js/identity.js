@@ -18,7 +18,6 @@ function fillDynamicMenu(whichValue) {
             .attr("value", this.value)
             .html(this.name)
             .appendTo(menu);
-        console.log(this.name);
         });
     }
 } /* -- fillDynamicMenu */
@@ -51,9 +50,8 @@ $(function () {
 
     $('#siteOwnerSpecificType').val(selectedItem);
     var value = $('#siteOwnerSpecificType').val();
-    if ($('#'+value).length != 0)
-        $('#'+value).show();
-console.log($("#siteOwnerSpecificType > option").length);
+    if ($('.'+value).length != 0)
+        $('.'+value).show();
     if ($("#siteOwnerSpecificType > option").length <= 1) {
         $('#siteOwnerSpecificType-field').hide();
         $('#siteOwnerSpecificType').val("");
@@ -111,8 +109,8 @@ console.log($("#siteOwnerSpecificType > option").length);
 
     $('#siteOwnerSpecificType').on('change', function(e) {
         $('.metaSpecificPane').hide();
-        if ($('#'+this.value).length != 0)
-            $('#'+this.value).show();
+        if ($('.'+this.value).length != 0)
+            $('.'+this.value).show();
     });
 
 /* -- Handle clicks on the "Look up Latitude/Longitude" button  */

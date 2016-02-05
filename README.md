@@ -1299,7 +1299,9 @@ Some things to do, and ideas for potential features:
 * [Fixed] The Preview buttons display properly on mobile devices for the SEOmatic FieldType now
 * [Improved] Added links to WooRank.com for the SEO Title, SEO Description, and SEO Keywords tags that explain best practices for them
 * [Added] Added a `config.php` file where you can override some of SEOmatic's default behaviors
+* [Added] Added `menu` and `acceptsReservations` fields for FoodEstablishments
 * [Improved] Converted all of the `.html` template files over to `.twig`
+* [Fixed] Fixed an issue with the cannonical URL and some localized sites
 * [Improved] Updated the README.md
 
 ### 1.0.12 -- 2016.01.19

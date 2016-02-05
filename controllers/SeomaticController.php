@@ -499,6 +499,8 @@ class SeomaticController extends BaseController
 /* -- Restaurant owner fields https://schema.org/Restaurant */
 
         $record->restaurantOwnerServesCuisine = craft()->request->getPost('restaurantOwnerServesCuisine', $record->restaurantOwnerServesCuisine);
+        $record->restaurantOwnerMenuUrl = craft()->request->getPost('restaurantOwnerMenuUrl', $record->restaurantOwnerMenuUrl);
+        $record->restaurantOwnerReservationsUrl = craft()->request->getPost('restaurantOwnerReservationsUrl', $record->restaurantOwnerReservationsUrl);
 
         $record->genericOwnerImageId = craft()->request->getPost('genericOwnerImageId', $record->genericOwnerImageId);
         $assetId = (!empty($record->genericOwnerImageId) ? $record->genericOwnerImageId[0] : null);
@@ -629,6 +631,12 @@ class SeomaticController extends BaseController
 /* -- Corporation Creator fields http://schema.org/Corporation */
 
         $record->corporationCreatorTickerSymbol = craft()->request->getPost('corporationCreatorTickerSymbol', $record->corporationCreatorTickerSymbol);
+
+/* -- Restaurant creator fields https://schema.org/Restaurant */
+
+        $record->restaurantCreatorServesCuisine = craft()->request->getPost('restaurantCreatorServesCuisine', $record->restaurantCreatorServesCuisine);
+        $record->restaurantCreatorMenuUrl = craft()->request->getPost('restaurantCreatorMenuUrl', $record->restaurantCreatorMenuUrl);
+        $record->restaurantCreatorReservationsUrl = craft()->request->getPost('restaurantCreatorReservationsUrl', $record->restaurantCreatorReservationsUrl);
 
         $record->genericCreatorImageId = craft()->request->getPost('genericCreatorImageId', $record->genericCreatorImageId);
         $assetId = (!empty($record->genericCreatorImageId) ? $record->genericCreatorImageId[0] : null);
