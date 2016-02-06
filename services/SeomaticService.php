@@ -2098,7 +2098,7 @@ class SeomaticService extends BaseApplicationComponent
      * @access private
      * @param array &$value
      */
-    public function convertTimes(&$value)
+    public function convertTimes(&$value, $timezone=null)
     {
         if (is_array($value))
         {
@@ -2106,7 +2106,7 @@ class SeomaticService extends BaseApplicationComponent
             {
                 if ((is_string($day['open']) && $day['open']) || (is_array($day['open']) && $day['open']['time']))
                 {
-                    $day['open'] = DateTime::createFromString($day['open']);
+                    $day['open'] = DateTime::createFromString($day['open'], $timezone);
                 }
                 else
                 {
@@ -2115,7 +2115,7 @@ class SeomaticService extends BaseApplicationComponent
 
                 if ((is_string($day['close']) && $day['close']) || (is_array($day['close']) && $day['close']['time']))
                 {
-                    $day['close'] = DateTime::createFromString($day['close']);
+                    $day['close'] = DateTime::createFromString($day['close'], $timezone);
                 }
                 else
                 {

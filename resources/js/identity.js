@@ -32,7 +32,8 @@ $(function () {
 
     var value = $('#siteOwnerType').val();
     value = value.capitalizeFirstLetter();
-    $('#'+value).show();
+    if (value)
+        $('#'+value).show();
 
     if (value =="Person") {
         $('#siteOwnerSubType-field').hide();
@@ -42,7 +43,8 @@ $(function () {
     }
 
     var value = $('#siteOwnerSubType').val();
-    $('#'+value).show();
+    if (value)
+        $('#'+value).show();
 
 /* -- Fill in the dynamic menu */
 
@@ -50,8 +52,9 @@ $(function () {
 
     $('#siteOwnerSpecificType').val(selectedItem);
     var value = $('#siteOwnerSpecificType').val();
-    if ($('.'+value).length != 0)
-        $('.'+value).show();
+    if (value)
+        if ($('.'+value).length != 0)
+            $('.'+value).show();
     if ($("#siteOwnerSpecificType > option").length <= 1) {
         $('#siteOwnerSpecificType-field').hide();
         $('#siteOwnerSpecificType').val("");
@@ -63,11 +66,13 @@ $(function () {
         $('.metaPane').hide();
         $('.metaSubPane').hide();
         $('.metaSpecificPane').hide();
-        $('#'+this.value).show();
+        if (this.value)
+            $('#'+this.value).show();
         $('#siteOwnerSubType-field').show();
         $('#siteOwnerSpecificType-field').show();
         var value = $('#siteOwnerSubType').val();
-        $('#'+value).show();
+        if (value)
+            $('#'+value).show();
         if (this.value =="Person") {
             $('#siteOwnerSubType-field').hide();
             $('#siteOwnerSpecificType-field').hide();
@@ -78,8 +83,9 @@ $(function () {
         fillDynamicMenu(value);
 
         var value = $('#siteOwnerSpecificType').val();
-        if ($('#'+value).length != 0)
-            $('#'+value).show();
+        if (value)
+            if ($('#'+value).length != 0)
+                $('#'+value).show();
         if ($("#siteOwnerSpecificType > option").length <= 1) {
             $('#siteOwnerSpecificType-field').hide();
             $('#siteOwnerSpecificType').val("");
@@ -91,13 +97,15 @@ $(function () {
     $('#siteOwnerSubType').on('change', function(e) {
         $('.metaSubPane').hide();
         $('.metaSpecificPane').hide();
-        $('#'+this.value).show();
+        if (this.value)
+            $('#'+this.value).show();
 
         fillDynamicMenu(this.value);
 
         var value = $('#siteOwnerSpecificType').val();
-        if ($('#'+value).length != 0)
-            $('#'+value).show();
+        if (value)
+            if ($('#'+value).length != 0)
+                $('#'+value).show();
         $('#siteOwnerSpecificType-field').show();
         if ($("#siteOwnerSpecificType > option").length <= 1) {
             $('#siteOwnerSpecificType-field').hide();
@@ -109,8 +117,9 @@ $(function () {
 
     $('#siteOwnerSpecificType').on('change', function(e) {
         $('.metaSpecificPane').hide();
-        if ($('.'+this.value).length != 0)
-            $('.'+this.value).show();
+        if (value)
+            if ($('.'+this.value).length != 0)
+                $('.'+this.value).show();
     });
 
 /* -- Handle clicks on the "Look up Latitude/Longitude" button  */

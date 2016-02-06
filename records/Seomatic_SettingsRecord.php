@@ -108,6 +108,8 @@ class Seomatic_SettingsRecord extends BaseRecord
 -------------------------------------------------------------------------------- */
 
             'siteCreatorType'                 	=> array(AttributeType::String, 'default' => ''),
+            'siteCreatorSubType'                => array(AttributeType::String, 'default' => ''),
+            'siteCreatorSpecificType'           => array(AttributeType::String, 'default' => ''),
 
 /* -- Generic Creator fields */
 
@@ -143,8 +145,8 @@ class Seomatic_SettingsRecord extends BaseRecord
 /* -- Restaurant Creator fields https://schema.org/Restaurant */
 
             'restaurantCreatorServesCuisine'    => array(AttributeType::String, 'default' => ''),
-            'restaurantCreatorSMenuUrl'         => array(AttributeType::String, 'default' => ''),
-            'restaurantCreatorSReservationsUrl' => array(AttributeType::String, 'default' => ''),
+            'restaurantCreatorMenuUrl'          => array(AttributeType::String, 'default' => ''),
+            'restaurantCreatorReservationsUrl'  => array(AttributeType::String, 'default' => ''),
 
 /* -- Person Creator fields https://schema.org/Person */
 

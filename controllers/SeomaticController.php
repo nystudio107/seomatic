@@ -498,7 +498,7 @@ class SeomaticController extends BaseController
 
         $hours = craft()->request->getPost('localBusinessCreatorOpeningHours', $record->localBusinessCreatorOpeningHours);
 SeomaticPlugin::log(print_r($hours, 1), LogLevel::Info, true);
-        craft()->seomatic->convertTimes($hours);
+        craft()->seomatic->convertTimes($hours, craft()->getTimeZone());
         $record->localBusinessCreatorOpeningHours = $hours;
 SeomaticPlugin::log(print_r($record->localBusinessCreatorOpeningHours, 1), LogLevel::Info, true);
 

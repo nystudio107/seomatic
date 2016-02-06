@@ -15,14 +15,14 @@ class m160123_000000_seomatic_addOpeningHours extends BaseMigration
     {
         // specify columns and AttributeType
         $newColumns = array (
-            'localBusinessOwnerOpeningHours' => ColumnType::Varchar,
+            'localBusinessOwnerOpeningHours' => ColumnType::Text,
         );
 
         $this->_addColumnsAfter("seomatic_settings", $newColumns, "organizationOwnerFoundingLocation");
 
         // specify columns and AttributeType
         $newColumns = array (
-            'localBusinessCreatorOpeningHours' => ColumnType::Varchar,
+            'localBusinessCreatorOpeningHours' => ColumnType::Text,
         );
 
         $this->_addColumnsAfter("seomatic_settings", $newColumns, "organizationCreatorFoundingLocation");
