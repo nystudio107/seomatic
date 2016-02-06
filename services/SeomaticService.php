@@ -939,6 +939,9 @@ class SeomaticService extends BaseApplicationComponent
         $identity['personOwnerGender'] = $settings['personOwnerGender'];
         $identity['personOwnerBirthPlace'] = $settings['personOwnerBirthPlace'];
 
+        $identity['localBusinessCreatorOpeningHours'] = $settings['localBusinessCreatorOpeningHours'];
+        craft()->seomatic->convertTimes($identity['localBusinessCreatorOpeningHours']);
+
         $identity['corporationOwnerTickerSymbol'] = $settings['corporationOwnerTickerSymbol'];
 
         $identity['restaurantOwnerServesCuisine'] = $settings['restaurantOwnerServesCuisine'];
@@ -2088,5 +2091,38 @@ class SeomaticService extends BaseApplicationComponent
 
         return $result;
     } /* -- encodeEmailAddress */
+
+    /**
+     * Loops through the data and converts the times to DateTime objects.
+     *
+     * @access private
+     * @param array &$value
+     */
+    public function convertTimes(&$value)
+    {
+        if (is_array($value))
+        {
+            foreach ($value as &$day)
+            {
+                if ((is_string($day['open']) && $day['open']) || (is_array($day['open']) && $day['open']['time']))
+                {
+                    $day['open'] = DateTime::createFromString($day['open']);
+                }
+                else
+                {
+                    $day['open'] = '';
+                }
+
+                if ((is_string($day['close']) && $day['close']) || (is_array($day['close']) && $day['close']['time']))
+                {
+                    $day['close'] = DateTime::createFromString($day['close']);
+                }
+                else
+                {
+                    $day['close'] = '';
+                }
+            }
+        }
+    } /* -- convertTimes */
 
 } /* -- class SeomaticService */

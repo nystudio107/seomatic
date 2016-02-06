@@ -64,7 +64,7 @@ class Seomatic_SettingsModel extends BaseModel
 
 /* -- LocalBusiness owner fields https://schema.org/LocalBusiness */
 
-            'localBusinessOwnerOpeningHours'    => array(AttributeType::String, 'default' => ''),
+            'localBusinessOwnerOpeningHours'    => array(AttributeType::Mixed, 'default' => ''),
 
 /* -- Corporation owner fields http://schema.org/Corporation */
 
@@ -130,7 +130,7 @@ class Seomatic_SettingsModel extends BaseModel
 
 /* -- LocalBusiness Creator fields https://schema.org/LocalBusiness */
 
-            'localBusinessCreatorOpeningHours'  => array(AttributeType::String, 'default' => ''),
+            'localBusinessCreatorOpeningHours'  => array(AttributeType::Mixed, 'default' => ''),
 
 /* -- Corporation Creator fields http://schema.org/Corporation */
 

@@ -101,6 +101,8 @@ class SeomaticController extends BaseController
             $locale = craft()->language;
         $variables['identity'] = craft()->seomatic->getIdentity($locale);
 
+/* -- LocalBusiness owner fields https://schema.org/LocalBusiness */
+
         // Whether any assets sources exist
         $sources = craft()->assets->findFolders();
         $variables['assetsSourceExists'] = count($sources);
@@ -491,6 +493,14 @@ class SeomaticController extends BaseController
 
         $record->personOwnerGender = craft()->request->getPost('personOwnerGender', $record->personOwnerGender);
         $record->personOwnerBirthPlace = craft()->request->getPost('personOwnerBirthPlace', $record->personOwnerBirthPlace);
+
+/* -- LocalBusiness owner fields https://schema.org/LocalBusiness */
+
+        $hours = craft()->request->getPost('localBusinessCreatorOpeningHours', $record->localBusinessCreatorOpeningHours);
+SeomaticPlugin::log(print_r($hours, 1), LogLevel::Info, true);
+        craft()->seomatic->convertTimes($hours);
+        $record->localBusinessCreatorOpeningHours = $hours;
+SeomaticPlugin::log(print_r($record->localBusinessCreatorOpeningHours, 1), LogLevel::Info, true);
 
 /* -- Corporation owner fields http://schema.org/Corporation */
 
