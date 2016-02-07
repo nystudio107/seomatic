@@ -4,9 +4,23 @@
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', '{{ seomaticHelper.ownerGoogleAnalyticsUID |raw }}', 'auto');
-{% if seomaticHelper.ownerGoogleAnalyticsAdvertising %}
+  ga('create', '{{ seomaticHelper.ownerGoogleAnalyticsUID |raw }}', 'auto'{% if seomaticHelper.googleAnalyticsLinker %}, {allowLinker: true}{% endif %});
+{% if seomaticHelper.googleAnalyticsAdvertising %}
   ga('require', 'displayfeatures');
 {% endif %}
+{% if seomaticHelper.googleAnalyticsEcommerce %}
+  ga('require', 'ecommerce');
+{% endif %}
+{% if seomaticHelper.googleAnalyticsEEcommerce %}
+  ga('require', 'ec');
+{% endif %}
+{% if seomaticHelper.googleAnalyticsLinkAttribution %}
+  ga('require', 'linkid');
+{% endif %}
+{% if seomaticHelper.googleAnalyticsLinker %}
+  ga('require', 'linker');
+{% endif %}
+{% if seomaticHelper.googleAnalyticsSendPageview %}
   ga('send', 'pageview');
+{% endif %}
 </script>

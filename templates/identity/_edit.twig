@@ -76,16 +76,94 @@
                         locale: identity.locale,
                     }) }}
 
-                    {{ forms.lightswitchField({
-                        label: "Enable Google Analytics Demographics and Interest Reports"|t,
-                        name: 'googleAnalyticsAdvertising',
-                        instructions: "Demographics and Interest Reports make Age, Gender, and Interest data available so you can better understand who your users are. To see this data, you need to enable Advertising Features first.  This will include <code>ga('require', 'displayfeatures');</code> in your Google Analytics script.  <a href='https://support.google.com/analytics/answer/2444872?hl=en_US&amp;utm_id=ad' target='_blank'>Learn More</a>" |t,
-                        on: identity.googleAnalyticsAdvertising,
+                     {{ forms.lightswitchField({
+                        label: "Automatically send Google Analytics PageView"|t,
+                        instructions: "Controls whether the Google Analytics script automatically sends a PageView to Google Analytics when your pages are loaded" |t |raw,
+                        id: 'googleAnalyticsSendPageview',
+                        name: 'googleAnalyticsSendPageview',
+                        on: identity.googleAnalyticsSendPageview,
                     }) }}
 
                     <div class="field">
                         <div class="heading">
-                            <label for="siteOwnerType">{{ "Site Owner Entity Type"|t}}{% if identity.locale %}<span class="locale">{{ identity.locale }}</span>{% endif %}</label>
+                            <label>{{ "Google Analytics Plugins"|t}}{% if craft.isLocalized and identity.locale %}<span class="locale">{{ identity.locale }}</span>{% endif %}</label>
+                            <div class="instructions"><p>{{ "Select which Google Analytics plugins to enable.  <a href='https://developers.google.com/analytics/devguides/collection/analyticsjs/' target='_blank'>Learn More</a>" |t |raw}}</p></div>
+                        </div>
+                        <div class="lightswitch-list-container">
+                            <div class="inline-item">
+                             {{ forms.lightswitchField({
+                                id: 'googleAnalyticsAdvertising',
+                                name: 'googleAnalyticsAdvertising',
+                                class: "inline-item",
+                                fieldClass: "inline-item",
+                                on: identity.googleAnalyticsAdvertising,
+                            }) }}
+                           </div>
+                            <div class="inline-item">
+                                <label for="googleAnalyticsAdvertising">{{ "Display Features"|t}}</label>
+                            </div>
+                        </div>
+                        <div class="lightswitch-list-container">
+                            <div class="inline-item">
+                             {{ forms.lightswitchField({
+                                id: 'googleAnalyticsEcommerce',
+                                name: 'googleAnalyticsEcommerce',
+                                class: "inline-item",
+                                fieldClass: "inline-item",
+                                on: identity.googleAnalyticsEcommerce,
+                            }) }}
+                           </div>
+                            <div class="inline-item">
+                                <label for="googleAnalyticsEcommerce">{{ "Ecommerce"|t}}</label>
+                            </div>
+                        </div>
+                        <div class="lightswitch-list-container">
+                            <div class="inline-item">
+                             {{ forms.lightswitchField({
+                                id: 'googleAnalyticsEEcommerce',
+                                name: 'googleAnalyticsEEcommerce',
+                                class: "inline-item",
+                                fieldClass: "inline-item",
+                                on: identity.googleAnalyticsEEcommerce,
+                            }) }}
+                           </div>
+                            <div class="inline-item">
+                                <label for="googleAnalyticsEEcommerce">{{ "Enhanced Ecommerce"|t}}</label>
+                            </div>
+                        </div>
+                        <div class="lightswitch-list-container">
+                            <div class="inline-item">
+                             {{ forms.lightswitchField({
+                                id: 'googleAnalyticsLinkAttribution',
+                                name: 'googleAnalyticsLinkAttribution',
+                                class: "inline-item",
+                                fieldClass: "inline-item",
+                                on: identity.googleAnalyticsLinkAttribution,
+                            }) }}
+                           </div>
+                            <div class="inline-item">
+                                <label for="googleAnalyticsLinkAttribution">{{ "Enhanced Link Attribution"|t}}</label>
+                            </div>
+                        </div>
+                        <div class="lightswitch-list-container">
+                            <div class="inline-item">
+                             {{ forms.lightswitchField({
+                                id: 'googleAnalyticsLinker',
+                                name: 'googleAnalyticsLinker',
+                                class: "inline-item",
+                                fieldClass: "inline-item",
+                                on: identity.googleAnalyticsLinker,
+                            }) }}
+                           </div>
+                            <div class="inline-item">
+                                <label for="googleAnalyticsLinker">{{ "Linker"|t}}</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="heading">
+                            <label for="siteOwnerType">{{ "Site Owner Entity Type"|t}}{% if craft.isLocalized and identity.locale %}<span class="locale">{{ identity.locale }}</span>{% endif %}</label>
                             <div class="instructions"><p>{{ "The type of entity that owns this website.  Choose as general or specific of an Entity Type as you wish.  Leave a sub-type blank if you don't want to specify a sub-type." |t |raw}}</p></div>
                         </div>
                         <div>

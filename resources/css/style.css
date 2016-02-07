@@ -33,6 +33,11 @@ div.tokenfield {
     box-sizing: border-box;
 }
 
+div.lightswitch-list-container {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
 div.inline-item {
     display: inline-block;
     vertical-align: middle;

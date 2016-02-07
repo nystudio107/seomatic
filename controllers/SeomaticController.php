@@ -461,7 +461,12 @@ class SeomaticController extends BaseController
 
         $record->googleSiteVerification = craft()->request->getPost('googleSiteVerification', $record->googleSiteVerification);
         $record->googleAnalyticsUID = craft()->request->getPost('googleAnalyticsUID', $record->googleAnalyticsUID);
+        $record->googleAnalyticsSendPageview = craft()->request->getPost('googleAnalyticsSendPageview', $record->googleAnalyticsSendPageview);
         $record->googleAnalyticsAdvertising = craft()->request->getPost('googleAnalyticsAdvertising', $record->googleAnalyticsAdvertising);
+        $record->googleAnalyticsEcommerce = craft()->request->getPost('googleAnalyticsEcommerce', $record->googleAnalyticsEcommerce);
+        $record->googleAnalyticsEEcommerce = craft()->request->getPost('googleAnalyticsEEcommerce', $record->googleAnalyticsEEcommerce);
+        $record->googleAnalyticsLinkAttribution = craft()->request->getPost('googleAnalyticsLinkAttribution', $record->googleAnalyticsLinkAttribution);
+        $record->googleAnalyticsLinker = craft()->request->getPost('googleAnalyticsLinker', $record->googleAnalyticsLinker);
         $record->siteOwnerType = craft()->request->getPost('siteOwnerType', $record->siteOwnerType);
         $record->siteOwnerSubType = craft()->request->getPost('siteOwnerSubType', $record->siteOwnerSubType);
         $record->siteOwnerSpecificType = craft()->request->getPost('siteOwnerSpecificType', $record->siteOwnerSpecificType);
@@ -497,10 +502,8 @@ class SeomaticController extends BaseController
 /* -- LocalBusiness owner fields https://schema.org/LocalBusiness */
 
         $hours = craft()->request->getPost('localBusinessCreatorOpeningHours', $record->localBusinessCreatorOpeningHours);
-SeomaticPlugin::log(print_r($hours, 1), LogLevel::Info, true);
         craft()->seomatic->convertTimes($hours, craft()->getTimeZone());
         $record->localBusinessCreatorOpeningHours = $hours;
-SeomaticPlugin::log(print_r($record->localBusinessCreatorOpeningHours, 1), LogLevel::Info, true);
 
 /* -- Corporation owner fields http://schema.org/Corporation */
 

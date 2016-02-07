@@ -33,7 +33,12 @@ class Seomatic_SettingsModel extends BaseModel
 
             'googleSiteVerification'            => array(AttributeType::String, 'default' => ''),
             'googleAnalyticsUID'                => array(AttributeType::String, 'default' => ''),
+            'googleAnalyticsSendPageview'       => array(AttributeType::Bool, 'default' => true),
             'googleAnalyticsAdvertising'        => array(AttributeType::Bool, 'default' => false),
+            'googleAnalyticsEcommerce'          => array(AttributeType::Bool, 'default' => false),
+            'googleAnalyticsEEcommerce'         => array(AttributeType::Bool, 'default' => false),
+            'googleAnalyticsLinkAttribution'    => array(AttributeType::Bool, 'default' => false),
+            'googleAnalyticsLinker'             => array(AttributeType::Bool, 'default' => false),
             'siteOwnerType'                     => array(AttributeType::String, 'default' => 'Organization'),
             'siteOwnerSubType'                  => array(AttributeType::String, 'default' => 'Corporation'),
             'siteOwnerSpecificType'             => array(AttributeType::String, 'default' => ''),

@@ -92,7 +92,8 @@ Leave any fields blank that aren't applicable or which you do not want as part o
 #### Site Ownership
 * **Google Site Verification** - For the `<meta name='google-site-verification'>` tag. Only enter the code in the `content=''`, not the entire tag. [Here's how to get it.](https://www.google.com/webmasters/verification/).
 * **Google Analytics Tracking ID** - If you enter your Google Analytics Tracking ID here, the Google Analytics script tags will be included in your `<head>` (the script is not included if `devMode` is on). Only enter the ID, e.g.: `UA-XXXXXX-XX`, not the entire script code. [Here's how to get it.](https://support.google.com/analytics/answer/1032385?hl=en)
-* **Enable Google Analytics Demographics and Interest Reports** - Demographics and Interest Reports make Age, Gender, and Interest data available so you can better understand who your users are. To see this data, you need to enable Advertising Features first. This will include `ga('require', 'displayfeatures');` in your Google Analytics script. [Learn More](https://support.google.com/analytics/answer/2444872?hl=en_US&utm_id=ad)
+* **Automatically send Google Analytics PageView** - Controls whether the Google Analytics script automatically sends a PageView to Google Analytics when your pages are loaded
+* **Google Analytics Plugins** - Select which Google Analytics plugins to enable. [Learn More](https://developers.google.com/analytics/devguides/collection/analyticsjs/)
 * **Site Owner Entity Type** - The type of entity that owns this website.  Choose as general or specific of a type as you like.  Any entity sub-type left blank is ignored.
 
 #### General Info
@@ -1294,13 +1295,17 @@ Some things to do, and ideas for potential features:
 * [Added] You can include tags that output entry properties, such as `{title}` or `{myCustomField}` in SEOmatic FieldType fields.
 * [Added] Twitter Card and Facebook types can now have null values in the FieldType, and Template meta settings
 * [Added] We now include separate Place JSON-LD for Organizations (in addition to being part of the Identity)
+* [Added] Added the Opening Hours fields for LocalBusiness, and include the `openingHoursSpecification` in the Site Identity and Place JSON-LD
 * [Added] Added support for Google Analytics on the Site Identity tab 
+* [Added] Added the ability to control whether a `PageView` is automatically sent by Google Analytics 
+* [Added] Added support for enabling Google Analytics plugins on an a la carte basis 
 * [Fixed] We now handle numeric Google+ accounts properly
 * [Fixed] The Preview buttons display properly on mobile devices for the SEOmatic FieldType now
 * [Improved] Added links to WooRank.com for the SEO Title, SEO Description, and SEO Keywords tags that explain best practices for them
 * [Added] Added a `config.php` file where you can override some of SEOmatic's default behaviors
 * [Added] Added `menu` and `acceptsReservations` fields for FoodEstablishments
 * [Improved] Converted all of the `.html` template files over to `.twig`
+* [Added] Expanded the JSON-LD parser to support ordinal arrays of associative arrays
 * [Fixed] Fixed an issue with the cannonical URL and some localized sites
 * [Improved] Updated the README.md
 

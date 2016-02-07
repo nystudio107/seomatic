@@ -892,7 +892,12 @@ class SeomaticService extends BaseApplicationComponent
 
         $identity['googleSiteVerification'] = $settings['googleSiteVerification'];
         $identity['googleAnalyticsUID'] = $settings['googleAnalyticsUID'];
+        $identity['googleAnalyticsSendPageview'] = $settings['googleAnalyticsSendPageview'];
         $identity['googleAnalyticsAdvertising'] = $settings['googleAnalyticsAdvertising'];
+        $identity['googleAnalyticsEcommerce'] = $settings['googleAnalyticsEcommerce'];
+        $identity['googleAnalyticsEEcommerce'] = $settings['googleAnalyticsEEcommerce'];
+        $identity['googleAnalyticsLinkAttribution'] = $settings['googleAnalyticsLinkAttribution'];
+        $identity['googleAnalyticsLinker'] = $settings['googleAnalyticsLinker'];
         $identity['siteOwnerType'] = ucfirst($settings['siteOwnerType']);
         $identity['siteOwnerSubType'] = $settings['siteOwnerSubType'];
         $identity['siteOwnerSpecificType'] = $settings['siteOwnerSpecificType'];
@@ -940,7 +945,40 @@ class SeomaticService extends BaseApplicationComponent
         $identity['personOwnerBirthPlace'] = $settings['personOwnerBirthPlace'];
 
         $identity['localBusinessCreatorOpeningHours'] = $settings['localBusinessCreatorOpeningHours'];
-        craft()->seomatic->convertTimes($identity['localBusinessCreatorOpeningHours']);
+
+/* -- Handle the opening hours specification */
+
+        $days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        $openingHours = array();
+        if (isset($identity['localBusinessCreatorOpeningHours']))
+        {
+            craft()->seomatic->convertTimes($identity['localBusinessCreatorOpeningHours']);
+            $index = 0;
+            foreach ($identity['localBusinessCreatorOpeningHours'] as $hours)
+            {
+                $openTime = "";
+                $closeTime = "";
+               if (isset($hours['open']) && $hours['open'])
+                    $openTime = $hours['open']->format('H:i:s', $hours['open']->getTimeZone());
+                if (isset($hours['close']) && $hours['close'])
+                    $closeTime = $hours['close']->format('H:i:s', $hours['close']->getTimeZone());
+                if ($openTime && $closeTime)
+                {
+                    $spec = array(
+                        "type" => "OpeningHoursSpecification",
+                        "closes" => $closeTime,
+                        "dayOfWeek" => [$days[$index]],
+                        "opens" => $openTime,
+                    );
+                    $openingHours[] = $spec;
+                }
+                $index++;
+            }
+        }
+        $openingHours = array_filter($openingHours);
+        $identity['openingHoursSpecification'] = $openingHours;
+        if (count($identity['openingHoursSpecification']) == 1)
+            unset($identity['openingHoursSpecification']);
 
         $identity['corporationOwnerTickerSymbol'] = $settings['corporationOwnerTickerSymbol'];
 
@@ -1014,6 +1052,9 @@ class SeomaticService extends BaseApplicationComponent
         if (count($identityJSONLD['address']) == 1)
             unset($identityJSONLD['address']);
 
+        if (isset($identity['localBusinessCreatorOpeningHours']))
+            $identityJSONLD['openingHoursSpecification'] = $identity['openingHoursSpecification'];
+
 /* -- Settings for all person Identity types */
 
         if ($identity['siteOwnerType'] == "Person")
@@ -1050,6 +1091,7 @@ class SeomaticService extends BaseApplicationComponent
                 "logo" =>  $locImage,
                 "url" =>  $identity['genericOwnerUrl'],
                 "sameAs" =>  $sameAs,
+                "openingHoursSpecification" => $identity['openingHoursSpecification'],
                 "geo" => $geo,
                 "address" => $address,
             );
@@ -1702,7 +1744,12 @@ class SeomaticService extends BaseApplicationComponent
 
         $helper['ownerGoogleSiteVerification'] = $identity['googleSiteVerification'];
         $helper['ownerGoogleAnalyticsUID'] = $identity['googleAnalyticsUID'];
-        $helper['ownerGoogleAnalyticsAdvertising'] = $identity['googleAnalyticsAdvertising'];
+        $helper['googleAnalyticsSendPageview'] = $identity['googleAnalyticsSendPageview'];
+        $helper['googleAnalyticsAdvertising'] = $identity['googleAnalyticsAdvertising'];
+        $helper['googleAnalyticsEcommerce'] = $identity['googleAnalyticsEcommerce'];
+        $helper['googleAnalyticsEEcommerce'] = $identity['googleAnalyticsEEcommerce'];
+        $helper['googleAnalyticsLinkAttribution'] = $identity['googleAnalyticsLinkAttribution'];
+        $helper['googleAnalyticsLinker'] = $identity['googleAnalyticsLinker'];
         $now = new DateTime;
         $period = ".";
         $name = $identity['genericOwnerName'];
@@ -1994,8 +2041,37 @@ class SeomaticService extends BaseApplicationComponent
                 $keys = array_keys($value);
                 if ($keys[0] == "0")
                 {
-                    $line = $key . ": [\"" . implode("\",\"", $value) . "\"]" . $comma  . "\n";
+                    $predicate = ": [";
+                    $suffix = "]" . $comma  . "\n";
+                    $subLines = "";
+                    $numSubi = count($value);
+                    $subi = 0;
+                    foreach ($value as $subValue)
+                    {
+                        $subi++;
+                        if ($subi == $numSubi)
+                            $subComma = "";
+                        else
+                            $subComma = ",";
+                        if (is_array($subValue))
+                        {
+                            $blockOpen = "{";
+                            $blockOpen = str_pad($blockOpen, strlen($blockOpen) + (($level+1) * 4), " ", STR_PAD_LEFT);
+                            $blockClose = "}" . $subComma;
+                            $blockClose = str_pad($blockClose, strlen($blockClose) + (($level+1) * 4), " ", STR_PAD_LEFT);
+                            $subLines = $subLines . "\n" . $blockOpen . "\n" . $this->_print_twig_array($subValue, $level + 2) . $blockClose;
+                            if ($subi == $numSubi)
+                            {
+                                $subLines .= "\n";
+                                $suffix = str_pad($suffix, strlen($suffix) + ($level * 4), " ", STR_PAD_LEFT);
+                            }
+                        }
+                        else
+                            $subLines .= "\"" . $subValue . "\"" . $subComma;
+                    }
+                    $line =  $key . $predicate;
                     $line = str_pad($line, strlen($line) + ($level * 4), " ", STR_PAD_LEFT);
+                    $line = $line . $subLines . $suffix;
                 }
                 else
                 {
