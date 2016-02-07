@@ -2,14 +2,28 @@
     {
         "version": "1.1.0",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
-        "date": "2016-01-23T11:00:00-05:00",
+        "date": "2016-02-07T11:00:00-05:00",
         "notes": [
-            "[Added] Added the complete schema.org types for Organizations to Site Identity, with sub-types and specific-types",
-            "[Added] Added additional metadata for Site Identity",
-            "[Added] Added additional metadata for Owner & Creator 'location'",
-            "[Added] Added schema type 'Place' to the rendered template",
-            "[Improved] Updated the README.md"
-        ]
+            "[Added] Added all of the schema.org Organization types to Identity settings",
+            "[Added] SEOmatic Meta FieldTypes now have settings that let you restrict the Asset Sources available to them",
+            "[Added] SEOmatic Meta FieldTypes now let you set the default Source settings for each field",
+            "[Added] SEOmatic Meta FieldTypes now let you choose if the Source can be changed when editing an entry",
+            "[Added] You can include tags that output entry properties, such as {title} or {myCustomField} in SEOmatic FieldType fields.",
+            "[Added] Twitter Card and Facebook types can now have null values in the FieldType, and Template meta settings",
+            "[Added] We now include separate Place JSON-LD for Organizations (in addition to being part of the Identity)",
+            "[Added] Added the Opening Hours fields for LocalBusiness, and include the openingHoursSpecification in the Site Identity and Place JSON-LD",
+            "[Added] Added support for Google Analytics on the Site Identity tab",
+            "[Added] Added the ability to control whether a PageView is automatically sent by Google Analytics",
+            "[Added] Added support for enabling Google Analytics plugins on an a la carte basis",
+            "[Fixed] We now handle numeric Google+ accounts properly",
+            "[Fixed] The Preview buttons display properly on mobile devices for the SEOmatic FieldType now",
+            "[Improved] Added links to WooRank.com for the SEO Title, SEO Description, and SEO Keywords tags that explain best practices for them",
+            "[Added] Added a config.php file where you can override some of SEOmatic's default behaviors",
+            "[Added] Added menu and acceptsReservations fields for FoodEstablishments",
+            "[Improved] Converted all of the .html template files over to .twig",
+            "[Added] Expanded the JSON-LD parser to support ordinal arrays of associative arrays",
+            "[Fixed] Fixed an issue with the cannonical URL and some localized sites",
+            "[Improved] Updated the README.md"        ]
     },
     {
         "version": "1.0.12",

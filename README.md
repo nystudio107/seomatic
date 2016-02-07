@@ -96,6 +96,9 @@ Leave any fields blank that aren't applicable or which you do not want as part o
 * **Google Analytics Plugins** - Select which Google Analytics plugins to enable. [Learn More](https://developers.google.com/analytics/devguides/collection/analyticsjs/)
 * **Site Owner Entity Type** - The type of entity that owns this website.  Choose as general or specific of a type as you like.  Any entity sub-type left blank is ignored.
 
+More fields will also appear depending on the selected **Site Owner Entity Type**.  For instance, any `LocalBusiness` sub-type will receive a field for **Opening Hours**, so that the hours that the business is open will be rendered in the Identity and Place JSON-LD microdata.
+
+
 #### General Info
 * **Entity Name** - The name of the entity that owns the website
 * **Alternate Entity Name** - An alternate or nickname for the entity that owns the website
@@ -120,11 +123,16 @@ Leave any fields blank that aren't applicable or which you do not want as part o
 * **Organization Founding Date** - The date the organization/company/restaurant was founded
 * **Organization Founding Location** - The location where the organization/company/restaurant was founded
 
+#### Local Business Info
+* **Opening Hours** - The opening hours for this local business. If the business is closed on a given day, just leave the hours for that day blank.
+
 #### Corporation Info
 * **Corporation Ticker Symbol** - The exchange ticker symbol of the corporation
 
-#### Restaurant Info
-* **Restaurant Cuisine** - The primary type of cuisine that the restaurant serves
+#### Food Establishment Info
+* **Food Establishment Cuisine** - The primary type of cuisine that the food establishment serves
+* **Food Establishment Menu URL** - URL to the food establishment's menu
+* **Food Establishment Reservations URL** - URL to the food establishment's reservations page
 
 #### Person Info
 * **Person Gender** - The gender of the person
@@ -269,6 +277,8 @@ In addition to being able to hold custom data that you enter manually, you can a
 **SEO Image** only can pull from an existing Assets field, while **SEO Title**, **SEO Description**, and **SEO Keywords** can pull from Text, Rich Text, Tags, and Matrix fields.  If you pull from a Matrix field, SEOmatic goes through and concatenates all of the Text & Rich Text fields together (this is useful for **SEO Keywords** generation).
 
 The **SEO Keywords** field also allows you to extract keywords automatically from an existing field in your Entry via the `Keywords From Field` Source option.
+
+SEOmatic Meta FieldTypes also have default settings that allow you to control what the default settings should be for each meta field, and whether they can be changed by the person editing the entry.
 
 ## Dynamic Twig SEO Meta
 
@@ -1001,17 +1011,20 @@ SEOmatic cascades Meta settings; if you have a Meta associated with the current 
 
 	<!-- BEGIN SEOmatic rendered SEO Meta -->
 	
-	<title>We make the big stuff big &amp; the little stuff little | Big Entity, Inc.</title> <!-- {{ seomaticMeta.seoTitle }} | {{ seomaticSiteMeta.siteSeoName }} -->
+	<title>[devMode] We make the big stuff big &amp; the little stuff… | Big Entity, Inc.</title> <!-- {% if craft.config.devMode %}[devMode] {% endif %}{% if seomaticSiteMeta.siteSeoTitlePlacement == "before" %}{{ seomaticSiteMeta.siteSeoName |raw }}{% if seomaticMeta.seoTitle %} {{ seomaticSiteMeta.siteSeoTitleSeparator }} {% endif %}{% endif %}{{ seomaticMeta.seoTitle |raw }}{% if seomaticSiteMeta.siteSeoTitlePlacement == "after" %}{% if seomaticMeta.seoTitle %} {{ seomaticSiteMeta.siteSeoTitleSeparator }} {% endif %}{{ seomaticSiteMeta.siteSeoName |raw }}{% endif %} -->
 	
 	<!-- Standard SEO -->
 	
-	<meta name="keywords" content="colossal,considerable,enormous,fat,full,gigantic,hefty,huge,immense,massive,sizable,substantial,tremendous," /> <!-- {{ seomaticMeta.seoKeywords }} -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="referrer" content="always" />
+	<meta name="robots" content="all" /> <!-- {{ seomaticMeta.robots }} -->
+	<meta name="keywords" content="colossal, considerable, enormous, fat, full, gigantic, hefty, huge, immense, massive, sizable, substantial, tremendous" /> <!-- {{ seomaticMeta.seoKeywords }} -->
 	<meta name="description" content="Big Entity specializes in making the big stuff big, but we also know how to make the little stuff little!" /> <!-- {{ seomaticMeta.seoDescription }} -->
 	<meta name="generator" content="SEOmatic" /> <!-- SEOmatic -->
 	<link rel="canonical" href="http://nystudio107.dev/" /> <!-- {{ seomaticMeta.canonicalUrl }} (defaults to craft.request.url) -->
 	<meta name="geo.region" content="NY" /> <!-- {{ seomaticIdentity.address.addressRegion }} -->
-	<meta name="geo.position" content="-10.447525,105.690449" /> <!-- {{ seomaticIdentity.location.geo.latitude }},{{ seomaticIdentity.location.geo.longitude }} -->
-	<meta name="ICBM" content="-10.447525,105.690449" /> <!-- {{ seomaticIdentity.location.geo.latitude }},{{ seomaticIdentity.location.geo.longitude }} -->
+	<meta name="geo.position" content="41.005432,-73.65897799999999" /> <!-- {{ seomaticIdentity.location.geo.latitude }},{{ seomaticIdentity.location.geo.longitude }} -->
+	<meta name="ICBM" content="41.005432,-73.65897799999999" /> <!-- {{ seomaticIdentity.location.geo.latitude }},{{ seomaticIdentity.location.geo.longitude }} -->
 	<meta name="geo.placename" content="Big Entity, Inc." /> <!-- {{ seomaticIdentity.location.name }} -->
 	
 	<!-- Dublin Core basic info -->
@@ -1023,43 +1036,45 @@ SEOmatic cascades Meta settings; if you have a Meta associated with the current 
 	<meta name="dcterms.Publisher" content="Big Entity, Inc." /> <!-- {{ seomaticSiteMeta.siteSeoName }} -->
 	<meta name="dcterms.Type" content="text/html" /> <!-- text/html -->
 	<meta name="dcterms.Coverage" content="http://nystudio107.dev/" /> <!-- {{ siteUrl }} -->
-	<meta name="dcterms.Rights" content="Copyright &copy;2015 Big Entity, Inc. All rights reserved." /> <!-- {{ seomaticHelper.ownerCopyrightNotice }} -->
-	<meta name="dcterms.Title" content="We make the big stuff big &amp; the little stuff little" /> <!-- {{ seomaticMeta.seoTitle }} -->
-	<meta name="dcterms.Creator" content="NY Studio 107" /> <!-- {{ seomaticCreator.name }} -->
-	<meta name="dcterms.Subject" content="colossal,considerable,enormous,fat,full,gigantic,hefty,huge,immense,massive,sizable,substantial,tremendous," /> <!-- {{ seomaticMeta.seoKeywords }} -->
+	<meta name="dcterms.Rights" content="Copyright &copy;2016 Big Entity, Inc. " /> <!-- {{ seomaticHelper.ownerCopyrightNotice }} -->
+	<meta name="dcterms.Title" content="We make the big stuff big &amp; the little stuff…" /> <!-- {{ seomaticMeta.seoTitle }} -->
+	<meta name="dcterms.Creator" content="nystudio107" /> <!-- {{ seomaticCreator.name }} -->
+	<meta name="dcterms.Subject" content="colossal, considerable, enormous, fat, full, gigantic, hefty, huge, immense, massive, sizable, substantial, tremendous" /> <!-- {{ seomaticMeta.seoKeywords }} -->
 	<meta name="dcterms.Contributor" content="Big Entity, Inc." /> <!-- {{ seomaticSiteMeta.siteSeoName }} -->
-	<meta name="dcterms.Date" content="2015-12-27" /> <!-- {{ now | date('Y-m-d') }} -->
+	<meta name="dcterms.Date" content="2016-02-07" /> <!-- {{ now | date('Y-m-d') }} -->
 	<meta name="dcterms.Description" content="Big Entity specializes in making the big stuff big, but we also know how to make the little stuff little!" /> <!-- {{ seomaticMeta.seoDescription }} -->
 	
 	<!-- Facebook OpenGraph -->
 	
-	<meta property="fb:profile_id" content="642246343" /> <!-- {{ seomaticSocial.facebookProfileId }} -->
+	<meta property="fb:profile_id" content="bigentity" /> <!-- {{ seomaticSocial.facebookProfileId }} -->
 	<meta property="og:type" content="website" /> <!-- {{ seomatic.og.type }} -->
-	<meta property="og:locale" content="en" /> <!-- {{ seomatic.og.locale }} -->
+	<meta property="og:locale" content="en_US" /> <!-- {{ seomatic.og.locale }} -->
 	<meta property="og:url" content="http://nystudio107.dev/" /> <!-- {{ seomatic.og.url }} -->
 	<meta property="og:title" content="We make the big stuff big &amp; the little stuff little | Big Entity, Inc." /> <!-- {{ seomatic.og.title }} -->
 	<meta property="og:description" content="Big Entity specializes in making the big stuff big, but we also know how to make the little stuff little!" /> <!-- {{ seomatic.og.description }} -->
 	<meta property="og:image" content="http://nystudio107.dev/img/site/big_hq.jpg" /> <!-- {{ seomatic.og.image }} -->
 	<meta property="og:site_name" content="Big Entity, Inc." /> <!-- {{ seomatic.og.site_name }} -->
-	<meta property="og:see_also" content="https://twitter.com/nystudio107" /> <!-- {{ seomatic.og.see_also[0] }} -->
-	<meta property="og:see_also" content="https://www.facebook.com/nystudio107" /> <!-- {{ seomatic.og.see_also[1] }} -->
-	<meta property="og:see_also" content="https://plus.google.com/+nystudio107" /> <!-- {{ seomatic.og.see_also[2] }} -->
-	<meta property="og:see_also" content="https://www.linkedin.com/company/nystudio107" /> <!-- {{ seomatic.og.see_also[3] }} -->
-	<meta property="og:see_also" content="https://www.youtube.com/user/nystudio107" /> <!-- {{ seomatic.og.see_also[4] }} -->
-	<meta property="og:see_also" content="https://www.instagram.com/nystudio107" /> <!-- {{ seomatic.og.see_also[5] }} -->
-	<meta property="og:see_also" content="https://www.pinterest.com/nystudio107" /> <!-- {{ seomatic.og.see_also[6] }} -->
+	<meta property="og:see_also" content="https://twitter.com/bigentity" /> <!-- {{ seomatic.og.see_also[0] }} -->
+	<meta property="og:see_also" content="https://www.facebook.com/bigentity" /> <!-- {{ seomatic.og.see_also[1] }} -->
+	<meta property="og:see_also" content="https://plus.google.com/+bigentity" /> <!-- {{ seomatic.og.see_also[2] }} -->
+	<meta property="og:see_also" content="https://www.linkedin.com/company/bigentity" /> <!-- {{ seomatic.og.see_also[3] }} -->
+	<meta property="og:see_also" content="https://www.youtube.com/user/bigentity" /> <!-- {{ seomatic.og.see_also[4] }} -->
+	<meta property="og:see_also" content="https://www.youtube.com/c/bigentity" /> <!-- {{ seomatic.og.see_also[5] }} -->
+	<meta property="og:see_also" content="https://www.instagram.com/bigentity" /> <!-- {{ seomatic.og.see_also[6] }} -->
+	<meta property="og:see_also" content="https://www.pinterest.com/bigentity" /> <!-- {{ seomatic.og.see_also[7] }} -->
+	<meta property="og:see_also" content="https://github.com/bigentity" /> <!-- {{ seomatic.og.see_also[8] }} -->
 	
 	<!-- Twitter Card -->
 	
 	<meta property="twitter:card" content="summary" /> <!-- {{ seomatic.twitter.card }} -->
-	<meta property="twitter:site" content="@nystudio107" /> <!-- {{ seomatic.twitter.site }} -->
+	<meta property="twitter:site" content="@bigentity" /> <!-- {{ seomatic.twitter.site }} -->
 	<meta property="twitter:title" content="We make the big stuff big &amp; the little stuff little | Big Entity, Inc." /> <!-- {{ seomatic.twitter.title }} -->
 	<meta property="twitter:description" content="Big Entity specializes in making the big stuff big, but we also know how to make the little stuff little!" /> <!-- {{ seomatic.twitter.description }} -->
 	<meta property="twitter:image" content="http://nystudio107.dev/img/site/big_hq.jpg" /> <!-- {{ seomatic.twitter.image }} -->
 	
 	<!-- Google Publisher -->
 	
-	<link rel="publisher" href="https://plus.google.com/+nystudio107" /> <!-- {{ seomaticHelper.googlePlusUrl }} -->
+	<link rel="publisher" href="https://plus.google.com/+bigentity" /> <!-- {{ seomaticHelper.googlePlusUrl }} -->
 	
 	<!-- Humans.txt authorship http://humanstxt.org -->
 	
@@ -1068,6 +1083,19 @@ SEOmatic cascades Meta settings; if you have a Meta associated with the current 
 	<!-- Domain verification -->
 	
 	<meta name="google-site-verification" content="BM6VkEojTIASDEWyTLro7VNhZnW_036LNdcYk5j9X_8g" /> <!-- {{ seomaticHelper.ownerGoogleSiteVerification }} -->
+	
+	<!-- Google Analytics -->
+	
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	
+	  ga('create', 'UA-XXXXXX-XX', 'auto');
+	  ga('require', 'displayfeatures');
+	  ga('send', 'pageview');
+	</script>
 	
 	<!-- END SEOmatic rendered SEO Meta -->
 	
@@ -1078,51 +1106,120 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 	<script type="application/ld+json">
 	{
 	    "@context": "http://schema.org",
-	    "@type": "Corporation",
+	    "@type": "AdultEntertainment",
 	    "name": "Big Entity, Inc.",
 	    "alternateName": "Big",
 	    "description": "We sell only big stuff... but we'll sell you little stuff too, but only in bulk containers of 1,000 units per container.  So then it's big too.",
 	    "url": "http://BigEntity.com",
+	    "sameAs": ["https://twitter.com/bigentity","https://www.facebook.com/bigentity","https://plus.google.com/+bigentity","https://www.linkedin.com/company/bigentity","https://www.youtube.com/user/bigentity","https://www.youtube.com/c/bigentity","https://www.instagram.com/bigentity","https://www.pinterest.com/bigentity","https://github.com/bigentity"],
 	    "image": "http://nystudio107.dev/img/site/big_logo.jpg",
-	    "telephone": "585.214.9439",
-	    "email": "&#105;&#110;&#102;&#111;&#64;&#66;&#105;&#103;&#69;&#110;&#116;&#105;&#116;&#121;&#46;&#99;&#111;&#109;",
+	    "telephone": "585.325.1910",
+	    "email": "&#105;&#110;&#102;&#111;&#64;&#32;&#66;&#105;&#103;&#69;&#110;&#116;&#105;&#116;&#121;&#46;&#99;&#111;&#109;",
 	    "address": {
 	        "@type": "PostalAddress",
-	        "streetAddress": "123 Some Road",
-	        "addressLocality": "Porchester",
+	        "streetAddress": "311 N Main St",
+	        "addressLocality": "Portchester",
 	        "addressRegion": "NY",
-	        "postalCode": "11450",
+	        "postalCode": "10573",
 	        "addressCountry": "US" 
 	    },
+	    "openingHoursSpecification": [
+	        {
+	            "@type": "OpeningHoursSpecification",
+	            "closes": "20:00:00",
+	            "dayOfWeek": ["Monday"],
+	            "opens": "12:00:00" 
+	        },
+	        {
+	            "@type": "OpeningHoursSpecification",
+	            "closes": "22:00:00",
+	            "dayOfWeek": ["Tuesday"],
+	            "opens": "12:00:00" 
+	        },
+	        {
+	            "@type": "OpeningHoursSpecification",
+	            "closes": "20:00:00",
+	            "dayOfWeek": ["Wednesday"],
+	            "opens": "12:00:00" 
+	        },
+	        {
+	            "@type": "OpeningHoursSpecification",
+	            "closes": "22:00:00",
+	            "dayOfWeek": ["Thursday"],
+	            "opens": "12:00:00" 
+	        },
+	        {
+	            "@type": "OpeningHoursSpecification",
+	            "closes": "20:00:00",
+	            "dayOfWeek": ["Friday"],
+	            "opens": "12:00:00" 
+	        }
+	    ],
 	    "logo": "http://nystudio107.dev/img/site/big_logo.jpg",
 	    "location": {
 	        "@type": "Place",
 	        "name": "Big Entity, Inc.",
 	        "alternateName": "Big",
 	        "description": "We sell only big stuff... but we'll sell you little stuff too, but only in bulk containers of 1,000 units per container.  So then it's big too.",
-	        "hasMap": "http://maps.google.com/maps?q=Big+Entity%2C+Inc.%2C+123+Some+Road%2C+Porchester%2C+NY+11450%2C+USA",
+	        "hasMap": "http://maps.google.com/maps?q=Big+Entity%2C+Inc.%2C+311+N+Main+St%2C+Portchester%2C+NY+10573%2C+US",
+	        "telephone": "585.325.1910",
+	        "image": "http://nystudio107.dev/img/site/big_logo.jpg",
+	        "logo": "http://nystudio107.dev/img/site/big_logo.jpg",
+	        "url": "http://BigEntity.com",
+	        "sameAs": ["https://twitter.com/bigentity","https://www.facebook.com/bigentity","https://plus.google.com/+bigentity","https://www.linkedin.com/company/bigentity","https://www.youtube.com/user/bigentity","https://www.youtube.com/c/bigentity","https://www.instagram.com/bigentity","https://www.pinterest.com/bigentity","https://github.com/bigentity"],
+	        "openingHoursSpecification": [
+	            {
+	                "@type": "OpeningHoursSpecification",
+	                "closes": "20:00:00",
+	                "dayOfWeek": ["Monday"],
+	                "opens": "12:00:00" 
+	            },
+	            {
+	                "@type": "OpeningHoursSpecification",
+	                "closes": "22:00:00",
+	                "dayOfWeek": ["Tuesday"],
+	                "opens": "12:00:00" 
+	            },
+	            {
+	                "@type": "OpeningHoursSpecification",
+	                "closes": "20:00:00",
+	                "dayOfWeek": ["Wednesday"],
+	                "opens": "12:00:00" 
+	            },
+	            {
+	                "@type": "OpeningHoursSpecification",
+	                "closes": "22:00:00",
+	                "dayOfWeek": ["Thursday"],
+	                "opens": "12:00:00" 
+	            },
+	            {
+	                "@type": "OpeningHoursSpecification",
+	                "closes": "20:00:00",
+	                "dayOfWeek": ["Friday"],
+	                "opens": "12:00:00" 
+	            }
+	        ],
 	        "geo": {
 	            "@type": "GeoCoordinates",
-	            "latitude": "-10.447525",
-	            "longitude": "105.690449" 
+	            "latitude": "41.005432",
+	            "longitude": "-73.65897799999999" 
 	        },
 	        "address": {
 	            "@type": "PostalAddress",
-	            "streetAddress": "123 Some Road",
-	            "addressLocality": "Porchester",
+	            "streetAddress": "311 N Main St",
+	            "addressLocality": "Portchester",
 	            "addressRegion": "NY",
-	            "postalCode": "11450",
+	            "postalCode": "10573",
 	            "addressCountry": "US" 
 	        } 
 	    },
-	    "duns": "12345678",
+	    "duns": "54316",
 	    "founder": "Mr. Big",
-	    "foundingDate": "10/2011",
-	    "foundingLocation": "Redding, CT",
-	    "tickerSymbol": "BGE" 
+	    "foundingDate": "2011-11-01",
+	    "foundingLocation": "Redding, CT, USA" 
 	}
 	</script>
-			
+				
 #### Rendered WebSite Microdata
 
 The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developers.google.com/schemas/formats/json-ld?hl=en) WebSite microdata that tells search engines about the website.  JSON-LD is an alternative to microdata you may already be familiar with, such as: `<div itemscope itemtype='http://schema.org/Organization'>`.  JSON-LD has the advantage of not being intertwined with HTML markup, so it's easier to use.  It is parsed and consumed by Google, allowing you to tell Google what your site is about, rather than having it try to guess.
@@ -1135,102 +1232,241 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 	    "description": "Big Entity specializes in making the big stuff big, but we also know how to make the little stuff little!",
 	    "url": "http://nystudio107.dev/",
 	    "image": "http://nystudio107.dev/img/site/big_hq.jpg",
-	    "sameAs": ["https://twitter.com/nystudio107","https://www.facebook.com/nystudio107","https://plus.google.com/+nystudio107","https://www.linkedin.com/company/nystudio107","https://www.youtube.com/user/nystudio107","https://www.instagram.com/nystudio107","https://www.pinterest.com/nystudio107"],
+	    "sameAs": ["https://twitter.com/bigentity","https://www.facebook.com/bigentity","https://plus.google.com/+bigentity","https://www.linkedin.com/company/bigentity","https://www.youtube.com/user/bigentity","https://www.youtube.com/c/bigentity","https://www.instagram.com/bigentity","https://www.pinterest.com/bigentity","https://github.com/bigentity"],
 	    "copyrightHolder": {
-	        "@type": "Corporation",
+	        "@type": "AdultEntertainment",
 	        "name": "Big Entity, Inc.",
 	        "alternateName": "Big",
 	        "description": "We sell only big stuff... but we'll sell you little stuff too, but only in bulk containers of 1,000 units per container.  So then it's big too.",
 	        "url": "http://BigEntity.com",
+	        "sameAs": ["https://twitter.com/bigentity","https://www.facebook.com/bigentity","https://plus.google.com/+bigentity","https://www.linkedin.com/company/bigentity","https://www.youtube.com/user/bigentity","https://www.youtube.com/c/bigentity","https://www.instagram.com/bigentity","https://www.pinterest.com/bigentity","https://github.com/bigentity"],
 	        "image": "http://nystudio107.dev/img/site/big_logo.jpg",
-	        "telephone": "585.214.9439",
-	        "email": "&#105;&#110;&#102;&#111;&#64;&#66;&#105;&#103;&#69;&#110;&#116;&#105;&#116;&#121;&#46;&#99;&#111;&#109;",
+	        "telephone": "585.325.1910",
+	        "email": "&#105;&#110;&#102;&#111;&#64;&#32;&#66;&#105;&#103;&#69;&#110;&#116;&#105;&#116;&#121;&#46;&#99;&#111;&#109;",
 	        "address": {
 	            "@type": "PostalAddress",
-	            "streetAddress": "123 Some Road",
-	            "addressLocality": "Porchester",
+	            "streetAddress": "311 N Main St",
+	            "addressLocality": "Portchester",
 	            "addressRegion": "NY",
-	            "postalCode": "11450",
+	            "postalCode": "10573",
 	            "addressCountry": "US" 
 	        },
+	        "openingHoursSpecification": [
+	            {
+	                "@type": "OpeningHoursSpecification",
+	                "closes": "20:00:00",
+	                "dayOfWeek": ["Monday"],
+	                "opens": "12:00:00" 
+	            },
+	            {
+	                "@type": "OpeningHoursSpecification",
+	                "closes": "22:00:00",
+	                "dayOfWeek": ["Tuesday"],
+	                "opens": "12:00:00" 
+	            },
+	            {
+	                "@type": "OpeningHoursSpecification",
+	                "closes": "20:00:00",
+	                "dayOfWeek": ["Wednesday"],
+	                "opens": "12:00:00" 
+	            },
+	            {
+	                "@type": "OpeningHoursSpecification",
+	                "closes": "22:00:00",
+	                "dayOfWeek": ["Thursday"],
+	                "opens": "12:00:00" 
+	            },
+	            {
+	                "@type": "OpeningHoursSpecification",
+	                "closes": "20:00:00",
+	                "dayOfWeek": ["Friday"],
+	                "opens": "12:00:00" 
+	            }
+	        ],
 	        "logo": "http://nystudio107.dev/img/site/big_logo.jpg",
 	        "location": {
 	            "@type": "Place",
 	            "name": "Big Entity, Inc.",
 	            "alternateName": "Big",
 	            "description": "We sell only big stuff... but we'll sell you little stuff too, but only in bulk containers of 1,000 units per container.  So then it's big too.",
-	            "hasMap": "http://maps.google.com/maps?q=Big+Entity%2C+Inc.%2C+123+Some+Road%2C+Porchester%2C+NY+11450%2C+USA",
+	            "hasMap": "http://maps.google.com/maps?q=Big+Entity%2C+Inc.%2C+311+N+Main+St%2C+Portchester%2C+NY+10573%2C+US",
+	            "telephone": "585.325.1910",
+	            "image": "http://nystudio107.dev/img/site/big_logo.jpg",
+	            "logo": "http://nystudio107.dev/img/site/big_logo.jpg",
+	            "url": "http://BigEntity.com",
+	            "sameAs": ["https://twitter.com/bigentity","https://www.facebook.com/bigentity","https://plus.google.com/+bigentity","https://www.linkedin.com/company/bigentity","https://www.youtube.com/user/bigentity","https://www.youtube.com/c/bigentity","https://www.instagram.com/bigentity","https://www.pinterest.com/bigentity","https://github.com/bigentity"],
+	            "openingHoursSpecification": [
+	                {
+	                    "@type": "OpeningHoursSpecification",
+	                    "closes": "20:00:00",
+	                    "dayOfWeek": ["Monday"],
+	                    "opens": "12:00:00" 
+	                },
+	                {
+	                    "@type": "OpeningHoursSpecification",
+	                    "closes": "22:00:00",
+	                    "dayOfWeek": ["Tuesday"],
+	                    "opens": "12:00:00" 
+	                },
+	                {
+	                    "@type": "OpeningHoursSpecification",
+	                    "closes": "20:00:00",
+	                    "dayOfWeek": ["Wednesday"],
+	                    "opens": "12:00:00" 
+	                },
+	                {
+	                    "@type": "OpeningHoursSpecification",
+	                    "closes": "22:00:00",
+	                    "dayOfWeek": ["Thursday"],
+	                    "opens": "12:00:00" 
+	                },
+	                {
+	                    "@type": "OpeningHoursSpecification",
+	                    "closes": "20:00:00",
+	                    "dayOfWeek": ["Friday"],
+	                    "opens": "12:00:00" 
+	                }
+	            ],
 	            "geo": {
 	                "@type": "GeoCoordinates",
-	                "latitude": "-10.447525",
-	                "longitude": "105.690449" 
+	                "latitude": "41.005432",
+	                "longitude": "-73.65897799999999" 
 	            },
 	            "address": {
 	                "@type": "PostalAddress",
-	                "streetAddress": "123 Some Road",
-	                "addressLocality": "Porchester",
+	                "streetAddress": "311 N Main St",
+	                "addressLocality": "Portchester",
 	                "addressRegion": "NY",
-	                "postalCode": "11450",
+	                "postalCode": "10573",
 	                "addressCountry": "US" 
 	            } 
 	        },
-	        "duns": "12345678",
+	        "duns": "54316",
 	        "founder": "Mr. Big",
-	        "foundingDate": "10/2011",
-	        "foundingLocation": "Redding, CT",
-	        "tickerSymbol": "BGE" 
+	        "foundingDate": "2011-11-01",
+	        "foundingLocation": "Redding, CT, USA" 
 	    },
 	    "author": {
-	        "@type": "Corporation",
+	        "@type": "AdultEntertainment",
 	        "name": "Big Entity, Inc.",
 	        "alternateName": "Big",
 	        "description": "We sell only big stuff... but we'll sell you little stuff too, but only in bulk containers of 1,000 units per container.  So then it's big too.",
 	        "url": "http://BigEntity.com",
+	        "sameAs": ["https://twitter.com/bigentity","https://www.facebook.com/bigentity","https://plus.google.com/+bigentity","https://www.linkedin.com/company/bigentity","https://www.youtube.com/user/bigentity","https://www.youtube.com/c/bigentity","https://www.instagram.com/bigentity","https://www.pinterest.com/bigentity","https://github.com/bigentity"],
 	        "image": "http://nystudio107.dev/img/site/big_logo.jpg",
-	        "telephone": "585.214.9439",
-	        "email": "&#105;&#110;&#102;&#111;&#64;&#66;&#105;&#103;&#69;&#110;&#116;&#105;&#116;&#121;&#46;&#99;&#111;&#109;",
+	        "telephone": "585.325.1910",
+	        "email": "&#105;&#110;&#102;&#111;&#64;&#32;&#66;&#105;&#103;&#69;&#110;&#116;&#105;&#116;&#121;&#46;&#99;&#111;&#109;",
 	        "address": {
 	            "@type": "PostalAddress",
-	            "streetAddress": "123 Some Road",
-	            "addressLocality": "Porchester",
+	            "streetAddress": "311 N Main St",
+	            "addressLocality": "Portchester",
 	            "addressRegion": "NY",
-	            "postalCode": "11450",
+	            "postalCode": "10573",
 	            "addressCountry": "US" 
 	        },
+	        "openingHoursSpecification": [
+	            {
+	                "@type": "OpeningHoursSpecification",
+	                "closes": "20:00:00",
+	                "dayOfWeek": ["Monday"],
+	                "opens": "12:00:00" 
+	            },
+	            {
+	                "@type": "OpeningHoursSpecification",
+	                "closes": "22:00:00",
+	                "dayOfWeek": ["Tuesday"],
+	                "opens": "12:00:00" 
+	            },
+	            {
+	                "@type": "OpeningHoursSpecification",
+	                "closes": "20:00:00",
+	                "dayOfWeek": ["Wednesday"],
+	                "opens": "12:00:00" 
+	            },
+	            {
+	                "@type": "OpeningHoursSpecification",
+	                "closes": "22:00:00",
+	                "dayOfWeek": ["Thursday"],
+	                "opens": "12:00:00" 
+	            },
+	            {
+	                "@type": "OpeningHoursSpecification",
+	                "closes": "20:00:00",
+	                "dayOfWeek": ["Friday"],
+	                "opens": "12:00:00" 
+	            }
+	        ],
 	        "logo": "http://nystudio107.dev/img/site/big_logo.jpg",
 	        "location": {
 	            "@type": "Place",
 	            "name": "Big Entity, Inc.",
 	            "alternateName": "Big",
 	            "description": "We sell only big stuff... but we'll sell you little stuff too, but only in bulk containers of 1,000 units per container.  So then it's big too.",
-	            "hasMap": "http://maps.google.com/maps?q=Big+Entity%2C+Inc.%2C+123+Some+Road%2C+Porchester%2C+NY+11450%2C+USA",
+	            "hasMap": "http://maps.google.com/maps?q=Big+Entity%2C+Inc.%2C+311+N+Main+St%2C+Portchester%2C+NY+10573%2C+US",
+	            "telephone": "585.325.1910",
+	            "image": "http://nystudio107.dev/img/site/big_logo.jpg",
+	            "logo": "http://nystudio107.dev/img/site/big_logo.jpg",
+	            "url": "http://BigEntity.com",
+	            "sameAs": ["https://twitter.com/bigentity","https://www.facebook.com/bigentity","https://plus.google.com/+bigentity","https://www.linkedin.com/company/bigentity","https://www.youtube.com/user/bigentity","https://www.youtube.com/c/bigentity","https://www.instagram.com/bigentity","https://www.pinterest.com/bigentity","https://github.com/bigentity"],
+	            "openingHoursSpecification": [
+	                {
+	                    "@type": "OpeningHoursSpecification",
+	                    "closes": "20:00:00",
+	                    "dayOfWeek": ["Monday"],
+	                    "opens": "12:00:00" 
+	                },
+	                {
+	                    "@type": "OpeningHoursSpecification",
+	                    "closes": "22:00:00",
+	                    "dayOfWeek": ["Tuesday"],
+	                    "opens": "12:00:00" 
+	                },
+	                {
+	                    "@type": "OpeningHoursSpecification",
+	                    "closes": "20:00:00",
+	                    "dayOfWeek": ["Wednesday"],
+	                    "opens": "12:00:00" 
+	                },
+	                {
+	                    "@type": "OpeningHoursSpecification",
+	                    "closes": "22:00:00",
+	                    "dayOfWeek": ["Thursday"],
+	                    "opens": "12:00:00" 
+	                },
+	                {
+	                    "@type": "OpeningHoursSpecification",
+	                    "closes": "20:00:00",
+	                    "dayOfWeek": ["Friday"],
+	                    "opens": "12:00:00" 
+	                }
+	            ],
 	            "geo": {
 	                "@type": "GeoCoordinates",
-	                "latitude": "-10.447525",
-	                "longitude": "105.690449" 
+	                "latitude": "41.005432",
+	                "longitude": "-73.65897799999999" 
 	            },
 	            "address": {
 	                "@type": "PostalAddress",
-	                "streetAddress": "123 Some Road",
-	                "addressLocality": "Porchester",
+	                "streetAddress": "311 N Main St",
+	                "addressLocality": "Portchester",
 	                "addressRegion": "NY",
-	                "postalCode": "11450",
+	                "postalCode": "10573",
 	                "addressCountry": "US" 
 	            } 
 	        },
-	        "duns": "12345678",
+	        "duns": "54316",
 	        "founder": "Mr. Big",
-	        "foundingDate": "10/2011",
-	        "foundingLocation": "Redding, CT",
-	        "tickerSymbol": "BGE" 
+	        "foundingDate": "2011-11-01",
+	        "foundingLocation": "Redding, CT, USA" 
 	    },
 	    "creator": {
 	        "@type": "Corporation",
-	        "name": "NY Studio 107",
-	        "alternateName": "nystudio107",
-	        "description": "Impeccable design married with precision craftsmanship",
+	        "name": "nystudio107",
+	        "alternateName": "NY Studio 107",
+	        "description": "We do consulting, branding, design, and development.  Impeccable design married with precision engineering.",
 	        "url": "http://nystudio107.com",
-	        "image": "http://nystudio107.dev/img/site/nys_seo_logo.png",
+	        "image": "http://nystudio107.dev/img/site/logo.png",
+	        "telephone": "585.555.1212",
 	        "email": "&#105;&#110;&#102;&#111;&#64;&#110;&#121;&#115;&#116;&#117;&#100;&#105;&#111;&#49;&#48;&#55;&#46;&#99;&#111;&#109;",
 	        "address": {
 	            "@type": "PostalAddress",
@@ -1239,17 +1475,14 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 	            "postalCode": "14580",
 	            "addressCountry": "US" 
 	        },
-	        "logo": "http://nystudio107.dev/img/site/nys_seo_logo.png",
+	        "logo": "http://nystudio107.dev/img/site/logo.png",
 	        "location": {
 	            "@type": "Place",
-	            "name": "NY Studio 107",
-	            "alternateName": "nystudio107",
-	            "description": "Impeccable design married with precision craftsmanship",
-	            "geo": {
-	                "@type": "GeoCoordinates",
-	                "latitude": "43.11558",
-	                "longitude": "-77.59647199999999" 
-	            },
+	            "name": "nystudio107",
+	            "alternateName": "NY Studio 107",
+	            "description": "We do consulting, branding, design, and development.  Impeccable design married with precision engineering.",
+	            "telephone": "585.555.1212",
+	            "url": "http://nystudio107.com",
 	            "address": {
 	                "@type": "PostalAddress",
 	                "addressLocality": "Webster",
@@ -1257,7 +1490,9 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 	                "postalCode": "14580",
 	                "addressCountry": "US" 
 	            } 
-	        } 
+	        },
+	        "founder": "Andrew &amp; Polly Welch",
+	        "foundingDate": "2012-11-03" 
 	    } 
 	}
 	</script>
@@ -1286,9 +1521,9 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
-### 1.1.0 -- 2016.02.10
+### 1.1.0 -- 2016.02.07
 
-* [Added] Added all of the schema.org Organization types to Identity and Creator settings
+* [Added] Added all of the schema.org Organization types to Identity settings
 * [Added] SEOmatic Meta FieldTypes now have settings that let you restrict the Asset Sources available to them
 * [Added] SEOmatic Meta FieldTypes now let you set the default Source settings for each field
 * [Added] SEOmatic Meta FieldTypes now let you choose if the Source can be changed when editing an entry

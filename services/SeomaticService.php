@@ -950,7 +950,7 @@ class SeomaticService extends BaseApplicationComponent
 
         $days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         $openingHours = array();
-        if (isset($identity['localBusinessCreatorOpeningHours']))
+        if (isset($identity['localBusinessCreatorOpeningHours']) && is_array($identity['localBusinessCreatorOpeningHours']))
         {
             craft()->seomatic->convertTimes($identity['localBusinessCreatorOpeningHours']);
             $index = 0;
