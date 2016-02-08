@@ -1521,6 +1521,13 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.1 -- 2016.02.09
+
+* [Added] SEOmatic Meta FieldTypes now work to automatically set meta when attached to `Categories` and also Craft Commerce `Products`
+* [Improved] The Google Analytics script tag is not included during Live Preview anymore
+* [Improved] Updated the README.md
+
+
 ### 1.1.0 -- 2016.02.07
 
 * [Added] Added all of the schema.org Organization types to Identity settings
