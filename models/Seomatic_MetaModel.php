@@ -26,12 +26,6 @@ class Seomatic_MetaModel extends BaseElementModel
         ));
     }
 
-/*
-	public function getContentTable()
-	{
-	     return 'seomatic_meta';
-	}
-*/	
     /**
      * Returns whether the current user can edit the element.
      *
@@ -51,6 +45,36 @@ class Seomatic_MetaModel extends BaseElementModel
     {
         $locale = (craft()->isLocalized() && $this->locale != craft()->language) ? '/' . $this->locale : '';
         return UrlHelper::getCpUrl('seomatic/' . 'meta' . '/' . $this->id . $locale);
+    }
+
+    /**
+     * Returns the seoTitle
+     *
+     * @return string
+     */
+    public function seoTitle()
+    {
+        return $this->seoTitle;
+    }
+
+    /**
+     * Returns the seoDescription
+     *
+     * @return string
+     */
+    public function seoDescription()
+    {
+        return $this->seoDescription;
+    }
+
+    /**
+     * Returns the seoKeywords
+     *
+     * @return string
+     */
+    public function seoKeywords()
+    {
+        return $this->seoKeywords;
     }
 
 } /* -- class Seomatic_MetaModel */
