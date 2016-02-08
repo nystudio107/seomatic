@@ -254,6 +254,8 @@ You can use any Craft `environmentVariables` in these fields in addition to stat
 
 SEOmatic provides a FieldType called `SEOmatic Meta` that you can add to your Sections.  It allows you to provide meta information on a per-entry basis.  SEOmatic will automatically override any Site Meta or Tempalate Meta with Entry Meta if an `entry` that has an SEOmatic Meta field is auto-populated by Craft into a template.
 
+This also works with Categories and Craft Commerce Products that have an SEOmatic Meta field attached to them.
+
 If any fields are left blank in an Entry Meta, those fields are pulled from the SEO Site Meta / SEO Template Meta.
 
 You can also dynamically change any of these SEO Meta fields in your Twig templates, and they will appear in the rendered SEO Meta.

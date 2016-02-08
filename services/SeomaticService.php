@@ -304,83 +304,89 @@ class SeomaticService extends BaseApplicationComponent
 
         $entryMeta = null;
         $entryMetaUrl = "";
-        if (isset($element) && $element && $element->getElementType() == ElementType::Entry)
+        if (isset($element) && $element)
         {
-            $attributes = $element->content->attributes;
-            foreach ($attributes as $key => $value)
+            $elemType = $element->getElementType();
+            if ($elemType == ElementType::Entry ||
+                $elemType == "Commerce_Product" ||
+                $elemType == ElementType::Category)
             {
-                if (is_object($value) && property_exists($value, "elementType"))
+                $attributes = $element->content->attributes;
+                foreach ($attributes as $key => $value)
                 {
-                    if ($value->elementType == "Seomatic_FieldMeta")
+                    if (is_object($value) && property_exists($value, "elementType"))
                     {
-                        $entryMeta = $value;
-                        $entryMetaUrl = $element->url;
-
-/* -- Swap in any SEOmatic fields that are pulling from other entry fields */
-
-                        switch ($entryMeta['seoTitleSource'])
+                        if ($value->elementType == "Seomatic_FieldMeta")
                         {
-                            case 'field':
-                                if (isset($element[$entryMeta['seoTitleSourceField']]))
-                                {
-                                    $entryMeta['seoTitle'] = $this->getTextFromEntryField($element[$entryMeta['seoTitleSourceField']]);
-                                }
-                            break;
+                            $entryMeta = $value;
+                            $entryMetaUrl = $element->url;
 
-                            case 'custom':
-                                $entryMeta['seoTitle'] = craft()->config->parseEnvironmentString($entryMeta['seoTitle']);
-                                $entryMeta['seoTitle'] = craft()->templates->renderObjectTemplate($entryMeta['seoTitle'], $element);
-                            break;
+    /* -- Swap in any SEOmatic fields that are pulling from other entry fields */
+
+                            switch ($entryMeta['seoTitleSource'])
+                            {
+                                case 'field':
+                                    if (isset($element[$entryMeta['seoTitleSourceField']]))
+                                    {
+                                        $entryMeta['seoTitle'] = $this->getTextFromEntryField($element[$entryMeta['seoTitleSourceField']]);
+                                    }
+                                break;
+
+                                case 'custom':
+                                    $entryMeta['seoTitle'] = craft()->config->parseEnvironmentString($entryMeta['seoTitle']);
+                                    $entryMeta['seoTitle'] = craft()->templates->renderObjectTemplate($entryMeta['seoTitle'], $element);
+                                break;
+                            }
+
+                            switch ($entryMeta['seoDescriptionSource'])
+                            {
+                                case 'field':
+                                    if (isset($element[$entryMeta['seoDescriptionSourceField']]))
+                                    {
+                                        $entryMeta['seoDescription'] = $this->getTextFromEntryField($element[$entryMeta['seoDescriptionSourceField']]);
+                                    }
+                                break;
+
+                                case 'custom':
+                                    $entryMeta['seoDescription'] = craft()->config->parseEnvironmentString($entryMeta['seoDescription']);
+                                    $entryMeta['seoDescription'] = craft()->templates->renderObjectTemplate($entryMeta['seoDescription'], $element);
+                                break;
+                            }
+
+                            switch ($entryMeta['seoKeywordsSource'])
+                            {
+                                case 'field':
+                                    if (isset($element[$entryMeta['seoKeywordsSourceField']]))
+                                    {
+                                        $entryMeta['seoKeywords'] = $this->getTextFromEntryField($element[$entryMeta['seoKeywordsSourceField']]);
+                                    }
+                                break;
+
+                                case 'keywords':
+                                    if (isset($element[$entryMeta['seoKeywordsSourceField']]))
+                                    {
+                                        $text = $this->getTextFromEntryField($element[$entryMeta['seoKeywordsSourceField']]);
+                                        $entryMeta['seoKeywords'] = $this->extractKeywords($text);
+                                    }
+                                break;
+
+                                case 'custom':
+                                    $entryMeta['seoKeywords'] = craft()->config->parseEnvironmentString($entryMeta['seoKeywords']);
+                                    $entryMeta['seoKeywords'] = craft()->templates->renderObjectTemplate($entryMeta['seoKeywords'], $element);
+                                break;
+                            }
+
+                            switch ($entryMeta['seoImageIdSource'])
+                            {
+                                case 'field':
+                                    if (isset($element[$entryMeta['seoImageIdSourceField']]) && $element[$entryMeta['seoImageIdSourceField']]->first())
+                                    {
+                                        $entryMeta['seoImageId'] = $element[$entryMeta['seoImageIdSourceField']]->first()->id;
+                                    }
+                                break;
+                            }
+
                         }
-
-                        switch ($entryMeta['seoDescriptionSource'])
-                        {
-                            case 'field':
-                                if (isset($element[$entryMeta['seoDescriptionSourceField']]))
-                                {
-                                    $entryMeta['seoDescription'] = $this->getTextFromEntryField($element[$entryMeta['seoDescriptionSourceField']]);
-                                }
-                            break;
-
-                            case 'custom':
-                                $entryMeta['seoDescription'] = craft()->config->parseEnvironmentString($entryMeta['seoDescription']);
-                                $entryMeta['seoDescription'] = craft()->templates->renderObjectTemplate($entryMeta['seoDescription'], $element);
-                            break;
-                        }
-
-                        switch ($entryMeta['seoKeywordsSource'])
-                        {
-                            case 'field':
-                                if (isset($element[$entryMeta['seoKeywordsSourceField']]))
-                                {
-                                    $entryMeta['seoKeywords'] = $this->getTextFromEntryField($element[$entryMeta['seoKeywordsSourceField']]);
-                                }
-                            break;
-
-                            case 'keywords':
-                                if (isset($element[$entryMeta['seoKeywordsSourceField']]))
-                                {
-                                    $text = $this->getTextFromEntryField($element[$entryMeta['seoKeywordsSourceField']]);
-                                    $entryMeta['seoKeywords'] = $this->extractKeywords($text);
-                                }
-                            break;
-
-                            case 'custom':
-                                $entryMeta['seoKeywords'] = craft()->config->parseEnvironmentString($entryMeta['seoKeywords']);
-                                $entryMeta['seoKeywords'] = craft()->templates->renderObjectTemplate($entryMeta['seoKeywords'], $element);
-                            break;
-                        }
-
-                        switch ($entryMeta['seoImageIdSource'])
-                        {
-                            case 'field':
-                                if (isset($element[$entryMeta['seoImageIdSourceField']]) && $element[$entryMeta['seoImageIdSourceField']]->first())
-                                {
-                                    $entryMeta['seoImageId'] = $element[$entryMeta['seoImageIdSourceField']]->first()->id;
-                                }
-                            break;
-                        }
-
                     }
                 }
             }
