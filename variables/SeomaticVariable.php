@@ -195,6 +195,8 @@ class SeomaticVariable
         }
         $fullUrl = $siteUrl . $forTemplate;
         $metaVars['seomaticMeta']['canonicalUrl'] = $fullUrl;
+        if (isset($metaVars['seomaticMeta']['og']))
+            $metaVars['seomaticMeta']['og']['url'] = $fullUrl;
 
         $result = craft()->seomatic->renderDisplayPreview($templateName, $metaVars);
 
@@ -337,6 +339,8 @@ class SeomaticVariable
         }
         $fullUrl = $siteUrl . $forTemplate;
         $metaVars['seomaticMeta']['canonicalUrl'] = $fullUrl;
+        if (isset($metaVars['seomaticMeta']['og']))
+            $metaVars['seomaticMeta']['og']['url'] = $fullUrl;
 
 /* -- No need to expose the locale */
 
