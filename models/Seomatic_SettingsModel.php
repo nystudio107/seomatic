@@ -47,7 +47,7 @@ class Seomatic_SettingsModel extends BaseModel
 
             'genericOwnerName'                  => array(AttributeType::String, 'default' => craft()->getSiteName()),
             'genericOwnerAlternateName'         => array(AttributeType::String, 'default' => ''),
-            'genericOwnerDescription'           => array(AttributeType::String, 'default' => ''),
+            'genericOwnerDescription'           => array(AttributeType::String, 'maxLength' => 1024, 'default' => ''),
             'genericOwnerUrl'                   => array(AttributeType::String, 'default' => craft()->getSiteUrl()),
             'genericOwnerImageId'               => array(AttributeType::String, 'default' => ''),
             'genericOwnerTelephone'             => array(AttributeType::String, 'default' => ''),
@@ -113,7 +113,7 @@ class Seomatic_SettingsModel extends BaseModel
 
             'genericCreatorName'                => array(AttributeType::String, 'default' => ''),
             'genericCreatorAlternateName'       => array(AttributeType::String, 'default' => ''),
-            'genericCreatorDescription'         => array(AttributeType::String, 'default' => ''),
+            'genericCreatorDescription'         => array(AttributeType::String, 'maxLength' => 1024, 'default' => ''),
             'genericCreatorUrl'                 => array(AttributeType::String, 'default' => ''),
             'genericCreatorImageId'             => array(AttributeType::String, 'default' => ''),
             'genericCreatorTelephone'           => array(AttributeType::String, 'default' => ''),

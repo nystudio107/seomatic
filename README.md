@@ -1527,6 +1527,8 @@ Some things to do, and ideas for potential features:
 
 * [Added] SEOmatic Meta FieldTypes now work to automatically set meta when attached to `Categories` and also Craft Commerce `Products`
 * [Improved] The Google Analytics script tag is not included during Live Preview anymore
+* [Added] Added the ability to reference the fields of an SEOmatic FieldType via `entry.mySeomaticField.seoTitle` & `entry.mySeomaticField.seoDescription` & `entry.mySeomaticField.seoKeywords`
+* [Added] There is now significantly more space available for the Entity Description and Creator Description
 * [Improved] Updated the README.md
 
 

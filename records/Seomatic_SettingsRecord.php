@@ -48,7 +48,7 @@ class Seomatic_SettingsRecord extends BaseRecord
 
             'genericOwnerName'					=> array(AttributeType::String, 'default' => ''),
             'genericOwnerAlternateName'			=> array(AttributeType::String, 'default' => ''),
-            'genericOwnerDescription'			=> array(AttributeType::String, 'default' => ''),
+            'genericOwnerDescription'			=> array(AttributeType::String, 'maxLength' => 1024, 'default' => ''),
             'genericOwnerUrl'					=> array(AttributeType::String, 'default' => ''),
             'genericOwnerTelephone'				=> array(AttributeType::String, 'default' => ''),
             'genericOwnerEmail'					=> array(AttributeType::String, 'default' => ''),
@@ -120,7 +120,7 @@ class Seomatic_SettingsRecord extends BaseRecord
 
             'genericCreatorName'				=> array(AttributeType::String, 'default' => ''),
             'genericCreatorAlternateName'		=> array(AttributeType::String, 'default' => ''),
-            'genericCreatorDescription'			=> array(AttributeType::String, 'default' => ''),
+            'genericCreatorDescription'			=> array(AttributeType::String, 'maxLength' => 1024, 'default' => ''),
             'genericCreatorUrl'					=> array(AttributeType::String, 'default' => ''),
             'genericCreatorTelephone'			=> array(AttributeType::String, 'default' => ''),
             'genericCreatorEmail'				=> array(AttributeType::String, 'default' => ''),

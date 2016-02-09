@@ -475,7 +475,7 @@ class SeomaticController extends BaseController
 
         $record->genericOwnerName = craft()->request->getPost('genericOwnerName', $record->genericOwnerName);
         $record->genericOwnerAlternateName = craft()->request->getPost('genericOwnerAlternateName', $record->genericOwnerAlternateName);
-        $record->genericOwnerDescription = craft()->request->getPost('genericOwnerDescription', $record->genericOwnerDescription);
+        $record->genericOwnerDescription = craft()->seomatic->truncateStringOnWord(craft()->request->getPost('genericOwnerDescription', $record->genericOwnerDescription), 1024);
         $record->genericOwnerUrl = craft()->request->getPost('genericOwnerUrl', $record->genericOwnerUrl);
         $record->genericOwnerTelephone = craft()->request->getPost('genericOwnerTelephone', $record->genericOwnerTelephone);
         $record->genericOwnerEmail = craft()->request->getPost('genericOwnerEmail', $record->genericOwnerEmail);
@@ -617,7 +617,7 @@ class SeomaticController extends BaseController
 
         $record->genericCreatorName = craft()->request->getPost('genericCreatorName', $record->genericCreatorName);
         $record->genericCreatorAlternateName = craft()->request->getPost('genericCreatorAlternateName', $record->genericCreatorAlternateName);
-        $record->genericCreatorDescription = craft()->request->getPost('genericCreatorDescription', $record->genericCreatorDescription);
+        $record->genericCreatorDescription = craft()->seomatic->truncateStringOnWord(craft()->request->getPost('genericCreatorDescription', $record->genericCreatorDescription), 1024);
         $record->genericCreatorUrl = craft()->request->getPost('genericCreatorUrl', $record->genericCreatorUrl);
         $record->genericCreatorTelephone = craft()->request->getPost('genericCreatorTelephone', $record->genericCreatorTelephone);
         $record->genericCreatorEmail = craft()->request->getPost('genericCreatorEmail', $record->genericCreatorEmail);
