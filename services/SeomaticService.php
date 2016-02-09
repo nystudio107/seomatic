@@ -1036,7 +1036,7 @@ class SeomaticService extends BaseApplicationComponent
                     $spec = array(
                         "type" => "OpeningHoursSpecification",
                         "closes" => $closeTime,
-                        "dayOfWeek" => [$days[$index]],
+                        "dayOfWeek" => array($days[$index]),
                         "opens" => $openTime,
                     );
                     $openingHours[] = $spec;
