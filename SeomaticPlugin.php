@@ -25,12 +25,12 @@ class SeomaticPlugin extends BasePlugin
 
     public function getVersion()
     {
-        return '1.1.0';
+        return '1.1.1';
     }
 
     public function getSchemaVersion()
     {
-        return '1.1.3';
+        return '1.1.4';
     }
 
     public function getDeveloper()
@@ -99,6 +99,7 @@ class SeomaticPlugin extends BasePlugin
     {
         return array(
             'humans.txt'                                            => array('action' => 'seomatic/renderHumans'),
+            'robots.txt'                                            => array('action' => 'seomatic/renderRobots'),
         );
     }
 

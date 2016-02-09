@@ -377,6 +377,28 @@ class SeomaticVariable
     } /* -- renderHumansTemplate */
 
 /* --------------------------------------------------------------------------------
+    Render the robots.txt template
+-------------------------------------------------------------------------------- */
+
+    public function renderRobots($isPreview=false)
+    {
+        $result = craft()->seomatic->renderRobots($isPreview);
+
+        return $result;
+    } /* -- renderRobots */
+
+/* --------------------------------------------------------------------------------
+    Render the robots.txt user-defined template
+-------------------------------------------------------------------------------- */
+
+    public function renderRobotsTemplate()
+    {
+        $result = craft()->seomatic->renderRobotsTemplate();
+
+        return $result;
+    } /* -- renderRobotsTemplate */
+
+/* --------------------------------------------------------------------------------
     Get the identity record
 -------------------------------------------------------------------------------- */
 

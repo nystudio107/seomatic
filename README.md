@@ -75,6 +75,20 @@ You can also dynamically change any of these SEO Meta fields in your Twig templa
 * **Site Facebook Open Graph Type** - Adding Open Graph tags to your website influences the performance of your links on social media by allowing you to control what appears when a user posts a link to your content on Facebook.
 * **Site Robots** - The [robots meta tag](https://developers.google.com/webmasters/control-crawl-index/docs/robots_meta_tag?hl=en) lets you utilize a granular, page-specific approach to controlling how an individual page should be indexed and served to users in search results.  Setting it to a blank value means 'no change'.
 
+#### robots.txt
+
+* **robots.txt Template** - A `robots.txt` file is a file at the root of your site that indicates those parts of your site you don’t want accessed by search engine crawlers. The file uses the [Robots Exclusion Standard](http://en.wikipedia.org/wiki/Robots_exclusion_standard#About_the_standard), which is a protocol with a small set of commands that can be used to indicate access to your site by section and by specific kinds of web crawlers (such as mobile crawlers vs desktop crawlers).
+
+SEOmatic automatically handles requests for `/humans.txt`. For this to work, make sure that you do not have an actual `robots.txt` file in your `public/` folder (because that will take precedence).
+
+If you are running Nginx, make sure that you don't have a line like:
+
+    location = /robots.txt  { access_log off; log_not_found off; }
+    
+...in your config file.  A directive like this will prevent SEOmatic from being able to service the request for `/robots.txt`.  If you do have a line like this in your config file, just comment it out, and restart Nginx with `sudo nginx -s reload`.
+
+The **Preview Humans.txt** button lets you preview what your rendered Humans.txt file will look like.
+
 You can use any Craft `environmentVariables` in these fields in addition to static text, e.g.:
 
     This is my {baseUrl}
@@ -91,7 +105,7 @@ Leave any fields blank that aren't applicable or which you do not want as part o
 
 #### Site Ownership
 * **Google Site Verification** - For the `<meta name='google-site-verification'>` tag. Only enter the code in the `content=''`, not the entire tag. [Here's how to get it.](https://www.google.com/webmasters/verification/).
-* **Google Analytics Tracking ID** - If you enter your Google Analytics Tracking ID here, the Google Analytics script tags will be included in your `<head>` (the script is not included if `devMode` is on). Only enter the ID, e.g.: `UA-XXXXXX-XX`, not the entire script code. [Here's how to get it.](https://support.google.com/analytics/answer/1032385?hl=en)
+* **Google Analytics Tracking ID** - If you enter your Google Analytics Tracking ID here, the Google Analytics script tags will be included in your `<head>` (the script is not included if `devMode` is on or during Live Preview). Only enter the ID, e.g.: `UA-XXXXXX-XX`, not the entire script code. [Here's how to get it.](https://support.google.com/analytics/answer/1032385?hl=en)
 * **Automatically send Google Analytics PageView** - Controls whether the Google Analytics script automatically sends a PageView to Google Analytics when your pages are loaded
 * **Google Analytics Plugins** - Select which Google Analytics plugins to enable. [Learn More](https://developers.google.com/analytics/devguides/collection/analyticsjs/)
 * **Site Owner Entity Type** - The type of entity that owns this website.  Choose as general or specific of a type as you like.  Any entity sub-type left blank is ignored.
@@ -1529,6 +1543,7 @@ Some things to do, and ideas for potential features:
 * [Improved] The Google Analytics script tag is not included during Live Preview anymore
 * [Added] Added the ability to reference the fields of an SEOmatic FieldType via `entry.mySeomaticField.seoTitle` & `entry.mySeomaticField.seoDescription` & `entry.mySeomaticField.seoKeywords`
 * [Added] There is now significantly more space available for the Entity Description and Creator Description
+* [Added] SEOmatic now handles `robots.txt`; it's configured on the SEO Site Meta tab
 * [Improved] Updated the README.md
 
 

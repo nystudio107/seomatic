@@ -1,0 +1,18 @@
+    <div id="preview-robots-popup" style="display: none;">
+        <div class="preview-modal">
+            <div class="preview-modal-inner">
+
+                <div class="displaypreview-container">
+
+                    <div class="preview-column">
+                        <h1>{{ "Preview robots.txt" |t }}</h1>
+                        <p>{{ "A <code>robots.txt</code> file is a file at the root of your site that indicates those parts of your site you don’t want accessed by search engine crawlers. The file uses the <a href='http://en.wikipedia.org/wiki/Robots_exclusion_standard#About_the_standard' target='_blank'>Robots Exclusion Standard</a>, which is a protocol with a small set of commands that can be used to indicate access to your site by section and by specific kinds of web crawlers (such as mobile crawlers vs desktop crawlers)." |t |raw }}</p>
+                        <p>{{ "SEOmatic automatically handles requests for <code>/humans.txt</code>.  For this to work, make sure that you do not have an actual <code>robots.txt</code> file in your <code>public/</code> folder (because that will take precedence)." |t |raw }}</p>
+                        <p>{{ "The rendered <code>robots.txt</code> file:" |t |raw }}</p>
+                        <pre><code class="language-markup">{{ craft.seomatic.renderRobots(true) }}</code></pre>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>

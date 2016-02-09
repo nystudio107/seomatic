@@ -38,6 +38,37 @@ class SeomaticController extends BaseController
     } /* -- actionRenderHumans */
 
 /* --------------------------------------------------------------------------------
+    Render the robots.txt template
+-------------------------------------------------------------------------------- */
+
+    public function actionRenderRobots(array $variables = array())
+    {
+        $templatePath = '';
+        $locale = '';
+        if (!$locale)
+            $locale = craft()->language;
+        $metaVars = craft()->seomatic->getGlobals('', $locale);
+
+        if ($templatePath)
+        {
+            $htmlText = craft()->templates->render($templatePath);
+        }
+        else
+        {
+            $oldPath = craft()->path->getTemplatesPath();
+            $newPath = craft()->path->getPluginsPath().'seomatic/templates';
+            craft()->path->setTemplatesPath($newPath);
+
+/* -- Render the core template */
+
+            $templateName = '_robots';
+            $this->renderTemplate($templateName, $metaVars);
+
+            craft()->path->setTemplatesPath($oldPath);
+        }
+    } /* -- actionRenderRobots */
+
+/* --------------------------------------------------------------------------------
     Edit the SiteMeta record
 -------------------------------------------------------------------------------- */
 
@@ -415,6 +446,8 @@ class SeomaticController extends BaseController
         $record->siteTwitterCardType = craft()->request->getPost('siteTwitterCardType', $record->siteTwitterCardType);
         $record->siteOpenGraphType = craft()->request->getPost('siteOpenGraphType', $record->siteOpenGraphType);
         $record->siteRobots = craft()->request->getPost('siteRobots', $record->siteRobots);
+
+        $record->siteRobotsTxt = craft()->request->getPost('siteRobotsTxt', $record->siteRobotsTxt);
 
         $record->siteSeoImageId = craft()->request->getPost('siteSeoImageId', $record->siteSeoImageId);
         $assetId = (!empty($record->siteSeoImageId) ? $record->siteSeoImageId[0] : null);

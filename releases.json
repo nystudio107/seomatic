@@ -8,6 +8,7 @@
             "[Improved] The Google Analytics script tag is not included during Live Preview anymore",
             "[Added] [Added] Added the ability to reference the fields of an SEOmatic FieldType via entry.mySeomaticField.seoTitle & entry.mySeomaticField.seoDescription & entry.mySeomaticField.seoKeywords",
             "[Added] There is now significantly more space available for the Entity Description and Creator Description",
+            "[Added] SEOmatic now handles robots.txt; it's configured on the SEO Site Meta tab",
             "[Improved] Updated the README.md"
         ]
     },

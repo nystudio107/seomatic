@@ -295,6 +295,62 @@ class SeomaticService extends BaseApplicationComponent
     } /* -- renderHumansTemplate */
 
 /* --------------------------------------------------------------------------------
+    Render the robots.txt template
+-------------------------------------------------------------------------------- */
+
+    public function renderRobots($isPreview=false)
+    {
+        $templatePath = '';
+        $locale = '';
+        if (!$locale)
+            $locale = craft()->language;
+        $metaVars = craft()->seomatic->getGlobals('', $locale);
+
+        if ($templatePath)
+        {
+            $htmlText = craft()->templates->render($templatePath);
+        }
+        else
+        {
+            $oldPath = craft()->path->getTemplatesPath();
+            $newPath = craft()->path->getPluginsPath().'seomatic/templates';
+            craft()->path->setTemplatesPath($newPath);
+
+/* -- Render the core template */
+
+            $templateName = '_robots';
+            if ($isPreview)
+                $templateName = $templateName . 'Preview';
+            $htmlText = craft()->templates->render($templateName, $metaVars);
+
+            craft()->path->setTemplatesPath($oldPath);
+        }
+
+        return $htmlText;
+    } /* -- renderRobots */
+
+/* --------------------------------------------------------------------------------
+    Render the robots.txt user-defined template
+-------------------------------------------------------------------------------- */
+
+    public function renderRobotsTemplate()
+    {
+        $templatePath = '';
+        $locale = '';
+        if (!$locale)
+            $locale = craft()->language;
+        $metaVars = craft()->seomatic->getGlobals('', $locale);
+        $siteMeta = craft()->seomatic->getSiteMeta($locale);
+
+/* -- Render the user-defined robots.txt template */
+
+        $template = $siteMeta['siteRobotsTxt'];
+        $htmlText = craft()->templates->renderString($template, $metaVars);
+
+        return $htmlText;
+    } /* -- renderRobotsTemplate */
+
+/* --------------------------------------------------------------------------------
     Try to extract an seomaticMeta field from an element
 -------------------------------------------------------------------------------- */
 
@@ -722,6 +778,11 @@ class SeomaticService extends BaseApplicationComponent
         if ($result['genericCreatorHumansTxt'] == "")
             $result['genericCreatorHumansTxt'] = $settings->getDefaultHumans();
 
+/* -- If our robots.txt field is empty, fill it with the default template */
+
+        if ($result['siteRobotsTxt'] == "")
+            $result['siteRobotsTxt'] = $settings->getDefaultRobots();
+
 /* -- If our siteSeoTitleSeparator &  empty, fill it with the default template */
 
         if ($result['siteSeoTitleSeparator'] == "")
@@ -870,6 +931,8 @@ class SeomaticService extends BaseApplicationComponent
         }
         else
            $siteMeta['siteSeoImage'] = '';
+
+        $siteMeta['siteRobotsTxt'] = $settings['siteRobotsTxt'];
 
         $result = $siteMeta;
 

@@ -27,6 +27,7 @@ class Seomatic_SettingsRecord extends BaseRecord
             'siteTwitterCardType'				=> array(AttributeType::String, 'default' => ''),
             'siteOpenGraphType'					=> array(AttributeType::String, 'default' => ''),
             'siteRobots'						=> array(AttributeType::String, 'default' => ''),
+            'siteRobotsTxt'                     => array(AttributeType::Mixed),
 
 /* --------------------------------------------------------------------------------
 	IDENTITY settings
@@ -190,6 +191,27 @@ class Seomatic_SettingsRecord extends BaseRecord
 
         return $template;
     } /* -- _getDefaultHumans */
+
+/* --------------------------------------------------------------------------------
+    Get the default robots.txt template
+-------------------------------------------------------------------------------- */
+
+    public function getDefaultRobots()
+    {
+        $oldPath = craft()->path->getTemplatesPath();
+        $newPath = craft()->path->getPluginsPath().'seomatic/templates';
+        craft()->path->setTemplatesPath($newPath);
+
+/* -- Return the robots.txt default template */
+
+        $templateName = '_robotsDefault';
+        $loader = new TemplateLoader;
+        $template = $loader->getSource($templateName);
+
+        craft()->path->setTemplatesPath($oldPath);
+
+        return $template;
+    } /* -- _getDefaultRobots */
 
 /* --------------------------------------------------------------------------------
 	Relationships
