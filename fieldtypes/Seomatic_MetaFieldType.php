@@ -19,6 +19,8 @@ class Seomatic_MetaFieldType extends BaseFieldType
 
     public function getInputHtml($name, $value)
     {
+        if (isset($this->element)) 
+        {
         if (!$value)
         {
             $value = new Seomatic_MetaFieldModel();
@@ -173,6 +175,7 @@ class Seomatic_MetaFieldType extends BaseFieldType
         $jsonVars = json_encode($jsonVars);
         craft()->templates->includeJs("$('#{$namespacedId}').SeomaticFieldType(" . $jsonVars . ");");
         return craft()->templates->render('seomatic/field', $variables);
+        }
     }
 
     /**
