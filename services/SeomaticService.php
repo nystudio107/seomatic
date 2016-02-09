@@ -1017,7 +1017,7 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Handle the opening hours specification */
 
-        $days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        $days = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
         $openingHours = array();
         if (isset($identity['localBusinessCreatorOpeningHours']) && is_array($identity['localBusinessCreatorOpeningHours']))
         {
