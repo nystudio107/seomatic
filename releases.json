@@ -1,5 +1,17 @@
 [
     {
+        "version": "1.1.2",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
+        "date": "2016-02-12T11:00:00-05:00",
+        "notes": [
+            "[Fixed] Fixed some typos in SEOmatic & the docs re: robots.txt",
+            "[Fixed] The Google Analytics script no longer renders if the Google Analytics Tracking ID field is empty",
+            "[Fixed] Fixed an issue with console errors on the backend with the SEOmatic FieldType",
+            "[Fixed] OpeningHours now only displays for LocalBusiness",
+            "[Improved] Updated the README.md"
+        ]
+    },
+    {
         "version": "1.1.1",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-02-09T11:00:00-05:00",

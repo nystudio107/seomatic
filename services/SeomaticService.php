@@ -1121,8 +1121,18 @@ class SeomaticService extends BaseApplicationComponent
         if (count($identityJSONLD['address']) == 1)
             unset($identityJSONLD['address']);
 
-        if (isset($identity['localBusinessCreatorOpeningHours']))
-            $identityJSONLD['openingHoursSpecification'] = $identity['openingHoursSpecification'];
+/* -- This needs to be an additional field if we implement it 
+        if ($identity['genericOwnerTelephone'])
+        {
+            $contactPoint = array(
+                "type" => "ContactPoint",
+                "telephone" => $identity['genericOwnerTelephone'],
+                "contactType" => "Contact",
+            );
+            $contactPoint = array_filter($contactPoint);
+            $identityJSONLD['contactPoint'] = array($contactPoint);
+        }
+*/
 
 /* -- Settings for all person Identity types */
 
@@ -1160,7 +1170,6 @@ class SeomaticService extends BaseApplicationComponent
                 "logo" =>  $locImage,
                 "url" =>  $identity['genericOwnerUrl'],
                 "sameAs" =>  $sameAs,
-                "openingHoursSpecification" => $identity['openingHoursSpecification'],
                 "geo" => $geo,
                 "address" => $address,
             );
@@ -1200,6 +1209,12 @@ class SeomaticService extends BaseApplicationComponent
             break;
 
             case 'LocalBusiness':
+                if (isset($identity['localBusinessCreatorOpeningHours']))
+                {
+                    $identityJSONLD['openingHoursSpecification'] = $identity['openingHoursSpecification'];
+                    if (isset($identityJSONLD['location']))
+                        $identityJSONLD['location']['openingHoursSpecification'] = $identity['openingHoursSpecification'],
+                }
             break;
 
             case 'NGO':
@@ -1398,6 +1413,19 @@ class SeomaticService extends BaseApplicationComponent
         $creatorJSONLD['address'] = $address;
         if (count($creatorJSONLD['address']) == 1)
             unset($creatorJSONLD['address']);
+
+/* -- This needs to be an additional fieldtype if we implement it
+        if ($creator['genericCreatorTelephone'])
+        {
+            $contactPoint = array(
+                "type" => "ContactPoint",
+                "telephone" => $creator['genericCreatorTelephone'],
+                "contactType" => "Contact",
+            );
+            $contactPoint = array_filter($contactPoint);
+            $creatorJSONLD['contactPoint'] = array($contactPoint);
+        }
+*/
 
 /* -- Settings for all person Creator types */
 

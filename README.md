@@ -79,7 +79,7 @@ You can also dynamically change any of these SEO Meta fields in your Twig templa
 
 * **robots.txt Template** - A `robots.txt` file is a file at the root of your site that indicates those parts of your site you don’t want accessed by search engine crawlers. The file uses the [Robots Exclusion Standard](http://en.wikipedia.org/wiki/Robots_exclusion_standard#About_the_standard), which is a protocol with a small set of commands that can be used to indicate access to your site by section and by specific kinds of web crawlers (such as mobile crawlers vs desktop crawlers).
 
-SEOmatic automatically handles requests for `/humans.txt`. For this to work, make sure that you do not have an actual `robots.txt` file in your `public/` folder (because that will take precedence).
+SEOmatic automatically handles requests for `/robots.txt`. For this to work, make sure that you do not have an actual `robots.txt` file in your `public/` folder (because that will take precedence).
 
 If you are running Nginx, make sure that you don't have a line like:
 
@@ -87,7 +87,7 @@ If you are running Nginx, make sure that you don't have a line like:
     
 ...in your config file.  A directive like this will prevent SEOmatic from being able to service the request for `/robots.txt`.  If you do have a line like this in your config file, just comment it out, and restart Nginx with `sudo nginx -s reload`.
 
-The **Preview Humans.txt** button lets you preview what your rendered Humans.txt file will look like.
+The **Preview Robots.txt** button lets you preview what your rendered robots.txt file will look like.
 
 You can use any Craft `environmentVariables` in these fields in addition to static text, e.g.:
 
@@ -1536,6 +1536,14 @@ Some things to do, and ideas for potential features:
 * [feature] Provide Redirect functionality.  Yes, it's SEO-related, but seems like it might be better to keep SEOmatic focused (?)
 
 ## Changelog
+
+### 1.1.2 -- 2016.02.12
+
+* [Fixed] Fixed some typos in SEOmatic & the docs re: `robots.txt`
+* [Fixed] The Google Analytics script no longer renders if the Google Analytics Tracking ID field is empty
+* [Fixed] Fixed an issue with console errors on the backend with the SEOmatic FieldType
+* [Fixed] OpeningHours now only displays for LocalBusiness
+* [Improved] Updated the README.md
 
 ### 1.1.1 -- 2016.02.09
 
