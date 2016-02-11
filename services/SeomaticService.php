@@ -1213,7 +1213,7 @@ class SeomaticService extends BaseApplicationComponent
                 {
                     $identityJSONLD['openingHoursSpecification'] = $identity['openingHoursSpecification'];
                     if (isset($identityJSONLD['location']))
-                        $identityJSONLD['location']['openingHoursSpecification'] = $identity['openingHoursSpecification'],
+                        $identityJSONLD['location']['openingHoursSpecification'] = $identity['openingHoursSpecification'];
                 }
             break;
 
