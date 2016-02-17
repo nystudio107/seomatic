@@ -18,6 +18,12 @@ class SeomaticController extends BaseController
             $locale = craft()->language;
         $metaVars = craft()->seomatic->getGlobals('', $locale);
 
+/* -- Tell Twig not to escape at all for this text template */
+
+        $twig = craft()->templates->getTwig();
+        $escaper = $twig->getExtension('escaper');
+        $escaper->setDefaultStrategy(false);
+
         if ($templatePath)
         {
             $htmlText = craft()->templates->render($templatePath);
@@ -48,6 +54,12 @@ class SeomaticController extends BaseController
         if (!$locale)
             $locale = craft()->language;
         $metaVars = craft()->seomatic->getGlobals('', $locale);
+
+/* -- Tell Twig not to escape at all for this text template */
+
+        $twig = craft()->templates->getTwig();
+        $escaper = $twig->getExtension('escaper');
+        $escaper->setDefaultStrategy(false);
 
         if ($templatePath)
         {
