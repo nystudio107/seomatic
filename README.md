@@ -1537,7 +1537,7 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
-### 1.1.2 -- 2016.02.17
+### 1.1.3 -- 2016.02.17
 
 * [Fixed] Fixed some typos in SEOmatic & the docs re: `robots.txt`
 * [Fixed] The Google Analytics script no longer renders if the Google Analytics Tracking ID field is empty
