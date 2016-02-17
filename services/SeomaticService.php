@@ -1050,7 +1050,7 @@ class SeomaticService extends BaseApplicationComponent
         }
         $openingHours = array_filter($openingHours);
         $identity['openingHoursSpecification'] = $openingHours;
-        if (count($identity['openingHoursSpecification']) == 1)
+        if (count($identity['openingHoursSpecification']) <= 1)
             unset($identity['openingHoursSpecification']);
 
         $identity['corporationOwnerTickerSymbol'] = $settings['corporationOwnerTickerSymbol'];
