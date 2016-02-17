@@ -1017,17 +1017,17 @@ class SeomaticService extends BaseApplicationComponent
         $identity['personOwnerGender'] = $settings['personOwnerGender'];
         $identity['personOwnerBirthPlace'] = $settings['personOwnerBirthPlace'];
 
-        $identity['localBusinessCreatorOpeningHours'] = $settings['localBusinessCreatorOpeningHours'];
+        $identity['localBusinessOwnerOpeningHours'] = $settings['localBusinessOwnerOpeningHours'];
 
 /* -- Handle the opening hours specification */
 
         $days = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
         $openingHours = array();
-        if (isset($identity['localBusinessCreatorOpeningHours']) && is_array($identity['localBusinessCreatorOpeningHours']))
+        if (isset($identity['localBusinessOwnerOpeningHours']) && is_array($identity['localBusinessOwnerOpeningHours']))
         {
-            craft()->seomatic->convertTimes($identity['localBusinessCreatorOpeningHours']);
+            craft()->seomatic->convertTimes($identity['localBusinessOwnerOpeningHours']);
             $index = 0;
-            foreach ($identity['localBusinessCreatorOpeningHours'] as $hours)
+            foreach ($identity['localBusinessOwnerOpeningHours'] as $hours)
             {
                 $openTime = "";
                 $closeTime = "";
@@ -1125,7 +1125,7 @@ class SeomaticService extends BaseApplicationComponent
         if (count($identityJSONLD['address']) == 1)
             unset($identityJSONLD['address']);
 
-/* -- This needs to be an additional field if we implement it 
+/* -- This needs to be an additional field if we implement it
         if ($identity['genericOwnerTelephone'])
         {
             $contactPoint = array(
@@ -1213,9 +1213,10 @@ class SeomaticService extends BaseApplicationComponent
             break;
 
             case 'LocalBusiness':
-                if (isset($identity['localBusinessCreatorOpeningHours']))
+                if (isset($identity['openingHoursSpecification']))
                 {
-                    $identityJSONLD['openingHoursSpecification'] = $identity['openingHoursSpecification'];
+                    if (isset($identityJSONLD['location']))
+                        $identityJSONLD['openingHoursSpecification'] = $identity['openingHoursSpecification'];
                     if (isset($identityJSONLD['location']))
                         $identityJSONLD['location']['openingHoursSpecification'] = $identity['openingHoursSpecification'];
                 }
