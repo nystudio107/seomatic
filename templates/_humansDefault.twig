@@ -1,13 +1,13 @@
 /* TEAM */
 
 {% if seomaticCreator.name is defined and seomaticCreator.name %}
-Creator: {{ seomaticCreator.name }}
+Creator: {{ seomaticCreator.name |raw }}
 {% endif %}
 {% if seomaticCreator.url is defined and seomaticCreator.url %}
-URL: {{ seomaticCreator.url }}
+URL: {{ seomaticCreator.url |raw }}
 {% endif %}
 {% if seomaticCreator.description is defined and seomaticCreator.description %}
-Description: {{ seomaticCreator.description }}
+Description: {{ seomaticCreator.description |raw }}
 {% endif %}
 
 /* THANKS */
