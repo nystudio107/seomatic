@@ -1530,6 +1530,10 @@ Some things to do, and ideas for potential features:
 * [bug] Get the Template Metas implemented with full `locale` support, so the settings can all be per-locale based
 * [bug] Enforce *required fields on the various settings pages in the Admin CP by doing proper validation
 * [bug] The `foundingDate` fields probably should be dateTimeField types on the Settings pages
+* [bug] Figure out a way to have SEOmatic FieldTypes "just work" when added to a new section with existing entries (no field data is saved at that point, so the defaults don't work)
+* [bug] Support adding additional OpenGraph tags without the `og:` prefix (this will require retooling the core JSON-LD engine to add quotes around array keys)
+* [feature] Add support for additional OpenGraph types (conspicuously, "Article")
+* [feature] Add support for `og:image:type`, `og:image:width`, and `og:image:height`
 * [feature] Add the ability to analyze a page for content vs. keywords for the SEO Template Metas, "just like Yoast"
 * [feature] Change the preview to a live preview when editing things in SEOmatic
 * [feature] Provide SiteMap functionality.  Yes, it's SEO-related, but seems like it might be better to keep SEOmatic focused (?)
