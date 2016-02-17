@@ -1973,8 +1973,10 @@ class SeomaticService extends BaseApplicationComponent
         if ($seomaticSiteMeta['siteSeoTitlePlacement'] == "after")
             $titleSuffix = " " . $seomaticSiteMeta['siteSeoTitleSeparator'] . " " . $seomaticSiteMeta['siteSeoName'];
 
-        $seomaticMeta['twitter']['title'] = $titlePrefix . $seomaticMeta['seoTitle'] . $titleSuffix;
-        $seomaticMeta['og']['title'] = $titlePrefix . $seomaticMeta['seoTitle'] . $titleSuffix;
+        if (isset($seomaticMeta['twitter'])
+            $seomaticMeta['twitter']['title'] = $titlePrefix . $seomaticMeta['seoTitle'] . $titleSuffix;
+        if (isset($seomaticMeta['og'])
+            $seomaticMeta['og']['title'] = $titlePrefix . $seomaticMeta['seoTitle'] . $titleSuffix;
 
 /* -- Truncate seoTitle, seoDescription, and seoKeywords to recommended values */
 
