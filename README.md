@@ -1537,12 +1537,14 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
-### 1.1.2 -- 2016.02.12
+### 1.1.2 -- 2016.02.17
 
 * [Fixed] Fixed some typos in SEOmatic & the docs re: `robots.txt`
 * [Fixed] The Google Analytics script no longer renders if the Google Analytics Tracking ID field is empty
 * [Fixed] Fixed an issue with console errors on the backend with the SEOmatic FieldType
 * [Fixed] OpeningHours now only displays for LocalBusiness
+* [Added] SEOmatic now processes adding the SEO Site Name to the `og` and `twitter` titles just before rendering, so you can do things like change the `seomaticSiteMeta.siteSeoTitlePlacement` via Twig, and it'll do the right thing
+* [Fixed] Fixed a PHP error if the Site Creator is a Person
 * [Improved] Updated the README.md
 
 ### 1.1.1 -- 2016.02.09

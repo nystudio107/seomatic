@@ -587,11 +587,15 @@ class SeomaticService extends BaseApplicationComponent
 /* -- Set up the title prefix and suffix */
 
         $titlePrefix = "";
+/* -- We now do this in sanitizeMetaVars() so this can be changed in Twig just like the seoTitle
         if ($siteMeta['siteSeoTitlePlacement'] == "before")
             $titlePrefix =  $siteMeta['siteSeoName'] . " " . $siteMeta['siteSeoTitleSeparator'] . " ";
+*/
         $titleSuffix = "";
+/* -- We now do this in sanitizeMetaVars() so this can be changed in Twig just like the seoTitle
         if ($siteMeta['siteSeoTitlePlacement'] == "after")
             $titleSuffix = " " . $siteMeta['siteSeoTitleSeparator'] . " " . $siteMeta['siteSeoName'];
+*/
 
 /* -- Add in the Twitter Card settings to the meta */
 
@@ -1431,8 +1435,8 @@ class SeomaticService extends BaseApplicationComponent
 
         if ($creator['siteCreatorType'] == "Person")
         {
-            $creatorJSONLD['gender'] = $creator['personOwnerGender'];
-            $creatorJSONLD['birthPlace'] = $creator['personOwnerBirthPlace'];
+            $creatorJSONLD['gender'] = $creator['personCreatorGender'];
+            $creatorJSONLD['birthPlace'] = $creator['personCreatorBirthPlace'];
         }
 
 /* -- Settings for all organization Creator types */
@@ -1958,6 +1962,18 @@ class SeomaticService extends BaseApplicationComponent
         $seomaticIdentity = $metaVars['seomaticIdentity'];
         $seomaticSocial = $metaVars['seomaticSocial'];
         $seomaticCreator = $metaVars['seomaticCreator'];
+
+/* -- Set up the title prefix and suffix for the OpenGraph and Twitter titles */
+
+        $titlePrefix = "";
+        if ($seomaticSiteMeta['siteSeoTitlePlacement'] == "before")
+            $titlePrefix =  $seomaticSiteMeta['siteSeoName'] . " " . $seomaticSiteMeta['siteSeoTitleSeparator'] . " ";
+        $titleSuffix = "";
+        if ($seomaticSiteMeta['siteSeoTitlePlacement'] == "after")
+            $titleSuffix = " " . $seomaticSiteMeta['siteSeoTitleSeparator'] . " " . $seomaticSiteMeta['siteSeoName'];
+
+        $seomaticMeta['twitter']['title'] = $titlePrefix . $seomaticMeta['seoTitle'] . $titleSuffix;
+        $seomaticMeta['og']['title'] = $titlePrefix . $seomaticMeta['seoTitle'] . $titleSuffix;
 
 /* -- Truncate seoTitle, seoDescription, and seoKeywords to recommended values */
 
