@@ -1541,6 +1541,15 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.4 -- 2016.02.22
+
+* [Added] Set the default Twig escaping strategy for robots.txt and humans.txt to false (so the tag output is not escaped)
+* [Fixed] Handle the case where there is no Twitter field
+* [Fixed] Handle empty OpeningHours spec correctly, and other OpeningHours fixes
+* [Fixed] actionRenderRobots is now publicly accessible (doh!), allowing `robots.txt` to render properly when not logged in
+* [Improved] Updated the Roadmap section with pending bugs/features
+* [Improved] Updated the README.md
+
 ### 1.1.3 -- 2016.02.17
 
 * [Fixed] Fixed some typos in SEOmatic & the docs re: `robots.txt`
