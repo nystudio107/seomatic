@@ -4,7 +4,7 @@ namespace Craft;
 class SeomaticController extends BaseController
 {
 
-    protected $allowAnonymous = array('actionRenderHumans');
+    protected $allowAnonymous = array('actionRenderHumans', 'actionRenderRobots');
 
 /* --------------------------------------------------------------------------------
     Render the humans.txt template
