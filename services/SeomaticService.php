@@ -714,6 +714,7 @@ class SeomaticService extends BaseApplicationComponent
         unset($siteMeta['siteSeoImageId']);
         unset($siteMeta['siteTwitterCardType']);
         unset($siteMeta['siteOpenGraphType']);
+        unset($siteMeta['siteRobotsTxt']);
 
         unset($meta['twitterCardType']);
         unset($meta['openGraphType']);

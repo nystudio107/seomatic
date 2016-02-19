@@ -2,13 +2,15 @@
     {
         "version": "1.1.4",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
-        "date": "2016-02-22T11:00:00-05:00",
+        "date": "2016-02-19T11:00:00-05:00",
         "notes": [
             "[Added] Set the default Twig escaping strategy for robots.txt and humans.txt to false (so the tag output is not escaped)",
             "[Fixed] Handle the case where there is no Twitter field",
             "[Fixed] Handle empty OpeningHours spec correctly, and other OpeningHours fixes",
             "[Fixed] actionRenderRobots is now publicly accessible (doh!), allowing robots.txt to render properly when not logged in",
+            "[Fixed] Fixed a template error on the SEO Site Meta tab on localized sites",
             "[Improved] Updated the Roadmap section with pending bugs/features",
+            "[Improved] Removed the siteRobotsTxt from the globals display",
             "[Improved] Updated the README.md"
         ]
     },
