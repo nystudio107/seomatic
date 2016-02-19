@@ -59,7 +59,7 @@ class SeomaticService extends BaseApplicationComponent
 
         if ($templatePath)
             {
-            $htmlText = craft()->templates->render($templatePath);
+            $htmlText = craft()->templates->render($templatePath, $metaVars);
             }
         else
             {
