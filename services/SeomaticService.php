@@ -1322,7 +1322,7 @@ class SeomaticService extends BaseApplicationComponent
         $creator['siteCreatorSubType'] = $settings['siteCreatorSubType'];
         $creator['siteCreatorSpecificType'] = $settings['siteCreatorSpecificType'];
 
-/* -- Handle migrating the old way of storing siteCreatorType */
+/* -- Handle migrating the old way of storing siteCreatorType 
 
         if (($creator['siteCreatorType'] != "Organization") && ($creator['siteCreatorType'] != "Person"))
         {
@@ -1335,7 +1335,7 @@ class SeomaticService extends BaseApplicationComponent
             $creator['siteCreatorSpecificType'] = $creator['siteCreatorSubType'];
             $creator['siteCreatorSubType'] = "LocalBusiness";
         }
-
+*/
         $creator['genericCreatorName'] = $settings['genericCreatorName'];
         $creator['genericCreatorAlternateName'] = $settings['genericCreatorAlternateName'];
         $creator['genericCreatorDescription'] = $settings['genericCreatorDescription'];
