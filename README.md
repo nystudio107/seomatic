@@ -1541,6 +1541,12 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.5 -- 2016.02.25
+
+* [Fixed] The canonicalUrl should be set properly to a fully qualified URL now
+* [Fixed] The Site Creator will now remember the LocalBusiness and Corporation settings
+* [Improved] Updated the README.md
+
 ### 1.1.4 -- 2016.02.19
 
 * [Added] Set the default Twig escaping strategy for robots.txt and humans.txt to false (so the tag output is not escaped)
