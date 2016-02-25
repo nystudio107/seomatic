@@ -130,6 +130,7 @@ class SeomaticVariable
 
     function renderPreview($templatePath="", $forTemplate="", $elementId=null, $locale=null)
     {
+        $entryMeta = null;
 
         if (!$locale)
             $locale = craft()->language;
@@ -149,15 +150,18 @@ class SeomaticVariable
 
 /* -- Fudge the canonicalUrl for the preview */
 
-        $siteUrl = craft()->getSiteUrl();
-        if (($siteUrl[strlen($siteUrl) -1] != '/') && $forTemplate)
+        if (!$entryMeta)
         {
-            $siteUrl = $siteUrl + '/';
+            $siteUrl = craft()->getSiteUrl();
+            if (($siteUrl[strlen($siteUrl) -1] != '/') && $forTemplate)
+            {
+                $siteUrl = $siteUrl + '/';
+            }
+            $fullUrl = $siteUrl . $forTemplate;
+            $metaVars['seomaticMeta']['canonicalUrl'] = $fullUrl;
+            if (isset($metaVars['seomaticMeta']['og']))
+                $metaVars['seomaticMeta']['og']['url'] = $fullUrl;
         }
-        $fullUrl = $siteUrl . $forTemplate;
-        $metaVars['seomaticMeta']['canonicalUrl'] = $fullUrl;
-        if (isset($metaVars['seomaticMeta']['og']))
-            $metaVars['seomaticMeta']['og']['url'] = $fullUrl;
 
         $result = craft()->seomatic->render($templatePath, $metaVars, true);
 
@@ -170,6 +174,8 @@ class SeomaticVariable
 
     function renderDisplayPreview($templateName="", $forTemplate="", $elementId=null, $locale=null)
     {
+        $entryMeta = null;
+
         if (!$locale)
             $locale = craft()->language;
 
@@ -188,15 +194,18 @@ class SeomaticVariable
 
 /* -- Fudge the canonicalUrl for the preview */
 
-        $siteUrl = craft()->getSiteUrl();
-        if (($siteUrl[strlen($siteUrl) -1] != '/') && $forTemplate)
+        if (!$entryMeta)
         {
-            $siteUrl = $siteUrl + '/';
+            $siteUrl = craft()->getSiteUrl();
+            if (($siteUrl[strlen($siteUrl) -1] != '/') && $forTemplate)
+            {
+                $siteUrl = $siteUrl + '/';
+            }
+            $fullUrl = $siteUrl . $forTemplate;
+            $metaVars['seomaticMeta']['canonicalUrl'] = $fullUrl;
+            if (isset($metaVars['seomaticMeta']['og']))
+                $metaVars['seomaticMeta']['og']['url'] = $fullUrl;
         }
-        $fullUrl = $siteUrl . $forTemplate;
-        $metaVars['seomaticMeta']['canonicalUrl'] = $fullUrl;
-        if (isset($metaVars['seomaticMeta']['og']))
-            $metaVars['seomaticMeta']['og']['url'] = $fullUrl;
 
         $result = craft()->seomatic->renderDisplayPreview($templateName, $metaVars);
 
@@ -313,6 +322,7 @@ class SeomaticVariable
 
     function renderGlobals($forTemplate="", $elementId=null, $locale=null)
     {
+        $entryMeta = null;
 
         if (!$locale)
             $locale = craft()->language;
@@ -332,15 +342,18 @@ class SeomaticVariable
 
 /* -- Fudge the canonicalUrl for the preview */
 
-        $siteUrl = craft()->getSiteUrl();
-        if (($siteUrl[strlen($siteUrl) -1] != '/') && $forTemplate)
+        if (!$entryMeta)
         {
-            $siteUrl = $siteUrl + '/';
+            $siteUrl = craft()->getSiteUrl();
+            if (($siteUrl[strlen($siteUrl) -1] != '/') && $forTemplate)
+            {
+                $siteUrl = $siteUrl + '/';
+            }
+            $fullUrl = $siteUrl . $forTemplate;
+            $metaVars['seomaticMeta']['canonicalUrl'] = $fullUrl;
+            if (isset($metaVars['seomaticMeta']['og']))
+                $metaVars['seomaticMeta']['og']['url'] = $fullUrl;
         }
-        $fullUrl = $siteUrl . $forTemplate;
-        $metaVars['seomaticMeta']['canonicalUrl'] = $fullUrl;
-        if (isset($metaVars['seomaticMeta']['og']))
-            $metaVars['seomaticMeta']['og']['url'] = $fullUrl;
 
 /* -- No need to expose the locale */
 
