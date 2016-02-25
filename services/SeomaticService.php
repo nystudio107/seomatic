@@ -675,7 +675,10 @@ class SeomaticService extends BaseApplicationComponent
         $siteUrl = craft()->getSiteUrl();
         $requestUrl = craft()->request->url;
         $urlParts = parse_url($siteUrl);
-        $siteUrl = $urlParts['scheme'] . "://" . $urlParts['host'] . "/";
+        if (($urlParts['scheme']) && ($urlParts['host']))
+            $siteUrl = $urlParts['scheme'] . "://" . $urlParts['host'] . "/";
+        else
+            $siteUrl = "/";
         if (($siteUrl[strlen($siteUrl) -1] == '/') && ($requestUrl[0] == '/'))
         {
             $siteUrl = rtrim($siteUrl, '/');
