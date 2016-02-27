@@ -1,5 +1,18 @@
 [
     {
+        "version": "1.1.5",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
+        "date": "2016-02-27T11:00:00-05:00",
+        "notes": [
+            "[Added] Added support for OpenGraph article types",
+            "[Added] Added support for OpenGraph fb:app_id on the Social Media settings",
+            "[Fixed] The canonicalUrl should be set properly to a fully qualified URL now",
+            "[Fixed] The Site Creator will now remember the LocalBusiness and Corporation settings",
+            "[Fixed] The SEOmatic FieldType will preview the canonicalUrl properly now",
+            "[Improved] Updated the README.md"
+        ]
+    },
+    {
         "version": "1.1.4",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-02-19T11:00:00-05:00",

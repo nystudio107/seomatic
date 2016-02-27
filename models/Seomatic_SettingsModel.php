@@ -94,6 +94,7 @@ class Seomatic_SettingsModel extends BaseModel
             'twitterHandle'                     => array(AttributeType::String, 'default' => ''),
             'facebookHandle'                    => array(AttributeType::String, 'default' => ''),
             'facebookProfileId'                 => array(AttributeType::String, 'default' => ''),
+            'facebookAppId'                     => array(AttributeType::String, 'default' => ''),
             'linkedInHandle'                    => array(AttributeType::String, 'default' => ''),
             'googlePlusHandle'                  => array(AttributeType::String, 'default' => ''),
             'youtubeHandle'                     => array(AttributeType::String, 'default' => ''),

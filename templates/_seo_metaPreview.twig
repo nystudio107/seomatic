@@ -52,6 +52,9 @@
 {% if seomaticSocial.facebookProfileId %}
 <meta property="fb:profile_id" content="{{ seomaticSocial.facebookProfileId |raw }}" /> <!-- {% verbatim %}{{ seomaticSocial.facebookProfileId }}{% endverbatim %} -->
 {% endif %}
+{% if seomaticSocial.facebookAppId %}
+<meta property="fb:app_id" content="{{ seomaticSocial.facebookAppId |raw }}" /> <!-- {% verbatim %}{{ seomaticSocial.facebookAppId }}{% endverbatim %} -->
+{% endif %}
 {% for key, value in seomaticMeta.og %}
 {% if value %}
 {% if value is iterable %}
@@ -63,6 +66,19 @@
 {% endif %}
 {% endif %}
 {% endfor %}
+{% if seomaticMeta.article is defined and seomaticMeta.article %}
+{% for key, value in seomaticMeta.article %}
+{% if value %}
+{% if value is iterable %}
+{% for subvalue in value %}
+<meta property="article:{{ key }}" content="{{ subvalue }}" /> <!-- {% verbatim %}{{ {% endverbatim %}seomatic.article.{{ key }}[{{ loop.index0 }}]{% verbatim %} }} {% endverbatim %}-->
+{% endfor %}
+{% else %}
+<meta property="article:{{ key }}" content="{{ value }}" />  <!-- {% verbatim %}{{ {% endverbatim %}seomatic.article.{{ key }}{% verbatim %} }}{% endverbatim %} -->
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}
 {% endif %}
 
 {% if seomaticMeta.twitter is defined and seomaticMeta.twitter %}

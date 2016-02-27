@@ -578,7 +578,7 @@ class SeomaticService extends BaseApplicationComponent
     Set the Twitter Cards and Open Graph arrays for the meta
 -------------------------------------------------------------------------------- */
 
-    public function setSocialForMeta(&$meta, $siteMeta, $social, $helper, $locale)
+    public function setSocialForMeta(&$meta, $siteMeta, $social, $helper, $identity, $locale)
     {
 
         if ($meta)
@@ -650,6 +650,17 @@ class SeomaticService extends BaseApplicationComponent
                 $openGraph['see_also'] = $sameAs;
 
             $meta['og'] = $openGraph;
+
+/* -- Handle Open Graph articles */
+
+            if ($openGraph['type'] == "article")
+            {
+                $openGraphArticle = array();
+                $openGraphArticle['author'] = $identity['genericOwnerName'];
+                $openGraphArticle['publisher'] = $identity['genericOwnerName'];
+                $openGraphArticle['tag'] = array_map('trim', explode(',', $meta['seoKeywords']));
+                $meta['article'] = $openGraphArticle;
+            }
         }
     } /* -- setSocialForMeta*/
 
@@ -674,11 +685,6 @@ class SeomaticService extends BaseApplicationComponent
 
         $siteUrl = craft()->getSiteUrl();
         $requestUrl = craft()->request->url;
-        $urlParts = parse_url($siteUrl);
-        if (($urlParts['scheme']) && ($urlParts['host']))
-            $siteUrl = $urlParts['scheme'] . "://" . $urlParts['host'] . "/";
-        else
-            $siteUrl = "/";
         if (($siteUrl[strlen($siteUrl) -1] == '/') && ($requestUrl[0] == '/'))
         {
             $siteUrl = rtrim($siteUrl, '/');
@@ -710,7 +716,7 @@ class SeomaticService extends BaseApplicationComponent
         $this->addIdentityHelpers($helper, $identity);
         $this->addCreatorHelpers($helper, $creator);
 
-        $this->setSocialForMeta($meta, $siteMeta, $social, $helper, $locale);
+        $this->setSocialForMeta($meta, $siteMeta, $social, $helper, $identity, $locale);
 
 /* -- Get rid of variables we don't want to expose */
 
@@ -1285,6 +1291,7 @@ class SeomaticService extends BaseApplicationComponent
         $social['twitterHandle'] = $settings['twitterHandle'];
         $social['facebookHandle'] = $settings['facebookHandle'];
         $social['facebookProfileId'] = $settings['facebookProfileId'];
+        $social['facebookAppId'] = $settings['facebookAppId'];
         $social['linkedInHandle'] = $settings['linkedInHandle'];
         $social['googlePlusHandle'] = $settings['googlePlusHandle'];
         $social['youtubeHandle'] = $settings['youtubeHandle'];

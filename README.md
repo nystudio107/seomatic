@@ -167,6 +167,7 @@ None of these fields are mandatory; if you don't have a given social media accou
 * **Twitter Handle** - Your Twitter Handle, without the preceding @
 * **Facebook Handle** - Your Facebook company/fan page handle (the part after `https://www.Facebook.com/`
 * **Facebook Profile ID** - Your Facebook Profile/Page ID. Click on the 'About' tab on your Facebook company/fan page, click on 'Page Info', then scroll to the bottom to find your 'Facebook Page ID'
+* **Facebook App ID** - Your Facebook App ID.  Providing a Facebook Application ID for use with the Social Media Sharing feature is recommended, but optional. [Learn More](https://developers.facebook.com/docs/apps/register)
 * **LinkedIn Handle** - Your LinkedIn page handle (the part after `https://www.linkedin.com/in/` or `https://www.linkedin.com/company/`)
 * **Google+ Handle** - Your Google+ page handle, without the preceding +. If you have a numeric Google+ account still, just enter that.
 * **YouTube User Handle** - Your YouTube handle (the part after `https://www.youtube.com/user/`)
@@ -312,6 +313,10 @@ By default, `seomaticMeta.canonicalUrl` is set to `craft.request.url`.
 
 All of the variables are set by a combination of your SEO Site Meta settings, and the SEO Template Meta settings linked to the currently rendered template (if any).  These are the primary SEOmatic variables that you will be manipulating in your templates.
 
+By the time the various SEOmatic variables are populated into your template, SEOmatic has applied all of the cascading meta from your Site Meta, Template Meta, and Entry Meta.  The variables are all set, and will not be manipulated further by SEOmatic, only output.
+
+So you can change the variables as you see fit; but it also means that if you change your `seoImage`, for example, it will not change the `og:image`.  This is so that you can manipulate them independently.
+
 These work like any other Twig variables; you can output them by doing:
 
     {{ seomaticMeta.seoTitle }}
@@ -336,7 +341,7 @@ You'll also get variables that are used to generate your Facebook Open Graph tag
     seomaticMeta.og.site_name
     seomaticMeta.og.see_also
 
-When SEOmatic goes to render the `twitter` and `og` tags, it iterates through the respective arrays, so you can add, remove, or change any of the key-value pairs in the array, and they will be rendered.  Just ensure that the `key` is a valid schema type for the respective meta tags.
+When SEOmatic goes to render the `twitter`, `og` and `article` namespace tags, it iterates through the respective arrays, so you can add, remove, or change any of the key-value pairs in the array, and they will be rendered.  Just ensure that the `key` is a valid schema type for the respective meta tags.
 
 You can even do fun things like:
 
@@ -353,7 +358,7 @@ You can even do fun things like:
 	    }
 	}) %}
     
-...and SEOmatic will output 3 `og:image` tags, one for each image in the array.
+...and SEOmatic will output 3 `og:image` tags, one for each image in the array.  Because of the way that Twig handles arrays, you **must** include every field in the array when doing a `set` or `merge`, otherwise the fields you exclude will not exist.
 
 You can also change them all at once like this using the Twig [set](http://twig.sensiolabs.org/doc/tags/set.html) syntax:
 
@@ -384,6 +389,40 @@ You can also change them all at once like this using the Twig [set](http://twig.
 	} %}
 
 Anywhere we are setting a field to `seomaticMeta.*`, we're setting it to what it already is, essentially saying to leave it unchanged.  We do this because Twig requires that you pass in the entire array to the `set` operator.
+
+If you're using the `article` OpenGraph type, you'll see an additional `article` namespace array in your `seomaticMeta`:
+
+	{% set seomaticMeta = { 
+	    seoTitle: "Some Title",
+	    seoDescription: entry.summary,
+	    seoKeywords: "Some,Key,Words",
+	    seoImage: seomaticMeta.seoImage,
+	    canonicalUrl: entry.url,
+	    twitter: { 
+	        card: seomaticMeta.twitter.card,
+	        site: seomaticMeta.twitter.site,
+	        creator: seomaticMeta.twitter.creator,
+	        title: "Some Title",
+	        description: entry.summary,
+	        image: seomaticMeta.twitter.image
+	    },
+	    og: { 
+	        type: seomaticMeta.og.type,
+	        locale: seomaticMeta.og.locale,
+	        url: entry.url,
+	        title: "Some Title",
+	        description: entry.summary,
+	        image: seomaticMeta.og.image,
+	        site_name: seomaticMeta.og.site_name,
+	        see_also: seomaticMeta.og.see_also
+	    },
+	    article: { 
+	        author: "Some Author",
+	        publisher: "Some publisher",
+	        tag: "some,tags"
+	    }
+	} %}
+
 
 Or if you want to set just one variable in the array, you can use the Twig function [merge](http://twig.sensiolabs.org/doc/filters/merge.html):
 
@@ -1543,8 +1582,11 @@ Some things to do, and ideas for potential features:
 
 ### 1.1.5 -- 2016.02.25
 
+* [Added] Added support for OpenGraph `article` types
+* [Added] Added support for OpenGraph `fb:app_id` on the Social Media settings
 * [Fixed] The canonicalUrl should be set properly to a fully qualified URL now
 * [Fixed] The Site Creator will now remember the LocalBusiness and Corporation settings
+* [Fixed] The SEOmatic FieldType will preview the canonicalUrl properly now
 * [Improved] Updated the README.md
 
 ### 1.1.4 -- 2016.02.19

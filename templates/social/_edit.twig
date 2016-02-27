@@ -83,6 +83,17 @@
                 }) }}
 
                 {{ forms.textField({
+                    label: "Facebook App ID"|t,
+                    instructions: ("Your Facebook App ID.  Providing a Facebook Application ID for use with the Social Media Sharing feature is recommended, but optional.  <a href='https://developers.facebook.com/docs/apps/register' target='_blank'>Learn More</a>") |t |raw,
+                    id: "facebookAppId",
+                    class: 'nicetext',
+                    name: "facebookAppId",
+                    value: social.facebookAppId,
+                    required: false,
+                    locale:  social.locale,
+                }) }}
+
+                {{ forms.textField({
                     label: "LinkedIn Handle"|t,
                     instructions: ("Your LinkedIn page handle (the part after <code>https://www.linkedin.com/in/</code> or <code>https://www.linkedin.com/company/</code>)") |t |raw,
                     id: "linkedInHandle",
