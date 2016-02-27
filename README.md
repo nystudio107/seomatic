@@ -1580,7 +1580,7 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
-### 1.1.5 -- 2016.02.25
+### 1.1.5 -- 2016.02.27
 
 * [Added] Added support for OpenGraph `article` types
 * [Added] Added support for OpenGraph `fb:app_id` on the Social Media settings
