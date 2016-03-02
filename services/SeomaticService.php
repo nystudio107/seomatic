@@ -18,6 +18,7 @@ class SeomaticService extends BaseApplicationComponent
     protected $cachedCreator = array();
     protected $cachedCreatorJSONLD = array();
     protected $cachedWebSiteJSONLD = array();
+    protected $renderedMetaVars = null;
 
 /* --------------------------------------------------------------------------------
     Render the all of the SEO Meta, caching it if possible
@@ -26,10 +27,13 @@ class SeomaticService extends BaseApplicationComponent
     public function renderSiteMeta($templatePath="", $metaVars=null, $locale)
     {
 
+        $this->renderedMetaVars = $metaVars;
+
 /* -- Cache the results for speediness; 1 query to rule them all */
 
         $shouldCache = ($metaVars != null);
-        $shouldCache = false;
+        if (craft()->config->get('devMode'))
+            $shouldCache = false;
         if ($shouldCache)
         {
             $cacheKey = 'seomatic_metacache_' . $this->getMetaHashStr($templatePath, $metaVars);
@@ -193,7 +197,15 @@ class SeomaticService extends BaseApplicationComponent
         {
             $this->sanitizeMetaVars($metaVars);
             $place = $metaVars['seomaticIdentity']['location'];
-            $htmlText = $this->renderJSONLD($place, $isPreview);
+            if (is_array($place))
+            {
+                foreach($place as $places)
+                {
+                    $htmlText .= $this->renderJSONLD($places, $isPreview);
+                }
+            }
+            else
+                $htmlText = $this->renderJSONLD($place, $isPreview);
         }
         return $htmlText;
     } /* -- renderPlace */
@@ -670,6 +682,8 @@ class SeomaticService extends BaseApplicationComponent
 
     public function getGlobals($forTemplate="", $locale)
     {
+        if ($this->renderedMetaVars)
+            return $this->renderedMetaVars;
         if (!$locale)
             $locale = craft()->language;
 
@@ -1994,11 +2008,10 @@ class SeomaticService extends BaseApplicationComponent
         $shouldTruncate = craft()->config->get("truncateTitleTags", "seomatic");
         if ($shouldTruncate)
         {
-            // We use 69 because we append a … character when strings are truncated, so the real length is 70
             if ($seomaticSiteMeta['siteSeoTitlePlacement'] == "none")
-                $titleLength = 69;
+                $titleLength = 70;
             else
-                $titleLength = (69 - strlen(" | ") - strlen($seomaticSiteMeta['siteSeoName']));
+                $titleLength = (70 - strlen(" | ") - strlen($seomaticSiteMeta['siteSeoName']));
         }
         else
         {
@@ -2274,7 +2287,10 @@ class SeomaticService extends BaseApplicationComponent
             if (substr($theString, -1) == ',')
                 $theString = rtrim($theString, ',');
             else
-                $theString = $theString . "…";
+            {
+                if (strlen($theString) < $desiredLength)
+                    $theString = $theString . "…";
+            }
         }
 
         return $theString;
