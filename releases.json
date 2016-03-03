@@ -1,5 +1,18 @@
 [
     {
+        "version": "1.1.6",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
+        "date": "2016-03-03T11:00:00-05:00",
+        "notes": [
+            "[Fixed] Fixed a fun recursion bug that would cause meta arrays nested more than 1 deep to not be sanitized & parsed properly",
+            "[Added] Added Composer support for type: craft-plugin in composer.json",
+            "[Fixed] Removed the ?> from the config.php as per Lindsey's best practices",
+            "[Fixed] The meta variables rendered by craft.seomatic.renderIdentity(), craft.seomatic.renderWebsite() and craft.seomatic.renderPlace() are now taken from the Twig context, so they can be modified before output",
+            "[Fixed] The metas will now be cached as intended (oops), which should increase performance a bit",
+            "[Improved] Updated the README.md"
+        ]
+    },
+    {
         "version": "1.1.5",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-02-27T11:00:00-05:00",

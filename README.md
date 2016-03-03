@@ -1570,8 +1570,6 @@ Some things to do, and ideas for potential features:
 * [bug] Enforce *required fields on the various settings pages in the Admin CP by doing proper validation
 * [bug] The `foundingDate` fields probably should be dateTimeField types on the Settings pages
 * [bug] Figure out a way to have SEOmatic FieldTypes "just work" when added to a new section with existing entries (no field data is saved at that point, so the defaults don't work)
-* [bug] Support adding additional OpenGraph tags without the `og:` prefix (this will require retooling the core JSON-LD engine to add quotes around array keys)
-* [feature] Add support for additional OpenGraph types (conspicuously, "Article")
 * [feature] Add support for `og:image:type`, `og:image:width`, and `og:image:height`
 * [feature] Add the ability to analyze a page for content vs. keywords for the SEO Template Metas, "just like Yoast"
 * [feature] Change the preview to a live preview when editing things in SEOmatic
@@ -1579,6 +1577,15 @@ Some things to do, and ideas for potential features:
 * [feature] Provide Redirect functionality.  Yes, it's SEO-related, but seems like it might be better to keep SEOmatic focused (?)
 
 ## Changelog
+
+### 1.1.6 -- 2016.03.03
+
+* [Fixed] Fixed a fun recursion bug that would cause meta arrays nested more than 1 deep to not be sanitized & parsed properly
+* [Added] Added Composer support for `type: craft-plugin` in `composer.json`
+* [Fixed] Removed the `?>` from the `config.php` as per Lindsey's best practices
+* [Fixed] The meta variables rendered by `craft.seomatic.renderIdentity()`, `craft.seomatic.renderWebsite()` and `craft.seomatic.renderPlace()` are now taken from the Twig context, so they can be modified before output
+* [Fixed] The metas will now be cached as intended (oops), which should increase performance a bit
+* [Improved] Updated the README.md
 
 ### 1.1.5 -- 2016.02.27
 
