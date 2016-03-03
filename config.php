@@ -19,4 +19,3 @@ return array(
     // override for controlling it.
     "renderGoogleAnalyticsScript" => true,
 );
-?>
