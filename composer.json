@@ -1,5 +1,9 @@
 {
+    "name": "nystudio107/seomatic",
+    "description": "A turnkey SEO implementation for Craft CMS that is comprehensive, powerful, and flexible",
+    "type": "craft-plugin",
     "require": {
-        "crodas/text-rank" : "dev-master"
+        "crodas/text-rank" : "dev-master",
+        "composer/installers": "~1.0"
     }
 }
