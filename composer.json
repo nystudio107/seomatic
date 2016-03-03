@@ -1,5 +1,6 @@
 {
     "name": "nystudio107/seomatic",
+	"minimum-stability": "dev",
     "description": "A turnkey SEO implementation for Craft CMS that is comprehensive, powerful, and flexible",
     "type": "craft-plugin",
     "require": {
