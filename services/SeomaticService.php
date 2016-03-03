@@ -2119,12 +2119,12 @@ class SeomaticService extends BaseApplicationComponent
 
     private function _sanitizeArray(&$theArray)
     {
-        foreach ($theArray as $key => $value)
+        foreach ($theArray as $key => &$value)
         {
             if (is_string($value))
             {
                 $value = craft()->config->parseEnvironmentString($value);
-                $value= strip_tags($value);
+                $value = strip_tags($value);
                 if ($key == 'email')
                     $value = $this->encodeEmailAddress($value);
                 else
