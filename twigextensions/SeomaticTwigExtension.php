@@ -7,6 +7,8 @@ use Twig_Filter_Method;
 class SeomaticTwigExtension extends \Twig_Extension
 {
 
+    protected $seomaticInitializing = false;
+
 /* --------------------------------------------------------------------------------
     The name of our Twig extension
 -------------------------------------------------------------------------------- */
@@ -24,9 +26,10 @@ class SeomaticTwigExtension extends \Twig_Extension
     {
         $result = array();
 
-        if (craft()->request->isSiteRequest())
+        if (craft()->request->isSiteRequest() && !$this->seomaticInitializing)
         {
 
+            $this->seomaticInitializing = true;
             $element = craft()->urlManager->getMatchedElement();
             $entryMeta = craft()->seomatic->getMetaFromElement($element);
             $entryMetaUrl = "";
@@ -36,6 +39,7 @@ class SeomaticTwigExtension extends \Twig_Extension
             $currentTemplate = $this->_get_current_template_path();
             $result = craft()->seomatic->getGlobals($currentTemplate, craft()->language);
         }
+        $this->seomaticInitializing = false;
         return $result;
     }
 
