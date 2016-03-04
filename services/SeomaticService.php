@@ -197,15 +197,17 @@ class SeomaticService extends BaseApplicationComponent
         {
             $this->sanitizeMetaVars($metaVars);
             $place = $metaVars['seomaticIdentity']['location'];
-            if (is_array($place))
+            if (array_keys($place) !== range(0, count($place) - 1))
+            {
+                $htmlText = $this->renderJSONLD($place, $isPreview);
+            }
+            else
             {
                 foreach($place as $places)
                 {
                     $htmlText .= $this->renderJSONLD($places, $isPreview);
                 }
             }
-            else
-                $htmlText = $this->renderJSONLD($place, $isPreview);
         }
         return $htmlText;
     } /* -- renderPlace */
