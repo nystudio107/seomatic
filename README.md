@@ -1585,6 +1585,12 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.7 -- 2016.03.04
+
+* [Fixed] Fixed a regression that would cause the Place JSON-LD to render incorrectly
+* [Fixed] Fixed a nasty bug that would cause SEOmatic to crash if you used `{title}` or other variables in your SEOmatic Entry Meta fields
+* [Improved] Updated the README.md
+
 ### 1.1.6 -- 2016.03.03
 
 * [Fixed] Fixed a fun recursion bug that would cause meta arrays nested more than 1 deep to not be sanitized & parsed properly
