@@ -318,6 +318,12 @@ By the time the various SEOmatic variables are populated into your template, SEO
 
 So you can change the variables as you see fit; but it also means that if you change your `seoImage`, for example, it will not change the `og:image`.  This is so that you can manipulate them independently.
 
+**Important:** Due to the way Twig scoping works, if you `{% include %}` a template, it's given a copy of the current Twig context (variables, etc.), which means that any changes made there are not propagated back to the parent template.
+
+So for instance if you `{% include %}` a template that changes some SEOmatic variables, they will **not** be changed in the parent context's scope, so they will not be rendered by SEOmatic.
+
+You'll need to modify the SEOmatic variables in a template that `{% extends %}` the main `layout.twig` template or via Twig `embeds`.
+
 These work like any other Twig variables; you can output them by doing:
 
     {{ seomaticMeta.seoTitle }}
