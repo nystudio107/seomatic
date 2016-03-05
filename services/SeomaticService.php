@@ -2127,7 +2127,7 @@ class SeomaticService extends BaseApplicationComponent
             {
                 $value = craft()->config->parseEnvironmentString($value);
                 $value = strip_tags($value);
-                if ($key == 'email')
+                if ($key === 'email')
                     $value = $this->encodeEmailAddress($value);
                 else
                     $value = htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, 'UTF-8', false);
