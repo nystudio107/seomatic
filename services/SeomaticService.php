@@ -701,6 +701,11 @@ class SeomaticService extends BaseApplicationComponent
 
         $siteUrl = craft()->getSiteUrl();
         $requestUrl = craft()->request->url;
+        $urlParts = parse_url($siteUrl);
+        if (($urlParts['scheme']) && ($urlParts['host']))
+            $siteUrl = $urlParts['scheme'] . "://" . $urlParts['host'] . "/";
+        else
+            $siteUrl = "/";
         if (($siteUrl[strlen($siteUrl) -1] == '/') && ($requestUrl[0] == '/'))
         {
             $siteUrl = rtrim($siteUrl, '/');
@@ -1342,10 +1347,13 @@ class SeomaticService extends BaseApplicationComponent
         $creator['locale'] = $settings['locale'];
 
         $creator['siteCreatorType'] = ucfirst($settings['siteCreatorType']);
+        $creator['siteCreatorSubType'] = "";
+        $creator['siteCreatorSpecificType'] = "";
+
+/* -- Handle migrating the old way of storing siteCreatorType 
         $creator['siteCreatorSubType'] = $settings['siteCreatorSubType'];
         $creator['siteCreatorSpecificType'] = $settings['siteCreatorSpecificType'];
 
-/* -- Handle migrating the old way of storing siteCreatorType 
 
         if (($creator['siteCreatorType'] != "Organization") && ($creator['siteCreatorType'] != "Person"))
         {
@@ -1419,11 +1427,12 @@ class SeomaticService extends BaseApplicationComponent
 /* -- Settings generic to all Creator types */
 
         $creatorJSONLD['type'] = ucfirst($creator['siteCreatorType']);
+/*
         if ($creator['siteCreatorSubType'])
             $creatorJSONLD['type'] = $creator['siteCreatorSubType'];
         if ($creator['siteCreatorSpecificType'])
             $creatorJSONLD['type'] = $creator['siteCreatorSpecificType'];
-
+*/
         $creatorJSONLD['name'] = $creator['genericCreatorName'];
         $creatorJSONLD['alternateName'] = $creator['genericCreatorAlternateName'];
         $creatorJSONLD['description'] = $creator['genericCreatorDescription'];
