@@ -106,6 +106,17 @@ class SeomaticVariable
         return $result;
     } /* -- extractTextFromMatrix */
 
+/* --------------------------------------------------------------------------------
+    Get a fully qualified URL based on the siteUrl, if no scheme/host is present
+-------------------------------------------------------------------------------- */
+
+    public function getFullyQualifiedUrl($url)
+    {
+        $result = craft()->seomatic->getFullyQualifiedUrl($url);
+
+        return $result;
+    } /* -- getFullyQualifiedUrl */
+
 /* ================================================================================
     INTERNAL methods for SEOmatic use
 ================================================================================ */

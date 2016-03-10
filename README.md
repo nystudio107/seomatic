@@ -791,6 +791,21 @@ All three of these methods accomplish the same thing:
 
 Google can still properly decode email addresses that are ordinal-encoded, it's still readable by humans when displayed, but it prevents some bots from recognizing it as an email address.
 
+### getFullyQualifiedUrl()
+
+All three of these methods accomplish the same thing:
+
+	{# Get a fully qualified URL based on the siteUrl using the 'getFullyQualifiedUrl' function #}
+    {{ getFullyQualifiedUrl( URLPATH ) }}
+    
+	{# Get a fully qualified URL based on the siteUrl using the 'getFullyQualifiedUrl' filter #}
+    {{ URLPATH | getFullyQualifiedUrl }}
+    
+	{# Get a fully qualified URL based on the siteUrl using the 'getFullyQualifiedUrl' variable #}
+    {% do craft.seomatic.getFullyQualifiedUrl( URLPATH ) %}
+
+**URLPATH** is either a URL (in which case it is just returned) or a path, in which case it is combined with the `siteUrl` and returned.
+
 ## SEOmatic Site Meta Twig Variables
 
 SEOmatic populates your templates with the following global variables for Site Meta:
