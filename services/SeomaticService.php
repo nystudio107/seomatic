@@ -699,7 +699,7 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Get a full qualified URL for the current request */
 
-        $requestUrl = craft()->request->url
+        $requestUrl = craft()->request->url;
         $meta['canonicalUrl'] = $this->getFullyQualifiedUrl($requestUrl);
 
 /* -- Merge the meta with the global meta */
@@ -2051,7 +2051,7 @@ public function getFullyQualifiedUrl($url)
 {
     $result = $url;
     $srcUrlParts = parse_url($result);
-    if (($srcUrlParts['scheme']) && ($srcUrlParts['host']))
+    if (isset($srcUrlParts['scheme']) && isset($srcUrlParts['host']))
     {
 /* -- The URL is already a fully qualfied URL, do nothing */
     }
@@ -2059,7 +2059,7 @@ public function getFullyQualifiedUrl($url)
     {
         $siteUrl = craft()->getSiteUrl();
         $urlParts = parse_url($siteUrl);
-        if (($urlParts['scheme']) && ($urlParts['host']))
+        if (isset($urlParts['scheme']) && isset($urlParts['host']))
             $siteUrl = $urlParts['scheme'] . "://" . $urlParts['host'] . "/";
         else
             $siteUrl = "/";
