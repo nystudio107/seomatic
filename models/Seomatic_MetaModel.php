@@ -12,16 +12,16 @@ class Seomatic_MetaModel extends BaseElementModel
     protected function defineAttributes()
     {
         return array_merge(parent::defineAttributes(), array(
-            'locale'			=> array(AttributeType::String, 'default' => craft()->language),
-            'elementId'			=> array(AttributeType::Number, 'default' => 0),
+            'locale'            => array(AttributeType::String, 'default' => craft()->language),
+            'elementId'         => array(AttributeType::Number, 'default' => 0),
             'metaType'          => array(AttributeType::Enum, 'values' => "default,template", 'default' => 'template'),
             'metaPath'          => array(AttributeType::String, 'default' => ''),
             'seoTitle'          => array(AttributeType::String, 'default' => ''),
             'seoDescription'    => array(AttributeType::String, 'default' => ''),
             'seoKeywords'       => array(AttributeType::String, 'default' => ''),
-            'twitterCardType'	=> array(AttributeType::String, 'default' => ''),
-            'openGraphType'		=> array(AttributeType::String, 'default' => ''),
-            'robots'			=> array(AttributeType::String, 'default' => ''),
+            'twitterCardType'   => array(AttributeType::String, 'default' => ''),
+            'openGraphType'     => array(AttributeType::String, 'default' => ''),
+            'robots'            => array(AttributeType::String, 'default' => ''),
             'seoImageId'        => array(AttributeType::Number, 'default' => 0),
         ));
     }
@@ -75,6 +75,33 @@ class Seomatic_MetaModel extends BaseElementModel
     public function seoKeywords()
     {
         return $this->seoKeywords;
+    }
+
+    /**
+     * Returns the seoImage as a url
+     *
+     * @return string
+     */
+    public function seoImage()
+    {
+        $result = "";
+        if (isset($this->seoImageId))
+        {
+            $image = craft()->assets->getFileById($this->seoImageId);
+            if ($image)
+                $result = $image->url;
+        }
+        return $result;
+    }
+
+    /**
+     * Returns the seoImageId
+     *
+     * @return string
+     */
+    public function seoImageId()
+    {
+        return $this->seoImageId;
     }
 
 } /* -- class Seomatic_MetaModel */
