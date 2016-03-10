@@ -699,27 +699,15 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Get a full qualified URL for the current request */
 
-        $siteUrl = craft()->getSiteUrl();
-        $requestUrl = craft()->request->url;
-        $urlParts = parse_url($siteUrl);
-        if (($urlParts['scheme']) && ($urlParts['host']))
-            $siteUrl = $urlParts['scheme'] . "://" . $urlParts['host'] . "/";
-        else
-            $siteUrl = "/";
-        if (($siteUrl[strlen($siteUrl) -1] == '/') && ($requestUrl[0] == '/'))
-        {
-            $siteUrl = rtrim($siteUrl, '/');
-        }
-        $fullUrl = $siteUrl . $requestUrl;
-
-        $meta['canonicalUrl'] = $fullUrl;
+        $requestUrl = craft()->request->url
+        $meta['canonicalUrl'] = $this->getFullyQualifiedUrl($requestUrl);
 
 /* -- Merge the meta with the global meta */
 
         $globalMeta['seoTitle'] = $siteMeta['siteSeoTitle'];
         $globalMeta['seoDescription'] = $siteMeta['siteSeoDescription'];
         $globalMeta['seoKeywords'] = $siteMeta['siteSeoKeywords'];
-        $globalMeta['seoImage'] = $siteMeta['siteSeoImage'];
+        $globalMeta['seoImage'] = $this->getFullyQualifiedUrl($siteMeta['siteSeoImage']);
         $globalMeta['twitterCardType'] = $siteMeta['siteTwitterCardType'];
         $globalMeta['openGraphType'] = $siteMeta['siteOpenGraphType'];
         $globalMeta['robots'] = $siteMeta['siteRobots'];
@@ -2056,6 +2044,36 @@ class SeomaticService extends BaseApplicationComponent
     } /* -- sanitizeMetaVars */
 
 /* --------------------------------------------------------------------------------
+    Get a fully qualified URL based on the siteUrl, if no scheme/host is present
+-------------------------------------------------------------------------------- */
+
+public function getFullyQualifiedUrl($url)
+{
+    $result = $url;
+    $srcUrlParts = parse_url($result);
+    if (($srcUrlParts['scheme']) && ($srcUrlParts['host']))
+    {
+/* -- The URL is already a fully qualfied URL, do nothing */
+    }
+    else
+    {
+        $siteUrl = craft()->getSiteUrl();
+        $urlParts = parse_url($siteUrl);
+        if (($urlParts['scheme']) && ($urlParts['host']))
+            $siteUrl = $urlParts['scheme'] . "://" . $urlParts['host'] . "/";
+        else
+            $siteUrl = "/";
+        if (($siteUrl[strlen($siteUrl) -1] == '/') && ($result[0] == '/'))
+        {
+            $siteUrl = rtrim($siteUrl, '/');
+        }
+        $result = $siteUrl . $result;
+    }
+
+    return $result;
+} /* -- getFullyQualifiedUrl */
+
+/* --------------------------------------------------------------------------------
     Extract the most important words from the passed in text via TextRank
 -------------------------------------------------------------------------------- */
 
@@ -2138,6 +2156,8 @@ class SeomaticService extends BaseApplicationComponent
                 $value = strip_tags($value);
                 if ($key === 'email')
                     $value = $this->encodeEmailAddress($value);
+                elseif ($key === 'url')
+                    $value = $this->getFullyQualifiedUrl($value);
                 else
                     $value = htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, 'UTF-8', false);
                 $theArray[$key] = $value;
