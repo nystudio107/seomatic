@@ -21,28 +21,6 @@ class Seomatic_MetaFieldType extends BaseFieldType
     {
         if (isset($this->element)) 
         {
-        if (!$value)
-        {
-            $value = new Seomatic_MetaFieldModel();
-
-            $value->seoTitle = $this->getSettings()->seoTitle;
-            $value->seoTitleSource = $this->getSettings()->seoTitleSource;
-            $value->seoTitleSourceField = $this->getSettings()->seoTitleSourceField;
-
-            $value->seoDescription = $this->getSettings()->seoDescription;
-            $value->seoDescriptionSource = $this->getSettings()->seoDescriptionSource;
-            $value->seoDescriptionSourceField = $this->getSettings()->seoDescriptionSourceField;
-
-            $value->seoKeywords = $this->getSettings()->seoKeywords;
-            $value->seoKeywordsSource = $this->getSettings()->seoKeywordsSource;
-            $value->seoKeywordsSourceField = $this->getSettings()->seoKeywordsSourceField;
-
-            $value->seoImageIdSource = $this->getSettings()->seoImageIdSource;
-            $value->seoImageIdSourceField = $this->getSettings()->seoImageIdSourceField;
-
-            $value->twitterCardType = $this->getSettings()->twitterCardType;
-            $value->openGraphType = $this->getSettings()->openGraphType;
-        }
 
         $id = craft()->templates->formatInputId($name);
         $namespacedId = craft()->templates->namespaceInputId($id);
@@ -294,6 +272,30 @@ class Seomatic_MetaFieldType extends BaseFieldType
 
     public function prepValue($value)
     {
+        if (!$value)
+        {
+            $value = new Seomatic_MetaFieldModel();
+
+            $value->seoTitle = $this->getSettings()->seoTitle;
+            $value->seoTitleSource = $this->getSettings()->seoTitleSource;
+            $value->seoTitleSourceField = $this->getSettings()->seoTitleSourceField;
+
+            $value->seoDescription = $this->getSettings()->seoDescription;
+            $value->seoDescriptionSource = $this->getSettings()->seoDescriptionSource;
+            $value->seoDescriptionSourceField = $this->getSettings()->seoDescriptionSourceField;
+
+            $value->seoKeywords = $this->getSettings()->seoKeywords;
+            $value->seoKeywordsSource = $this->getSettings()->seoKeywordsSource;
+            $value->seoKeywordsSourceField = $this->getSettings()->seoKeywordsSourceField;
+
+            $value->seoImageIdSource = $this->getSettings()->seoImageIdSource;
+            $value->seoImageIdSourceField = $this->getSettings()->seoImageIdSourceField;
+
+            $value->twitterCardType = $this->getSettings()->twitterCardType;
+            $value->openGraphType = $this->getSettings()->openGraphType;
+
+            $value->robots = $this->getSettings()->robots;
+        }
 
         if (craft()->request->isSiteRequest())
         {
