@@ -389,7 +389,7 @@ class SeomaticService extends BaseApplicationComponent
                         if ($value->elementType == "Seomatic_FieldMeta")
                         {
                             $entryMeta = $value;
-                            $entryMetaUrl = $element->url;
+                            $entryMetaUrl = $this->getFullyQualifiedUrl($element->url);
 
     /* -- Swap in any SEOmatic fields that are pulling from other entry fields */
 
@@ -556,7 +556,7 @@ class SeomaticService extends BaseApplicationComponent
                 $meta['seoImageId'] = $entryMeta->seoImageId[0];
             else
                 $meta['seoImageId'] = null;
-            $meta['canonicalUrl'] =  $entryMetaUrl;
+            $meta['canonicalUrl'] =  $this->getFullyQualifiedUrl($entryMetaUrl);
 
             $meta['twitterCardType'] = $entryMeta->twitterCardType;
             if (!$meta['twitterCardType'])
@@ -575,7 +575,7 @@ class SeomaticService extends BaseApplicationComponent
             {
                 $image = craft()->assets->getFileById($entryMeta['seoImageId']);
                 if ($image)
-                    $meta['seoImage'] = $image->url;
+                    $meta['seoImage'] = $this->getFullyQualifiedUrl($image->url);
                 else
                     $meta['seoImage'] = '';
                 unset($meta['seoImageId']);
@@ -948,7 +948,7 @@ class SeomaticService extends BaseApplicationComponent
         {
             $image = craft()->assets->getFileById($siteMeta['siteSeoImageId']);
             if ($image)
-                $siteMeta['siteSeoImage'] = $image->url;
+                $siteMeta['siteSeoImage'] = $this->getFullyQualifiedUrl($image->url);
             else
                 $siteMeta['siteSeoImage'] = '';
         }
@@ -1011,11 +1011,11 @@ class SeomaticService extends BaseApplicationComponent
         $identity['genericOwnerName'] = $settings['genericOwnerName'];
         $identity['genericOwnerAlternateName'] = $settings['genericOwnerAlternateName'];
         $identity['genericOwnerDescription'] = $settings['genericOwnerDescription'];
-        $identity['genericOwnerUrl'] = $settings['genericOwnerUrl'];
+        $identity['genericOwnerUrl'] = $this->getFullyQualifiedUrl($settings['genericOwnerUrl']);
         $identity['genericOwnerImageId'] = $settings['genericOwnerImageId'];
         $image = craft()->assets->getFileById($settings['genericOwnerImageId']);
         if ($image)
-            $identity['genericOwnerImage'] = $image->url;
+            $identity['genericOwnerImage'] = $this->getFullyQualifiedUrl($image->url);
         else
             $identity['genericOwnerImage'] = '';
         $identity['genericOwnerTelephone'] = $settings['genericOwnerTelephone'];
@@ -1075,8 +1075,8 @@ class SeomaticService extends BaseApplicationComponent
         $identity['corporationOwnerTickerSymbol'] = $settings['corporationOwnerTickerSymbol'];
 
         $identity['restaurantOwnerServesCuisine'] = $settings['restaurantOwnerServesCuisine'];
-        $identity['restaurantOwnerMenuUrl'] = $settings['restaurantOwnerMenuUrl'];
-        $identity['restaurantOwnerReservationsUrl'] = $settings['restaurantOwnerReservationsUrl'];
+        $identity['restaurantOwnerMenuUrl'] = $this->getFullyQualifiedUrl($settings['restaurantOwnerMenuUrl']);
+        $identity['restaurantOwnerReservationsUrl'] = $this->getFullyQualifiedUrl($settings['restaurantOwnerReservationsUrl']);
 
         $result = $identity;
 
@@ -1358,11 +1358,11 @@ class SeomaticService extends BaseApplicationComponent
         $creator['genericCreatorName'] = $settings['genericCreatorName'];
         $creator['genericCreatorAlternateName'] = $settings['genericCreatorAlternateName'];
         $creator['genericCreatorDescription'] = $settings['genericCreatorDescription'];
-        $creator['genericCreatorUrl'] = $settings['genericCreatorUrl'];
+        $creator['genericCreatorUrl'] = $this->getFullyQualifiedUrl($settings['genericCreatorUrl']);
         $creator['genericCreatorImageId'] = $settings['genericCreatorImageId'];
         $image = craft()->assets->getFileById($settings['genericCreatorImageId']);
         if ($image)
-            $creator['genericCreatorImage'] = $image->url;
+            $creator['genericCreatorImage'] = $this->getFullyQualifiedUrl($image->url);
         else
             $creator['genericCreatorImage'] = '';
         $creator['genericCreatorTelephone'] = $settings['genericCreatorTelephone'];
@@ -1386,8 +1386,8 @@ class SeomaticService extends BaseApplicationComponent
         $creator['corporationCreatorTickerSymbol'] = $settings['corporationCreatorTickerSymbol'];
 
         $identity['restaurantCreatorServesCuisine'] = $settings['restaurantCreatorServesCuisine'];
-        $identity['restaurantCreatorMenuUrl'] = $settings['restaurantCreatorMenuUrl'];
-        $identity['restaurantCreatorReservationsUrl'] = $settings['restaurantCreatorReservationsUrl'];
+        $identity['restaurantCreatorMenuUrl'] = $this->getFullyQualifiedUrl($settings['restaurantCreatorMenuUrl']);
+        $identity['restaurantCreatorReservationsUrl'] = $this->getFullyQualifiedUrl($settings['restaurantCreatorReservationsUrl']);
 
         $creator['genericCreatorHumansTxt'] = $settings['genericCreatorHumansTxt'];
 
@@ -1588,7 +1588,7 @@ class SeomaticService extends BaseApplicationComponent
         $webSiteJSONLD['type'] = "WebSite";
         $webSiteJSONLD['name'] = $metaVars['seomaticSiteMeta']['siteSeoName'];
         $webSiteJSONLD['description'] = $metaVars['seomaticSiteMeta']['siteSeoDescription'];
-        $webSiteJSONLD['url'] = craft()->getSiteUrl();
+        $webSiteJSONLD['url'] = $this->getFullyQualifiedUrl(craft()->getSiteUrl());
         if (isset($metaVars['seomaticSiteMeta']['siteSeoImage']))
             $webSiteJSONLD['image'] = $metaVars['seomaticSiteMeta']['siteSeoImage'];
 
@@ -1659,7 +1659,7 @@ class SeomaticService extends BaseApplicationComponent
                 {
                     $image = craft()->assets->getFileById($meta['seoImageId']);
                     if ($image)
-                        $meta['seoImage'] = $image->url;
+                        $meta['seoImage'] = $this->getFullyQualifiedUrl($image->url);
                     else
                         $meta['seoImage'] = '';
                     unset($meta['seoImageId']);
@@ -2050,6 +2050,8 @@ class SeomaticService extends BaseApplicationComponent
 public function getFullyQualifiedUrl($url)
 {
     $result = $url;
+    if (!isset($result) || $result == "")
+        return $result;
     $srcUrlParts = parse_url($result);
     if (isset($srcUrlParts['scheme']) && isset($srcUrlParts['host']))
     {
