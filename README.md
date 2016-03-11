@@ -1600,6 +1600,16 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.8 -- 2016.03.10
+
+* [Improved] In the SEOmatic FieldType, moved default setting to prepValue() so it'll work if the entries are all re-saved via `resaveAllElements`
+* [Added] Added getFullyQualifiedUrl() helper as a Twig function/filter and as a variable for Twig templating
+* [Improved] Turn things that should be fully qualified URLs into fully qualified URLs, such as the canonicalUrl, seoImage, and anything with `url` as a key
+* [Improved] Added seoImage() and seoImageID() to the model so you can get at those values from, say, `entry.seoField.seoImage()`
+* [Fixed] canonicalUrl fixes for multilingual sites
+* [Fixed] Fixed errant ordinal encoding of the first element in a sequential array
+* [Improved] Updated the README.md
+
 ### 1.1.7 -- 2016.03.04
 
 * [Fixed] Fixed a regression that would cause the Place JSON-LD to render incorrectly
