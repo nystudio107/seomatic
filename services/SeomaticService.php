@@ -699,7 +699,7 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Get a full qualified URL for the current request */
 
-        $requestUrl = craft()->request->url;
+        $requestUrl = UrlHelper::stripQueryString(craft()->request->url);
         $meta['canonicalUrl'] = $this->getFullyQualifiedUrl($requestUrl);
 
 /* -- Merge the meta with the global meta */
