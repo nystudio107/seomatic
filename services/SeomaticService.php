@@ -404,7 +404,14 @@ class SeomaticService extends BaseApplicationComponent
 
                                 case 'custom':
                                     $entryMeta['seoTitle'] = craft()->config->parseEnvironmentString($entryMeta['seoTitle']);
-                                    $entryMeta['seoTitle'] = craft()->templates->renderObjectTemplate($entryMeta['seoTitle'], $element);
+                                    try
+                                    {
+                                        $entryMeta['seoTitle'] = craft()->templates->renderObjectTemplate($entryMeta['seoTitle'], $element);
+                                    }
+                                    catch (Exception $e)
+                                    {
+                                        SeomaticPlugin::log("Template error in the `seoTitle` field.", LogLevel::Info, true);
+                                    }
                                 break;
                             }
 
@@ -419,8 +426,15 @@ class SeomaticService extends BaseApplicationComponent
 
                                 case 'custom':
                                     $entryMeta['seoDescription'] = craft()->config->parseEnvironmentString($entryMeta['seoDescription']);
-                                    $entryMeta['seoDescription'] = craft()->templates->renderObjectTemplate($entryMeta['seoDescription'], $element);
-                                break;
+                                    try
+                                    {
+                                        $entryMeta['seoDescription'] = craft()->templates->renderObjectTemplate($entryMeta['seoDescription'], $element);
+                                    }
+                                    catch (Exception $e)
+                                    {
+                                        SeomaticPlugin::log("Template error in the `seoDescription` field.", LogLevel::Info, true);
+                                    }
+                               break;
                             }
 
                             switch ($entryMeta['seoKeywordsSource'])
@@ -442,8 +456,15 @@ class SeomaticService extends BaseApplicationComponent
 
                                 case 'custom':
                                     $entryMeta['seoKeywords'] = craft()->config->parseEnvironmentString($entryMeta['seoKeywords']);
-                                    $entryMeta['seoKeywords'] = craft()->templates->renderObjectTemplate($entryMeta['seoKeywords'], $element);
-                                break;
+                                    try
+                                    {
+                                        $entryMeta['seoKeywords'] = craft()->templates->renderObjectTemplate($entryMeta['seoKeywords'], $element);
+                                    }
+                                    catch (Exception $e)
+                                    {
+                                        SeomaticPlugin::log("Template error in the `seoDescription` field.", LogLevel::Info, true);
+                                    }
+                               break;
                             }
 
                             switch ($entryMeta['seoImageIdSource'])
