@@ -1,5 +1,17 @@
 [
     {
+        "version": "1.1.9",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
+        "date": "2016-03-17T11:00:00-05:00",
+        "notes": [
+            "[Fixed] Fixed a typo in the Preview SEO Tags window",
+            "[Fixed] We now handle Twig errors in SEOmatic FieldType fields gracefully",
+            "[Improved] Query strings are now stripped from the canonical URL",
+            "[Improved] All things that should be fully qualified URLs are now fully qualified URLs, even if you specify them via path or relative URL",
+            "[Improved] Updated the README.md"
+        ]
+    },
+    {
         "version": "1.1.8",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-03-10T11:00:00-05:00",

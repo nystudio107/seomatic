@@ -1600,6 +1600,14 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.9 -- 2016.03.17
+
+* [Fixed] Fixed a typo in the Preview SEO Tags window
+* [Fixed] We now handle Twig errors in SEOmatic FieldType fields gracefully
+* [Improved] Query strings are now stripped from the canonical URL
+* [Improved] All things that should be fully qualified URLs are now fully qualified URLs, even if you specify them via path or relative URL
+* [Improved] Updated the README.md
+
 ### 1.1.8 -- 2016.03.10
 
 * [Improved] In the SEOmatic FieldType, moved default setting to prepValue() so it'll work if the entries are all re-saved via `resaveAllElements`
