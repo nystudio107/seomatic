@@ -2199,19 +2199,14 @@ public function getFullyQualifiedUrl($url)
 
     private function _cleanupText($text = null)
     {
-
-/* -- Strip any html tags */
-
-        $text = strip_tags($text);
-
 /* -- convert to UTF-8 */
 
         $text = iconv(mb_detect_encoding($text, mb_detect_order(), true), "UTF-8//IGNORE", $text);
 
-/* -- strip HTML tags
+/* -- strip HTML tags */
 
         $text = preg_replace('#<[^>]+>#', ' ', $text);
-*/
+
 /* -- remove excess whitespace */
 
         $text = preg_replace('/\s+/', ' ', $text);
