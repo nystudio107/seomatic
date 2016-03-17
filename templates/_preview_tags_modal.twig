@@ -5,7 +5,7 @@
                 <div class="displaypreview-container">
 
                     <h1>{{ "Rendered For" |t }}</h1>
-                    <p>{% if elementId%}{{ "<code>Entry</code> Meta.  This is what is generated for the this Entry with data from the SEOmatic Meta field." |t | raw }}{% else %}{% if previewMetaPath %}<code>{{ previewMetaPath }}</code> {{ "SEO Template Meta.  This is what is generated when this template is displayed." |t | raw }}{% else %}{{ "<code>SEO Site</code> Meta.  This is what is generated for the global Site Meta, with no Template Meta overrides." |t | raw }}{% endif %}{% endif %}</p>
+                    <p>{% if elementId%}{{ "<code>Entry</code> Meta.  This is what is generated for this Entry with data from the SEOmatic Meta field." |t | raw }}{% else %}{% if previewMetaPath %}<code>{{ previewMetaPath }}</code> {{ "SEO Template Meta.  This is what is generated when this template is displayed." |t | raw }}{% else %}{{ "<code>SEO Site</code> Meta.  This is what is generated for the global Site Meta, with no Template Meta overrides." |t | raw }}{% endif %}{% endif %}</p>
 
                     <div class="preview-column">
                         <h1><br />{{ "Meta Template Variables" |t }}</h1>
