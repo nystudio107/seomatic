@@ -14,7 +14,7 @@ return array(
  * The maximum number of characters allow for the seoTitle.  It's HIGHLY recommend that
  * you keep this set to 70 characters.
  */
-	"maxTitleLength" => 70,
+    "maxTitleLength" => 70,
 
 /**
  * Controls whether SEOmatic will truncate the text in <title> tags maxTitleLength characters.
@@ -27,7 +27,7 @@ return array(
  * The maximum number of characters allow for the seoDescription.  It's HIGHLY recommend that
  * you keep this set to 160 characters.
  */
-	"maxDescriptionLength" => 160,
+    "maxDescriptionLength" => 160,
 
 /**
  * Controls whether SEOmatic will truncate the descrption tags maxDescriptionLength characters.
@@ -40,7 +40,7 @@ return array(
  * The maximum number of characters allow for the seoKeywords.  It's HIGHLY recommend that
  * you keep this set to 200 characters.
  */
-	"maxKeywordsLength" => 200,
+    "maxKeywordsLength" => 200,
 
 /**
  * Controls whether SEOmatic will truncate the keywords tags maxKeywordsLength characters.
