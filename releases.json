@@ -1,5 +1,15 @@
 [
     {
+        "version": "1.1.10",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
+        "date": "2016-03-29T11:00:00-05:00",
+        "notes": [
+            "[Fixed] Fixed API 'deprecation' errors with Craft 2.6.2778 or later",
+            "[Improved] Added more controls for the default title, description, and keywords values in config.php",
+            "[Improved] Updated the README.md"
+        ]
+    },
+    {
         "version": "1.1.9",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-03-17T11:00:00-05:00",

@@ -57,10 +57,11 @@ class Seomatic_MetaFieldType extends BaseFieldType
             $locale = craft()->language;
 
         $siteMeta = craft()->seomatic->getSiteMeta($locale);
+        $titleLength = craft()->config->get("maxTitleLength", "seomatic");
         if ($siteMeta['siteSeoTitlePlacement'] == "none")
-            $variables['titleLength'] = 70;
+            $variables['titleLength'] = $titleLength;
         else
-            $variables['titleLength'] = (70 - strlen(" | ") - strlen($siteMeta['siteSeoName']));
+            $variables['titleLength'] = ($titleLength - strlen(" | ") - strlen($siteMeta['siteSeoName']));
 
 /* -- Prep some parameters */
 
@@ -233,10 +234,11 @@ class Seomatic_MetaFieldType extends BaseFieldType
             }
         }
 
+        $titleLength = craft()->config->get("maxTitleLength", "seomatic");
         if ($siteMeta['siteSeoTitlePlacement'] == "none")
-            $titleLength = 70;
+            $titleLength = $titleLength;
         else
-            $titleLength = (70 - strlen(" | ") - strlen($siteMeta['siteSeoName']));
+            $titleLength = ($titleLength - strlen(" | ") - strlen($siteMeta['siteSeoName']));
 
         craft()->templates->includeCssResource('seomatic/css/style.css');
         craft()->templates->includeCssResource('seomatic/css/field.css');

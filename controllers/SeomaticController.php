@@ -30,16 +30,16 @@ class SeomaticController extends BaseController
         }
         else
         {
-            $oldPath = craft()->path->getTemplatesPath();
+            $oldPath = method_exists(craft()->templates, 'getTemplatesPath') ? craft()->templates->getTemplatesPath() : craft()->path->getTemplatesPath();
             $newPath = craft()->path->getPluginsPath().'seomatic/templates';
-            craft()->path->setTemplatesPath($newPath);
+            method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($newPath) : craft()->path->setTemplatesPath($newPath);
 
 /* -- Render the core template */
 
             $templateName = '_humans';
             $this->renderTemplate($templateName, $metaVars);
 
-            craft()->path->setTemplatesPath($oldPath);
+            method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($oldPath) : craft()->path->setTemplatesPath($oldPath);
         }
     } /* -- actionRenderHumans */
 
@@ -67,9 +67,9 @@ class SeomaticController extends BaseController
         }
         else
         {
-            $oldPath = craft()->path->getTemplatesPath();
+            $oldPath = method_exists(craft()->templates, 'getTemplatesPath') ? craft()->templates->getTemplatesPath() : craft()->path->getTemplatesPath();
             $newPath = craft()->path->getPluginsPath().'seomatic/templates';
-            craft()->path->setTemplatesPath($newPath);
+            method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($newPath) : craft()->path->setTemplatesPath($newPath);
 
 /* -- Render the core template */
 
@@ -77,6 +77,7 @@ class SeomaticController extends BaseController
             $this->renderTemplate($templateName, $metaVars);
 
             craft()->path->setTemplatesPath($oldPath);
+            method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($oldPath) : craft()->path->setTemplatesPath($oldPath);
         }
     } /* -- actionRenderRobots */
 
@@ -93,10 +94,11 @@ class SeomaticController extends BaseController
             $locale = craft()->language;
 
         $siteMeta = craft()->seomatic->getSiteMeta($locale);
+        $titleLength = craft()->config->get("maxTitleLength", "seomatic");
         if ($siteMeta['siteSeoTitlePlacement'] == "none")
-            $variables['titleLength'] = 70;
+            $variables['titleLength'] = $titleLength;
         else
-            $variables['titleLength'] = (70 - strlen(" | ") - strlen($siteMeta['siteSeoName']));
+            $variables['titleLength'] = ($titleLength - strlen(" | ") - strlen($siteMeta['siteSeoName']));
 
         $variables['siteMeta'] = $siteMeta;
 
@@ -259,10 +261,11 @@ class SeomaticController extends BaseController
             $locale = craft()->language;
 
         $siteMeta = craft()->seomatic->getSiteMeta($locale);
+        $titleLength = craft()->config->get("maxTitleLength", "seomatic");
         if ($siteMeta['siteSeoTitlePlacement'] == "none")
-            $variables['titleLength'] = 70;
+            $variables['titleLength'] = $titleLength;
         else
-            $variables['titleLength'] = (70 - strlen(" | ") - strlen($siteMeta['siteSeoName']));
+            $variables['titleLength'] = ($titleLength - strlen(" | ") - strlen($siteMeta['siteSeoName']));
 
         if (empty($variables['meta']))
         {

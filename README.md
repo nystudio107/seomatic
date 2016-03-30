@@ -1600,6 +1600,12 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.10 -- 2016.03.29
+
+* [Fixed] Fixed API 'deprecation' errors with Craft 2.6.2778 or later
+* [Improved] Added more controls for the default title, description, and keywords values in config.php
+* [Improved] Updated the README.md
+
 ### 1.1.9 -- 2016.03.17
 
 * [Fixed] Fixed a typo in the Preview SEO Tags window

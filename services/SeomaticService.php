@@ -67,9 +67,9 @@ class SeomaticService extends BaseApplicationComponent
             }
         else
             {
-            $oldPath = craft()->path->getTemplatesPath();
+            $oldPath = method_exists(craft()->templates, 'getTemplatesPath') ? craft()->templates->getTemplatesPath() : craft()->path->getTemplatesPath();
             $newPath = craft()->path->getPluginsPath().'seomatic/templates';
-            craft()->path->setTemplatesPath($newPath);
+            method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($newPath) : craft()->path->setTemplatesPath($newPath);
 
 /* -- Render the core template */
 
@@ -84,7 +84,7 @@ class SeomaticService extends BaseApplicationComponent
             else
                 $htmlText = craft()->templates->render($templateName);
 
-            craft()->path->setTemplatesPath($oldPath);
+            method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($oldPath) : craft()->path->setTemplatesPath($oldPath);
             }
         return $htmlText;
     } /* -- render */
@@ -126,9 +126,9 @@ class SeomaticService extends BaseApplicationComponent
     public function renderJSONLD($object=array(), $isPreview=false)
     {
         $vars = array("object" => $object);
-        $oldPath = craft()->path->getTemplatesPath();
+        $oldPath = method_exists(craft()->templates, 'getTemplatesPath') ? craft()->templates->getTemplatesPath() : craft()->path->getTemplatesPath();
         $newPath = craft()->path->getPluginsPath().'seomatic/templates';
-        craft()->path->setTemplatesPath($newPath);
+        method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($newPath) : craft()->path->setTemplatesPath($newPath);
 
 /* -- Render the core template */
 
@@ -138,7 +138,7 @@ class SeomaticService extends BaseApplicationComponent
         else
             $htmlText = craft()->templates->render($templateName, $vars);
 
-        craft()->path->setTemplatesPath($oldPath);
+        method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($oldPath) : craft()->path->setTemplatesPath($oldPath);
 
         return $htmlText;
     } /* -- renderJSONLD */
@@ -149,16 +149,16 @@ class SeomaticService extends BaseApplicationComponent
 
     public function renderDisplayPreview($templateName="", $metaVars)
     {
-        $oldPath = craft()->path->getTemplatesPath();
+        $oldPath = method_exists(craft()->templates, 'getTemplatesPath') ? craft()->templates->getTemplatesPath() : craft()->path->getTemplatesPath();
         $newPath = craft()->path->getPluginsPath().'seomatic/templates';
-        craft()->path->setTemplatesPath($newPath);
+        method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($newPath) : craft()->path->setTemplatesPath($newPath);
 
 /* -- Render the SEOmatic display preview template */
 
         $this->sanitizeMetaVars($metaVars);
         $htmlText = craft()->templates->render($templateName, $metaVars);
 
-        craft()->path->setTemplatesPath($oldPath);
+        method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($oldPath) : craft()->path->setTemplatesPath($oldPath);
 
         return $htmlText;
     } /* -- renderDisplayPreview */
@@ -222,9 +222,9 @@ class SeomaticService extends BaseApplicationComponent
         $shouldRenderGA = craft()->config->get("renderGoogleAnalyticsScript", "seomatic");
         if (($shouldRenderGA) || ($isPreview))
         {
-            $oldPath = craft()->path->getTemplatesPath();
+            $oldPath = method_exists(craft()->templates, 'getTemplatesPath') ? craft()->templates->getTemplatesPath() : craft()->path->getTemplatesPath();
             $newPath = craft()->path->getPluginsPath().'seomatic/templates';
-            craft()->path->setTemplatesPath($newPath);
+            method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($newPath) : craft()->path->setTemplatesPath($newPath);
 
     /* -- Render the core template */
 
@@ -234,7 +234,7 @@ class SeomaticService extends BaseApplicationComponent
             else
                 $htmlText = craft()->templates->render($templateName, $metaVars);
 
-            craft()->path->setTemplatesPath($oldPath);
+            method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($oldPath) : craft()->path->setTemplatesPath($oldPath);
         }
         return $htmlText;
     } /* -- renderGoogleAnalytics */
@@ -270,9 +270,9 @@ class SeomaticService extends BaseApplicationComponent
         }
         else
         {
-            $oldPath = craft()->path->getTemplatesPath();
+            $oldPath = method_exists(craft()->templates, 'getTemplatesPath') ? craft()->templates->getTemplatesPath() : craft()->path->getTemplatesPath();
             $newPath = craft()->path->getPluginsPath().'seomatic/templates';
-            craft()->path->setTemplatesPath($newPath);
+            method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($newPath) : craft()->path->setTemplatesPath($newPath);
 
 /* -- Render the core template */
 
@@ -281,7 +281,7 @@ class SeomaticService extends BaseApplicationComponent
                 $templateName = $templateName . 'Preview';
             $htmlText = craft()->templates->render($templateName, $metaVars);
 
-            craft()->path->setTemplatesPath($oldPath);
+            method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($oldPath) : craft()->path->setTemplatesPath($oldPath);
         }
 
         return $htmlText;
@@ -326,9 +326,9 @@ class SeomaticService extends BaseApplicationComponent
         }
         else
         {
-            $oldPath = craft()->path->getTemplatesPath();
+            $oldPath = method_exists(craft()->templates, 'getTemplatesPath') ? craft()->templates->getTemplatesPath() : craft()->path->getTemplatesPath();
             $newPath = craft()->path->getPluginsPath().'seomatic/templates';
-            craft()->path->setTemplatesPath($newPath);
+            method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($newPath) : craft()->path->setTemplatesPath($newPath);
 
 /* -- Render the core template */
 
@@ -337,7 +337,7 @@ class SeomaticService extends BaseApplicationComponent
                 $templateName = $templateName . 'Preview';
             $htmlText = craft()->templates->render($templateName, $metaVars);
 
-            craft()->path->setTemplatesPath($oldPath);
+            method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($oldPath) : craft()->path->setTemplatesPath($oldPath);
         }
 
         return $htmlText;
@@ -2025,24 +2025,29 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Truncate seoTitle, seoDescription, and seoKeywords to recommended values */
 
-        $shouldTruncate = craft()->config->get("truncateTitleTags", "seomatic");
-        if ($shouldTruncate)
+        $titleLength = 0;
+        if (craft()->config->get("truncateTitleTags", "seomatic"))
         {
+            $titleLength = craft()->config->get("maxTitleLength", "seomatic");
             if ($seomaticSiteMeta['siteSeoTitlePlacement'] == "none")
-                $titleLength = 70;
+                $titleLength = $titleLength;
             else
-                $titleLength = (70 - strlen(" | ") - strlen($seomaticSiteMeta['siteSeoName']));
-        }
-        else
-        {
-            $titleLength = 200;
+                $titleLength = ($titleLength - strlen(" | ") - strlen($seomaticSiteMeta['siteSeoName']));
         }
 
-        $vars = array('seoTitle' => $titleLength, 'seoDescription' => 160, 'seoKeywords' => 200);
+        $descriptionLength = 0;
+        if (craft()->config->get("truncateDescriptionTags", "seomatic"))
+            $descriptionLength = craft()->config->get("maxDescriptionLength", "seomatic");
+
+        $keywordsLength = 0;
+        if (craft()->config->get("truncateKeywordsTags", "seomatic"))
+            $keywordsLength = craft()->config->get("maxKeywordsLength", "seomatic");
+
+        $vars = array('seoTitle' => $titleLength, 'seoDescription' => $descriptionLength, 'seoKeywords' => $keywordsLength);
 
         foreach ($vars as $key => $value)
         {
-            if (isset($seomaticMeta[$key]))
+            if (isset($seomaticMeta[$key]) && $value)
             {
                 $seomaticMeta[$key] = $this->truncateStringOnWord($seomaticMeta[$key], $value);
             }

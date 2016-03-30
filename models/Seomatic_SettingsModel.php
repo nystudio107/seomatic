@@ -166,9 +166,9 @@ class Seomatic_SettingsModel extends BaseModel
 
     public function getDefaultHumans()
     {
-        $oldPath = craft()->path->getTemplatesPath();
+        $oldPath = method_exists(craft()->templates, 'getTemplatesPath') ? craft()->templates->getTemplatesPath() : craft()->path->getTemplatesPath();
         $newPath = craft()->path->getPluginsPath().'seomatic/templates';
-        craft()->path->setTemplatesPath($newPath);
+        method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($newPath) : craft()->path->setTemplatesPath($newPath);
 
 /* -- Return the Humans.txt default template */
 
@@ -176,7 +176,7 @@ class Seomatic_SettingsModel extends BaseModel
         $loader = new TemplateLoader;
         $template = $loader->getSource($templateName);
 
-        craft()->path->setTemplatesPath($oldPath);
+        method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($oldPath) : craft()->path->setTemplatesPath($oldPath);
 
         return $template;
     } /* -- _getDefaultHumans */
@@ -187,9 +187,9 @@ class Seomatic_SettingsModel extends BaseModel
 
     public function getDefaultRobots()
     {
-        $oldPath = craft()->path->getTemplatesPath();
+        $oldPath = method_exists(craft()->templates, 'getTemplatesPath') ? craft()->templates->getTemplatesPath() : craft()->path->getTemplatesPath();
         $newPath = craft()->path->getPluginsPath().'seomatic/templates';
-        craft()->path->setTemplatesPath($newPath);
+        method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($newPath) : craft()->path->setTemplatesPath($newPath);
 
 /* -- Return the robots.txt default template */
 
@@ -197,7 +197,7 @@ class Seomatic_SettingsModel extends BaseModel
         $loader = new TemplateLoader;
         $template = $loader->getSource($templateName);
 
-        craft()->path->setTemplatesPath($oldPath);
+        method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($oldPath) : craft()->path->setTemplatesPath($oldPath);
 
         return $template;
     } /* -- _getDefaultRobots */
