@@ -26,7 +26,7 @@ class Seomatic_SettingsModel extends BaseModel
             'siteOpenGraphType'                 => array(AttributeType::String, 'default' => 'website'),
             'siteSeoImageId'                    => array(AttributeType::Number, 'default' => null),
             'siteRobots'                        => array(AttributeType::String, 'default' => ''),
-            'siteRobotsTxt'                     => array(AttributeType::Mixed, 'default' => $this->getDefaultRobots()),
+            'siteRobotsTxt'                     => array(AttributeType::String, 'default' => $this->getDefaultRobots()),
 
 /* --------------------------------------------------------------------------------
     IDENTITY settings
@@ -156,7 +156,7 @@ class Seomatic_SettingsModel extends BaseModel
 
 /* -- Humans.txt */
 
-            'genericCreatorHumansTxt'           => array(AttributeType::Mixed, 'default' => $this->getDefaultHumans()),
+            'genericCreatorHumansTxt'           => array(AttributeType::String, 'default' => $this->getDefaultHumans()),
         ));
     }
 

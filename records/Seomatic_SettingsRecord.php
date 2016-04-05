@@ -27,7 +27,7 @@ class Seomatic_SettingsRecord extends BaseRecord
             'siteTwitterCardType'				=> array(AttributeType::String, 'default' => ''),
             'siteOpenGraphType'					=> array(AttributeType::String, 'default' => ''),
             'siteRobots'						=> array(AttributeType::String, 'default' => ''),
-            'siteRobotsTxt'                     => array(AttributeType::Mixed),
+            'siteRobotsTxt'                     => array(AttributeType::String, 'column' => ColumnType::Text),
 
 /* --------------------------------------------------------------------------------
 	IDENTITY settings
@@ -162,7 +162,7 @@ class Seomatic_SettingsRecord extends BaseRecord
 
 /* -- Humans.txt */
 
-            'genericCreatorHumansTxt'           => array(AttributeType::Mixed),
+            'genericCreatorHumansTxt'           => array(AttributeType::String, 'column' => ColumnType::Text),
 
 /* -- This is defined in definteRelations() below, of note:
       You don’t need to specify the foreign key column name in BELONGS_TO relations (defaults to the relation name appended with “Id”)
