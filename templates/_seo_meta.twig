@@ -121,6 +121,6 @@
 
 <!-- Google Analytics -->
 
-{% if not craft.config.devMode and not craft.request.isLivePreview %}{{ craft.seomatic.renderGoogleAnalytics() |raw }}{% endif %}
+{% if not craft.config.devMode and not craft.request.isLivePreview %}{{ craft.seomatic.renderGoogleAnalytics() |raw }}{% else %}<!-- Google Analytics script is NOT included in LivePreview or if devMode is on -->{% endif %}
 
 <!-- END SEOmatic rendered SEO Meta -->

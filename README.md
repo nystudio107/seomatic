@@ -1600,6 +1600,12 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.11 -- 2016.04.06
+
+* Fixed] Fixed an issue with rendering the humans.tx and robots.txt templates
+* [Improved] An HTML comment is added if the Google Analytics script is not included due to LivePreview or devMode being on
+* [Improved] Updated the README.md
+
 ### 1.1.10 -- 2016.03.29
 
 * [Fixed] Fixed API 'deprecation' errors with Craft 2.6.2778 or later
