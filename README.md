@@ -1600,9 +1600,9 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
-### 1.1.11 -- 2016.04.06
+### 1.1.11 -- 2016.04.08
 
-* Fixed] Fixed an issue with rendering the humans.tx and robots.txt templates
+* [Fixed] Fixed an issue with rendering the humans.tx and robots.txt templates
 * [Improved] An HTML comment is added if the Google Analytics script is not included due to LivePreview or devMode being on
 * [Improved] Updated the README.md
 
