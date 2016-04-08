@@ -716,21 +716,21 @@ Obviously, you'll want to substitute in variables for the above, e.g.:
 		{% for variant in products.variants %}
 			{% set myJSONLD = {
 				type: "Product",
-				name: "{{ variant.description }}",
-				image: "{{ variant.myProductShot }}",
-				logo: "{{ variant.myProductLogo }}",
-				description: "{{ variant.myProductDescription }}",
-				model: "{{ variant.myProductModel }}",
+				name: variant.description,
+				image: variant.myProductShot,
+				logo: variant.myProductLogo,
+				description: variant.myProductDescription,
+				model: variant.myProductModel,
 				offers: {
 					type: "Offer",
-					url: "{{ product.url }}",
-					price: "{{ variant.price }}",
+					url: product.url,
+					price: variant.price,
 					priceCurrency: "USD",
 					acceptedPaymentMethod: ["CreditCard", "PayPal"],
 					seller: {
 					    type: "Corporation",
-					    name: "{{ seomaticSiteMeta.siteSeoName }}",
-					    url: "{{ siteUrl }}"
+					    name: seomaticSiteMeta.siteSeoName,
+					    url: siteUrl
 					}
 				}
 			} %}
