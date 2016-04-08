@@ -50,7 +50,6 @@
 
                 var handle = $('#' + seomatic.options.prefix + seomatic.options.id + 'seoImageIdSourceField').val();
                 var url = seomatic.options.fieldImage[handle];
-                console.log(url);
                 if (url == "" || typeof url == 'undefined')
                     url = seomatic.options.missing_image;
                 $('#' + seomatic.options.prefix + seomatic.options.id + 'seoImageIdSource-preview').attr('src', url);
