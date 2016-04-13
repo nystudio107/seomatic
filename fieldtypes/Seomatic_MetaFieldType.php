@@ -261,15 +261,17 @@ class Seomatic_MetaFieldType extends BaseFieldType
      */
     public function prepValueFromPost($value)
     {
+        $result = null;
 
         if (empty($value))
         {
-            return new Seomatic_MetaFieldModel();
+            $result = prepValue($value);
         }
         else
         {
-            return new Seomatic_MetaFieldModel($value);
+            $result = new Seomatic_MetaFieldModel($value);
         }
+        return $result;
     }
 
     public function prepValue($value)
