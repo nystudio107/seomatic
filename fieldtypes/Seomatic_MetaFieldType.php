@@ -317,26 +317,16 @@ class Seomatic_MetaFieldType extends BaseFieldType
     {
         $element = $this->element;
         $content = $element->getContent();
+        $fieldHandle = $this->model->handle;
 
-        $fieldLayouts = $element->fieldLayout->getFields();
-        foreach ($fieldLayouts as $fieldLayout)
+        if (empty($fieldHandle))
         {
-            $field = craft()->fields->getFieldById($fieldLayout->fieldId);
-
-            switch ($field->type)
-            {
-                case "Seomatic_Meta":
-                    if (empty($content->attributes[$field->handle]))
-                    {
-                        $defaultField = $this->prepValue(null);
-                        $content->setAttribute($field->handle, $defaultField);
-                        $element->setContent($content);
-                        craft()->content->saveContent($element);
-                    }
-                break;
-
-            }
+            $defaultField = $this->prepValue(null);
+            $content->setAttribute($field->handle, $defaultField);
+            $element->setContent($content);
+            craft()->content->saveContent($element);
         }
+
         parent::onAfterElementSave();
     }
 
