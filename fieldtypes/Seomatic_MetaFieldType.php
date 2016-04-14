@@ -265,7 +265,7 @@ class Seomatic_MetaFieldType extends BaseFieldType
 
         if (empty($value))
         {
-            $result = prepValue($value);
+            $result = $this->prepValue($value);
         }
         else
         {
@@ -306,6 +306,38 @@ class Seomatic_MetaFieldType extends BaseFieldType
         }
 
         return $value;
+    }
+
+    /**
+     * @inheritDoc IFieldType::onAfterElementSave()
+     *
+     * @return null
+     */
+    public function onAfterElementSave()
+    {
+        $element = $this->element;
+        $content = $element->getContent();
+
+        $fieldLayouts = $element->fieldLayout->getFields();
+        foreach ($fieldLayouts as $fieldLayout)
+        {
+            $field = craft()->fields->getFieldById($fieldLayout->fieldId);
+
+            switch ($field->type)
+            {
+                case "Seomatic_Meta":
+                    if (empty($content->attributes[$field->handle]))
+                    {
+                        $defaultField = $this->prepValue(null);
+                        $content->setAttribute($field->handle, $defaultField);
+                        $element->setContent($content);
+                        craft()->content->saveContent($element);
+                    }
+                break;
+
+            }
+        }
+        parent::onAfterElementSave();
     }
 
     /**
