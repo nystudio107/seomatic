@@ -1600,6 +1600,11 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.12 -- 2016.04.14
+
+* [Improved] [Improved] SEOmatic will now populate its FieldType with default values on saveElement(), which is triggered via import plugings and also via Settings → Edit My Section → hit Save
+* [Improved] Updated the README.md
+
 ### 1.1.11 -- 2016.04.08
 
 * [Fixed] Fixed an issue with rendering the humans.tx and robots.txt templates
