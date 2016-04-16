@@ -1,5 +1,14 @@
 [
     {
+        "version": "1.1.13",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
+        "date": "2016-04-18T11:00:00-05:00",
+        "notes": [
+            "[Improved] SEOmatic now uses control panel sub-navs if you're running Craft 2.5 or later",
+            "[Improved] Updated the README.md"
+        ]
+    },
+    {
         "version": "1.1.12",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-04-14T11:00:00-05:00",

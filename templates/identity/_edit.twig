@@ -13,20 +13,26 @@
 
 {% set title = "SEOmatic"|t %}
 
-{% set docsUrl = "https://github.com/khalwat/seomatic/blob/master/README.md" %}
-
 {% set fullPageForm = true %}
 {% set hasCustomLayout = true %}
 
-{% set tabs = {
-    meta:       { label: "SEO Template Meta"|t, url: url('seomatic/meta') },
-    site:       { label: "SEO Site Meta"|t, url: url('seomatic/site') },
+{% set docsUrl = "https://github.com/nystudio107/seomatic/wiki" %}
+
+{% set seomaticSections = {
+    meta:       { label: "Template Meta"|t, url: url('seomatic/meta') },
+    site:       { label: "Site Meta"|t, url: url('seomatic/site') },
     identity:   { label: "Site Identity"|t, url: url('seomatic/identity') },
     social:     { label: "Social Media"|t, url: url('seomatic/social') },
     creator:    { label: "Site Creator"|t, url: url('seomatic/creator') },
 } %}
 
-{% set selectedTab = 'identity' %}
+{% if craft.app.version < 2.5 %}
+    {% set tabs = seomaticSections %}
+    {% set selectedTab = 'identity' %}
+{% else %}
+    {% set subnav = seomaticSections %}
+    {% set selectedSubnavItem = 'identity' %}
+{% endif %}
 
 {% block main %}
 
@@ -48,7 +54,9 @@
         <div class="grid first">
             <div class="item" data-position="left" data-min-colspan="2" data-max-colspan="3">
                 <div id="fields" class="pane">
-                    {% include "_includes/tabs" %}
+                    {% if tabs is defined %}
+                        {% include "_includes/tabs" %}
+                    {% endif %}
 
 <!-- Site Ownership -->
 

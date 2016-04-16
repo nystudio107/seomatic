@@ -13,7 +13,24 @@
 {% includeJsResource "seomatic/js/meta.js" %}
 
 {% set fullPageForm = true %}
-{% set docsUrl = "https://github.com/khalwat/seomatic/blob/master/README.md" %}
+
+{% set docsUrl = "https://github.com/nystudio107/seomatic/wiki" %}
+
+{% set seomaticSections = {
+    meta:       { label: "Template Meta"|t, url: url('seomatic/meta') },
+    site:       { label: "Site Meta"|t, url: url('seomatic/site') },
+    identity:   { label: "Site Identity"|t, url: url('seomatic/identity') },
+    social:     { label: "Social Media"|t, url: url('seomatic/social') },
+    creator:    { label: "Site Creator"|t, url: url('seomatic/creator') },
+} %}
+
+{% if craft.app.version < 2.5 %}
+    {% set tabs = seomaticSections %}
+    {% set selectedTab = 'meta' %}
+{% else %}
+    {% set subnav = seomaticSections %}
+    {% set selectedSubnavItem = 'meta' %}
+{% endif %}
 
 {% block main %}
 
@@ -44,6 +61,9 @@
             <div class="grid first">
                 <div class="item" data-position="left" data-min-colspan="2" data-max-colspan="3">
                     <div id="fields" class="pane">
+                        {% if tabs is defined %}
+                            {% include "_includes/tabs" %}
+                        {% endif %}
                         {% include "seomatic/meta/_main" %}
 
                         <p>&nbsp;</p>

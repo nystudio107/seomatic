@@ -4,19 +4,26 @@
 {% includeJsResource "seomatic/js/metalist.js" %}
 
 {% set title = "SEOmatic"|t %}
-{% set docsUrl = "https://github.com/khalwat/seomatic/blob/master/README.md" %}
 
 {% set elementType = 'Seomatic_Meta' %}
 
-{% set tabs = {
-	meta:		{ label: "SEO Template Meta"|t, url: url('seomatic/meta') },
-	site:		{ label: "SEO Site Meta"|t, url: url('seomatic/site') },
+{% set docsUrl = "https://github.com/nystudio107/seomatic/wiki" %}
+
+{% set seomaticSections = {
+	meta:		{ label: "Template Meta"|t, url: url('seomatic/meta') },
+	site:		{ label: "Site Meta"|t, url: url('seomatic/site') },
 	identity:	{ label: "Site Identity"|t, url: url('seomatic/identity') },
 	social:		{ label: "Social Media"|t, url: url('seomatic/social') },
 	creator:	{ label: "Site Creator"|t, url: url('seomatic/creator') },
 } %}
 
-{% set selectedTab = 'meta' %}
+{% if craft.app.version < 2.5 %}
+	{% set tabs = seomaticSections %}
+	{% set selectedTab = 'meta' %}
+{% else %}
+	{% set subnav = seomaticSections %}
+	{% set selectedSubnavItem = 'meta' %}
+{% endif %}
 
 {% block sidebar %}
 

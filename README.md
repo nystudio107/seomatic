@@ -14,7 +14,7 @@ To install SEOmatic, follow these steps:
 4. Install plugin in the Craft Control Panel under Settings > Plugins
 5. The plugin folder should be named `seomatic` for Craft to see it.  GitHub recently started appending `-master` (the branch name) to the name of the folder for zip file downloads.
 
-SEOmatic works on Craft 2.4.x and Craft 2.5.x.
+SEOmatic works on Craft 2.4.x, Craft 2.5.x, and Craft 2.6.x.
 
 ## Overview
 
@@ -50,9 +50,14 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.13 -- 2016.04.18
+
+* [Improved] SEOmatic now uses control panel sub-navs if you're running Craft 2.5 or later
+* [Improved] Updated the README.md
+
 ### 1.1.12 -- 2016.04.14
 
-* [Improved] [Improved] SEOmatic will now populate its FieldType with default values on saveElement(), which is triggered via import plugings and also via Settings → Edit My Section → hit Save
+* [Improved] SEOmatic will now populate its FieldType with default values on saveElement(), which is triggered via import plugings and also via Settings → Edit My Section → hit Save
 * [Improved] Updated the README.md
 
 ### 1.1.11 -- 2016.04.08
