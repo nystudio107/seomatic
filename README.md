@@ -34,6 +34,8 @@ SEOmatic also caches each unique SEO Meta request so that your website performan
 
 Please read the complete documentation in the [SEOmatic Wiki](https://github.com/nystudio107/seomatic/wiki) or read the `DOCS.md` file in the repo.
 
+To better understand how all of this metadata benefits your website, please read: [Promote Your Content with Structured Data Markup](https://developers.google.com/structured-data/)
+
 ## Roadmap
 
 Some things to do, and ideas for potential features:
