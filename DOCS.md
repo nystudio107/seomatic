@@ -491,6 +491,151 @@ SEOmatic will automatically truncate these variables for you when you set them, 
 
 SEOmatic also automatically strips HTML/PHP tags from the variables, and translates HTML entities to ensure that they are properly encoded.
 
+## Rendering Custom JSON LD Microdata
+
+SEOmatic gives you the ability to render an arbitrary [JSON-LD](https://developers.google.com/schemas/formats/json-ld?hl=en) object, passed in as an array().  All three of these methods accomplish the same thing:
+
+	{# Render arbitrary JSON-LD using the 'renderJSONLD' function #}
+    {{ renderJSONLD( JSONLD_ARRAY ) }}
+    
+    {# Render arbitrary JSON-LD using the 'renderJSONLD' filter #}
+    {{ JSONLD_ARRAY | renderJSONLD }}
+    
+    {# Render arbitrary JSON-LD using the 'renderJSONLD' variable #}
+    {% do craft.seomatic.renderJSONLD( JSONLD_ARRAY ) %}
+
+
+The JSONLD_ARRAY should be in the following format in PHP:
+    
+    $myJSONLD = array(
+	    "type" => "Corporation",
+	    "name" => "nystudio107",
+	    "sameAs" => ["https://Twitter.com/nystudio107","https://plus.google.com/+nystudio107"],
+	    "address" => array(
+		    "type" => 'PostalAddress',
+		    "addressCountry" => "US",
+		    ),
+	    );
+	
+The JSONLD_ARRAY should be in the following format in Twig:
+
+	{% set myJSONLD = {
+		"type": "Corporation",
+		"name": "nystudio107",
+		"sameAs": ["https://Twitter.com/nystudio107","https://plus.google.com/+nystudio107"],
+		"address": {
+			"type": 'PostalAddress',
+			"addressCountry": "US",
+		},
+	} %}
+	
+The above arrays will render to the following JSON-LD:
+
+	<script type="application/ld+json">
+	{
+	    "@context": "http://schema.org",
+	    "@type": "Corporation",
+	    "name": "nystudio107",
+	    "sameAs": ["https://Twitter.com/nystudio107","https://plus.google.com/+nystudio107"],
+	    "address": {
+	        "@type": "PostalAddress",
+	        "addressCountry": "US" 
+	    } 
+	}
+	</script>
+	
+The array can be nested arbitrarily deep with sub-arrays.  The first key in the array, and in each sub-array, should be an "type" with a valid [Schema.org](http://Schema.org) type as the value.  Because Twig doesn't support array keys with non-alphanumeric characters, SEOmatic transforms the keys "type" into "@type" at render time.
+
+Here's a practical example.  Let's say you're working on a spiffy new online store using Craft Commerce, and you want to add in some microdata for the products listed in your store, for SEO purposes.  You can do something like this:
+
+	{% set myJSONLD = {
+		type: "Product",
+		name: "Brad's for Men Cologne",
+		image: "http://bradsformen.com/cologne.png",
+		logo: "http://bradsformen.com/cologne_logo.png",
+		description: "Brad Bell's musky essence will intoxicate you.",
+		model: "XQJ-37",
+		offers: {
+			type: "Offer",
+			url: "http://bradsformen.com/cologne",
+			price: "69.99",
+			priceCurrency: "USD",
+			acceptedPaymentMethod: ["CreditCard", "PayPal"],
+			seller: {
+			    type: "Corporation",
+			    name: "Brad Brands Intl.",
+			    url: "http://bradsformen.com"
+			}
+		},
+		manufacturer: {
+		    type: "Organization",
+		    name: "Scents Unlimited",
+		    url: "http://scentsunlimited.com"
+		},
+		aggregateRating: {
+			type: "AggregateRating",
+			bestRating: "100",
+			ratingCount: "24",
+			ratingValue: "87"
+		},
+	} %}
+    {{ myJSONLD | renderJSONLD }}
+
+Obviously, you'll want to substitute in variables for the above, e.g.:
+
+	{% set products = craft.commerce.products.type('normal').find() %}
+	
+	{% for product in products %}
+		{% for variant in products.variants %}
+			{% set myJSONLD = {
+				type: "Product",
+				name: variant.description,
+				image: variant.myProductShot,
+				logo: variant.myProductLogo,
+				description: variant.myProductDescription,
+				model: variant.myProductModel,
+				offers: {
+					type: "Offer",
+					url: product.url,
+					price: variant.price,
+					priceCurrency: "USD",
+					acceptedPaymentMethod: ["CreditCard", "PayPal"],
+					seller: {
+					    type: "Corporation",
+					    name: seomaticSiteMeta.siteSeoName,
+					    url: siteUrl
+					}
+				}
+			} %}
+		{{ myJSONLD | renderJSONLD }}
+		{% endfor %}
+	{% endfor %}
+
+There are many other values available for you to use; see the [Product](https://developers.google.com/schemas/reference/types/Product) schema for details.
+
+Here's another practical example of custom JSON-LD microdata to generate a `MusicAlbum`:
+
+    {% set musicAlbumJsonLd = {
+        type: "MusicAlbum",
+        name: entry.albumTitle | escape('html_attr'),
+        image: entry.albumArtwork.first().url |default(seomaticMeta.seoImage),
+        description: entry.albumDescription | escape('html_attr'),
+        url: seomaticMeta.canonicalUrl,
+        albumProductionType: 'studio album',
+        datePublished: entry.postDate.iso8601(),
+        sameAs: [entry.amazonLink, entry.appleMusicLink, entry.itunesLink, entry.spotifyLink]
+    } %}
+    {% set musicAlbumJsonLd = musicAlbumJsonLd | merge({"author": seomaticIdentity}) %}
+    {% set musicAlbumJsonLd = musicAlbumJsonLd | merge({"creator": seomaticIdentity}) %}
+    {% set musicAlbumJsonLd = musicAlbumJsonLd | merge({"byArtist": seomaticIdentity}) %}
+    {{ musicAlbumJsonLd | renderJSONLD }}
+
+Additional information links:
+
+* [Google Structured Data](https://developers.google.com/structured-data/)
+* [Google Schemas reference](https://developers.google.com/schemas/reference/)
+* [Schema.org Schemas reference](http://schema.org/docs/schemas.html)
+
 ## Dynamic Keyword Generation
 
 Generating good keywords from dynamic data is a pain; to this end, SEOmatic uses the [TextRank](https://github.com/crodas/TextRank) PHP library to generate high quality keywords from arbitrary text data.
@@ -661,128 +806,6 @@ The rendered `humans.txt` file uses the following template by default (you're fr
 ## Utility Filters & Functions
 
 SEOmatic exposes a few useful utility filters & functions that you can use... or not.
-
-### Rendering Arbitary JSON-LD
-
-SEOmatic gives you the ability to render an arbitrary [JSON-LD](https://developers.google.com/schemas/formats/json-ld?hl=en) object, passed in as an array().  All three of these methods accomplish the same thing:
-
-	{# Render arbitrary JSON-LD using the 'renderJSONLD' function #}
-    {{ renderJSONLD( JSONLD_ARRAY ) }}
-    
-    {# Render arbitrary JSON-LD using the 'renderJSONLD' filter #}
-    {{ JSONLD_ARRAY | renderJSONLD }}
-    
-    {# Render arbitrary JSON-LD using the 'renderJSONLD' variable #}
-    {% do craft.seomatic.renderJSONLD( JSONLD_ARRAY ) %}
-
-
-The JSONLD_ARRAY should be in the following format in PHP:
-    
-    $myJSONLD = array(
-	    "type" => "Corporation",
-	    "name" => "nystudio107",
-	    "sameAs" => ["https://Twitter.com/nystudio107","https://plus.google.com/+nystudio107"],
-	    "address" => array(
-		    "type" => 'PostalAddress',
-		    "addressCountry" => "US",
-		    ),
-	    );
-	
-The JSONLD_ARRAY should be in the following format in Twig:
-
-	{% set myJSONLD = {
-		"type": "Corporation",
-		"name": "nystudio107",
-		"sameAs": ["https://Twitter.com/nystudio107","https://plus.google.com/+nystudio107"],
-		"address": {
-			"type": 'PostalAddress',
-			"addressCountry": "US",
-		},
-	} %}
-	
-The above arrays will render to the following JSON-LD:
-
-	<script type="application/ld+json">
-	{
-	    "@context": "http://schema.org",
-	    "@type": "Corporation",
-	    "name": "nystudio107",
-	    "sameAs": ["https://Twitter.com/nystudio107","https://plus.google.com/+nystudio107"],
-	    "address": {
-	        "@type": "PostalAddress",
-	        "addressCountry": "US" 
-	    } 
-	}
-	</script>
-	
-The array can be nested arbitrarily deep with sub-arrays.  The first key in the array, and in each sub-array, should be an "type" with a valid [Schema.org](http://Schema.org) type as the value.  Because Twig doesn't support array keys with non-alphanumeric characters, SEOmatic transforms the keys "type" into "@type" at render time.
-
-Here's a practical example.  Let's say you're working on a spiffy new online store using Craft Commerce, and you want to add in some microdata for the products listed in your store, for SEO purposes.  You can do something like this:
-
-	{% set myJSONLD = {
-		type: "Product",
-		name: "Brad's for Men Cologne",
-		image: "http://bradsformen.com/cologne.png",
-		logo: "http://bradsformen.com/cologne_logo.png",
-		description: "Brad Bell's musky essence will intoxicate you.",
-		model: "XQJ-37",
-		offers: {
-			type: "Offer",
-			url: "http://bradsformen.com/cologne",
-			price: "69.99",
-			priceCurrency: "USD",
-			acceptedPaymentMethod: ["CreditCard", "PayPal"],
-			seller: {
-			    type: "Corporation",
-			    name: "Brad Brands Intl.",
-			    url: "http://bradsformen.com"
-			}
-		},
-		manufacturer: {
-		    type: "Organization",
-		    name: "Scents Unlimited",
-		    url: "http://scentsunlimited.com"
-		},
-		aggregateRating: {
-			type: "AggregateRating",
-			bestRating: "100",
-			ratingCount: "24",
-			ratingValue: "87"
-		},
-	} %}
-    {{ myJSONLD | renderJSONLD }}
-
-Obviously, you'll want to substitute in variables for the above, e.g.:
-
-	{% set products = craft.commerce.products.type('normal').find() %}
-	
-	{% for product in products %}
-		{% for variant in products.variants %}
-			{% set myJSONLD = {
-				type: "Product",
-				name: variant.description,
-				image: variant.myProductShot,
-				logo: variant.myProductLogo,
-				description: variant.myProductDescription,
-				model: variant.myProductModel,
-				offers: {
-					type: "Offer",
-					url: product.url,
-					price: variant.price,
-					priceCurrency: "USD",
-					acceptedPaymentMethod: ["CreditCard", "PayPal"],
-					seller: {
-					    type: "Corporation",
-					    name: seomaticSiteMeta.siteSeoName,
-					    url: siteUrl
-					}
-				}
-			} %}
-		{{ myJSONLD | renderJSONLD }}
-		{% endfor %}
-	{% endfor %}
-
-There are many other values available for you to use; see the [Product](https://developers.google.com/schemas/reference/types/Product) schema for details.
 
 ### truncateStringOnWord()
 
