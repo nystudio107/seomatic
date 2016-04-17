@@ -67,6 +67,7 @@ class Seomatic_SettingsModel extends BaseModel
             'organizationOwnerFounder'          => array(AttributeType::String, 'default' => ''),
             'organizationOwnerFoundingDate'     => array(AttributeType::String, 'default' => ''),
             'organizationOwnerFoundingLocation' => array(AttributeType::String, 'default' => ''),
+            'organizationOwnerContactPoints'    => array(AttributeType::Mixed, 'default' => ''),
 
 /* -- LocalBusiness owner fields https://schema.org/LocalBusiness */
 
@@ -134,6 +135,7 @@ class Seomatic_SettingsModel extends BaseModel
             'organizationCreatorFounder'        => array(AttributeType::String, 'default' => ''),
             'organizationCreatorFoundingDate'   => array(AttributeType::String, 'default' => ''),
             'organizationCreatorFoundingLocation'   => array(AttributeType::String, 'default' => ''),
+            'organizationCreatorContactPoints'  => array(AttributeType::Mixed, 'default' => ''),
 
 /* -- LocalBusiness Creator fields https://schema.org/LocalBusiness */
 

@@ -351,6 +351,45 @@
                             </div>
                         </div>
 
+                        <h2>{{ "Organization Contact Points" |t }}</h2>
+
+                        <div class="field">
+                        <div class="heading">
+                            <label for="organizationCreatorContactPoints">{{ "Contact Points"|t}}{% if craft.isLocalized and creator.locale %}<span class="locale">{{ creator.locale }}</span>{% endif %}</label>
+                            <div class="instructions"><p>{{ "Use <a href='https://developers.google.com/structured-data/customize/contact-points' target='_blank'>organization contact points</a> to add your organizations's contact information to the Google Knowledge panel in some searches.  The Telephone Number <strong>must be</strong> an internationalized version of the phone number, starting with the '+' symbol and country code (+1 in the US and Canada).  e.g.: <code>+1-800-555-1212</code> or <code>+44-2078225951</code>" |t |raw}}</p></div>
+                        </div>
+                            {{ forms.editableTable({
+                                id: 'organizationCreatorContactPoints',
+                                name: 'organizationCreatorContactPoints',
+                                required: false,
+                                cols: {
+                                    telephone: {
+                                        heading: "Telephone Number" |t,
+                                        type: "singleline" |t,
+                                    },
+                                    contactType: {
+                                        heading: "Contact Type" |t,
+                                        type: "select" |t,
+                                        options: {
+                                            "customer support": "Customer Support",
+                                            "technical support": "Technical Support",
+                                            "billing support": "Billing Support",
+                                            "bill payment": "Bill Payment",
+                                            "sales": "Sales",
+                                            "reservations": "Reservations",
+                                            "credit card support": "Credit Card Support",
+                                            "emergency": "Emergency",
+                                            "baggage tracking": "Baggage Tracking",
+                                            "roadside assistance": "Roadside Assistance",
+                                            "package tracking": "Package Tracking",
+                                        }
+                                    }
+                                },
+                                rows: creator.organizationCreatorContactPoints,
+                                locale: creator.locale,
+                            }) }}
+                        </div>
+
                     </div>
 
 <!-- Corporation-specific fields -->

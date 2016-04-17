@@ -1098,6 +1098,7 @@ class SeomaticService extends BaseApplicationComponent
         $identity['organizationOwnerFounder'] = $settings['organizationOwnerFounder'];
         $identity['organizationOwnerFoundingDate'] = $settings['organizationOwnerFoundingDate'];
         $identity['organizationOwnerFoundingLocation'] = $settings['organizationOwnerFoundingLocation'];
+        $identity['organizationOwnerContactPoints'] = $settings['organizationOwnerContactPoints'];
 
         $identity['personOwnerGender'] = $settings['personOwnerGender'];
         $identity['personOwnerBirthPlace'] = $settings['personOwnerBirthPlace'];
@@ -1445,6 +1446,7 @@ class SeomaticService extends BaseApplicationComponent
         $creator['organizationCreatorFounder'] = $settings['organizationCreatorFounder'];
         $creator['organizationCreatorFoundingDate'] = $settings['organizationCreatorFoundingDate'];
         $creator['organizationCreatorFoundingLocation'] = $settings['organizationCreatorFoundingLocation'];
+        $creator['organizationCreatorContactPoints'] = $settings['organizationCreatorContactPoints'];
 
         $creator['personCreatorGender'] = $settings['personCreatorGender'];
         $creator['personCreatorBirthPlace'] = $settings['personCreatorBirthPlace'];

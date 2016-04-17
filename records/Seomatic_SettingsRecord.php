@@ -66,7 +66,8 @@ class Seomatic_SettingsRecord extends BaseRecord
             'organizationOwnerDuns'				=> array(AttributeType::String, 'default' => ''),
             'organizationOwnerFounder'			=> array(AttributeType::String, 'default' => ''),
             'organizationOwnerFoundingDate'		=> array(AttributeType::String, 'default' => ''),
-            'organizationOwnerFoundingLocation'	=> array(AttributeType::String, 'default' => ''),
+            'organizationOwnerFoundingLocation' => array(AttributeType::String, 'default' => ''),
+            'organizationOwnerContactPoints'    => array(AttributeType::Mixed),
 
 /* -- LocalBusiness owner fields https://schema.org/LocalBusiness */
 
@@ -139,7 +140,8 @@ class Seomatic_SettingsRecord extends BaseRecord
             'organizationCreatorDuns'			=> array(AttributeType::String, 'default' => ''),
             'organizationCreatorFounder'		=> array(AttributeType::String, 'default' => ''),
             'organizationCreatorFoundingDate'	=> array(AttributeType::String, 'default' => ''),
-            'organizationCreatorFoundingLocation'	=> array(AttributeType::String, 'default' => ''),
+            'organizationCreatorFoundingLocation'   => array(AttributeType::String, 'default' => ''),
+            'organizationCreatorContactPoints'  => array(AttributeType::Mixed),
 
 /* -- LocalBusiness Creator fields https://schema.org/LocalBusiness */
 
