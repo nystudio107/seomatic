@@ -627,7 +627,7 @@
                         <div class="field" id="localBusinessOwnerOpeningHours-field">
                             <div class="heading">
                                 <label for="localBusinessOwnerOpeningHours">{{ "Opening Hours"|t}}{% if craft.isLocalized and identity.locale %}<span class="locale">{{ identity.locale }}</span>{% endif %}</label>
-                                <div class="instructions"><p>{{ "The opening hours for this local business.  If the business is closed on a given day, just leave the hours for that day blank." |t |raw}}</p></div>
+                                <div class="instructions"><p>{{ "The opening hours for this local business.  If the business is closed on a given day, just leave the hours for that day blank.  If you leave everything blank, no opening hours will be listed." |t |raw}}</p></div>
                             </div>
 
                             {% macro day(id, name, value, day) %}
