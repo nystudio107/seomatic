@@ -43,7 +43,6 @@ Some things to do, and ideas for potential features:
 * [bug] Get the Template Metas implemented with full `locale` support, so the settings can all be per-locale based
 * [bug] Enforce *required fields on the various settings pages in the Admin CP by doing proper validation
 * [bug] The `foundingDate` fields probably should be dateTimeField types on the Settings pages
-* [bug] Figure out a way to have SEOmatic FieldTypes "just work" when added to a new section with existing entries (no field data is saved at that point, so the defaults don't work)
 * [feature] Add support for `og:image:type`, `og:image:width`, and `og:image:height`
 * [feature] Add the ability to analyze a page for content vs. keywords for the SEO Template Metas, "just like Yoast"
 * [feature] Change the preview to a live preview when editing things in SEOmatic
@@ -52,8 +51,9 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
-### 1.1.13 -- 2016.04.18
+### 1.1.13 -- 2016.04.16
 
+* [Added] If an SEOmatic FieldType is attached to a Craft Commerce Product, in addition to rendering the page SEO Meta, it will also generate [Product JSON-LD microdata](https://developers.google.com/structured-data/rich-snippets/products) that describes the product.
 * [Improved] SEOmatic now uses control panel sub-navs if you're running Craft 2.5 or later
 * [Improved] Updated the README.md
 

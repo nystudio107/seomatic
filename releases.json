@@ -2,8 +2,9 @@
     {
         "version": "1.1.13",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
-        "date": "2016-04-18T11:00:00-05:00",
+        "date": "2016-04-16T11:00:00-05:00",
         "notes": [
+            "[Added] If an SEOmatic FieldType is attached to a Craft Commerce Product, in addition to rendering the page SEO Meta, it will also generate [Product JSON-LD microdata](https://developers.google.com/structured-data/rich-snippets/products) that describes the product.",
             "[Improved] SEOmatic now uses control panel sub-navs if you're running Craft 2.5 or later",
             "[Improved] Updated the README.md"
         ]

@@ -19,7 +19,7 @@ class Seomatic_MetaFieldType extends BaseFieldType
 
     public function getInputHtml($name, $value)
     {
-        if (isset($this->element)) 
+        if (isset($this->element))
         {
 
         $id = craft()->templates->formatInputId($name);

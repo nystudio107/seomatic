@@ -119,6 +119,10 @@
 
 {{ craft.seomatic.renderPlace() |raw }}
 
+<!-- Product -->
+
+{{ craft.seomatic.renderProduct() |raw }}
+
 <!-- Google Analytics -->
 
 {% if not craft.config.devMode and not craft.request.isLivePreview %}{{ craft.seomatic.renderGoogleAnalytics() |raw }}{% else %}<!-- Google Analytics script is NOT included in LivePreview or if devMode is on -->{% endif %}

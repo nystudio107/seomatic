@@ -74,8 +74,12 @@ class SeomaticPlugin extends BasePlugin
                     'seomaticSocial' => $seomaticSocial,
                     'seomaticCreator' => $seomaticCreator,
                     'seomaticHelper' => $seomaticHelper,
-
                 );
+
+/* -- For Craft Commerce products */
+
+                if (isset($context['seomaticProduct']))
+                    $metaVars['seomaticProduct'] = $context['seomaticProduct'];
 
 /* -- Render the seomaticMeta, this is where the magic happens */
 
