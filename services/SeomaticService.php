@@ -1100,6 +1100,26 @@ class SeomaticService extends BaseApplicationComponent
         $identity['organizationOwnerFoundingLocation'] = $settings['organizationOwnerFoundingLocation'];
         $identity['organizationOwnerContactPoints'] = $settings['organizationOwnerContactPoints'];
 
+/* -- Handle the organization contact points */
+
+        $contactPoints = array();
+        if (isset($identity['organizationOwnerContactPoints']) && is_array($identity['organizationOwnerContactPoints']))
+        {
+            foreach ($identity['organizationOwnerContactPoints'] as $contacts)
+            {
+                $spec = array(
+                    "type" => "ContactPoint",
+                    "telephone" => $contacts['telephone'],
+                    "contactType" => $contacts['contactType'],
+                );
+                $contactPoints[] = $spec;
+            }
+        }
+        $contactPoints = array_filter($contactPoints);
+        $identity['contactPoint'] = $contactPoints;
+        if (count($identity['contactPoint']) < 1)
+            unset($identity['contactPoint']);
+
         $identity['personOwnerGender'] = $settings['personOwnerGender'];
         $identity['personOwnerBirthPlace'] = $settings['personOwnerBirthPlace'];
 
@@ -1211,19 +1231,6 @@ class SeomaticService extends BaseApplicationComponent
         if (count($identityJSONLD['address']) == 1)
             unset($identityJSONLD['address']);
 
-/* -- This needs to be an additional field if we implement it
-        if ($identity['genericOwnerTelephone'])
-        {
-            $contactPoint = array(
-                "type" => "ContactPoint",
-                "telephone" => $identity['genericOwnerTelephone'],
-                "contactType" => "Contact",
-            );
-            $contactPoint = array_filter($contactPoint);
-            $identityJSONLD['contactPoint'] = array($contactPoint);
-        }
-*/
-
 /* -- Settings for all person Identity types */
 
         if ($identity['siteOwnerType'] == "Person")
@@ -1279,6 +1286,8 @@ class SeomaticService extends BaseApplicationComponent
             $identityJSONLD['founder'] = $identity['organizationOwnerFounder'];
             $identityJSONLD['foundingDate'] = $identity['organizationOwnerFoundingDate'];
             $identityJSONLD['foundingLocation'] = $identity['organizationOwnerFoundingLocation'];
+            if (isset($identity['contactPoint']))
+                $identityJSONLD['contactPoint'] = $identity['contactPoint'];
         }
 
 /* -- Settings on a per-Identity sub-type basis */
@@ -1448,6 +1457,26 @@ class SeomaticService extends BaseApplicationComponent
         $creator['organizationCreatorFoundingLocation'] = $settings['organizationCreatorFoundingLocation'];
         $creator['organizationCreatorContactPoints'] = $settings['organizationCreatorContactPoints'];
 
+/* -- Handle the organization contact points */
+
+        $contactPoints = array();
+        if (isset($creator['organizationCreatorContactPoints']) && is_array($creator['organizationCreatorContactPoints']))
+        {
+            foreach ($creator['organizationCreatorContactPoints'] as $contacts)
+            {
+                $spec = array(
+                    "type" => "ContactPoint",
+                    "telephone" => $contacts['telephone'],
+                    "contactType" => $contacts['contactType'],
+                );
+                $contactPoints[] = $spec;
+            }
+        }
+        $contactPoints = array_filter($contactPoints);
+        $creator['contactPoint'] = $contactPoints;
+        if (count($creator['contactPoint']) < 1)
+            unset($creator['contactPoint']);
+
         $creator['personCreatorGender'] = $settings['personCreatorGender'];
         $creator['personCreatorBirthPlace'] = $settings['personCreatorBirthPlace'];
 
@@ -1534,7 +1563,7 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Settings for all organization Creator types */
 
-        if ($creator['siteCreatorType'] == "Organization")
+        if ($creator['siteCreatorType'] == "Organization" || $creator['siteCreatorType'] == "Corporation")
         {
             if (isset($creator['genericCreatorImage']))
                 $creatorJSONLD['logo'] = $creator['genericCreatorImage'];
@@ -1578,6 +1607,8 @@ class SeomaticService extends BaseApplicationComponent
             $creatorJSONLD['founder'] = $creator['organizationCreatorFounder'];
             $creatorJSONLD['foundingDate'] = $creator['organizationCreatorFoundingDate'];
             $creatorJSONLD['foundingLocation'] = $creator['organizationCreatorFoundingLocation'];
+            if (isset($creator['contactPoint']))
+                $creatorJSONLD['contactPoint'] = $creator['contactPoint'];
         }
 
 /* -- Settings on a per-Creator sub-type basis */
@@ -2475,7 +2506,7 @@ public function getFullyQualifiedUrl($url)
      */
     public function convertTimes(&$value, $timezone=null)
     {
-        if (is_array($value))
+        if (isset($value) && is_array($value))
         {
             foreach ($value as &$day)
             {

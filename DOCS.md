@@ -139,6 +139,7 @@ More fields will also appear depending on the selected **Site Owner Entity Type*
 * **Organization Founder** - The name of the founder of the organization/company/restaurant
 * **Organization Founding Date** - The date the organization/company/restaurant was founded
 * **Organization Founding Location** - The location where the organization/company/restaurant was founded
+* **Organization Contact Points** - Use [organization contact points](https://developers.google.com/structured-data/customize/contact-points) to add your organizations's contact information to the Google Knowledge panel in some searches. The Telephone Number must be an internationalized version of the phone number, starting with the '+' symbol and country code (+1 in the US and Canada). e.g.: +1-800-555-1212 or +44-2078225951
 
 #### Local Business Info
 * **Opening Hours** - The opening hours for this local business. If the business is closed on a given day, just leave the hours for that day blank.
@@ -221,6 +222,7 @@ Leave any fields blank that aren't applicable or which you do not want as part o
 * **Organization Founder** - The name of the founder of the organization/company
 * **Organization Founding Date** - The date the organization/company was founded
 * **Organization Founding Location** - The location where the organization/company was founded
+* **Organization Contact Points** - Use [organization contact points](https://developers.google.com/structured-data/customize/contact-points) to add your organizations's contact information to the Google Knowledge panel in some searches. The Telephone Number must be an internationalized version of the phone number, starting with the '+' symbol and country code (+1 in the US and Canada). e.g.: +1-800-555-1212 or +44-2078225951
 
 #### Corporation Info
 * **Corporation Ticker Symbol** - The exchange ticker symbol of the corporation
