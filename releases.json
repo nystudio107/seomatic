@@ -5,6 +5,7 @@
         "date": "2016-04-18T11:00:00-05:00",
         "notes": [
             "[Added] Added [Organization Contact Points](https://developers.google.com/structured-data/customize/contact-points) that can appear in the Google Knowledge panel in some searches",
+            "[Added] You can control whether Product JSON-LD is rendered via the `renderCommerceProductJSONLD` config variable",
             "[Improved] Updated the README.md"
         ]
     },

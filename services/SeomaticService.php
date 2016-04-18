@@ -410,7 +410,7 @@ class SeomaticService extends BaseApplicationComponent
 
     /* -- If this is a Commerce Product, fill in some additional info */
 
-                            if ($elemType == "Commerce_Product")
+                            if ($elemType == "Commerce_Product" && craft()->config->get("renderCommerceProductJSONLD", "seomatic"))
                             {
                                 $commerceSettings = craft()->commerce_settings->getSettings();
                                 $defaultVariant = $element->getDefaultVariant();

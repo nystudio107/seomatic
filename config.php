@@ -56,4 +56,11 @@ return array(
  * override for controlling it.
  */
     "renderGoogleAnalyticsScript" => true,
+
+/**
+ * SEOmatic will render Product JSON-LD microdata for you automatically, if an SEOmatic Meta
+ * FieldType is attached to a Craft Commerce Product.  Set this to false to override
+ * this behavior, and not render the Product JSON-LD microdata.
+ */
+    "renderCommerceProductJSONLD" => true,
 );
