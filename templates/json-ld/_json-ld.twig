@@ -3,8 +3,23 @@ This is rendered via
 -------------------------------------------------------------------------------- #}
 {% set level = 0 %}
 <script type="application/ld+json">
+{% if object|keys|first=="0" %}
+[
+{% for subObject in object %}
+{% set level = 0 %}
+{%for i in 0..level %}    {% endfor %}{
+{% set level = 1 %}
+{%for i in 0..level %}    {% endfor %}"@context": "http://schema.org",
+{% include 'json-ld/_json-ld_core' with {'object': subObject, 'level': level } only %}
+{% set level = 0 %}
+{%for i in 0..level %}    {% endfor %}}{% if not loop.last%},{% endif %}
+
+{% endfor %}
+]
+{% else %}
 {
 {%for i in 0..level %}    {% endfor %}"@context": "http://schema.org",
 {% include 'json-ld/_json-ld_core' with {'object': object, 'level': level } only %}
 }
+{% endif %}
 </script>

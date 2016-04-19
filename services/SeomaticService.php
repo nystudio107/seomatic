@@ -10,6 +10,7 @@ class SeomaticService extends BaseApplicationComponent
 {
 
     protected $entryMeta = null;
+    protected $entrySeoCommerceVariants = null;
     protected $cachedSettings = array();
     protected $cachedSiteMeta = array();
     protected $cachedIdentity = array();
@@ -413,13 +414,21 @@ class SeomaticService extends BaseApplicationComponent
                             if ($elemType == "Commerce_Product" && craft()->config->get("renderCommerceProductJSONLD", "seomatic"))
                             {
                                 $commerceSettings = craft()->commerce_settings->getSettings();
-                                $defaultVariant = $element->getDefaultVariant();
+                                $variants = $element->getVariants();
+                                $commerceVariants = array();
 
-                                $entryMeta['seoIsCommerceProduct'] = true;
-                                $entryMeta['seoProductDescription'] = $defaultVariant->getDescription();
-                                $entryMeta['seoProductPrice'] = number_format($defaultVariant->getPrice(), 2);
-                                $entryMeta['seoProductCurrency'] = $commerceSettings['defaultCurrency'];
-                                $entryMeta['seoProductSku'] = $defaultVariant->getSku();
+                                foreach ($variants as $variant)
+                                {
+                                    $commerceVariant = array(
+                                        'seoProductDescription' => $variant->getDescription(),
+                                        'seoProductPrice' => number_format($variant->getPrice(), 2),
+                                        'seoProductCurrency' => $commerceSettings['defaultCurrency'],
+                                        'seoProductSku' => $variant->getSku(),
+                                    );
+                                    $commerceVariants[] = $commerceVariant;
+                                }
+                                if (!empty($commerceVariants))
+                                    $entryMeta['seoCommerceVariants'] = $commerceVariants;
                             }
 
     /* -- Swap in any SEOmatic fields that are pulling from other entry fields */
@@ -637,13 +646,9 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- For Craft Commerce Products */
 
-            if (isset($entryMeta->seoIsCommerceProduct) && $entryMeta->seoIsCommerceProduct)
+            if (isset($entryMeta->seoCommerceVariants) && !empty($entryMeta->seoCommerceVariants))
             {
-                $meta['seoIsCommerceProduct'] = $entryMeta->seoIsCommerceProduct;
-                $meta['seoProductDescription'] = $entryMeta->seoProductDescription;
-                $meta['seoProductPrice'] = $entryMeta->seoProductPrice;
-                $meta['seoProductCurrency'] = $entryMeta->seoProductCurrency;
-                $meta['seoProductSku'] = $entryMeta->seoProductSku;
+                $this->entrySeoCommerceVariants = $entryMeta->seoCommerceVariants;
             }
             $meta = array_filter($meta);
         }
@@ -819,10 +824,8 @@ class SeomaticService extends BaseApplicationComponent
 
         $result['seomaticIdentity'] = $this->getIdentityJSONLD($result['seomaticIdentity'], $helper, $locale);
         $result['seomaticCreator'] = $this->getCreatorJSONLD($result['seomaticCreator'], $helper, $locale);
-        if ($this->entryMeta && isset($this->entryMeta['seoIsCommerceProduct']) && $this->entryMeta['seoIsCommerceProduct'])
-        {
+        if ($this->entryMeta && isset($this->entrySeoCommerceVariants) && !empty($this->entrySeoCommerceVariants))
             $result['seomaticProduct'] = $this->getProductJSONLD($result, $locale);
-        }
 
 /* -- Return our global variables */
 
@@ -1680,35 +1683,40 @@ class SeomaticService extends BaseApplicationComponent
         if (isset($this->cachedProductJSONLD[$locale]))
             return $this->cachedProductJSONLD[$locale];
 
-        $productJSONLD = array();
+        $productsArrayJSONLD = array();
 
-/* -- Settings generic to all Creator types */
+        foreach ($this->entrySeoCommerceVariants as $variant)
+        {
+            $productJSONLD = array();
 
-        $productJSONLD['type'] = "Product";
-        $productJSONLD['name'] = $metaVars['seomaticMeta']['seoTitle'];
-        $productJSONLD['description'] = $metaVars['seomaticMeta']['seoTitle'];
-        $productJSONLD['image'] = $metaVars['seomaticMeta']['seoImage'];
-        $productJSONLD['logo'] = $metaVars['seomaticMeta']['seoImage'];
-        $productJSONLD['url'] = $metaVars['seomaticMeta']['canonicalUrl'];
+    /* -- Settings generic to all Creator types */
 
-        $productJSONLD['sku'] = $metaVars['seomaticMeta']['seoProductSku'];
+            $productJSONLD['type'] = "Product";
+            $productJSONLD['name'] = $variant['seoProductDescription'];
+            $productJSONLD['description'] = $metaVars['seomaticMeta']['seoDescription'];
+            $productJSONLD['image'] = $metaVars['seomaticMeta']['seoImage'];
+            $productJSONLD['logo'] = $metaVars['seomaticMeta']['seoImage'];
+            $productJSONLD['url'] = $metaVars['seomaticMeta']['canonicalUrl'];
 
-        $offer = array(
-            "type" => "Offer",
-            "url" => $metaVars['seomaticMeta']['canonicalUrl'],
-            "price" =>  $metaVars['seomaticMeta']['seoProductPrice'],
-            "priceCurrency" =>  $metaVars['seomaticMeta']['seoProductCurrency'],
-            "offeredBy" =>  $metaVars['seomaticIdentity'],
-            "seller" =>  $metaVars['seomaticIdentity'],
-        );
-        $offer = array_filter($offer);
-        $productJSONLD['offers'] = $offer;
+            $productJSONLD['sku'] = $variant['seoProductSku'];
 
-        $result = array_filter($productJSONLD);
+            $offer = array(
+                "type" => "Offer",
+                "url" => $metaVars['seomaticMeta']['canonicalUrl'],
+                "price" =>  $variant['seoProductPrice'],
+                "priceCurrency" =>  $variant['seoProductCurrency'],
+                "offeredBy" =>  $metaVars['seomaticIdentity'],
+                "seller" =>  $metaVars['seomaticIdentity'],
+            );
+            $offer = array_filter($offer);
+            $productJSONLD['offers'] = $offer;
 
-        $this->cachedProductJSONLD[$locale] = $result;
+            $productsArrayJSONLD[] = array_filter($productJSONLD);
+        }
 
-        return $result;
+        $this->cachedProductJSONLD[$locale] = $productsArrayJSONLD;
+
+        return $productsArrayJSONLD;
     } /* -- getProductJSONLD */
 
 /* --------------------------------------------------------------------------------
@@ -2395,6 +2403,12 @@ public function getFullyQualifiedUrl($url)
                         }
                         else
                             $subLines .= "\"" . $subValue . "\"" . $subComma;
+                    }
+                    if ($level < 1)
+                    {
+                        $predicate = "{% set " . $key . " = [ ";
+                        $suffix = "] %}" . "\n\n";
+                        $key = "";
                     }
                     $line =  $key . $predicate;
                     $line = str_pad($line, strlen($line) + ($level * 4), " ", STR_PAD_LEFT);
