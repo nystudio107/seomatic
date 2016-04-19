@@ -312,23 +312,25 @@ If an SEOmatic FieldType is attached to a Craft Commerce Product, in addition to
 
 It does this by pulling values from the `seomaticMeta` settings from the SEOmatic FieldType, as well as by pulling data from the Craft Commerce Product.  If you have an SEOmatic FieldType attached to a Craft Commerce Product, a new `seomaticProduct` array is injected into your page template:
 
-    {% set seomaticProduct = {
-        type: "Product",
-        name: "Romper for a Red Eye",
-        description: "Romper for a Red Eye",
-        image: "http://bradsformen.dev/img/site/site_logo.png",
-        logo: "http://bradsformen.dev/img/site/site_logo.png",
-        url: "http://bradsformen.dev/commerce/products/romper-for-a-red-eye",
-        sku: "Romper for a Red Eye",
-        offers: {
-            type: "Offer",
+    {% set seomaticProduct = [
+        {
+            type: "Product",
+            name: "Romper for a Red Eye",
+            description: "Irresistible to women.  Establishes dominance over men.  Brad's for Men will release your inner beast with its musky essence.",
+            image: "http://bradsformen.dev/img/site/site_logo.png",
+            logo: "http://bradsformen.dev/img/site/site_logo.png",
             url: "http://bradsformen.dev/commerce/products/romper-for-a-red-eye",
-            price: "30.00",
-            priceCurrency: "USD",
-            offeredBy: seomaticIdentity,
-            seller: seomaticIdentity
+            sku: "Romper for a Red Eye",
+            offers: {
+                type: "Offer",
+                url: "http://bradsformen.dev/commerce/products/romper-for-a-red-eye",
+                price: "30.00",
+                priceCurrency: "USD",
+                offeredBy: seomaticIdenity,
+                seller: seomaticIdenity,
+            }
         }
-    } %}
+    ] %}
 
 Since this is just a Twig array, you can alter it as you see fit, and whatever changes you make will be reflected in the JSON-LD that SEOmatic renders via the `{% hook 'seomaticRender' %}`  Because of the way that Twig handles arrays, you **must** include every field in the array when doing a `set` or `merge`, otherwise the fields you exclude will not exist.
 
@@ -1673,48 +1675,30 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
 The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developers.google.com/schemas/formats/json-ld?hl=en) Product microdata if an SEOmatic FieldType is attached to a Craft Commerce Product. JSON-LD is an alternative to microdata you may already be familiar with, such as: `<div itemscope itemtype='http://schema.org/Organization'>`. JSON-LD has the advantage of not being intertwined with HTML markup, so it's easier to use. It is parsed and consumed by Google, allowing you to tell Google what your site is about, rather than having it try to guess.
 
     <script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "Product",
-        "name": "Romper for a Red Eye",
-        "description": "Romper for a Red Eye",
-        "image": "http://bradsformen.dev/img/site/site_logo.png",
-        "logo": "http://bradsformen.dev/img/site/site_logo.png",
-        "url": "http://bradsformen.dev/commerce/products/romper-for-a-red-eye",
-        "sku": "Romper for a Red Eye",
-        "offers": {
-            "@type": "Offer",
+    [
+        {
+            "@context": "http://schema.org",
+            "@type": "Product",
+            "name": "Romper for a Red Eye",
+            "description": "Irresistible to women.  Establishes dominance over men.  Brad's for Men will release your inner beast with its musky essence.",
+            "image": "http://bradsformen.dev/img/site/site_logo.png",
+            "logo": "http://bradsformen.dev/img/site/site_logo.png",
             "url": "http://bradsformen.dev/commerce/products/romper-for-a-red-eye",
-            "price": "30.00",
-            "priceCurrency": "USD",
-            "offeredBy": {
-                "@type": "Corporation",
-                "name": "Brad Brands Intl.",
-                "alternateName": "Brad's pits",
-                "description": "We make the products that make the man",
-                "url": "http://bradsformen.com/",
-                "sameAs": ["https://twitter.com/bradsformen","https://www.facebook.com/bradsformen","https://plus.google.com/+bradsformen","https://www.linkedin.com/company/bradsformen","https://www.youtube.com/user/bradsformen","https://www.instagram.com/bradsformen","https://www.pinterest.com/bradsformen"],
-                "image": "http://bradsformen.dev/img/site/site_logo@2x.png",
-                "email": "info@bradsformen.com",
-                "address": {
-                    "@type": "PostalAddress",
-                    "streetAddress": "123 Musky Way",
-                    "addressLocality": "Pittsville",
-                    "addressRegion": "NY",
-                    "postalCode": "12340",
-                    "addressCountry": "US" 
-                },
-                "logo": "http://bradsformen.dev/img/site/site_logo@2x.png",
-                "location": {
-                    "@type": "Place",
+            "sku": "Romper for a Red Eye",
+            "offers": {
+                "@type": "Offer",
+                "url": "http://bradsformen.dev/commerce/products/romper-for-a-red-eye",
+                "price": "30.00",
+                "priceCurrency": "USD",
+                "offeredBy": {
+                    "@type": "Corporation",
                     "name": "Brad Brands Intl.",
                     "alternateName": "Brad's pits",
                     "description": "We make the products that make the man",
-                    "hasMap": "http://maps.google.com/maps?q=Brad+Brands+Intl.%2C+123+Musky+Way%2C+Pittsville%2C+NY+12340%2C+US",
-                    "image": "http://bradsformen.dev/img/site/site_logo@2x.png",
-                    "logo": "http://bradsformen.dev/img/site/site_logo@2x.png",
                     "url": "http://bradsformen.com/",
                     "sameAs": ["https://twitter.com/bradsformen","https://www.facebook.com/bradsformen","https://plus.google.com/+bradsformen","https://www.linkedin.com/company/bradsformen","https://www.youtube.com/user/bradsformen","https://www.instagram.com/bradsformen","https://www.pinterest.com/bradsformen"],
+                    "image": "http://bradsformen.dev/img/site/site_logo@2x.png",
+                    "email": "info@bradsformen.com",
                     "address": {
                         "@type": "PostalAddress",
                         "streetAddress": "123 Musky Way",
@@ -1722,41 +1706,41 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
                         "addressRegion": "NY",
                         "postalCode": "12340",
                         "addressCountry": "US" 
-                    } 
+                    },
+                    "logo": "http://bradsformen.dev/img/site/site_logo@2x.png",
+                    "location": {
+                        "@type": "Place",
+                        "name": "Brad Brands Intl.",
+                        "alternateName": "Brad's pits",
+                        "description": "We make the products that make the man",
+                        "hasMap": "http://maps.google.com/maps?q=Brad+Brands+Intl.%2C+123+Musky+Way%2C+Pittsville%2C+NY+12340%2C+US",
+                        "image": "http://bradsformen.dev/img/site/site_logo@2x.png",
+                        "logo": "http://bradsformen.dev/img/site/site_logo@2x.png",
+                        "url": "http://bradsformen.com/",
+                        "sameAs": ["https://twitter.com/bradsformen","https://www.facebook.com/bradsformen","https://plus.google.com/+bradsformen","https://www.linkedin.com/company/bradsformen","https://www.youtube.com/user/bradsformen","https://www.instagram.com/bradsformen","https://www.pinterest.com/bradsformen"],
+                        "address": {
+                            "@type": "PostalAddress",
+                            "streetAddress": "123 Musky Way",
+                            "addressLocality": "Pittsville",
+                            "addressRegion": "NY",
+                            "postalCode": "12340",
+                            "addressCountry": "US" 
+                        } 
+                    },
+                    "duns": "12435",
+                    "founder": "Brad Bell",
+                    "foundingDate": "12/2015",
+                    "foundingLocation": "Pittsville, NY, USA" 
                 },
-                "duns": "12435",
-                "founder": "Brad Bell",
-                "foundingDate": "12/2015",
-                "foundingLocation": "Pittsville, NY, USA" 
-            },
-            "seller": {
-                "@type": "Corporation",
-                "name": "Brad Brands Intl.",
-                "alternateName": "Brad's pits",
-                "description": "We make the products that make the man",
-                "url": "http://bradsformen.com/",
-                "sameAs": ["https://twitter.com/bradsformen","https://www.facebook.com/bradsformen","https://plus.google.com/+bradsformen","https://www.linkedin.com/company/bradsformen","https://www.youtube.com/user/bradsformen","https://www.instagram.com/bradsformen","https://www.pinterest.com/bradsformen"],
-                "image": "http://bradsformen.dev/img/site/site_logo@2x.png",
-                "email": "info@bradsformen.com",
-                "address": {
-                    "@type": "PostalAddress",
-                    "streetAddress": "123 Musky Way",
-                    "addressLocality": "Pittsville",
-                    "addressRegion": "NY",
-                    "postalCode": "12340",
-                    "addressCountry": "US" 
-                },
-                "logo": "http://bradsformen.dev/img/site/site_logo@2x.png",
-                "location": {
-                    "@type": "Place",
+                "seller": {
+                    "@type": "Corporation",
                     "name": "Brad Brands Intl.",
                     "alternateName": "Brad's pits",
                     "description": "We make the products that make the man",
-                    "hasMap": "http://maps.google.com/maps?q=Brad+Brands+Intl.%2C+123+Musky+Way%2C+Pittsville%2C+NY+12340%2C+US",
-                    "image": "http://bradsformen.dev/img/site/site_logo@2x.png",
-                    "logo": "http://bradsformen.dev/img/site/site_logo@2x.png",
                     "url": "http://bradsformen.com/",
                     "sameAs": ["https://twitter.com/bradsformen","https://www.facebook.com/bradsformen","https://plus.google.com/+bradsformen","https://www.linkedin.com/company/bradsformen","https://www.youtube.com/user/bradsformen","https://www.instagram.com/bradsformen","https://www.pinterest.com/bradsformen"],
+                    "image": "http://bradsformen.dev/img/site/site_logo@2x.png",
+                    "email": "info@bradsformen.com",
                     "address": {
                         "@type": "PostalAddress",
                         "streetAddress": "123 Musky Way",
@@ -1764,15 +1748,35 @@ The `{% hook 'seomaticRender' %}` tag also generates [JSON-LD](https://developer
                         "addressRegion": "NY",
                         "postalCode": "12340",
                         "addressCountry": "US" 
-                    } 
-                },
-                "duns": "12435",
-                "founder": "Brad Bell",
-                "foundingDate": "12/2015",
-                "foundingLocation": "Pittsville, NY, USA" 
+                    },
+                    "logo": "http://bradsformen.dev/img/site/site_logo@2x.png",
+                    "location": {
+                        "@type": "Place",
+                        "name": "Brad Brands Intl.",
+                        "alternateName": "Brad's pits",
+                        "description": "We make the products that make the man",
+                        "hasMap": "http://maps.google.com/maps?q=Brad+Brands+Intl.%2C+123+Musky+Way%2C+Pittsville%2C+NY+12340%2C+US",
+                        "image": "http://bradsformen.dev/img/site/site_logo@2x.png",
+                        "logo": "http://bradsformen.dev/img/site/site_logo@2x.png",
+                        "url": "http://bradsformen.com/",
+                        "sameAs": ["https://twitter.com/bradsformen","https://www.facebook.com/bradsformen","https://plus.google.com/+bradsformen","https://www.linkedin.com/company/bradsformen","https://www.youtube.com/user/bradsformen","https://www.instagram.com/bradsformen","https://www.pinterest.com/bradsformen"],
+                        "address": {
+                            "@type": "PostalAddress",
+                            "streetAddress": "123 Musky Way",
+                            "addressLocality": "Pittsville",
+                            "addressRegion": "NY",
+                            "postalCode": "12340",
+                            "addressCountry": "US" 
+                        } 
+                    },
+                    "duns": "12435",
+                    "founder": "Brad Bell",
+                    "foundingDate": "12/2015",
+                    "foundingLocation": "Pittsville, NY, USA" 
+                } 
             } 
-        } 
-    }
+        }
+    ]
     </script>
 
 If you click on the **Preview SEO Meta Tags** button when you are editing a SEO Template Meta, you'll see that particular template's SEO Template Meta tags.  Otherwise, you will see the SEO Site Meta tags.

@@ -51,9 +51,12 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
-### 1.1.14 -- 2016.04.18
+### 1.1.14 -- 2016.04.19
 
 * [Added] Added [Organization Contact Points](https://developers.google.com/structured-data/customize/contact-points) that can appear in the Google Knowledge panel in some searches
+* [Added] You can control whether Product JSON-LD is rendered via the `renderCommerceProductJSONLD` config variable
+* [Added] Added support for arrays as the root JSON-LD type in the JSON-LD generator
+* [Improved] SEOmatic now outputs JSON-LD microdata for all of the Craft Commerce Product Variants (previously it was outputting only the default Variant)
 * [Improved] Updated the README.md
 
 ### 1.1.13 -- 2016.04.16
