@@ -2221,7 +2221,12 @@ public function getFullyQualifiedUrl($url)
     }
     else
     {
-        $siteUrl = craft()->getSiteUrl();
+        $siteUrlOverride = craft()->config->get("siteUrlOverride", "seomatic");
+        if ($siteUrlOverride)
+            $siteUrl = $siteUrlOverride;
+        else
+            $siteUrl = craft()->getSiteUrl();
+
         $urlParts = parse_url($siteUrl);
         if (isset($urlParts['scheme']) && isset($urlParts['host']))
             $siteUrl = $urlParts['scheme'] . "://" . $urlParts['host'] . "/";

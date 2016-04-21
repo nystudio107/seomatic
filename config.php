@@ -63,4 +63,12 @@ return array(
  * this behavior, and not render the Product JSON-LD microdata.
  */
     "renderCommerceProductJSONLD" => true,
+
+/**
+ * SEOmatic uses the `siteUrl` to generate the external URLs.  If you are using it in
+ * a non-standard environment, such as a headless ElementAPI server, you can override
+ * what it uses for the `siteUrl` below.
+ */
+    "siteUrlOverride" => '',
+
 );

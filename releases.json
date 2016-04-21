@@ -1,5 +1,14 @@
 [
     {
+        "version": "1.1.15",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
+        "date": "2016-04-22T11:00:00-05:00",
+        "notes": [
+            "[Added] Added a `siteUrlOverride` config setting for when you need to override the `siteUrl`, for instance in a headless ElementAPI server",
+            "[Improved] Updated the README.md"
+        ]
+    },
+    {
         "version": "1.1.14",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-04-19T11:00:00-05:00",

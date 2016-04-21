@@ -51,6 +51,11 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.15 -- 2016.04.22
+
+* [Added] Added a `siteUrlOverride` config setting for when you need to override the `siteUrl`, for instance in a headless ElementAPI server
+* [Improved] Updated the README.md
+
 ### 1.1.14 -- 2016.04.19
 
 * [Added] Added [Organization Contact Points](https://developers.google.com/structured-data/customize/contact-points) that can appear in the Google Knowledge panel in some searches
