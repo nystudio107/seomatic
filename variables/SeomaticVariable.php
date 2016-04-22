@@ -44,6 +44,7 @@ class SeomaticVariable
 
     public function renderJSONLD($object=array())
     {
+        craft()->seomatic->_sanitizeArray($object);
         $result = craft()->seomatic->renderJSONLD($object);
 
         return TemplateHelper::getRaw(rtrim($result));

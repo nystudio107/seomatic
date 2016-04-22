@@ -2321,7 +2321,7 @@ public function getFullyQualifiedUrl($url)
     Sanitize the passed in array recursively
 -------------------------------------------------------------------------------- */
 
-    private function _sanitizeArray(&$theArray)
+    public function _sanitizeArray(&$theArray)
     {
         foreach ($theArray as $key => &$value)
         {
