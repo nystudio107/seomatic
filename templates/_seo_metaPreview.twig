@@ -14,7 +14,7 @@
 <meta name="generator" content="SEOmatic" /> <!-- {% verbatim %}SEOmatic{% endverbatim %} -->
 <link rel="canonical" href="{{ seomaticMeta.canonicalUrl }}" /> <!-- {% verbatim %}{{ seomaticMeta.canonicalUrl }} (defaults to craft.request.url){% endverbatim %} -->
 {% for locale in craft.i18n.getSiteLocales() %}
-{% if locale != craft.locale and craft.config.siteUrl is iterable %}{% if craft.config.siteUrl[locale.getId()] is defined %}<link rel="alternate" hreflang="{{ locale.getId() }}" href="{{ craft.config.siteUrl[locale.getId()] }}" />{% endif %} <!-- {% verbatim %}hreflang="{{ locale.getId() }}" href="{{ craft.config.siteUrl[locale.getId()] }}"{% endverbatim %} -->{% endif %}
+{% if locale != craft.locale and craft.config.siteUrl is iterable %}{% if craft.config.siteUrl[locale.getId()] is defined %}<link rel="alternate" hreflang="{{ locale.getId() | slice (0,2) }}" href="{{ craft.config.siteUrl[locale.getId()] }}" />{% endif %} <!-- {% verbatim %}hreflang="{{ locale.getId() }}" href="{{ craft.config.siteUrl[locale.getId()] }}"{% endverbatim %} -->{% endif %}
 {% endfor %}
 {% if seomaticIdentity.address.addressRegion is defined and seomaticIdentity.address.addressRegion %}
 <meta name="geo.region" content="{{ seomaticIdentity.address.addressRegion |raw }}" /> <!-- {% verbatim %}{{ seomaticIdentity.address.addressRegion }}{% endverbatim %} -->
@@ -32,7 +32,7 @@
 <meta name="dcterms.Identifier" content="{{ seomaticMeta.canonicalUrl }}" /> <!-- {% verbatim %}{{ seomaticMeta.canonicalUrl }} (defaults to craft.request.url){% endverbatim %} -->
 <meta name="dcterms.Format" content="text/html" /> <!-- {% verbatim %}text/html{% endverbatim %} -->
 <meta name="dcterms.Relation" content="{{ seomaticSiteMeta.siteSeoName |raw }}" /> <!-- {% verbatim %}{{ seomaticSiteMeta.siteSeoName }}{% endverbatim %} -->
-<meta name="dcterms.Language" content="{{ craft.locale }}" /> <!-- {% verbatim %}{{ craft.locale }}{% endverbatim %} -->
+<meta name="dcterms.Language" content="{{ craft.locale | slice (0,2) }}" /> <!-- {% verbatim %}{{ craft.locale }}{% endverbatim %} -->
 <meta name="dcterms.Publisher" content="{{ seomaticSiteMeta.siteSeoName |raw }}" /> <!-- {% verbatim %}{{ seomaticSiteMeta.siteSeoName }}{% endverbatim %} -->
 <meta name="dcterms.Type" content="text/html" /> <!-- {% verbatim %}text/html{% endverbatim %} -->
 <meta name="dcterms.Coverage" content="{{ siteUrl }}" /> <!-- {% verbatim %}{{ siteUrl }}{% endverbatim %} -->

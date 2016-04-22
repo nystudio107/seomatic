@@ -5,6 +5,8 @@
         "date": "2016-04-22T11:00:00-05:00",
         "notes": [
             "[Added] Added a `siteUrlOverride` config setting for when you need to override the `siteUrl`, for instance in a headless ElementAPI server",
+            "[Improved] craft.locale is now properly limited to an ISO 639-1 language code in the metadata",
+            "[Improved] Facebook locales now ensure that they have a territory as well as a language, e.g.: fr_FR, not just fr",
             "[Improved] Updated the README.md"
         ]
     },

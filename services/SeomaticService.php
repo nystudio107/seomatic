@@ -705,10 +705,16 @@ class SeomaticService extends BaseApplicationComponent
 
             $openGraph = array();
             $openGraph['type'] = $meta['openGraphType'];
+
+/* -- Kludges to keep Facebook happy */
+
             if ($locale == "en")
                 $openGraph['locale'] = 'en_US';
             else
                 $openGraph['locale'] = $locale;
+            if (strlen($openGraph['locale']) == 2)
+                $openGraph['locale'] = $openGraph['locale'] . "_" . strtoupper($openGraph['locale']);
+
             $openGraph['url'] = $meta['canonicalUrl'];
             $openGraph['title'] = $titlePrefix . $meta['seoTitle'] . $titleSuffix;
             $openGraph['description'] = $meta['seoDescription'];
