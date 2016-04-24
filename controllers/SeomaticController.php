@@ -550,7 +550,7 @@ class SeomaticController extends BaseController
 
 /* -- LocalBusiness owner fields https://schema.org/LocalBusiness */
 
-        $hours = craft()->request->getPost('localBusinessOwnerOpeningHours');
+        $hours = craft()->request->getPost('localBusinessOwnerOpeningHours', $record->localBusinessOwnerOpeningHours);
         craft()->seomatic->convertTimes($hours, craft()->getTimeZone());
         $record->localBusinessOwnerOpeningHours = $hours;
 
