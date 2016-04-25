@@ -2193,13 +2193,13 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Make sure all of our variables are properly encoded */
 
-        $this->_sanitizeArray($seomaticMeta);
-        $this->_sanitizeArray($seomaticSiteMeta);
-        $this->_sanitizeArray($seomaticIdentity);
-        $this->_sanitizeArray($seomaticSocial);
-        $this->_sanitizeArray($seomaticCreator);
+        $this->sanitizeArray($seomaticMeta);
+        $this->sanitizeArray($seomaticSiteMeta);
+        $this->sanitizeArray($seomaticIdentity);
+        $this->sanitizeArray($seomaticSocial);
+        $this->sanitizeArray($seomaticCreator);
         if (isset($metaVars['seomaticProduct']))
-            $this->_sanitizeArray($seomaticProduct);
+            $this->sanitizeArray($seomaticProduct);
 
         $metaVars['seomaticMeta'] = $seomaticMeta;
         $metaVars['seomaticSiteMeta'] = $seomaticSiteMeta;
@@ -2321,7 +2321,7 @@ public function getFullyQualifiedUrl($url)
     Sanitize the passed in array recursively
 -------------------------------------------------------------------------------- */
 
-    public function _sanitizeArray(&$theArray)
+    public function sanitizeArray(&$theArray)
     {
         foreach ($theArray as $key => &$value)
         {
@@ -2340,10 +2340,10 @@ public function getFullyQualifiedUrl($url)
             else
             {
                 if (is_array($value))
-                    $this->_sanitizeArray($value);
+                    $this->sanitizeArray($value);
             }
         }
-    } /* -- _sanitizeArray */
+    } /* -- sanitizeArray */
 
 /* --------------------------------------------------------------------------------
     Cleanup text before extracting keywords/summary

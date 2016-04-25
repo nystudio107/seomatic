@@ -26,6 +26,11 @@
     creator:    { label: "Site Creator"|t, url: url('seomatic/creator') },
 } %}
 
+{% set crumbs = [
+    { label: "SEOmatic"|t, url: url('seomatic') },
+    { label: "Site Identity"|t, url: url('seomatic/identity') },
+] %}
+
 {% if craft.app.version < 2.5 %}
     {% set tabs = seomaticSections %}
     {% set selectedTab = 'identity' %}

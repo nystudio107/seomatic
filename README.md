@@ -51,9 +51,11 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
-### 1.1.15 -- 2016.04.22
+### 1.1.15 -- 2016.04.25
 
 * [Added] Added a `siteUrlOverride` config setting for when you need to override the `siteUrl`, for instance in a headless ElementAPI server
+* [Added] Added breadcrumbs to the AdminCP UI
+* [Improved] Fixed an issue with empty organizationOwnerContactPoints
 * [Improved] The array passed into renderJSONLD() is now sanitized before it is rendered
 * [Improved] craft.locale is now properly limited to an ISO 639-1 language code in the metadata
 * [Improved] Facebook locales now ensure that they have a territory as well as a language, e.g.: fr_FR, not just fr

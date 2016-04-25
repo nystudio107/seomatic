@@ -24,6 +24,11 @@
     creator:    { label: "Site Creator"|t, url: url('seomatic/creator') },
 } %}
 
+{% set crumbs = [
+    { label: "SEOmatic"|t, url: url('seomatic') },
+    { label: "Template Meta"|t, url: url('seomatic/meta') },
+] %}
+
 {% if craft.app.version < 2.5 %}
     {% set tabs = seomaticSections %}
     {% set selectedTab = 'meta' %}
