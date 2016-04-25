@@ -113,7 +113,7 @@ class SeomaticTwigExtension extends \Twig_Extension
 
     public function renderJSONLD($object=array())
     {
-        craft()->seomatic->_sanitizeArray($object);
+        craft()->seomatic->sanitizeArray($object);
         $result = craft()->seomatic->renderJSONLD($object);
 
         return TemplateHelper::getRaw(rtrim($result));
