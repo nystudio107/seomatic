@@ -51,6 +51,11 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.16 -- 2016.04.29
+
+* [Improved] Fixed an issue where Twitter and Facebook properties were double-encoded
+* [Improved] Updated the README.md
+
 ### 1.1.15 -- 2016.04.25
 
 * [Added] Added a `siteUrlOverride` config setting for when you need to override the `siteUrl`, for instance in a headless ElementAPI server

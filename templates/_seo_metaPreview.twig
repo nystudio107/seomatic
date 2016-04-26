@@ -59,10 +59,10 @@
 {% if value %}
 {% if value is iterable %}
 {% for subvalue in value %}
-<meta property="og:{{ key }}" content="{{ subvalue }}" /> <!-- {% verbatim %}{{ {% endverbatim %}seomatic.og.{{ key }}[{{ loop.index0 }}]{% verbatim %} }} {% endverbatim %}-->
+<meta property="og:{{ key }}" content="{{ subvalue |raw }}" /> <!-- {% verbatim %}{{ {% endverbatim %}seomatic.og.{{ key }}[{{ loop.index0 }}]{% verbatim %} }} {% endverbatim %}-->
 {% endfor %}
 {% else %}
-<meta property="og:{{ key }}" content="{{ value }}" /> <!-- {% verbatim %}{{ {% endverbatim %}seomatic.og.{{ key }}{% verbatim %} }}{% endverbatim %} -->
+<meta property="og:{{ key }}" content="{{ value |raw }}" /> <!-- {% verbatim %}{{ {% endverbatim %}seomatic.og.{{ key }}{% verbatim %} }}{% endverbatim %} -->
 {% endif %}
 {% endif %}
 {% endfor %}
@@ -71,10 +71,10 @@
 {% if value %}
 {% if value is iterable %}
 {% for subvalue in value %}
-<meta property="article:{{ key }}" content="{{ subvalue }}" /> <!-- {% verbatim %}{{ {% endverbatim %}seomatic.article.{{ key }}[{{ loop.index0 }}]{% verbatim %} }} {% endverbatim %}-->
+<meta property="article:{{ key }}" content="{{ subvalue |raw }}" /> <!-- {% verbatim %}{{ {% endverbatim %}seomatic.article.{{ key }}[{{ loop.index0 }}]{% verbatim %} }} {% endverbatim %}-->
 {% endfor %}
 {% else %}
-<meta property="article:{{ key }}" content="{{ value }}" />  <!-- {% verbatim %}{{ {% endverbatim %}seomatic.article.{{ key }}{% verbatim %} }}{% endverbatim %} -->
+<meta property="article:{{ key }}" content="{{ value |raw }}" />  <!-- {% verbatim %}{{ {% endverbatim %}seomatic.article.{{ key }}{% verbatim %} }}{% endverbatim %} -->
 {% endif %}
 {% endif %}
 {% endfor %}
@@ -86,7 +86,7 @@
 
 {% for key, value in seomaticMeta.twitter %}
 {% if value %}
-<meta property="twitter:{{ key }}" content="{{ value }}" /> <!-- {% verbatim %}{{ {% endverbatim %}seomatic.twitter.{{ key }}{% verbatim %} }}{% endverbatim %} -->
+<meta property="twitter:{{ key }}" content="{{ value |raw }}" /> <!-- {% verbatim %}{{ {% endverbatim %}seomatic.twitter.{{ key }}{% verbatim %} }}{% endverbatim %} -->
 {% endif %}
 {% endfor %}
 
