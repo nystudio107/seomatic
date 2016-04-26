@@ -59,10 +59,10 @@
 {% if value %}
 {% if value is iterable %}
 {% for subvalue in value %}
-<meta property="og:{{ key }}" content="{{ subvalue }}" />
+<meta property="og:{{ key }}" content="{{ subvalue |raw }}" />
 {% endfor %}
 {% else %}
-<meta property="og:{{ key }}" content="{{ value }}" />
+<meta property="og:{{ key }}" content="{{ value |raw }}" />
 {% endif %}
 {% endif %}
 {% endfor %}
@@ -71,10 +71,10 @@
 {% if value %}
 {% if value is iterable %}
 {% for subvalue in value %}
-<meta property="article:{{ key }}" content="{{ subvalue }}" />
+<meta property="article:{{ key }}" content="{{ subvalue |raw }}" />
 {% endfor %}
 {% else %}
-<meta property="article:{{ key }}" content="{{ value }}" />
+<meta property="article:{{ key }}" content="{{ value |raw }}" />
 {% endif %}
 {% endif %}
 {% endfor %}
@@ -86,7 +86,7 @@
 
 {% for key, value in seomaticMeta.twitter %}
 {% if value %}
-<meta property="twitter:{{ key }}" content="{{ value }}" />
+<meta property="twitter:{{ key }}" content="{{ value |raw }}" />
 {% endif %}
 {% endfor %}
 
