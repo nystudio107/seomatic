@@ -1,0 +1,82 @@
+{% import "_includes/forms" as forms %}
+
+{% extends "_layouts/cp" %}
+{% import '_includes/forms' as forms %}
+
+{% set title = "SEOmatic"|t %}
+
+{% set fullPageForm = true %}
+
+{% set docsUrl = "https://github.com/nystudio107/seomatic/wiki" %}
+
+{% set seomaticSections = {
+    meta:       { label: "Template Meta"|t, url: url('seomatic/meta') },
+    site:       { label: "Site Meta"|t, url: url('seomatic/site') },
+    identity:   { label: "Site Identity"|t, url: url('seomatic/identity') },
+    social:     { label: "Social Media"|t, url: url('seomatic/social') },
+    creator:    { label: "Site Creator"|t, url: url('seomatic/creator') },
+    settings:    { label: "Settings"|t, url: url('seomatic/settings') },
+} %}
+
+{% set crumbs = [
+    { label: "SEOmatic"|t, url: url('seomatic') },
+    { label: "Settings"|t, url: url('seomatic/settings') },
+] %}
+
+{% if craft.app.version < 2.5 %}
+    {% set tabs = seomaticSections %}
+    {% set selectedTab = 'settings' %}
+{% else %}
+    {% set subnav = seomaticSections %}
+    {% set selectedSubnavItem = 'settings' %}
+{% endif %}
+
+{% set content %}
+
+<!-- Needed for for Craft < 2.5 -->
+
+    {% if craft.app.version < 2.5 %}
+    <form id="settings-form" method="post" accept-charset="UTF-8" data-saveshortcut="1" data-saveshortcut-redirect="{{ continueEditingUrl }}">
+    {% endif %}
+
+    <input type="hidden" name="action" value="plugins/savePluginSettings">
+    <input type="hidden" name="redirect" value="seomatic/settings" />
+    <input type="hidden" name="pluginClass" value="Seomatic">
+    {{ getCsrfInput() }}
+
+        {% if tabs is defined %}
+            {% include "_includes/tabs" %}
+        {% endif %}
+
+<!-- Settings -->
+
+    {{ forms.textField({
+        label: "Plugin Name"|t,
+        instructions: "The plugin name as you'd like it to be displayed in the AdminCP."|t,
+        id: 'pluginNameOverride',
+        name: 'settings[pluginNameOverride]',
+        value: settings.pluginNameOverride,
+        autofocus: true,
+        first: true,
+    }) }}
+
+<!-- Needed for for Craft < 2.5 -->
+
+        {% if craft.app.version < 2.5 %}
+        <div class="item" data-position="left" data-colspan="1">
+            <div class="buttons">
+                <div class="btngroup submit first">
+                    <input type="submit" class="btn submit" value="{{ 'Save'|t }}">
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+
+<!-- Needed for for Craft < 2.5 -->
+
+    {% if craft.app.version < 2.5 %}
+    </form>
+    {% endif %}
+
+{% endset %}

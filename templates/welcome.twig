@@ -6,6 +6,11 @@
 {% set linkGetStarted = url('seomatic/site') %}
 {% set docsUrl = "https://github.com/nystudio107/seomatic/wiki" %}
 
+{% set crumbs = [
+    { label: "SEOmatic"|t, url: url('seomatic') },
+    { label: "Welcome"|t, url: url('seomatic/welcome') },
+] %}
+
 {% set content %}
 	<div style="text-align:center; margin:0 auto; padding: 5% 10%;">
 		<img src="{{ resourceUrl('seomatic/icon.svg') }}" width="30%" height="auto" />

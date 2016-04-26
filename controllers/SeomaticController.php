@@ -6,6 +6,18 @@ class SeomaticController extends BaseController
 
     protected $allowAnonymous = array('actionRenderHumans', 'actionRenderRobots');
 
+/**
+ */
+    public function actionEditSettings()
+    {
+        $retourPlugin = craft()->plugins->getPlugin('seomatic');
+        $settings = $retourPlugin->getSettings();
+
+        $this->renderTemplate('seomatic/settings', array(
+           'settings' => $settings
+        ));
+    } /* -- actionEditSettings */
+
 /* --------------------------------------------------------------------------------
     Render the humans.txt template
 -------------------------------------------------------------------------------- */

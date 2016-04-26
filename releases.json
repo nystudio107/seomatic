@@ -6,6 +6,7 @@
         "notes": [
             "[Added] Added a `siteUrlOverride` config setting for when you need to override the `siteUrl`, for instance in a headless ElementAPI server",
             "[Added] Added breadcrumbs to the AdminCP UI",
+            "[Added] Added the ability to change the display name of the SEOmatic plugin in the AdminCP",
             "[Improved] Fixed an issue with empty organizationOwnerContactPoints",
             "[Improved] The array passed into renderJSONLD() is now sanitized before it is rendered",
             "[Improved] craft.locale is now properly limited to an ISO 639-1 language code in the metadata",

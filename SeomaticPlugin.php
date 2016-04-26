@@ -5,7 +5,8 @@ class SeomaticPlugin extends BasePlugin
 {
     public function getName()
     {
-         return Craft::t('SEOmatic');
+        $pluginNameOverride = $this->getSettings()->getAttribute('pluginNameOverride');
+        return empty($pluginNameOverride) ? Craft::t('SEOmatic') : $pluginNameOverride;
     }
 
     public function getDescription()
@@ -122,6 +123,17 @@ class SeomaticPlugin extends BasePlugin
             'seomatic/meta/new/(?P<locale>[-\w\.*]+)'               => array('action' => 'seomatic/editMeta'),
             'seomatic/meta/(?P<metaId>\d+)'                         => array('action' => 'seomatic/editMeta'),
             'seomatic/meta/(?P<metaId>\d+)/(?P<locale>[-\w\.*]+)'   => array('action' => 'seomatic/editMeta'),
+            'seomatic/settings'                                     => array('action' => 'seomatic/editSettings'),
+        );
+    }
+
+    /**
+     * @return array
+     */
+    protected function defineSettings()
+    {
+        return array(
+            'pluginNameOverride'  => AttributeType::String
         );
     }
 
