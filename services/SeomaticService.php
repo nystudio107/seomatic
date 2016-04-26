@@ -57,6 +57,40 @@ class SeomaticService extends BaseApplicationComponent
     } /* -- renderSiteMeta */
 
 /* --------------------------------------------------------------------------------
+    Render the all of the SEO Meta for a "headless" instance of Craft
+        $templatePath - the template to use to render the meta, "" for the default
+        $entry - the Entry ElementType for this render, null otherwise
+        $forTemplate - the Craft template path for this request, e.g. "blog/index"
+        $locale - the locale for this render
+-------------------------------------------------------------------------------- */
+    public function headlessRenderSiteMeta($templatePath="", $entry = null, $forTemplate="", $locale)
+    {
+
+    $renderedHTML = "";
+    if (!$locale)
+        $locale = craft()->language;
+
+/* -- If there is an entry associated with this meta render that has an SEOmatic FieldType in it, make sure it is included */
+
+    if ($entry)
+    {
+       $entryMeta = craft()->seomatic->getMetaFromElement($entry);
+       if ($entryMeta)
+            craft()->seomatic->setEntryMeta($entryMeta, $entry.url);
+    }
+
+/* -- Get the SEOmatic globals for the current template / entry / global meta context */
+
+    $metaVars = craft()->seomatic->getGlobals($forTemplate, $locale);
+
+/* -- Call SEOmatic to render the actual meta for us */
+
+    $renderedHTML = craft()->seomatic->renderSiteMeta($seomaticTemplatePath, $metaVars, $locale);
+
+    return $renderedHTML;
+    } /* -- headlessRenderSiteMeta */
+
+/* --------------------------------------------------------------------------------
     Render the SEOmatic template
 -------------------------------------------------------------------------------- */
 

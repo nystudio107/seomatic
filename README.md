@@ -53,6 +53,7 @@ Some things to do, and ideas for potential features:
 
 ### 1.1.16 -- 2016.04.29
 
+* [Added] Added `craft()->seomatic->headlessRenderSiteMeta()` for headless Craft CMS installs
 * [Improved] Fixed an issue where Twitter and Facebook properties were double-encoded
 * [Improved] Updated the README.md
 
