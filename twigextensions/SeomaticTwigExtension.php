@@ -26,7 +26,7 @@ class SeomaticTwigExtension extends \Twig_Extension
     {
         $result = array();
 
-        if (craft()->request->isSiteRequest() && !$this->seomaticInitializing)
+        if (craft()->request->isSiteRequest() && !$this->seomaticInitializing && !craft()->isConsole())
         {
 
             $this->seomaticInitializing = true;
