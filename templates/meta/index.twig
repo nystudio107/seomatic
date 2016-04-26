@@ -3,7 +3,7 @@
 {% includeCssResource "seomatic/css/style.css" %}
 {% includeJsResource "seomatic/js/metalist.js" %}
 
-{% set title = "SEOmatic"|t %}
+{% set title = craft.seomatic.getPluginName() %}
 
 {% set elementType = 'Seomatic_Meta' %}
 
@@ -19,7 +19,7 @@
 } %}
 
 {% set crumbs = [
-    { label: "SEOmatic"|t, url: url('seomatic') },
+    { label: craft.seomatic.getPluginName(), url: url('seomatic') },
     { label: "Template Meta"|t, url: url('seomatic/meta') },
 ] %}
 

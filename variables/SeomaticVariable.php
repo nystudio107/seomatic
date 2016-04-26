@@ -467,4 +467,15 @@ class SeomaticVariable
         return craft()->seomatic->getSocial();
     } /* -- getSocial */
 
+/* --------------------------------------------------------------------------------
+    Get the plugin name
+-------------------------------------------------------------------------------- */
+
+    function getPluginName()
+    {
+        $retourPlugin = craft()->plugins->getPlugin('seomatic');
+        $result = $retourPlugin->getName();
+        return $result;
+    } /* -- getPluginName */
+
 } /* -- class SeomaticVariable */

@@ -12,7 +12,7 @@
 {% includeJsResource "seomatic/js/bootstrap-tokenfield.min.js" %}
 {% includeJsResource "seomatic/js/site.js" %}
 
-{% set title = "SEOmatic"|t %}
+{% set title = craft.seomatic.getPluginName() %}
 
 {% set fullPageForm = true %}
 {% set hasCustomLayout = true %}
@@ -25,10 +25,11 @@
     identity:   { label: "Site Identity"|t, url: url('seomatic/identity') },
     social:     { label: "Social Media"|t, url: url('seomatic/social') },
     creator:    { label: "Site Creator"|t, url: url('seomatic/creator') },
+    settings:    { label: "Settings"|t, url: url('seomatic/settings') },
 } %}
 
 {% set crumbs = [
-    { label: "SEOmatic"|t, url: url('seomatic') },
+    { label: craft.seomatic.getPluginName(), url: url('seomatic') },
     { label: "Site Meta"|t, url: url('seomatic/site') },
 ] %}
 

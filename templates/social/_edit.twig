@@ -9,7 +9,7 @@
 {% includeJsResource "seomatic/js/jquery.bpopup.min.js" %}
 {% includeJsResource "seomatic/js/prism.min.js" %}
 
-{% set title = "SEOmatic"|t %}
+{% set title = craft.seomatic.getPluginName() %}
 
 {% set fullPageForm = true %}
 {% set hasCustomLayout = true %}
@@ -26,7 +26,7 @@
 } %}
 
 {% set crumbs = [
-    { label: "SEOmatic"|t, url: url('seomatic') },
+    { label: craft.seomatic.getPluginName(), url: url('seomatic') },
     { label: "Social Media"|t, url: url('seomatic/social') },
 ] %}
 
