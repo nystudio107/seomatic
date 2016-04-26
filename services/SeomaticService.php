@@ -85,7 +85,7 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Call SEOmatic to render the actual meta for us */
 
-    $renderedHTML = craft()->seomatic->renderSiteMeta($seomaticTemplatePath, $metaVars, $locale);
+    $renderedHTML = craft()->seomatic->renderSiteMeta($forTemplate, $metaVars, $locale);
 
     return $renderedHTML;
     } /* -- headlessRenderSiteMeta */
