@@ -76,7 +76,7 @@ class SeomaticService extends BaseApplicationComponent
     {
        $entryMeta = craft()->seomatic->getMetaFromElement($entry);
        if ($entryMeta)
-            craft()->seomatic->setEntryMeta($entryMeta, $entry.url);
+            craft()->seomatic->setEntryMeta($entryMeta, "");
     }
 
 /* -- Get the SEOmatic globals for the current template / entry / global meta context */
