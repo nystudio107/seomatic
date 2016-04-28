@@ -45,7 +45,7 @@
     {{ getCsrfInput() }}
 
         {% if tabs is defined %}
-            {% include "_includes/tabs" %}
+            {% include "_includes/tabs" with tabs only %}
         {% endif %}
 
 <!-- Settings -->
