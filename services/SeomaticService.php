@@ -2359,6 +2359,8 @@ public function getFullyQualifiedUrl($url)
     {
         foreach ($theArray as $key => &$value)
         {
+            if (is_object($value))
+                $value = (string)$value;
             if (is_string($value))
             {
                 $value = craft()->config->parseEnvironmentString($value);
