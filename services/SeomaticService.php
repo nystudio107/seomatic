@@ -617,9 +617,9 @@ class SeomaticService extends BaseApplicationComponent
 
             foreach ($fields as $field)
             {
-                if ($field->fieldType->name == "Plain Text"
-                    || $field->fieldType->name == "Rich Text"
-                    || $field->fieldType->name == "Rich Text (Redactor I)"
+                if ($field->fieldType->type == "PlainText"
+                    || $field->fieldType->type == "RichText"
+                    || $field->fieldType->type == "RedactorI)"
                     )
                     {
                         $result .= strip_tags($block[$field->handle]) . " ";
