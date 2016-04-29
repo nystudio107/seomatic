@@ -61,7 +61,7 @@
         <div class="grid first">
             <div class="item" data-position="left" data-min-colspan="2" data-max-colspan="3">
                 <div id="fields" class="pane">
-                    {% if tabs is defined %}
+                    {% if tabs is defined and tabs|length %}
                         {% include "_includes/tabs" with tabs only %}
                     {% endif %}
 
