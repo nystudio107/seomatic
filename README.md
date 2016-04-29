@@ -58,6 +58,7 @@ Some things to do, and ideas for potential features:
 * [Improved] Fixed an issue where Twitter and Facebook properties were double-encoded
 * [Fixed] Fixed a visual display issue with tabs and Craft 2.4.x
 * [Fixed] Fixed a localization issue with extractTextFromMatrix()
+* [Improved] SEOmatic now converts any objects passed into ths seomatic variables to string automatically* 
 * [Improved] Updated the README.md
 
 ### 1.1.15 -- 2016.04.25
