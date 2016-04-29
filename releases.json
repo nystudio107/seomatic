@@ -7,6 +7,7 @@
             "[Added] Added craft()->seomatic->headlessRenderSiteMeta() for headless Craft CMS installs",
             "[Fixed] Fixed an issue where Twitter and Facebook properties were double-encoded",
             "[Fixed] Fixed a visual display issue with tabs and Craft 2.4.x",
+            "[Fixed] Fixed a localization issue with extractTextFromMatrix()",
             "[Improved] Updated the README.md"
         ]
     },
