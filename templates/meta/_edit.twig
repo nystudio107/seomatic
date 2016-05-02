@@ -28,6 +28,7 @@
 {% set crumbs = [
     { label: craft.seomatic.getPluginName(), url: url('seomatic') },
     { label: "Template Meta"|t, url: url('seomatic/meta') },
+    { label: "Edit"|t, url: url(craft.request.url) },
 ] %}
 
 {% if craft.app.version < 2.5 %}
@@ -68,7 +69,7 @@
                 <div class="item" data-position="left" data-min-colspan="2" data-max-colspan="3">
                     <div id="fields" class="pane">
                         {% if tabs is defined and tabs|length %}
-                            {% include "_includes/tabs" with tabs only %}
+                            {% include "_includes/tabs" %}
                         {% endif %}
                         {% include "seomatic/meta/_main" %}
 

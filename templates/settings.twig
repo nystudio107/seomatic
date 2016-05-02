@@ -44,10 +44,6 @@
     <input type="hidden" name="pluginClass" value="Seomatic">
     {{ getCsrfInput() }}
 
-        {% if tabs is defined and tabs|length %}
-            {% include "_includes/tabs" with tabs only %}
-        {% endif %}
-
 <!-- Settings -->
 
     {{ forms.textField({
