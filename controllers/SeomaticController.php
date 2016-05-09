@@ -474,6 +474,9 @@ class SeomaticController extends BaseController
         $record->siteOpenGraphType = craft()->request->getPost('siteOpenGraphType', $record->siteOpenGraphType);
         $record->siteRobots = craft()->request->getPost('siteRobots', $record->siteRobots);
 
+        $record->siteLinksSearchTargets = craft()->request->getPost('siteLinksSearchTargets', array());
+        $record->siteLinksQueryInput = craft()->request->getPost('siteLinksQueryInput', $record->siteLinksQueryInput);
+
         $record->siteRobotsTxt = craft()->request->getPost('siteRobotsTxt', $record->siteRobotsTxt);
 
         $record->siteSeoImageId = craft()->request->getPost('siteSeoImageId', $record->siteSeoImageId);

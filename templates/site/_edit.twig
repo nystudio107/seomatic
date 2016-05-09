@@ -229,6 +229,46 @@
                         locale: siteMeta.locale,
                     }) }}
 
+<!-- SiteLinks Search -->
+
+                        <h2>{{ "SiteLinks Search Box" |t }}</h2>
+
+                        <div class="field">
+
+                            <div class="heading">
+                                <div class="instructions"><p>{{ "With <a href='https://developers.google.com/structured-data/slsb-overview' target='_blank'>Google Sitelinks search box</a>, from search results. Search users sometimes use navigational queries, typing in the brand name or URL of a known site or app, only to do a more detailed search once they reach their destination." |t |raw}}</p></div>
+                            </div>
+
+                            <div class="heading">
+                                <label for="siteLinksSearchTargets">{{ "Search Targets"|t}}{% if craft.isLocalized and siteMeta.locale %}<span class="locale">{{ siteMeta.locale }}</span>{% endif %}</label>
+                                <div class="instructions"><p>{{ "This property specifies a search URL pattern for sending queries to your site's search engine.  It must include a string enclosed in curly braces that is a placeholder for the user's search query (e.g., <code>{search_term_string}</code>). The string inside the curly braces must also appear in the name attribute of the query-input property." |t |raw}}</p></div>
+                            </div>
+                            {{ forms.editableTable({
+                                id: 'siteLinksSearchTargets',
+                                name: 'siteLinksSearchTargets',
+                                required: false,
+                                cols: {
+                                    searchtargets: {
+                                        heading: "Search Target" |t,
+                                        type: "singleline" |t,
+                                    },
+                                },
+                                rows: siteMeta.siteLinksSearchTargets,
+                                locale: siteMeta.locale,
+                            }) }}
+                        </div>
+
+                        {{ forms.textField({
+                            label: "Search Query Input"|t,
+                            instructions: "The value for the name attribute of query-input must match the string enclosed inside curly braces in the target property of potentialAction, e.g.: <code>search_term_string</code>" |t |raw,
+                            id: "siteLinksQueryInput",
+                            class: 'nicetext',
+                            name: "siteLinksQueryInput",
+                            value: siteMeta.siteLinksQueryInput,
+                            required: false,
+                            locale: siteMeta.locale,
+                        }) }}
+
 <!-- robots.txt -->
 
                 <h2>{{ "robots.txt" |t }}</h2>
@@ -282,7 +322,7 @@
                     <div style="text-align:center; margin:0 auto;">
                         <img src="{{ resourceUrl('seomatic/images/seo_site.svg') }}" width="64px" height="auto" />
                     </div>
-                    {{ "<p>These SEO Site Meta settings are used to globally define the Meta for the website.  When no SEO Template Meta is found for a webpage, these settings are used by default.</p><p>They are used in combination with the SEO Template Meta settings to generate <a href='https://developers.google.com/schemas/formats/json-ld?hl=en' target='_blank'>JSON-LD</a> microdata, <a href='http://dublincore.org' target='_blank'>Dublin Core</a> core metadata, <a href='https://dev.twitter.com/cards/overview' target='_blank'>Twitter Cards</a>, <a href='https://developers.facebook.com/docs/sharing/opengraph' target='_blank'>Facebook OpenGraph</a>, and as well as HTML meta tags.<p>If a no Template Meta exists for a template, the SEO Site Meta is used.</p>  <p>If any fields are left blank in a Template Meta, those fields are pulled from the SEO Site Meta.</p><p>You can also dynamically change the <code>seomaticMeta.*</code> variables in your Twig templates, and they will appear in the rendered SEO Meta.</p>" |t |raw }}
+                    {{ "<p>These SEO Site Meta settings are used to globally define the Meta for the website.  When no SEO Template Meta is found for a webpage, these settings are used by default.</p><p>They are used in combination with the SEO Template Meta & SEO Entry Meta settings to generate <a href='https://developers.google.com/schemas/formats/json-ld?hl=en' target='_blank'>JSON-LD</a> microdata, <a href='http://dublincore.org' target='_blank'>Dublin Core</a> core metadata, <a href='https://dev.twitter.com/cards/overview' target='_blank'>Twitter Cards</a>, <a href='https://developers.facebook.com/docs/sharing/opengraph' target='_blank'>Facebook OpenGraph</a>, and as well as HTML meta tags.<p>If a no Template Meta exists for a template, the SEO Site Meta is used.</p>  <p>If any fields are left blank in a Template Meta, those fields are pulled from the SEO Site Meta.</p><p>You can also dynamically change the <code>seomaticMeta.*</code> variables in your Twig templates, and they will appear in the rendered SEO Meta.</p>" |t |raw }}
                 </div>
 
                 <div id="preview-robots" class="btn big livepreviewbtn secondbtn">

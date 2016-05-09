@@ -1044,6 +1044,22 @@ class SeomaticService extends BaseApplicationComponent
         else
             $siteMeta['siteRobots'] = '';
 
+/* -- Handle the organization contact points */
+
+        $siteMeta['siteLinksSearchTargets'] = $settings['siteLinksSearchTargets'];
+        $searchTargets = array();
+        if (isset($siteMeta['siteLinksSearchTargets']) && is_array($siteMeta['siteLinksSearchTargets']))
+        {
+            foreach ($siteMeta['siteLinksSearchTargets'] as $searchTarget)
+            {
+                $searchTargets[] = $searchTarget;
+            }
+        }
+        $searchTargets = array_filter($searchTargets);
+        $siteMeta['siteLinksSearchTargets'] = $searchTargets;
+
+        $siteMeta['siteLinksQueryInput'] = $settings['siteLinksQueryInput'];
+
         $siteMeta['siteTwitterCardType'] = $settings['siteTwitterCardType'];
         if (!$siteMeta['siteTwitterCardType'])
             $siteMeta['siteTwitterCardType'] = 'summary';
@@ -1783,6 +1799,21 @@ class SeomaticService extends BaseApplicationComponent
         if (isset($metaVars['seomaticSiteMeta']['siteSeoImage']))
             $webSiteJSONLD['image'] = $metaVars['seomaticSiteMeta']['siteSeoImage'];
 
+        if (!empty($metaVars['seomaticSiteMeta']['siteLinksSearchTargets']) && $metaVars['seomaticSiteMeta']['siteLinksQueryInput'])
+        {
+            $targets = array();
+            foreach ($metaVars['seomaticSiteMeta']['siteLinksSearchTargets'] as $target)
+            {
+                $targets[] = $target['searchtargets'];
+            }
+            $potentialAction = array (
+                "type" => "SearchAction",
+                "target" => $targets,
+                "query-input" => "required name=" . $metaVars['seomaticSiteMeta']['siteLinksQueryInput'],
+                );
+        $webSiteJSONLD['potentialAction'] = $potentialAction;
+        }
+
         $sameAs = array();
         array_push($sameAs, $metaVars['seomaticHelper']['twitterUrl']);
         array_push($sameAs, $metaVars['seomaticHelper']['facebookUrl']);
@@ -2422,61 +2453,69 @@ public function getFullyQualifiedUrl($url)
 
             if (is_array($value))
             {
-                $keys = array_keys($value);
-                if ($keys[0] == "0")
+                if (empty($value))
                 {
-                    $predicate = ": [";
-                    $suffix = "]" . $comma  . "\n";
-                    $subLines = "";
-                    $numSubi = count($value);
-                    $subi = 0;
-                    foreach ($value as $subValue)
-                    {
-                        $subi++;
-                        if ($subi == $numSubi)
-                            $subComma = "";
-                        else
-                            $subComma = ",";
-                        if (is_array($subValue))
-                        {
-                            $blockOpen = "{";
-                            $blockOpen = str_pad($blockOpen, strlen($blockOpen) + (($level+1) * 4), " ", STR_PAD_LEFT);
-                            $blockClose = "}" . $subComma;
-                            $blockClose = str_pad($blockClose, strlen($blockClose) + (($level+1) * 4), " ", STR_PAD_LEFT);
-                            $subLines = $subLines . "\n" . $blockOpen . "\n" . $this->_print_twig_array($subValue, $level + 2) . $blockClose;
-                            if ($subi == $numSubi)
-                            {
-                                $subLines .= "\n";
-                                $suffix = str_pad($suffix, strlen($suffix) + ($level * 4), " ", STR_PAD_LEFT);
-                            }
-                        }
-                        else
-                            $subLines .= "\"" . $subValue . "\"" . $subComma;
-                    }
-                    if ($level < 1)
-                    {
-                        $predicate = "{% set " . $key . " = [ ";
-                        $suffix = "] %}" . "\n\n";
-                        $key = "";
-                    }
-                    $line =  $key . $predicate;
+                    $line = $key . ": [],\n";
                     $line = str_pad($line, strlen($line) + ($level * 4), " ", STR_PAD_LEFT);
-                    $line = $line . $subLines . $suffix;
                 }
                 else
                 {
-                    $predicate = $key . ": { " . "\n";
-                    $suffix = $comma;
-                    if ($level < 1)
+                    $keys = array_keys($value);
+                    if ($keys[0] == "0")
                     {
-                        $predicate = "{% set " . $key . " = { " . "\n";
-                        $suffix = " %}" . "\n";
+                        $predicate = ": [";
+                        $suffix = "]" . $comma  . "\n";
+                        $subLines = "";
+                        $numSubi = count($value);
+                        $subi = 0;
+                        foreach ($value as $subValue)
+                        {
+                            $subi++;
+                            if ($subi == $numSubi)
+                                $subComma = "";
+                            else
+                                $subComma = ",";
+                            if (is_array($subValue))
+                            {
+                                $blockOpen = "{";
+                                $blockOpen = str_pad($blockOpen, strlen($blockOpen) + (($level+1) * 4), " ", STR_PAD_LEFT);
+                                $blockClose = "}" . $subComma;
+                                $blockClose = str_pad($blockClose, strlen($blockClose) + (($level+1) * 4), " ", STR_PAD_LEFT);
+                                $subLines = $subLines . "\n" . $blockOpen . "\n" . $this->_print_twig_array($subValue, $level + 2) . $blockClose;
+                                if ($subi == $numSubi)
+                                {
+                                    $subLines .= "\n";
+                                    $suffix = str_pad($suffix, strlen($suffix) + ($level * 4), " ", STR_PAD_LEFT);
+                                }
+                            }
+                            else
+                                $subLines .= "\"" . $subValue . "\"" . $subComma;
+                        }
+                        if ($level < 1)
+                        {
+                            $predicate = "{% set " . $key . " = [ ";
+                            $suffix = "] %}" . "\n\n";
+                            $key = "";
+                        }
+                        $line =  $key . $predicate;
+                        $line = str_pad($line, strlen($line) + ($level * 4), " ", STR_PAD_LEFT);
+                        $line = $line . $subLines . $suffix;
                     }
-                    $predicate = str_pad($predicate, strlen($predicate) + ($level * 4), " ", STR_PAD_LEFT);
-                    $line = $this->_print_twig_array($value, $level + 1);
-                    $suffix = "}" . $suffix . "\n";
-                    $suffix = str_pad($suffix, strlen($suffix) + ($level * 4), " ", STR_PAD_LEFT);
-                    $line = $predicate . $line . $suffix;
+                    else
+                    {
+                        $predicate = $key . ": { " . "\n";
+                        $suffix = $comma;
+                        if ($level < 1)
+                        {
+                            $predicate = "{% set " . $key . " = { " . "\n";
+                            $suffix = " %}" . "\n";
+                        }
+                        $predicate = str_pad($predicate, strlen($predicate) + ($level * 4), " ", STR_PAD_LEFT);
+                        $line = $this->_print_twig_array($value, $level + 1);
+                        $suffix = "}" . $suffix . "\n";
+                        $suffix = str_pad($suffix, strlen($suffix) + ($level * 4), " ", STR_PAD_LEFT);
+                        $line = $predicate . $line . $suffix;
+                    }
                 }
             }
             else

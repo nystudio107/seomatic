@@ -52,8 +52,9 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
-### 1.1.17 -- 2016.05.10
+### 1.1.17 -- 2016.05.09
 
+* [Added] Added support for Google Sitelinks Search Box
 * [Added] Added support for Bing site verification
 * [Fixed] Fixed a visual display issue with the SEOmatic FieldType Source labels 
 * [Fixed] Facebook Article tags now use the proper data for author: and publisher:
