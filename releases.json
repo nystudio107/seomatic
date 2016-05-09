@@ -4,6 +4,7 @@
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-05-10T11:00:00-05:00",
         "notes": [
+            "[Added] Added support for Bing site verification",
             "[Fixed] Fixed a visual display issue with the SEOmatic FieldType Source labels",
             "[Fixed] Facebook Article tags now use the proper data for author: and publisher:",
             "[Improved] Updated the README.md"
