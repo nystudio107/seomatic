@@ -78,6 +78,13 @@ You can also dynamically change any of these SEO Meta fields in your Twig templa
 * **Site Facebook Open Graph Type** - Adding Open Graph tags to your website influences the performance of your links on social media by allowing you to control what appears when a user posts a link to your content on Facebook.
 * **Site Robots** - The [robots meta tag](https://developers.google.com/webmasters/control-crawl-index/docs/robots_meta_tag?hl=en) lets you utilize a granular, page-specific approach to controlling how an individual page should be indexed and served to users in search results.  Setting it to a blank value means 'no change'.
 
+#### SiteLinks Search Box
+
+With [Google Sitelinks search box](https://developers.google.com/structured-data/slsb-overview), from search results. Search users sometimes use navigational queries, typing in the brand name or URL of a known site or app, only to do a more detailed search once they reach their destination.
+
+* **Search Targets** - This property specifies a search URL pattern for sending queries to your site's search engine. It must include a string enclosed in curly braces that is a placeholder for the user's search query (e.g., `{search_term_string}`). The string inside the curly braces must also appear in the name attribute of the query-input property.
+* **Search Query Input** - The value for the name attribute of query-input must match the string enclosed inside curly braces in the target property of potentialAction, e.g.: `searchtermstring`
+
 #### robots.txt
 
 * **robots.txt Template** - A `robots.txt` file is a file at the root of your site that indicates those parts of your site you don’t want accessed by search engine crawlers. The file uses the [Robots Exclusion Standard](http://en.wikipedia.org/wiki/Robots_exclusion_standard#About_the_standard), which is a protocol with a small set of commands that can be used to indicate access to your site by section and by specific kinds of web crawlers (such as mobile crawlers vs desktop crawlers).
@@ -108,6 +115,7 @@ Leave any fields blank that aren't applicable or which you do not want as part o
 
 #### Site Ownership
 * **Google Site Verification** - For the `<meta name='google-site-verification'>` tag. Only enter the code in the `content=''`, not the entire tag. [Here's how to get it.](https://www.google.com/webmasters/verification/).
+* **Bing Site Verification** - For the `<meta name='msvalidate.01'>` tag. Only enter the code in the `content=''`, not the entire tag. [Here's how to get it.](https://www.bing.com/webmaster/help/how-to-verify-ownership-of-your-site-afcfefc6).
 * **Google Analytics Tracking ID** - If you enter your Google Analytics Tracking ID here, the Google Analytics script tags will be included in your `<head>` (the script is not included if `devMode` is on or during Live Preview). Only enter the ID, e.g.: `UA-XXXXXX-XX`, not the entire script code. [Here's how to get it.](https://support.google.com/analytics/answer/1032385?hl=en)
 * **Automatically send Google Analytics PageView** - Controls whether the Google Analytics script automatically sends a PageView to Google Analytics when your pages are loaded
 * **Google Analytics Plugins** - Select which Google Analytics plugins to enable. [Learn More](https://developers.google.com/analytics/devguides/collection/analyticsjs/)
