@@ -28,12 +28,15 @@ class Seomatic_SettingsRecord extends BaseRecord
             'siteOpenGraphType'					=> array(AttributeType::String, 'default' => ''),
             'siteRobots'						=> array(AttributeType::String, 'default' => ''),
             'siteRobotsTxt'                     => array(AttributeType::String, 'column' => ColumnType::Text),
+            'siteLinksSearchTargets'            => array(AttributeType::Mixed),
+            'siteLinksQueryInput'               => array(AttributeType::String, 'default' => ''),
 
 /* --------------------------------------------------------------------------------
 	IDENTITY settings
 -------------------------------------------------------------------------------- */
 
             'googleSiteVerification'            => array(AttributeType::String, 'default' => ''),
+            'bingSiteVerification'              => array(AttributeType::String, 'default' => ''),
             'googleAnalyticsUID'                => array(AttributeType::String, 'default' => ''),
             'googleAnalyticsSendPageview'       => array(AttributeType::Bool, 'default' => true),
             'googleAnalyticsAdvertising'        => array(AttributeType::Bool, 'default' => false),

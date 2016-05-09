@@ -101,10 +101,13 @@
 
 <link type="text/plain" rel="author" href="/humans.txt" />
 
-{% if seomaticHelper.ownerGoogleSiteVerification %}
 <!-- Domain verification -->
 
+{% if seomaticHelper.ownerGoogleSiteVerification %}
 <meta name="google-site-verification" content="{{ seomaticHelper.ownerGoogleSiteVerification |raw }}" /> <!-- {% verbatim %}{{ seomaticHelper.ownerGoogleSiteVerification }}{% endverbatim %} -->
+{% endif %}
+{% if seomaticHelper.ownerBingSiteVerification %}
+<meta name="msvalidate.01" content="{{ seomaticHelper.ownerBingSiteVerification |raw }}" />  <!-- {% verbatim %}{{ seomaticHelper.ownerBingSiteVerification }}{% endverbatim %} -->
 {% endif %}
 
 <!-- Google Analytics -->

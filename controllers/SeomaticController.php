@@ -520,6 +520,7 @@ class SeomaticController extends BaseController
 /* -- Set the Identity attributes, defaulting to the existing values for whatever is missing from the post data */
 
         $record->googleSiteVerification = craft()->request->getPost('googleSiteVerification', $record->googleSiteVerification);
+        $record->bingSiteVerification = craft()->request->getPost('bingSiteVerification', $record->bingSiteVerification);
         $record->googleAnalyticsUID = craft()->request->getPost('googleAnalyticsUID', $record->googleAnalyticsUID);
         $record->googleAnalyticsSendPageview = craft()->request->getPost('googleAnalyticsSendPageview', $record->googleAnalyticsSendPageview);
         $record->googleAnalyticsAdvertising = craft()->request->getPost('googleAnalyticsAdvertising', $record->googleAnalyticsAdvertising);

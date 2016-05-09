@@ -27,12 +27,15 @@ class Seomatic_SettingsModel extends BaseModel
             'siteSeoImageId'                    => array(AttributeType::Number, 'default' => null),
             'siteRobots'                        => array(AttributeType::String, 'default' => ''),
             'siteRobotsTxt'                     => array(AttributeType::String, 'default' => $this->getDefaultRobots()),
+            'siteLinksSearchTargets'            => array(AttributeType::Mixed, 'default' => ''),
+            'siteLinksQueryInput'               => array(AttributeType::String, 'default' => ''),
 
 /* --------------------------------------------------------------------------------
     IDENTITY settings
 -------------------------------------------------------------------------------- */
 
             'googleSiteVerification'            => array(AttributeType::String, 'default' => ''),
+            'bingSiteVerification'              => array(AttributeType::String, 'default' => ''),
             'googleAnalyticsUID'                => array(AttributeType::String, 'default' => ''),
             'googleAnalyticsSendPageview'       => array(AttributeType::Bool, 'default' => true),
             'googleAnalyticsAdvertising'        => array(AttributeType::Bool, 'default' => false),

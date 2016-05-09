@@ -1092,6 +1092,7 @@ class SeomaticService extends BaseApplicationComponent
         $identity['locale'] = $settings['locale'];
 
         $identity['googleSiteVerification'] = $settings['googleSiteVerification'];
+        $identity['bingSiteVerification'] = $settings['bingSiteVerification'];
         $identity['googleAnalyticsUID'] = $settings['googleAnalyticsUID'];
         $identity['googleAnalyticsSendPageview'] = $settings['googleAnalyticsSendPageview'];
         $identity['googleAnalyticsAdvertising'] = $settings['googleAnalyticsAdvertising'];
@@ -2059,6 +2060,7 @@ class SeomaticService extends BaseApplicationComponent
 /* -- Computed identity strings */
 
         $helper['ownerGoogleSiteVerification'] = $identity['googleSiteVerification'];
+        $helper['ownerBingSiteVerification'] = $identity['bingSiteVerification'];
         $helper['ownerGoogleAnalyticsUID'] = $identity['googleAnalyticsUID'];
         $helper['googleAnalyticsSendPageview'] = $identity['googleAnalyticsSendPageview'];
         $helper['googleAnalyticsAdvertising'] = $identity['googleAnalyticsAdvertising'];
