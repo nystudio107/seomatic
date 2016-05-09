@@ -777,8 +777,8 @@ class SeomaticService extends BaseApplicationComponent
             if ($openGraph['type'] == "article")
             {
                 $openGraphArticle = array();
-                $openGraphArticle['author'] = $identity['genericOwnerName'];
-                $openGraphArticle['publisher'] = $identity['genericOwnerName'];
+                $openGraphArticle['author'] = $helper['facebookUrl'];
+                $openGraphArticle['publisher'] = $helper['facebookUrl'];
                 $openGraphArticle['tag'] = array_map('trim', explode(',', $meta['seoKeywords']));
                 $meta['article'] = $openGraphArticle;
             }
