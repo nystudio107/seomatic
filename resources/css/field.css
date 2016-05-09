@@ -111,6 +111,7 @@ div.source-container {
 div.source-field-item,
 div.source-item {
 	display: inline-block;
+    vertical-align: middle;
 }
 
 div.seomatic-field-preview-container {

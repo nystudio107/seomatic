@@ -52,6 +52,11 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.17 -- 2016.05.10
+
+* [Fixed] Fixed a visual display issue with the SEOmatic FieldType Source labels 
+* [Improved] Updated the README.md
+
 ### 1.1.16 -- 2016.04.29
 
 * [Added] Added `craft()->seomatic->headlessRenderSiteMeta()` for headless Craft CMS installs
