@@ -318,11 +318,22 @@ class Seomatic_MetaFieldType extends BaseFieldType
         $element = $this->element;
         $content = $element->getContent();
         $fieldHandle = $this->model->handle;
+        $shouldResave = false;
 
         if (empty($fieldHandle))
+            $shouldResave = true;
+        if (!isset($content[$fieldHandle]))
+            $shouldResave = true;
+        else
+        {
+            if (empty($content[$fieldHandle]))
+                $shouldResave = true;
+        }
+
+        if ($shouldResave)
         {
             $defaultField = $this->prepValue(null);
-            $content->setAttribute($field->handle, $defaultField);
+            $content->setAttribute($fieldHandle, $defaultField);
             $element->setContent($content);
             craft()->content->saveContent($element);
         }
