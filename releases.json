@@ -2,9 +2,10 @@
     {
         "version": "1.1.18",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
-        "date": "2016-05-10T11:00:00-05:00",
+        "date": "2016-05-27T11:00:00-05:00",
         "notes": [
             "[Fixed] SEOmatic will now populate its FieldType with default values on saveElement(), which is triggered via import plugings and also via Settings → Edit My Section → hit Save",
+            "[Fixed] Added 'logo' and 'image' to the list of keys that should be always run through getFullyQualifiedUrl()",
             "[Improved] Updated the README.md"
         ]
     },
