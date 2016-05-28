@@ -59,7 +59,7 @@
         <input type="hidden" name="locale" value="{{ siteMeta.locale }}">
 
         <div class="grid first">
-            <div class="item" data-position="left" data-min-colspan="2" data-max-colspan="3">
+            <div class="item" data-position="left" data-min-colspan="2">
                 <div id="fields" class="pane">
                     {% if tabs is defined and tabs|length %}
                         {% include "_includes/tabs" %}
@@ -260,7 +260,7 @@
 
                         {{ forms.textField({
                             label: "Search Query Input"|t,
-                            instructions: "The value for the name attribute of query-input must match the string enclosed inside curly braces in the target property of potentialAction, e.g.: <code>search_term_string</code>" |t |raw,
+                            instructions: "The value for the name attribute of query-input must match the string enclosed inside curly braces in the target property of potentialAction, e.g.: <code>search&#95;term&#95;string</code>" |t |raw,
                             id: "siteLinksQueryInput",
                             class: 'nicetext',
                             name: "siteLinksQueryInput",
