@@ -75,7 +75,7 @@ class SeomaticController extends BaseController
                 if ($h4Tags == 0 && ($$h5Tags))
                     $effectiveHTags = false;
 
-                $textToHtmlRatio = (strlen($strippedDom) / strlen($htmlDom)) * 100;
+                $textToHtmlRatio = (strlen($strippedDom) / (strlen($htmlDom) - strlen($strippedDom))) * 100;
 
                 $pageKeywords = craft()->seomatic->extractKeywords($strippedDom);
 
