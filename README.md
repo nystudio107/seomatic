@@ -52,8 +52,9 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
-### 1.1.18 -- 2016.05.27
+### 1.1.18 -- 2016.05.30
 
+* [Added] Added "SEOmetrics" displayed during Live Preview that analyizes your page, and generates helpful tips for improving SEO
 * [Fixed] SEOmatic will now populate its FieldType with default values on `saveElement()`, which is triggered via import plugings and also via Settings → Edit My Section → hit Save
 * [Fixed] Added 'logo' and 'image' to the list of keys that should be always run through getFullyQualifiedUrl()
 * [Fixed] Fixed a CSS issue with the AdminCP UI and very large screens

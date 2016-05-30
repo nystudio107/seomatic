@@ -71,4 +71,9 @@ return array(
  */
     "siteUrlOverride" => '',
 
+/**
+ * Controls whether SEOmatic will display the SEOmetrics information during Live Preview.
+ */
+    "displaySeoMetrics" => true,
+
 );

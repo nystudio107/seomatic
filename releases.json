@@ -2,8 +2,9 @@
     {
         "version": "1.1.18",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
-        "date": "2016-05-27T11:00:00-05:00",
+        "date": "2016-05-30T11:00:00-05:00",
         "notes": [
+            "[Added] Added 'SEOmetrics' displayed during Live Preview that analyizes your page, and generates helpful tips for improving SEO",
             "[Fixed] SEOmatic will now populate its FieldType with default values on saveElement(), which is triggered via import plugings and also via Settings → Edit My Section → hit Save",
             "[Fixed] Added 'logo' and 'image' to the list of keys that should be always run through getFullyQualifiedUrl()",
             "[Fixed] Fixed a CSS issue with the AdminCP UI and very large screens",

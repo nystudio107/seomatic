@@ -33,7 +33,7 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Handle the SEOmetrics */
 
-        if (craft()->request->isLivePreview())
+        if (craft()->request->isLivePreview() && craft()->config->get("displaySeoMetrics", "seomatic"))
             $this->renderSeoMetrics();
 
 /* -- Cache the results for speediness; 1 query to rule them all */
