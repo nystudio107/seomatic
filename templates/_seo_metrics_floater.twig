@@ -57,7 +57,7 @@ div#seomatic-metrics-content object {
     {
         var floaterDiv = document.getElementById('seomatic-metrics-content');
         floaterDiv.style.display='block';
-        document.getElementById("seomatic-metrics-content-inner").innerHTML='<object type="text/html" data="{{ actionUrl('seomatic/renderMetrics') ~ "&url=" ~ requestUrl }}" ></object>';
+        document.getElementById("seomatic-metrics-content-inner").innerHTML='<object type="text/html" data="{{ controllerUrl ~ separator ~ "url=" ~ requestUrl }}" ></object>';
     }
 
     function close_metrics()

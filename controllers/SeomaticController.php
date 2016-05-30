@@ -76,6 +76,8 @@ class SeomaticController extends BaseController
 
                 $textToHtmlRatio = (strlen($strippedDom) / strlen($htmlDom)) * 100;
 
+                $pageKeywords = craft()->seomatic->extractKeywords($strippedDom);
+
 /* -- Text statistics */
 
                 $wordCount = $textStatistics->wordCount($strippedDom);
@@ -100,6 +102,7 @@ class SeomaticController extends BaseController
                     'effectiveHTags' => $effectiveHTags,
                     'textToHtmlRatio' => $textToHtmlRatio,
                     'wordCount' => $wordCount,
+                    'pageKeywords' => $pageKeywords,
                     'fleschKincaidReadingEase' => $fleschKincaidReadingEase,
                     'fleschKincaidGradeLevel' => $fleschKincaidGradeLevel,
                     'gunningFogScore' => $gunningFogScore,

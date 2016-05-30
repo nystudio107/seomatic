@@ -10,6 +10,10 @@ span.badscore {
     color: red;
 }
 
+span.attentionscore {
+    color: #FFA500;
+}
+
 div.seomatic-metrics-wrapper {
     padding: 10px;
 }
