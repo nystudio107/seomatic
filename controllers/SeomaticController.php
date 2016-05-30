@@ -45,7 +45,8 @@ class SeomaticController extends BaseController
                 $textStatistics = new TS\TextStatistics;
                 $strippedDom = html_entity_decode($dom->plaintext);
                 $strippedDom = preg_replace('@[^0-9a-z\.\!]+@i', ' ', $strippedDom);
-                $htmlDom = $dom->outertext;
+                $htmlDom = html_entity_decode($dom->outertext);
+                $htmlDom = preg_replace('@[^0-9a-z\.\!]+@i', '', $htmlDom);
 
 /* -- SEO statistics */
 
