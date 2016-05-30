@@ -43,7 +43,8 @@ class SeomaticController extends BaseController
             if ($dom)
             {
                 $textStatistics = new TS\TextStatistics;
-                $strippedDom = $dom->plaintext;
+                $strippedDom = html_entity_decode($dom->plaintext);
+                $strippedDom = preg_replace('@[^0-9a-z\.\!]+@i', ' ', $strippedDom);
                 $htmlDom = $dom->outertext;
 
 /* -- SEO statistics */
