@@ -434,8 +434,14 @@ class SeomaticService extends BaseApplicationComponent
 /* -- Render the SEOmatic metrics floater template */
 
         $requestUrl = $this->getFullyQualifiedUrl(craft()->request->url);
+        $separator = "&";
+        $controllerUrl = UrlHelper::getActionUrl('seomatic/renderMetrics');
+        if (strpos($controllerUrl, "?") === false)
+            $separator = "?";
         $vars = array(
             'requestUrl' => $requestUrl,
+            'separator' => $separator,
+            'controllerUrl' => $controllerUrl,
             );
         $htmlText = craft()->templates->render('_seo_metrics_floater.twig', $vars);
         craft()->templates->includeFootHtml($htmlText);

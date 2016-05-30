@@ -1,5 +1,15 @@
 [
     {
+        "version": "1.1.19",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
+        "date": "2016-05-30T11:00:00-11:00",
+        "notes": [
+            "[Fixed] Fixed an issue where the SEOmetrics wouldn't render on certain server setups",
+            "[Added] Added a list of the top keywords on the page to the SEOmetrics",
+            "[Improved] Updated the README.md"
+        ]
+    },
+    {
         "version": "1.1.18",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-05-30T11:00:00-05:00",

@@ -7,6 +7,8 @@
 
     {% set checkmark = "&#x2714;" %}
     {% set xmark = "&#x2717;" %}
+    {% set attentionmark = "!" %}
+
     </head>
 
     <body class="ltr" style="background-color: #FFF;">
@@ -48,6 +50,11 @@
                 <tr>
                     <td class="text-center">{% if textToHtmlRatio > 25 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                     <td class="text-left">{% if textToHtmlRatio > 25 %}The percentage of human-readable text on this page compared to HTML is {{ round(textToHtmlRatio, 2) }}%, which is above the recommended 25%. {% else %}The percentage of human-readable text on this page compared to HTML is {{ round(textToHtmlRatio, 2) }}%, which is below the recommended 25%. {% endif %}  <a href="http://blog.woorank.com/2013/03/are-text-to-html-ratios-important/" target="_blank">Learn More</a></td>
+                </tr>
+
+                <tr>
+                    <td class="text-center"><span class="attentionscore">{{ attentionmark |raw }}</span></td>
+                    <td class="text-left">Here are the top keywords in the text on your page.  Consider having some of these keywords in your <code>&lt;title&gt;</code> &amp; <code>&lt;H1&gt;</code> tags, or alter your content to reflect the keywords in your tags: <code>{{ pageKeywords }}</code></td>
                 </tr>
 
             </tbody>

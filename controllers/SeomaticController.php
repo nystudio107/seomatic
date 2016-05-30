@@ -43,7 +43,8 @@ class SeomaticController extends BaseController
             if ($dom)
             {
                 $textStatistics = new TS\TextStatistics;
-                $strippedDom = $dom->plaintext;
+                $strippedDom = html_entity_decode($dom->plaintext);
+                $strippedDom = preg_replace('@[^0-9a-z\.\!]+@i', ' ', $strippedDom);
                 $htmlDom = $dom->outertext;
 
 /* -- SEO statistics */
@@ -74,7 +75,9 @@ class SeomaticController extends BaseController
                 if ($h4Tags == 0 && ($$h5Tags))
                     $effectiveHTags = false;
 
-                $textToHtmlRatio = (strlen($strippedDom) / strlen($htmlDom)) * 100;
+                $textToHtmlRatio = (strlen($strippedDom) / (strlen($htmlDom) - strlen($strippedDom))) * 100;
+
+                $pageKeywords = craft()->seomatic->extractKeywords($strippedDom);
 
 /* -- Text statistics */
 
@@ -100,6 +103,7 @@ class SeomaticController extends BaseController
                     'effectiveHTags' => $effectiveHTags,
                     'textToHtmlRatio' => $textToHtmlRatio,
                     'wordCount' => $wordCount,
+                    'pageKeywords' => $pageKeywords,
                     'fleschKincaidReadingEase' => $fleschKincaidReadingEase,
                     'fleschKincaidGradeLevel' => $fleschKincaidGradeLevel,
                     'gunningFogScore' => $gunningFogScore,

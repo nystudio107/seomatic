@@ -52,6 +52,12 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.19 -- 2016.05.30
+
+* [Fixed] Fixed an issue where the SEOmetrics wouldn't render on certain server setups
+* [Added] Added a list of the top keywords on the page to the SEOmetrics
+* [Improved] Updated the README.md
+
 ### 1.1.18 -- 2016.05.30
 
 * [Added] Added "SEOmetrics" displayed during Live Preview that analyizes your page, and generates helpful tips for improving SEO
