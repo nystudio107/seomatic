@@ -12,6 +12,7 @@ span.badscore {
 
 span.attentionscore {
     color: #FFA500;
+    font-weight: bold;
 }
 
 div.seomatic-metrics-wrapper {

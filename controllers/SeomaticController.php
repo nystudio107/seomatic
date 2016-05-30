@@ -73,7 +73,7 @@ class SeomaticController extends BaseController
                     $effectiveHTags = false;
                 if ($h3Tags == 0 && ($h4Tags || $h5Tags))
                     $effectiveHTags = false;
-                if ($h4Tags == 0 && ($$h5Tags))
+                if ($h4Tags == 0 && ($h5Tags))
                     $effectiveHTags = false;
 
                 $textToHtmlRatio = (strlen($strippedDom) / (strlen($htmlDom) - strlen($strippedDom))) * 100;
