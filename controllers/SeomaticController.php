@@ -1,10 +1,14 @@
 <?php
 namespace Craft;
 
+use \DaveChild\TextStatistics as TS;
+use \Sunra\PhpSimple\HtmlDomParser;
+
 class SeomaticController extends BaseController
 {
 
-    protected $allowAnonymous = array('actionRenderHumans', 'actionRenderRobots');
+    protected $allowAnonymous = array('actionRenderHumans', 'actionRenderRobots', 'actionRenderMetrics');
+    protected $parsingDom = false;
 
 /**
  */
@@ -17,6 +21,101 @@ class SeomaticController extends BaseController
            'settings' => $settings
         ));
     } /* -- actionEditSettings */
+
+/* --------------------------------------------------------------------------------
+    Render the SEO Metrics
+-------------------------------------------------------------------------------- */
+
+    public function actionRenderMetrics()
+    {
+
+        if (!$this->parsingDom)
+        {
+            $this->parsingDom = true;
+            $oldPath = method_exists(craft()->templates, 'getTemplatesPath') ? craft()->templates->getTemplatesPath() : craft()->path->getTemplatesPath();
+            $newPath = craft()->path->getPluginsPath().'seomatic/templates';
+            method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($newPath) : craft()->path->setTemplatesPath($newPath);
+
+    /* -- Render the SEOmatic display preview template */
+
+            $url = craft()->request->getParam('url');
+            $dom = HtmlDomParser::file_get_html($url);
+            if ($dom)
+            {
+                $textStatistics = new TS\TextStatistics;
+                $strippedDom = $dom->plaintext;
+                $htmlDom = $dom->outertext;
+
+/* -- SEO statistics */
+
+                $titleTag = html_entity_decode($dom->find('title', 0)->plaintext);
+                $titleLength = strlen($titleTag);
+
+                $metaDescriptionTag = html_entity_decode($dom->find('meta[name=description]', 0)->content);
+                $metaDescriptionLength = strlen($metaDescriptionTag);
+
+                $emptyImageAlts = count($dom->find('img[!alt]'));
+
+                $h1Tags = count($dom->find('h1'));
+                $h2Tags = count($dom->find('h2'));
+                $h3Tags = count($dom->find('h3'));
+                $h4Tags = count($dom->find('h4'));
+                $h5Tags = count($dom->find('h5'));
+                $totalHTags = $h1Tags + $h2Tags + $h3Tags + $h4Tags + $h5Tags;
+                $effectiveHTags = true;
+                if ($h1Tags != 1)
+                    $effectiveHTags = false;
+                if ($totalHTags < 6)
+                    $effectiveHTags = false;
+                if ($h2Tags == 0 && ($h3Tags || $h4Tags || $h5Tags))
+                    $effectiveHTags = false;
+                if ($h3Tags == 0 && ($h4Tags || $h5Tags))
+                    $effectiveHTags = false;
+                if ($h4Tags == 0 && ($$h5Tags))
+                    $effectiveHTags = false;
+
+                $textToHtmlRatio = (strlen($strippedDom) / strlen($htmlDom)) * 100;
+
+/* -- Text statistics */
+
+                $wordCount = $textStatistics->wordCount($strippedDom);
+                $fleschKincaidReadingEase = $textStatistics->fleschKincaidReadingEase($strippedDom);
+                $fleschKincaidGradeLevel = $textStatistics->fleschKincaidGradeLevel($strippedDom);
+                $gunningFogScore = $textStatistics->gunningFogScore($strippedDom);
+                $colemanLiauIndex = $textStatistics->colemanLiauIndex($strippedDom);
+                $smogIndex = $textStatistics->smogIndex($strippedDom);
+                $automatedReadabilityIndex = $textStatistics->automatedReadabilityIndex($strippedDom);
+
+                $vars = array(
+                    'titleTag' => $titleTag,
+                    'titleLength' => $titleLength,
+                    'metaDescriptionTag' => $metaDescriptionTag,
+                    'metaDescriptionLength' => $metaDescriptionLength,
+                    'emptyImageAlts' => $emptyImageAlts,
+                    'h1Tags' => $h1Tags,
+                    'h2Tags' => $h2Tags,
+                    'h3Tags' => $h3Tags,
+                    'h4Tags' => $h4Tags,
+                    'h5Tags' => $h5Tags,
+                    'effectiveHTags' => $effectiveHTags,
+                    'textToHtmlRatio' => $textToHtmlRatio,
+                    'wordCount' => $wordCount,
+                    'fleschKincaidReadingEase' => $fleschKincaidReadingEase,
+                    'fleschKincaidGradeLevel' => $fleschKincaidGradeLevel,
+                    'gunningFogScore' => $gunningFogScore,
+                    'colemanLiauIndex' => $colemanLiauIndex,
+                    'smogIndex' => $smogIndex,
+                    'automatedReadabilityIndex' => $automatedReadabilityIndex,
+                    );
+
+                //$htmlText = craft()->templates->render('_seo_metrics.twig', $vars);
+                $this->renderTemplate('_seo_metrics.twig', $vars);
+            }
+
+            method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($oldPath) : craft()->path->setTemplatesPath($oldPath);
+        }
+        $this->parsingDom = false;
+    } /* -- actionRenderMetrics */
 
 /* --------------------------------------------------------------------------------
     Render the humans.txt template

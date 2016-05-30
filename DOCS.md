@@ -312,6 +312,14 @@ The **SEO Keywords** field also allows you to extract keywords automatically fro
 
 SEOmatic Meta FieldTypes also have default settings that allow you to control what the default settings should be for each meta field, and whether they can be changed by the person editing the entry.
 
+## SEOmetrics during Live Preview
+
+![Screenshot](resources/screenshots/seomatic05.png)
+
+During Live Preview, a small SEOmatic icon is displayed in the lower-left corner of the Live Preview screen.  If you click on it, it will run a variety of tests on your web page, and offer you analysis with helpful tips on how to correct the problem.
+
+You can disable this feature by setting `displaySeoMetrics` to `false` in the `config.php`, should you wish to not have it displayed.
+
 ## Craft Commerce Product Microdata
 
 ![Screenshot](resources/screenshots/seomatic04.png)

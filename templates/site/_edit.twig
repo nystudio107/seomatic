@@ -59,7 +59,7 @@
         <input type="hidden" name="locale" value="{{ siteMeta.locale }}">
 
         <div class="grid first">
-            <div class="item" data-position="left" data-min-colspan="2" data-max-colspan="3">
+            <div class="item" data-position="left" data-min-colspan="2">
                 <div id="fields" class="pane">
                     {% if tabs is defined and tabs|length %}
                         {% include "_includes/tabs" %}
@@ -231,9 +231,9 @@
 
 <!-- SiteLinks Search -->
 
-                        <h2>{{ "SiteLinks Search Box" |t }}</h2>
-
                         <div class="field">
+
+                        <h2>{{ "SiteLinks Search Box" |t }}</h2>
 
                             <div class="heading">
                                 <div class="instructions"><p>{{ "With <a href='https://developers.google.com/structured-data/slsb-overview' target='_blank'>Google Sitelinks search box</a>, from search results. Search users sometimes use navigational queries, typing in the brand name or URL of a known site or app, only to do a more detailed search once they reach their destination." |t |raw}}</p></div>
@@ -260,7 +260,7 @@
 
                         {{ forms.textField({
                             label: "Search Query Input"|t,
-                            instructions: "The value for the name attribute of query-input must match the string enclosed inside curly braces in the target property of potentialAction, e.g.: <code>search_term_string</code>" |t |raw,
+                            instructions: "The value for the name attribute of query-input must match the string enclosed inside curly braces in the target property of potentialAction, e.g.: <code>search&#95;term&#95;string</code>" |t |raw,
                             id: "siteLinksQueryInput",
                             class: 'nicetext',
                             name: "siteLinksQueryInput",

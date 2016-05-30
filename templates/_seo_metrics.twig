@@ -1,0 +1,107 @@
+<html>
+    <head>
+    {% includeCssResource "css/craft.css" %}
+    {% includeJsResource "lib/jquery-2.2.1.min.js" %}
+
+    {% includeCssResource "seomatic/css/seo-metrics-style.css" %}
+
+    {% set checkmark = "&#x2714;" %}
+    {% set xmark = "&#x2717;" %}
+    </head>
+
+    <body class="ltr" style="background-color: #FFF;">
+    <div class="seomatic-metrics-wrapper">
+    <h1>SEOmetrics</h1>
+
+    <div class="tableview seo-metrics-section">
+        <table id="seo" class="data fullwidth">
+            <thead>
+                <th class="text-center"></th>
+                <th class="text-left" scope="col">{{ "SEO Analysis"|t }}</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">{% if titleLength >= 40 and titleLength <= 70 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    <td class="text-left">The title tag <code>{{ titleTag }}</code> {% if titleLength < 40 %}may be too short; make sure it is descriptive, and unique on a per-page basis.{% elseif titleLength >70 %}may be too long, it will be truncated when displayed by search engines.  Make sure it is unique on a per-page basis{% else %}is a good length; make sure it is unique on a per-page basis{% endif %}.  <a href="https://support.google.com/webmasters/answer/35624?hl=en" target="_blank">Learn More</a></td>
+                </tr>
+
+                <tr>
+                    <td class="text-center">{% if metaDescriptionLength >= 70 and metaDescriptionLength <= 160 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    <td class="text-left">The meta description tag is {{ metaDescriptionLength }} characters long.  {% if metaDescriptionLength < 70 %}This may be too short; make sure it is descriptive, contains your most important keywords, and is unique on a per-page basis.{% elseif metaDescriptionLength > 160 %} This may be too long, it will be truncated when being digested by search engines, or be considered "spammy" and be ignored.  Make sure it is descriptive, contains your most important keywords, and is unique on a per-page basis.{% else %}This is a good length; make sure it is descriptive, contains your most important keywords, and is unique on a per-page basis.{% endif %} <a href="http://blog.woorank.com/2013/03/the-importance-of-meta-descriptions/" target="_blank">Learn More</a></td>
+                </tr>
+
+                <tr>
+                    <td class="text-center">{% if h1Tags == 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    <td class="text-left">{% if h1Tags == 1 %}There is 1 <code>&lt;H1&gt;</code> tag on the page; make sure it describes the content effectively{% else %}There are {{ h1Tags }} <code>&lt;H1&gt;</code> tags on the page; there should be one and only one <code>&lt;H1&gt;</code> tag, which describes the content effectively.{% endif %}  <a href="https://www.woorank.com/en/edu/seo-guides/html-header" target="_blank">Learn More</a></td>
+                </tr>
+
+                <tr>
+                    <td class="text-center">{% if effectiveHTags %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    <td class="text-left">{% if effectiveHTags %}Heading tags are being used to effectively structure content on the page: {% else %}Heading tags are not being used to effectively structure content on the page.  Make sure that there are no gaps in the heading hierarchy, and that headings are used appropriately:{% endif %} {{ h1Tags }} <code>&lt;H1&gt;</code>, {{ h2Tags }} <code>&lt;H2&gt;</code>, {{ h3Tags }} <code>&lt;H3&gt;</code>, {{ h4Tags }} <code>&lt;H4&gt;</code>, {{ h5Tags }} <code>&lt;H5&gt;</code>, <a href="https://www.woorank.com/en/edu/seo-guides/html-header" target="_blank">Learn More</a></td>
+                </tr>
+
+                <tr>
+                    <td class="text-center">{% if emptyImageAlts == 0 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    <td class="text-left">{% if emptyImageAlts == 0 %}All of your <code>&lt;img&gt;</code> tags have <code>alt</code> attributes.  Make sure they describe the images well.{% else %}There are {{ emptyImageAlts }} images on the page that do not have <code>alt</code> attributes.  Search engines use <code>alt</code> attributes to help them understand the images, and they aid in accessibility as well. {% endif %}  <a href="http://blog.woorank.com/2013/01/image-alt-text-relevant-for-seo-and-usability/" target="_blank">Learn More</a></td>
+                </tr>
+
+                <tr>
+                    <td class="text-center">{% if textToHtmlRatio > 25 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    <td class="text-left">{% if textToHtmlRatio > 25 %}The percentage of human-readable text on this page compared to HTML is {{ round(textToHtmlRatio, 2) }}%, which is above the recommended 25%. {% else %}The percentage of human-readable text on this page compared to HTML is {{ round(textToHtmlRatio, 2) }}%, which is below the recommended 25%. {% endif %}  <a href="http://blog.woorank.com/2013/03/are-text-to-html-ratios-important/" target="_blank">Learn More</a></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tableview seo-metrics-section">
+        <table id="textual" class="data fullwidth">
+            <thead>
+                <th class="text-center"></th>
+                <th class="text-left" scope="col">{{ "Textual Analysis"|t }}</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">{% if wordCount >= 300 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    <td class="text-left">The text has {{ round(wordCount) }} words which is {% if wordCount >= 300 %}above{% else %}below{% endif %} the recommended 300 words.</td>
+                </tr>
+
+                <tr>
+                    <td class="text-center">{% if fleschKincaidReadingEase >= 50 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    <td class="text-left">The text scores {{ fleschKincaidReadingEase }} on the <a href="https://en.wikipedia.org/wiki/Flesch–Kincaid_readability_tests" target="_blank">Flesch-Kincaid Reading Ease</a> score, which makes it 
+                    {% if fleschKincaidReadingEase >= 90 %}very easy to read. Easily understood by an average 11-year-old student.
+                    {% elseif fleschKincaidReadingEase >= 80 %}easy to read. Conversational English for consumers.
+                    {% elseif fleschKincaidReadingEase >= 70 %}fairly easy to read.
+                    {% elseif fleschKincaidReadingEase >= 60 %}plain English. Easily understood by 13- to 15-year-old students.
+                    {% elseif fleschKincaidReadingEase >= 50 %}fairly difficult to read.
+                    {% elseif fleschKincaidReadingEase >= 30 %}difficult to read.
+                    {% else %}very difficult to read. Best understood by university graduates.
+                    {% endif %}</td>
+                </tr>
+
+                <tr>
+                    <td class="text-center">{% if gunningFogScore <= 12 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    <td class="text-left">The text is equivalent to a grade {{ round(gunningFogScore) }} reading level on the <a href="https://en.wikipedia.org/wiki/Gunning_fog_index" target="_blank">Gunning-fog index</a>.</td>
+                </tr>
+
+                <tr>
+                    <td class="text-center">{% if colemanLiauIndex <= 12 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    <td class="text-left">The text is equivalent to a grade {{ round(colemanLiauIndex) }} reading level on the <a href="https://en.wikipedia.org/wiki/Coleman–Liau_index" target="_blank">Coleman–Liau index</a>.</td>
+                </tr>
+
+                <tr>
+                    <td class="text-center">{% if smogIndex <= 12 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    <td class="text-left">The text is equivalent to a grade {{ round(smogIndex) }} reading level on the <a href="https://en.wikipedia.org/wiki/SMOG" target="_blank">SMOG index</a>.</td>
+                </tr>
+
+                <tr>
+                    <td class="text-center">{% if automatedReadabilityIndex <= 12 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    <td class="text-left">The text is equivalent to a grade {{ round(automatedReadabilityIndex) }} reading level on the <a href="https://en.wikipedia.org/wiki/Automated_readability_index" target="_blank">Automated readability index</a>.</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    </body>
+</html>

@@ -31,6 +31,11 @@ class SeomaticService extends BaseApplicationComponent
 
         $this->renderedMetaVars = $metaVars;
 
+/* -- Handle the SEOmetrics */
+
+        if (craft()->request->isLivePreview() && craft()->config->get("displaySeoMetrics", "seomatic"))
+            $this->renderSeoMetrics();
+
 /* -- Cache the results for speediness; 1 query to rule them all */
 
         $shouldCache = ($metaVars != null);
@@ -415,6 +420,28 @@ class SeomaticService extends BaseApplicationComponent
 
         return $htmlText;
     } /* -- renderRobotsTemplate */
+
+/* --------------------------------------------------------------------------------
+    Render the SEOmetrics template during LivePreview
+-------------------------------------------------------------------------------- */
+
+    public function renderSeoMetrics()
+    {
+        $oldPath = method_exists(craft()->templates, 'getTemplatesPath') ? craft()->templates->getTemplatesPath() : craft()->path->getTemplatesPath();
+        $newPath = craft()->path->getPluginsPath().'seomatic/templates';
+        method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($newPath) : craft()->path->setTemplatesPath($newPath);
+
+/* -- Render the SEOmatic metrics floater template */
+
+        $requestUrl = $this->getFullyQualifiedUrl(craft()->request->url);
+        $vars = array(
+            'requestUrl' => $requestUrl,
+            );
+        $htmlText = craft()->templates->render('_seo_metrics_floater.twig', $vars);
+        craft()->templates->includeFootHtml($htmlText);
+
+        method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($oldPath) : craft()->path->setTemplatesPath($oldPath);
+    } /* -- renderSeoMetrics */
 
 /* --------------------------------------------------------------------------------
     Try to extract an seomaticMeta field from an element
@@ -2400,7 +2427,7 @@ public function getFullyQualifiedUrl($url)
                 $value = strip_tags($value);
                 if ($key === 'email')
                     $value = $this->encodeEmailAddress($value);
-                elseif ($key === 'url')
+                elseif ($key === 'url' || $key === 'image' || $key === 'logo')
                     $value = $this->getFullyQualifiedUrl($value);
                 else
                     $value = htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, 'UTF-8', false);

@@ -1,0 +1,27 @@
+body.seo-metrics {
+    background-color: #FFF;
+}
+
+span.goodscore {
+    color: green;
+}
+
+span.badscore {
+    color: red;
+}
+
+div.seomatic-metrics-wrapper {
+    padding: 10px;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+div.seo-metrics-section {
+    margin-bottom: 24px;
+}
