@@ -1,0 +1,68 @@
+<style>
+div.seomatic-metrics-floater {
+    position: fixed;
+    left: 10px;
+    bottom: 10px;
+    padding: 8px;
+    border: 1px solid #AAA;
+    border-radius: 20px;
+    height: 40px;
+    width: 40px;
+    background-color: #FFF;
+    -webkit-box-shadow: 0px 2px 3px #555;
+       -moz-box-shadow: 0px 2px 3px #555;
+            box-shadow: 0px 2px 3px #555;
+}
+div#seomatic-metrics-content {
+    position: fixed;
+    left: 10px;
+    bottom: 10px;
+    padding: 10px;
+    border: 1px solid #AAA;
+    width: calc(100% - 20px);
+    height: 50vh;
+    display: none;
+    background-color: #FFF;
+    border-radius: 4px;
+    z-index: 1;
+    -webkit-box-shadow: 0px 2px 3px #555;
+       -moz-box-shadow: 0px 2px 3px #555;
+            box-shadow: 0px 2px 3px #555;
+}
+
+div#seomatic-metrics-content-inner {
+    width: 100%;
+    height: 45vh;
+}
+
+div#seomatic-metrics-content object {
+    width: 100%;
+    height: 100%;
+}
+</style>
+<div id="seomatic-metrics-icon" class="seomatic-metrics-floater">
+        <a href ="#" onclick="load_metrics()">
+            <img src="{{ resourceUrl('seomatic/icon.svg') }}" width="100%" height="auto" />
+        </a>
+</div>
+<div id ="seomatic-metrics-content">
+    <div style="float: right; padding-bottom: 10px;">
+        <a href ="#" onclick="close_metrics()">&#x2715;</a>
+    </div>
+    <div id="seomatic-metrics-content-inner">
+    </div>
+</div>
+<script>
+    function load_metrics()
+    {
+        var floaterDiv = document.getElementById('seomatic-metrics-content');
+        floaterDiv.style.display='block';
+        document.getElementById("seomatic-metrics-content-inner").innerHTML='<object type="text/html" data="{{ actionUrl('seomatic/renderMetrics') ~ "&url=" ~ requestUrl }}" ></object>';
+    }
+
+    function close_metrics()
+    {
+        var floaterDiv = document.getElementById('seomatic-metrics-content');
+        floaterDiv.style.display='none';
+    }
+</script>

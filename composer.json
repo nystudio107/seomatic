@@ -5,6 +5,8 @@
     "type": "craft-plugin",
     "require": {
         "crodas/text-rank" : "dev-master",
+        "davechild/textstatistics": "1.0.1",
+        "sunra/php-simple-html-dom-parser": "1.5.1",
         "composer/installers": "~1.0"
     }
 }
