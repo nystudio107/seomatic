@@ -16,6 +16,8 @@ To install SEOmatic, follow these steps:
 
 SEOmatic works on Craft 2.4.x, Craft 2.5.x, and Craft 2.6.x.
 
+The SEOmetrics feature requires PHP 5.4 or later and that you have the [php-xml extension](http://osticket.com/forum/discussion/8702/php-fatal-error-call-to-undefined-function-utf8-encode-error-message) installed.
+
 ## Overview
 
 SEOmatic allows you to quickly get a website up and running with a robust, comprehensive SEO strategy.  It is also implemented in a Craft-y way, in that it is also flexible and customizable.
