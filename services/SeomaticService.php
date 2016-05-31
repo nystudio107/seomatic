@@ -2334,8 +2334,11 @@ public function getFullyQualifiedUrl($url)
             $siteUrl = craft()->getSiteUrl();
 
         $urlParts = parse_url($siteUrl);
+        $port = "";
+        if (isset($urlParts['port']))
+            $port = ":" . $urlParts['port'];
         if (isset($urlParts['scheme']) && isset($urlParts['host']))
-            $siteUrl = $urlParts['scheme'] . "://" . $urlParts['host'] . "/";
+            $siteUrl = $urlParts['scheme'] . "://" . $urlParts['host'] . $port . "/";
         else
             $siteUrl = "/";
         if (($siteUrl[strlen($siteUrl) -1] == '/') && ($result[0] == '/'))
