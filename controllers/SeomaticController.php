@@ -38,7 +38,10 @@ class SeomaticController extends BaseController
 
     /* -- Render the SEOmatic display preview template */
 
-            $url = craft()->request->getParam('url');
+            $url = urldecode(craft()->request->getParam('url'));
+            $keywordsParam = urldecode(craft()->request->getParam('keywords'));
+            $keywordsKeys = explode(",", $keywordsParam);
+            $keywords = array();
             $dom = HtmlDomParser::file_get_html($url);
             if ($dom)
             {
@@ -80,6 +83,39 @@ class SeomaticController extends BaseController
 
                 $pageKeywords = craft()->seomatic->extractKeywords($strippedDom);
 
+/* -- Focus keywords */
+
+                foreach ($keywordsKeys as $keywordsKey)
+                {
+                    $keywordsKey = trim($keywordsKey);
+                    if (strlen($keywordsKey))
+                    {
+                        $appearsInH1Tag = 0;
+                        foreach($dom->find('h1') as $element)
+                            $appearsInH1Tag += substr_count(strtolower($element->plaintext), strtolower($keywordsKey));
+                        foreach($dom->find('h2') as $element)
+                            $appearsInH1Tag += substr_count(strtolower($element->plaintext), strtolower($keywordsKey));
+
+                        $appearsInImgTag = 0;
+                        foreach($dom->find('img') as $element)
+                            $appearsInImgTag += substr_count(strtolower($element->alt), strtolower($keywordsKey));
+
+                        $appearsInAhrefTag = 0;
+                        foreach($dom->find('a') as $element)
+                            $appearsInAhrefTag += substr_count(strtolower($element->plaintext), strtolower($keywordsKey));
+
+                        $keywords[$keywordsKey] = array(
+                            'appearsInTitleTag' => substr_count(strtolower($titleTag), strtolower($keywordsKey)),
+                            'appearsInUrl' => substr_count(strtolower($url), strtolower($keywordsKey)),
+                            'appearsInMetaDescriptionTag' => substr_count(strtolower($metaDescriptionTag), strtolower($keywordsKey)),
+                            'appearsInH1Tag' => $appearsInH1Tag,
+                            'appearsInAhrefTag' => $appearsInAhrefTag,
+                            'appearsInImgTag' => $appearsInImgTag,
+                            'appearsInPageKeywords' => substr_count(strtolower($pageKeywords), strtolower($keywordsKey)),
+                            'appearsOnWebPage' => substr_count(strtolower($strippedDom), strtolower($keywordsKey)),
+                            );
+                    }
+                }
 /* -- Text statistics */
 
                 $wordCount = $textStatistics->wordCount($strippedDom);
@@ -105,6 +141,7 @@ class SeomaticController extends BaseController
                     'textToHtmlRatio' => $textToHtmlRatio,
                     'wordCount' => $wordCount,
                     'pageKeywords' => $pageKeywords,
+                    'keywords' => $keywords,
                     'fleschKincaidReadingEase' => $fleschKincaidReadingEase,
                     'fleschKincaidGradeLevel' => $fleschKincaidGradeLevel,
                     'gunningFogScore' => $gunningFogScore,

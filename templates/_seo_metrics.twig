@@ -15,6 +15,61 @@
     <div class="seomatic-metrics-wrapper">
     <h1>SEOmetrics</h1>
 
+    {% for keyword,keywordStats in keywords %}
+        {% if keyword |length %}
+            <div class="tableview seo-metrics-section">
+                <table id="textual" class="data fullwidth">
+                    <thead>
+                        <th class="text-center"></th>
+                        <th class="text-left" scope="col">{{ "Focus Keyword"|t ~ ": " }}<span class="seo-metrics-keyword">{{ keyword }}</span></th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-center">{% if keywordStats.appearsInTitleTag >= 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                            <td class="text-left">The focus keyword <code>{{ keyword }}</code> {% if keywordStats.appearsInTitleTag >= 1 %} appears in the <code>&lt;title&gt;</code> tag.{% else %}does not appear in the <code>&lt;title&gt;</code> tag.  Adding it to the <code>&lt;title&gt;</code> tag can influence search engines in ranking the page for this keyword.{% endif %}</td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-center">{% if keywordStats.appearsInUrl >= 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                            <td class="text-left">The focus keyword <code>{{ keyword }}</code> {% if keywordStats.appearsInUrl >= 1 %} appears in the <code>URL</code>.{% else %}does not appear in the <code>URL</code>.  Adding it to the URL can influence search engines in ranking the page for this keyword.{% endif %}</td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-center">{% if keywordStats.appearsInMetaDescriptionTag >= 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                            <td class="text-left">The focus keyword <code>{{ keyword }}</code> {% if keywordStats.appearsInMetaDescriptionTag >= 1 %} appears in the meta description tag.{% else %}does not appear in the meta description tag.  Adding it to the meta description can influence search engines in ranking the page for this keyword.{% endif %}</td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-center">{% if keywordStats.appearsInH1Tag >= 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                            <td class="text-left">The focus keyword <code>{{ keyword }}</code> appears in <code>&lt;H1&gt;</code> or <code>&lt;H2&gt;</code> tags {{ keywordStats.appearsInH1Tag}} time{% if keywordStats.appearsInH1Tag != 1 %}s{% endif %}.  {% if keywordStats.appearsInH1Tag >= 1 %}{% else %} Having it appear in <code>&lt;H1&gt;</code> or <code>&lt;H1&gt;</code> tags can influence search engines in ranking the page for this keyword.{% endif %}</td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-center">{% if keywordStats.appearsInAhrefTag == 0 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                            <td class="text-left">The focus keyword <code>{{ keyword }}</code> {% if keywordStats.appearsInAhrefTag == 0 %}does not appear in a link to another page; this is good.{% else %}appears in a link to another page; this can dilute the effectiveness of your keyword to search engines.{% endif %}</td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-center">{% if keywordStats.appearsInImgTag >= 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                            <td class="text-left">The focus keyword <code>{{ keyword }}</code> appears in <code>&lt;IMG ALT=""&gt;</code> attributes {{ keywordStats.appearsInImgTag}} time{% if keywordStats.appearsInImgTag != 1 %}s{% endif %}.  {% if keywordStats.appearsInImgTag >= 1 %}{% else %} Having it appear in <code>&lt;IMG ALT=""&gt;</code> attributes can influence search engines in ranking the page for this keyword.{% endif %}</td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-center">{% if keywordStats.appearsInPageKeywords >= 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                            <td class="text-left">The focus keyword <code>{{ keyword }}</code> {% if keywordStats.appearsInPageKeywords >= 1 %} appears in the mostly highly ranked keywords extracted from the page.{% else %}does not appear in the mostly highly ranked keywords extracted from the page.{% endif %}</td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-center">{% if keywordStats.appearsOnWebPage >= 3 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                            <td class="text-left">The focus keyword <code>{{ keyword }}</code> appears on the page {{ keywordStats.appearsOnWebPage}} time{% if keywordStats.appearsOnWebPage != 1 %}s{% endif %}.  {% if keywordStats.appearsOnWebPage >= 3 %}{% else %} Having it appear more times can influence search engines in ranking the page for this keyword.{% endif %}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    {% endfor%}
+
     <div class="tableview seo-metrics-section">
         <table id="seo" class="data fullwidth">
             <thead>
@@ -54,7 +109,7 @@
 
                 <tr>
                     <td class="text-center"><span class="attentionscore">{{ attentionmark |raw }}</span></td>
-                    <td class="text-left">Here are the top keywords in the text on your page.  Consider having some of these keywords in your <code>&lt;title&gt;</code> &amp; <code>&lt;H1&gt;</code> tags, or alter your content to reflect the keywords in your tags: <code>{{ pageKeywords }}</code></td>
+                    <td class="text-left">Here are the top ranked keywords in the text on your page.  Consider having some of these keywords in your <code>&lt;title&gt;</code> &amp; <code>&lt;H1&gt;</code> tags, or alter your content to reflect the keywords in your tags: <code>{{ pageKeywords }}</code></td>
                 </tr>
 
             </tbody>

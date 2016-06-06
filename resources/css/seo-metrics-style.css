@@ -30,3 +30,8 @@ div.seomatic-metrics-wrapper {
 div.seo-metrics-section {
     margin-bottom: 24px;
 }
+
+span.seo-metrics-keyword {
+	color: #222;
+	text-transform: uppercase;
+}

@@ -54,6 +54,15 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.20 -- 2016.06.06
+
+* [Added] Added 'Focus Keywords' to the SEOmetrics window, letting you analyze your page content for specific SEO keywords
+* [Improved] Forced CSS style reset on the SEOmetrics skeleton styles
+* [Improved] Include port numbers with getFullyQualifiedUrl()
+* [Improved] More accurate text to HTML % calculations
+* [Improved] Changed the CSS z-index of the SEOmetrics windows to be 9998/9
+* [Improved] Updated the README.md
+
 ### 1.1.19 -- 2016.05.30
 
 * [Fixed] Fixed an issue where the SEOmetrics wouldn't render on certain server setups
