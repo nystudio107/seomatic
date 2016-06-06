@@ -56,6 +56,7 @@ Some things to do, and ideas for potential features:
 ### 1.1.20 -- 2016.06.06
 
 * [Added] Added 'Focus Keywords' to the SEOmetrics window, letting you analyze your page content for specific SEO keywords
+* [Fixed] Fixed an issue with environmentalVariables in the Site Identity/Entity URL field
 * [Improved] Forced CSS style reset on the SEOmetrics skeleton styles
 * [Improved] Include port numbers with getFullyQualifiedUrl()
 * [Improved] More accurate text to HTML % calculations
