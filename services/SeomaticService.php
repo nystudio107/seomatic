@@ -1171,7 +1171,7 @@ class SeomaticService extends BaseApplicationComponent
         $identity['genericOwnerName'] = $settings['genericOwnerName'];
         $identity['genericOwnerAlternateName'] = $settings['genericOwnerAlternateName'];
         $identity['genericOwnerDescription'] = $settings['genericOwnerDescription'];
-        $identity['genericOwnerUrl'] = $this->getFullyQualifiedUrl($settings['genericOwnerUrl']);
+        $identity['genericOwnerUrl'] = $settings['genericOwnerUrl'];
         $identity['genericOwnerImageId'] = $settings['genericOwnerImageId'];
         $image = craft()->assets->getFileById($settings['genericOwnerImageId']);
         if ($image)
@@ -1528,7 +1528,7 @@ class SeomaticService extends BaseApplicationComponent
         $creator['genericCreatorName'] = $settings['genericCreatorName'];
         $creator['genericCreatorAlternateName'] = $settings['genericCreatorAlternateName'];
         $creator['genericCreatorDescription'] = $settings['genericCreatorDescription'];
-        $creator['genericCreatorUrl'] = $this->getFullyQualifiedUrl($settings['genericCreatorUrl']);
+        $creator['genericCreatorUrl'] = $settings['genericCreatorUrl'];
         $creator['genericCreatorImageId'] = $settings['genericCreatorImageId'];
         $image = craft()->assets->getFileById($settings['genericCreatorImageId']);
         if ($image)
