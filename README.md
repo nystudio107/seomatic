@@ -53,6 +53,12 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.21 -- 2016.06.09
+
+* [Improved] The SEOmetrics window will now remember its open/closed state while in Live Preview
+* [Improved] Some minor tweaked to the SEOmetrics CSS
+* [Improved] Updated the README.md
+
 ### 1.1.20 -- 2016.06.06
 
 * [Added] Added 'Focus Keywords' to the SEOmetrics window, letting you analyze your page content for specific SEO keywords

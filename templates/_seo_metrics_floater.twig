@@ -33,7 +33,7 @@ div#seomatic-metrics-content {
 
 div#seomatic-metrics-content-inner {
     width: 100%;
-    height: 45vh;
+    height: 40vh;
 }
 
 div#seomatic-metrics-content object {
@@ -134,6 +134,28 @@ div.seomatic-metrics-header:after {
     </div>
 </div>
 <script>
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires  + ("; path=/");
+} /* -- setCookie */
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+    }
+    return "";
+} /* -- getCookie */
+
+if (getCookie('seomatic-metrics-open')) {
+    load_metrics();
+    }
+
 document.getElementById("seomatic-metrics-keywords")
     .addEventListener("keyup", function(event) {
     event.preventDefault();
@@ -149,11 +171,13 @@ document.getElementById("seomatic-metrics-keywords")
 
         floaterDiv.style.display='block';
         document.getElementById("seomatic-metrics-content-inner").innerHTML='<object type="text/html" data="' + dataUrl + dataKeywords + '" ></object>';
+        setCookie('seomatic-metrics-open', '1', 1);
     }
 
     function close_metrics()
     {
         var floaterDiv = document.getElementById('seomatic-metrics-content');
         floaterDiv.style.display='none';
+        setCookie('seomatic-metrics-open', '', 0);
     }
 </script>
