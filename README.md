@@ -53,10 +53,11 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
-### 1.1.21 -- 2016.06.09
+### 1.1.21 -- 2016.06.16
 
 * [Improved] The SEOmetrics window will now remember its open/closed state while in Live Preview
-* [Improved] Some minor tweaked to the SEOmetrics CSS
+* [Improved] Some minor tweaks to the SEOmetrics CSS
+* [Added] You can now control the string prepended to the title tag when devMode is on via config.php
 * [Improved] Updated the README.md
 
 ### 1.1.20 -- 2016.06.06

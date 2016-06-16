@@ -1069,6 +1069,7 @@ class SeomaticService extends BaseApplicationComponent
         $siteMeta['siteSeoTitle'] = $settings['siteSeoTitle'];
         $siteMeta['siteSeoTitleSeparator'] = $settings['siteSeoTitleSeparator'];
         $siteMeta['siteSeoTitlePlacement'] = $settings['siteSeoTitlePlacement'];
+        $siteMeta['siteDevModeTitle'] = craft()->config->get("siteDevModeTitle", "seomatic");
         $siteMeta['siteSeoDescription'] = $settings['siteSeoDescription'];
         $siteMeta['siteSeoKeywords'] = $settings['siteSeoKeywords'];
         $siteMeta['siteSeoImageId'] = $settings['siteSeoImageId'];

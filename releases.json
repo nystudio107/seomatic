@@ -2,10 +2,11 @@
     {
         "version": "1.1.21",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
-        "date": "2016-06-09T11:00:00-11:00",
+        "date": "2016-06-16T11:00:00-11:00",
         "notes": [
             "[Improved] The SEOmetrics window will now remember its open/closed state while in Live Preview",
-            "[Improved] Some minor tweaked to the SEOmetrics CSS",
+            "[Improved] Some minor tweaks to the SEOmetrics CSS",
+            "[Added] You can now control the string prepended to the title tag when devMode is on via config.php",
             "[Improved] Updated the README.md"
         ]
     },

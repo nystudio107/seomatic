@@ -76,4 +76,9 @@ return array(
  */
     "displaySeoMetrics" => true,
 
+/**
+ * Determines the string prepended to the <title> tag when devMode is on.
+ */
+    "siteDevModeTitle" => '•',
+
 );
