@@ -127,6 +127,10 @@
                     <td class="text-center">{% if wordCount >= 300 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                     <td class="text-left">The text has {{ round(wordCount) }} words which is {% if wordCount >= 300 %}above{% else %}below{% endif %} the recommended 300 words.</td>
                 </tr>
+                <tr>
+                    <td class="text-center"><span class="attentionscore">{{ attentionmark |raw }}</span></td>
+                    <td class="text-left">The page has an approximate reading time of {{ readingTime }} minute{% if readingTime !=1 %}s{% endif %}.</td>
+                </tr>
 
                 <tr>
                     <td class="text-center">{% if fleschKincaidReadingEase >= 50 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>

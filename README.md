@@ -61,6 +61,8 @@ Some things to do, and ideas for potential features:
 * [Improved] The current locale is now included in the hreflang for localized sites
 * [Improved] The language and country code are now both included in the hreflang for localized sites
 * [Improved] The full URL to the current page is now used in the hreflang for localized sites
+* [Improved] style and script tags are now stripped out before doing any SEOmetrics on the page
+* [Added] Added approximate reading time in the Textual Analysis section of the SEOmetrics
 * [Added] You can now control the string prepended to the title tag when devMode is on via config.php
 * [Improved] Updated the README.md
 

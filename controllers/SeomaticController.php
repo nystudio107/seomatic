@@ -46,6 +46,10 @@ class SeomaticController extends BaseController
             if ($dom)
             {
                 $textStatistics = new TS\TextStatistics;
+                foreach($dom->find('style') as $element)
+                    $element->outertext = '';
+                foreach($dom->find('script') as $element)
+                    $element->outertext = '';
                 $strippedDom = html_entity_decode($dom->plaintext);
                 $strippedDom = preg_replace('@[^0-9a-z\.\!]+@i', ' ', $strippedDom);
                 $htmlDom = html_entity_decode($dom->outertext);
@@ -119,6 +123,9 @@ class SeomaticController extends BaseController
 /* -- Text statistics */
 
                 $wordCount = $textStatistics->wordCount($strippedDom);
+                $readingTime = floor($wordCount / 200);
+                if ($readingTime === 0)
+                    $readingTime = 1;
                 $fleschKincaidReadingEase = $textStatistics->fleschKincaidReadingEase($strippedDom);
                 $fleschKincaidGradeLevel = $textStatistics->fleschKincaidGradeLevel($strippedDom);
                 $gunningFogScore = $textStatistics->gunningFogScore($strippedDom);
@@ -140,6 +147,7 @@ class SeomaticController extends BaseController
                     'effectiveHTags' => $effectiveHTags,
                     'textToHtmlRatio' => $textToHtmlRatio,
                     'wordCount' => $wordCount,
+                    'readingTime' => $readingTime,
                     'pageKeywords' => $pageKeywords,
                     'keywords' => $keywords,
                     'fleschKincaidReadingEase' => $fleschKincaidReadingEase,
