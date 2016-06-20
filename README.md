@@ -64,6 +64,7 @@ Some things to do, and ideas for potential features:
 * [Improved] style and script tags are now stripped out before doing any SEOmetrics on the page
 * [Added] Added approximate reading time in the Textual Analysis section of the SEOmetrics
 * [Added] You can now control the string prepended to the title tag when devMode is on via config.php
+* [Added] Added a French localization for SEOmatic, thanks to @FrancisBou
 * [Improved] Updated the README.md
 
 ### 1.1.20 -- 2016.06.06
