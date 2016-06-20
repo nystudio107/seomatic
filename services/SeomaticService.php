@@ -2314,6 +2314,54 @@ class SeomaticService extends BaseApplicationComponent
     } /* -- sanitizeMetaVars */
 
 /* --------------------------------------------------------------------------------
+    Returns an array of localized URLs for the current request
+-------------------------------------------------------------------------------- */
+
+public function getLocalizedUrls()
+{
+    $localizedUrls = array();
+    $requestUri = craft()->request->getRequestUri();
+    if (craft()->isLocalized())
+    {
+        $element = craft()->urlManager->getMatchedElement();
+        if ($element)
+        {
+            $unsortedLocalizedUrls = array();
+            $_rows = craft()->db->createCommand()
+            ->select('locale')
+            ->addSelect('uri')
+            ->from('elements_i18n')
+            ->where(array('elementId' => $element->id, 'enabled' => 1))
+            ->queryAll();
+
+            foreach ($_rows as $row)
+            {
+              $path = ($row['uri'] == '__home__') ? '' : $row['uri'];
+              $unsortedLocalizedUrls[$row['locale']] = UrlHelper::getSiteUrl($path, null, null, $row['locale'] );
+            }
+
+            $locales = craft()->i18n->getSiteLocales();
+            foreach ($locales as $locale)
+            {
+                $localeId = $locale->getId();
+                $localizedUrls[$localeId] = $unsortedLocalizedUrls[$localeId];
+            }
+        }
+        else
+        {
+            $locales = craft()->i18n->getSiteLocales();
+            foreach ($locales as $locale)
+            {
+                $localeId = $locale->getId();
+                $localizedUrls[$localeId] = UrlHelper::getSiteUrl($requestUri, null, null, $localeId);
+
+            }
+        }
+    }
+    return $localizedUrls;
+} /* --  getLocalizedUrls */
+
+/* --------------------------------------------------------------------------------
     Get a fully qualified URL based on the siteUrl, if no scheme/host is present
 -------------------------------------------------------------------------------- */
 

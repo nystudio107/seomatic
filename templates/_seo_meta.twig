@@ -13,8 +13,9 @@
 <meta name="description" content="{{ seomaticMeta.seoDescription |raw }}" />
 <meta name="generator" content="SEOmatic" />
 <link rel="canonical" href="{{ seomaticMeta.canonicalUrl }}" />
-{% for locale in craft.i18n.getSiteLocales() %}
-{% if craft.config.siteUrl is iterable %}{% if craft.config.siteUrl[locale.getId()] is defined %}<link rel="alternate" hreflang="{{ locale.getId() |lower |replace ('_', '-') }}" href="{{ craft.config.siteUrl[locale.getId()] ~ craft.request.path }}" />{% endif%}{% endif %}
+{% set localizedUrls = getLocalizedUrls() %}
+{% for key, value in localizedUrls %}
+<link rel="alternate" hreflang="{{ key |lower |replace ('_', '-') }}" href="{{ value }}" />
 {% endfor %}
 {% if seomaticIdentity.address.addressRegion is defined and seomaticIdentity.address.addressRegion %}
 <meta name="geo.region" content="{{ seomaticIdentity.address.addressRegion |raw }}" />

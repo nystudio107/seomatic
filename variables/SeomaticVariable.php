@@ -108,6 +108,17 @@ class SeomaticVariable
     } /* -- extractTextFromMatrix */
 
 /* --------------------------------------------------------------------------------
+    Returns an array of localized URLs for the current request
+-------------------------------------------------------------------------------- */
+
+    public function getLocalizedUrls()
+    {
+        $result = craft()->seomatic->getLocalizedUrls();
+
+        return $result;
+    } /* -- getLocalizedUrls */
+
+/* --------------------------------------------------------------------------------
     Get a fully qualified URL based on the siteUrl, if no scheme/host is present
 -------------------------------------------------------------------------------- */
 

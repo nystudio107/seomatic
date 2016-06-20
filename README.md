@@ -55,6 +55,7 @@ Some things to do, and ideas for potential features:
 
 ### 1.1.21 -- 2016.06.16
 
+* [Added] Added a `getLocalizedUrls` Twig filter/function that returns an array of localized URLs for the current request
 * [Improved] The SEOmetrics window will now remember its open/closed state while in Live Preview
 * [Improved] Some minor tweaks to the SEOmetrics CSS
 * [Improved] The current locale is now included in the hreflang for localized sites
