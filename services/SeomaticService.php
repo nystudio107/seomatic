@@ -516,7 +516,7 @@ class SeomaticService extends BaseApplicationComponent
                                     {
                                         $entryMeta['seoTitle'] = craft()->templates->renderObjectTemplate($entryMeta['seoTitle'], $element);
                                     }
-                                    catch (Exception $e)
+                                    catch (\Exception $e)
                                     {
                                         SeomaticPlugin::log("Template error in the `seoTitle` field.", LogLevel::Info, true);
                                     }
@@ -538,7 +538,7 @@ class SeomaticService extends BaseApplicationComponent
                                     {
                                         $entryMeta['seoDescription'] = craft()->templates->renderObjectTemplate($entryMeta['seoDescription'], $element);
                                     }
-                                    catch (Exception $e)
+                                    catch (\Exception $e)
                                     {
                                         SeomaticPlugin::log("Template error in the `seoDescription` field.", LogLevel::Info, true);
                                     }
@@ -568,7 +568,7 @@ class SeomaticService extends BaseApplicationComponent
                                     {
                                         $entryMeta['seoKeywords'] = craft()->templates->renderObjectTemplate($entryMeta['seoKeywords'], $element);
                                     }
-                                    catch (Exception $e)
+                                    catch (\Exception $e)
                                     {
                                         SeomaticPlugin::log("Template error in the `seoDescription` field.", LogLevel::Info, true);
                                     }
@@ -1951,7 +1951,7 @@ class SeomaticService extends BaseApplicationComponent
             */
             if (!$record)
             {
-                throw new Exception(Craft::t('No meta exists with the ID “{id}”', array('id' => $model->id)));
+                throw new \Exception(Craft::t('No meta exists with the ID “{id}”', array('id' => $model->id)));
             }
             else
             {
