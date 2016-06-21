@@ -2344,7 +2344,8 @@ public function getLocalizedUrls()
             foreach ($locales as $locale)
             {
                 $localeId = $locale->getId();
-                $localizedUrls[$localeId] = $unsortedLocalizedUrls[$localeId];
+                if (isset($unsortedLocalizedUrls[$localeId]))
+                    $localizedUrls[$localeId] = $unsortedLocalizedUrls[$localeId];
             }
         }
         else
