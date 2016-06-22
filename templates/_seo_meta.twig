@@ -14,9 +14,11 @@
 <meta name="generator" content="SEOmatic" />
 <link rel="canonical" href="{{ seomaticMeta.canonicalUrl }}" />
 {% set localizedUrls = getLocalizedUrls() %}
+{% if localizedUrls |length > 1 %}
 {% for key, value in localizedUrls %}
 <link rel="alternate" hreflang="{{ key |lower |replace ('_', '-') }}" href="{{ value }}" />
 {% endfor %}
+{% endif %}
 {% if seomaticIdentity.address.addressRegion is defined and seomaticIdentity.address.addressRegion %}
 <meta name="geo.region" content="{{ seomaticIdentity.address.addressRegion |raw }}" />
 {% endif %}
