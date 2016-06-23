@@ -322,6 +322,8 @@ You can enter **Focus Keyworks**, comma separated, for an additional analysis of
 
 You can disable this feature by setting `displaySeoMetrics` to `false` in the `config.php`, should you wish to not have it displayed.
 
+SEOmetrics during Live Preview only works if System Status is set to "on".
+
 ## Craft Commerce Product Microdata
 
 ![Screenshot](resources/screenshots/seomatic04.png)
@@ -877,6 +879,27 @@ All three of these methods accomplish the same thing:
     &#105;&#110;&#102;&#111;&#64;&#110;&#121;&#115;&#116;&#117;&#100;&#105;&#111;&#49;&#48;&#55;&#46;&#99;&#111;&#109;
 
 Google can still properly decode email addresses that are ordinal-encoded, it's still readable by humans when displayed, but it prevents some bots from recognizing it as an email address.
+
+### getLocalizedUrls()
+
+Returns an array of localized URLs for the current page request.  This handles elements with localized slugs, etc.  This function returns the unique URLs for each language for the current page request, not just the localized site URLs.
+
+Both of these methods accomplish the same thing:
+
+    {# Get an array of localized URLs for the current request using the 'getLocalizedUrls' function #}
+    {% set myLocalizedUrls = getLocalizedUrls() }}
+    
+    {# Get an array of localized URLs for the current request using the 'getLocalizedUrls' variable #}
+    {% set myLocalizedUrls = craft.seomatic.getLocalizedUrls() %}
+
+You'll be returned an array that looks like this:
+
+    {
+    'en': 'http://nystudio107.dev/',
+    'el_gr': 'http://nystudio107.dev/gr/'
+    }
+
+With a key/value pair for each language your site is localized in, in the order you have them set in the AdminCP.  This makes it very easy to create a "language switcher" menu.
 
 ### getFullyQualifiedUrl()
 
