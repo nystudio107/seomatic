@@ -301,6 +301,101 @@ class Seomatic_MetaFieldType extends BaseFieldType
             $value->robots = $this->getSettings()->robots;
         }
 
+/* -- Handle pulling values from other fields */
+
+        $element = $this->element;
+        $entryMeta = $value;
+        if ($element)
+        {
+    /* -- Swap in any SEOmatic fields that are pulling from other entry fields */
+
+            switch ($entryMeta->seoTitleSource)
+            {
+                case 'field':
+                    if (isset($element[$entryMeta->seoTitleSourceField]))
+                    {
+                        $entryMeta->seoTitle = craft()->seomatic->getTextFromEntryField($element[$entryMeta->seoTitleSourceField]);
+                    }
+                break;
+
+                case 'custom':
+                    $entryMeta->seoTitle = craft()->config->parseEnvironmentString($entryMeta->seoTitle);
+                    try
+                    {
+                        $entryMeta->seoTitle = craft()->templates->renderObjectTemplate($entryMeta->seoTitle, $element);
+                    }
+                    catch (\Exception $e)
+                    {
+                        SeomaticPlugin::log("Template error in the `seoTitle` field.", LogLevel::Info, true);
+                    }
+                break;
+            }
+
+            switch ($entryMeta->seoDescriptionSource)
+            {
+                case 'field':
+                    if (isset($element[$entryMeta->seoDescriptionSourceField]))
+                    {
+                        $entryMeta->seoDescription = craft()->seomatic->getTextFromEntryField($element[$entryMeta->seoDescriptionSourceField]);
+                    }
+                break;
+
+                case 'custom':
+                    $entryMeta->seoDescription = craft()->config->parseEnvironmentString($entryMeta->seoDescription);
+                    try
+                    {
+                        $entryMeta->seoDescription = craft()->templates->renderObjectTemplate($entryMeta->seoDescription, $element);
+                    }
+                    catch (\Exception $e)
+                    {
+                        SeomaticPlugin::log("Template error in the `seoDescription` field.", LogLevel::Info, true);
+                    }
+               break;
+            }
+
+            switch ($entryMeta->seoKeywordsSource)
+            {
+                case 'field':
+                    if (isset($element[$entryMeta->seoKeywordsSourceField]))
+                    {
+                        $entryMeta->seoKeywords = craft()->seomatic->getTextFromEntryField($element[$entryMeta->seoKeywordsSourceField]);
+                    }
+                break;
+
+                case 'keywords':
+                    if (isset($element[$entryMeta->seoKeywordsSourceField]))
+                    {
+                        $text = craft()->seomatic->getTextFromEntryField($element[$entryMeta->seoKeywordsSourceField]);
+                        $entryMeta->seoKeywords = craft()->seomatic->extractKeywords($text);
+                    }
+                break;
+
+                case 'custom':
+                    $entryMeta->seoKeywords = craft()->config->parseEnvironmentString($entryMeta->seoKeywords);
+                    try
+                    {
+                        $entryMeta->seoKeywords = craft()->templates->renderObjectTemplate($entryMeta->seoKeywords, $element);
+                    }
+                    catch (\Exception $e)
+                    {
+                        SeomaticPlugin::log("Template error in the `seoDescription` field.", LogLevel::Info, true);
+                    }
+               break;
+            }
+
+            switch ($entryMeta->seoImageIdSource)
+            {
+                case 'field':
+                    if (isset($element[$entryMeta->seoImageIdSourceField]) && $element[$entryMeta->seoImageIdSourceField]->first())
+                    {
+                        $entryMeta->seoImageId = $element[$entryMeta->seoImageIdSourceField]->first()->id;
+                    }
+                break;
+            }
+
+        }
+
+
         if (craft()->request->isSiteRequest())
         {
         }
