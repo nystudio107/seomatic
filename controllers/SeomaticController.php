@@ -42,8 +42,10 @@ class SeomaticController extends BaseController
             $keywordsParam = urldecode(craft()->request->getParam('keywords'));
             $keywordsKeys = explode(",", $keywordsParam);
             $keywords = array();
-            $dom = HtmlDomParser::file_get_html($url);
-            if ($dom)
+/* -- Silly work-around for what appears to be a file_get_contents bug with https -> http://stackoverflow.com/questions/10524748/why-im-getting-500-error-when-using-file-get-contents-but-works-in-a-browser */
+            $opts = array('http'=>array('header' => "User-Agent:MyAgent/1.0\r\n"));
+            $context = stream_context_create($opts);
+            $dom = HtmlDomParser::file_get_html($url, false, $context);            if ($dom)
             {
                 $textStatistics = new TS\TextStatistics;
                 foreach($dom->find('style') as $element)

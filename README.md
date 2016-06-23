@@ -66,6 +66,7 @@ Some things to do, and ideas for potential features:
 * [Added] You can now control the string prepended to the title tag when devMode is on via config.php
 * [Added] Added a French localization for SEOmatic, thanks to @FrancisBou
 * [Fixed] We should not properly catch exceptions when there are errors in the variables in the SEOmatic FieldType fields
+* [Fixed] Fixed a bug where SEOmetrics might not appear on certain setups that use https
 * [Improved] Updated the README.md
 
 ### 1.1.20 -- 2016.06.06
