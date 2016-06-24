@@ -56,6 +56,7 @@ Some things to do, and ideas for potential features:
 ### 1.1.21 -- 2016.06.16
 
 * [Improved] Contents of SEOmatic Meta FieldTypes are now parsed when they are saved, rather than at runtime, which should be faster, and also makes the contents of the fields always accessible.  Please re-save your Sections that use SEOmatic FieldTypes as per: [https://github.com/nystudio107/seomatic/wiki/05.-SEO-Entry-Meta](https://github.com/nystudio107/seomatic/wiki/05.-SEO-Entry-Meta)
+* [Added] The SEO Title, SEO Description, and SEO Keywords fields in Template Metas can now include tags that output entry properties, such as `{title}` or `{myCustomField}` in them
 * [Added] Added a `getLocalizedUrls` Twig filter/function that returns an array of localized URLs for the current request
 * [Improved] The SEOmetrics window will now remember its open/closed state while in Live Preview
 * [Improved] Some minor tweaks to the SEOmetrics CSS

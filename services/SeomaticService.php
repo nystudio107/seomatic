@@ -1876,6 +1876,24 @@ class SeomaticService extends BaseApplicationComponent
     } /* -- getWebSiteJSONLD */
 
 /* --------------------------------------------------------------------------------
+    Parse the passed in $templateStr as an object template, with $element passed in
+-------------------------------------------------------------------------------- */
+
+function parseAsTemplate($templateStr, $element)
+{
+    $result = $templateStr;
+    $result = craft()->config->parseEnvironmentString($result);
+    try
+    {
+        $result = craft()->templates->renderObjectTemplate($result, $element);
+    }
+    catch (\Exception $e)
+    {
+        SeomaticPlugin::log("Template error in the `" . $templateStr . "` template.", LogLevel::Info, true);
+    }
+} /* -- parseAsTemplate */
+
+/* --------------------------------------------------------------------------------
     Get the meta record
 -------------------------------------------------------------------------------- */
 
@@ -1885,14 +1903,15 @@ class SeomaticService extends BaseApplicationComponent
 
         if ($forTemplate)
         {
+            $element = craft()->urlManager->getMatchedElement();
             $forTemplate = craft()->db->quoteValue($forTemplate);
             $whereQuery = '`metaPath` = ' . $forTemplate;
             $metaRecord = Seomatic_MetaRecord::model()->find($whereQuery);
             if ($metaRecord)
             {
-                $meta['seoTitle'] = $metaRecord->seoTitle;
-                $meta['seoDescription'] = $metaRecord->seoDescription;
-                $meta['seoKeywords'] = $metaRecord->seoKeywords;
+                $meta['seoTitle'] = $this->parseAsTemplate($metaRecord->seoTitle, $element);
+                $meta['seoDescription'] = $this->parseAsTemplate($metaRecord->seoDescription, $element);
+                $meta['seoKeywords'] = $this->parseAsTemplate($metaRecord->seoKeywords, $element);
                 if (isset($metaRecord->seoImageId))
                     $meta['seoImageId'] = $metaRecord->seoImageId;
                 else

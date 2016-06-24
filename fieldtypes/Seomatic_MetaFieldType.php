@@ -319,15 +319,7 @@ class Seomatic_MetaFieldType extends BaseFieldType
                 break;
 
                 case 'custom':
-                    $entryMeta->seoTitle = craft()->config->parseEnvironmentString($entryMeta->seoTitle);
-                    try
-                    {
-                        $entryMeta->seoTitle = craft()->templates->renderObjectTemplate($entryMeta->seoTitle, $element);
-                    }
-                    catch (\Exception $e)
-                    {
-                        SeomaticPlugin::log("Template error in the `seoTitle` field.", LogLevel::Info, true);
-                    }
+                    $entryMeta->seoTitle = craft()->seomatic->parseAsTemplate($entryMeta->seoTitle, $element);
                 break;
             }
 
@@ -341,15 +333,7 @@ class Seomatic_MetaFieldType extends BaseFieldType
                 break;
 
                 case 'custom':
-                    $entryMeta->seoDescription = craft()->config->parseEnvironmentString($entryMeta->seoDescription);
-                    try
-                    {
-                        $entryMeta->seoDescription = craft()->templates->renderObjectTemplate($entryMeta->seoDescription, $element);
-                    }
-                    catch (\Exception $e)
-                    {
-                        SeomaticPlugin::log("Template error in the `seoDescription` field.", LogLevel::Info, true);
-                    }
+                    $entryMeta->seoDescription = craft()->seomatic->parseAsTemplate($entryMeta->seoDescription, $element);
                break;
             }
 
@@ -371,15 +355,7 @@ class Seomatic_MetaFieldType extends BaseFieldType
                 break;
 
                 case 'custom':
-                    $entryMeta->seoKeywords = craft()->config->parseEnvironmentString($entryMeta->seoKeywords);
-                    try
-                    {
-                        $entryMeta->seoKeywords = craft()->templates->renderObjectTemplate($entryMeta->seoKeywords, $element);
-                    }
-                    catch (\Exception $e)
-                    {
-                        SeomaticPlugin::log("Template error in the `seoDescription` field.", LogLevel::Info, true);
-                    }
+                    $entryMeta->seoKeywords = craft()->seomatic->parseAsTemplate($entryMeta->seoKeywords, $element);
                break;
             }
 
