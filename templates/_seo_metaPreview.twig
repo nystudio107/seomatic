@@ -89,7 +89,7 @@
 
 {% for key, value in seomaticMeta.twitter %}
 {% if value %}
-<meta property="twitter:{{ key }}" content="{{ value |raw }}" /> <!-- {% verbatim %}{{ {% endverbatim %}seomatic.twitter.{{ key }}{% verbatim %} }}{% endverbatim %} -->
+<meta name="twitter:{{ key }}" content="{{ value |raw }}" /> <!-- {% verbatim %}{{ {% endverbatim %}seomatic.twitter.{{ key }}{% verbatim %} }}{% endverbatim %} -->
 {% endif %}
 {% endfor %}
 
