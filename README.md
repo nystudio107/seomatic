@@ -53,7 +53,7 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
-### 1.1.21 -- 2016.06.16
+### 1.1.21 -- 2016.06.25
 
 * [Improved] Contents of SEOmatic Meta FieldTypes are now parsed when they are saved, rather than at runtime, which should be faster, and also makes the contents of the fields always accessible.  Please re-save your Sections that use SEOmatic FieldTypes as per: [https://github.com/nystudio107/seomatic/wiki/05.-SEO-Entry-Meta](https://github.com/nystudio107/seomatic/wiki/05.-SEO-Entry-Meta)
 * [Added] The SEO Title, SEO Description, and SEO Keywords fields in Template Metas can now include tags that output entry properties, such as `{title}` or `{myCustomField}` in them
