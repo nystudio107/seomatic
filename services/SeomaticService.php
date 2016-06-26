@@ -2667,6 +2667,8 @@ public function getFullyQualifiedUrl($url)
 
     public function truncateStringOnWord($theString, $desiredLength)
     {
+        $theString = this->_cleanupText($theString);
+
         if (strlen($theString) > $desiredLength)
         {
 
