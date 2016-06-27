@@ -84,7 +84,7 @@
 
 /* -- Show/hide the select fields initially */
 
-                $('.selectFieldWrapper > div > div > div > select').on('change', function(e) {
+                $('.selectFieldWrapper > div > div > div > div > select').on('change', function(e) {
                     setPreviewFields();
                     });
 
