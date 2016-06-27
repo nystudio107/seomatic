@@ -5,6 +5,7 @@
         "date": "2016-06-27T11:00:00-11:00",
         "notes": [
             "[Fixed] Fixed the variable accessor rountines getSocial() and getIdentity()",
+            "[Fixed] Fixed an issue with the 'custom' data not displaying in SEOmatic Meta FieldTypes",
             "[Improved] Updated the README.md"
         ]
     },

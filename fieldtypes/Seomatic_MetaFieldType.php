@@ -270,6 +270,7 @@ class Seomatic_MetaFieldType extends BaseFieldType
         else
         {
             $result = new Seomatic_MetaFieldModel($value);
+            $result = $this->prepValue($result);
         }
         return $result;
     }
@@ -281,14 +282,17 @@ class Seomatic_MetaFieldType extends BaseFieldType
             $value = new Seomatic_MetaFieldModel();
 
             $value->seoTitle = $this->getSettings()->seoTitle;
+            $value->seoTitleUnparsed = $this->getSettings()->seoTitle;
             $value->seoTitleSource = $this->getSettings()->seoTitleSource;
             $value->seoTitleSourceField = $this->getSettings()->seoTitleSourceField;
 
             $value->seoDescription = $this->getSettings()->seoDescription;
+            $value->seoDescriptionUnparsed = $this->getSettings()->seoDescription;
             $value->seoDescriptionSource = $this->getSettings()->seoDescriptionSource;
             $value->seoDescriptionSourceField = $this->getSettings()->seoDescriptionSourceField;
 
             $value->seoKeywords = $this->getSettings()->seoKeywords;
+            $value->seoKeywordsUnparsed = $this->getSettings()->seoKeywords;
             $value->seoKeywordsSource = $this->getSettings()->seoKeywordsSource;
             $value->seoKeywordsSourceField = $this->getSettings()->seoKeywordsSourceField;
 
@@ -304,67 +308,73 @@ class Seomatic_MetaFieldType extends BaseFieldType
 /* -- Handle pulling values from other fields */
 
         $element = $this->element;
-        $entryMeta = $value;
+        if ($value->seoTitleUnparsed == "")
+            $value->seoTitleUnparsed = $value->seoTitle;
+        if ($value->seoDescriptionUnparsed == "")
+            $value->seoDescriptionUnparsed = $value->seoDescription;
+        if ($value->seoKeywordsUnparsed == "")
+            $value->seoKeywordsUnparsed = $value->seoKeywords;
+
         if ($element)
         {
     /* -- Swap in any SEOmatic fields that are pulling from other entry fields */
 
-            switch ($entryMeta->seoTitleSource)
+            switch ($value->seoTitleSource)
             {
                 case 'field':
-                    if (isset($element[$entryMeta->seoTitleSourceField]))
+                    if (isset($element[$value->seoTitleSourceField]))
                     {
-                        $entryMeta->seoTitle = craft()->seomatic->getTextFromEntryField($element[$entryMeta->seoTitleSourceField]);
+                        $value->seoTitle = craft()->seomatic->getTextFromEntryField($element[$value->seoTitleSourceField]);
                     }
                 break;
 
                 case 'custom':
-                    $entryMeta->seoTitle = craft()->seomatic->parseAsTemplate($entryMeta->seoTitle, $element);
+                    $value->seoTitle = craft()->seomatic->parseAsTemplate($value->seoTitleUnparsed, $element);
                 break;
             }
 
-            switch ($entryMeta->seoDescriptionSource)
+            switch ($value->seoDescriptionSource)
             {
                 case 'field':
-                    if (isset($element[$entryMeta->seoDescriptionSourceField]))
+                    if (isset($element[$value->seoDescriptionSourceField]))
                     {
-                        $entryMeta->seoDescription = craft()->seomatic->getTextFromEntryField($element[$entryMeta->seoDescriptionSourceField]);
+                        $value->seoDescription = craft()->seomatic->getTextFromEntryField($element[$value->seoDescriptionSourceField]);
                     }
                 break;
 
                 case 'custom':
-                    $entryMeta->seoDescription = craft()->seomatic->parseAsTemplate($entryMeta->seoDescription, $element);
+                    $value->seoDescription = craft()->seomatic->parseAsTemplate($value->seoDescriptionUnparsed, $element);
                break;
             }
 
-            switch ($entryMeta->seoKeywordsSource)
+            switch ($value->seoKeywordsSource)
             {
                 case 'field':
-                    if (isset($element[$entryMeta->seoKeywordsSourceField]))
+                    if (isset($element[$value->seoKeywordsSourceField]))
                     {
-                        $entryMeta->seoKeywords = craft()->seomatic->getTextFromEntryField($element[$entryMeta->seoKeywordsSourceField]);
+                        $value->seoKeywords = craft()->seomatic->getTextFromEntryField($element[$value->seoKeywordsSourceField]);
                     }
                 break;
 
                 case 'keywords':
-                    if (isset($element[$entryMeta->seoKeywordsSourceField]))
+                    if (isset($element[$value->seoKeywordsSourceField]))
                     {
-                        $text = craft()->seomatic->getTextFromEntryField($element[$entryMeta->seoKeywordsSourceField]);
-                        $entryMeta->seoKeywords = craft()->seomatic->extractKeywords($text);
+                        $text = craft()->seomatic->getTextFromEntryField($element[$value->seoKeywordsSourceField]);
+                        $value->seoKeywords = craft()->seomatic->extractKeywords($text);
                     }
                 break;
 
                 case 'custom':
-                    $entryMeta->seoKeywords = craft()->seomatic->parseAsTemplate($entryMeta->seoKeywords, $element);
+                    $value->seoKeywords = craft()->seomatic->parseAsTemplate($value->seoKeywordsUnparsed, $element);
                break;
             }
 
-            switch ($entryMeta->seoImageIdSource)
+            switch ($value->seoImageIdSource)
             {
                 case 'field':
-                    if (isset($element[$entryMeta->seoImageIdSourceField]) && $element[$entryMeta->seoImageIdSourceField]->first())
+                    if (isset($element[$value->seoImageIdSourceField]) && $element[$value->seoImageIdSourceField]->first())
                     {
-                        $entryMeta->seoImageId = $element[$entryMeta->seoImageIdSourceField]->first()->id;
+                        $value->seoImageId = $element[$value->seoImageIdSourceField]->first()->id;
                     }
                 break;
             }

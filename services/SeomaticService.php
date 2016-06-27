@@ -1890,7 +1890,9 @@ function parseAsTemplate($templateStr, $element)
     catch (\Exception $e)
     {
         SeomaticPlugin::log("Template error in the `" . $templateStr . "` template.", LogLevel::Info, true);
+        $result = $templateStr;
     }
+    return $result;
 } /* -- parseAsTemplate */
 
 /* --------------------------------------------------------------------------------
