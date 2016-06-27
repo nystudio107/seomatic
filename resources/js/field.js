@@ -58,7 +58,7 @@
             $(function () {
 
                 setPreviewFields();
-                $('#' + seomatic.options.prefix + seomatic.options.id + 'seoKeywords').tokenfield({
+                $('#' + seomatic.options.prefix + seomatic.options.id + 'seoKeywordsUnparsed').tokenfield({
                     createTokensOnBlur: true,
                     });
 
