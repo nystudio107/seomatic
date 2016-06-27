@@ -53,6 +53,11 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.21 -- 2016.06.27
+
+* [Fixed] Fixed the variable accessor rountines getSocial() and getIdentity()
+* [Improved] Updated the README.md
+
 ### 1.1.21 -- 2016.06.25
 
 * [Improved] Contents of SEOmatic Meta FieldTypes are now parsed when they are saved, rather than at runtime, which should be faster, and also makes the contents of the fields always accessible.  Please re-save your Sections that use SEOmatic FieldTypes as per: [https://github.com/nystudio107/seomatic/wiki/05.-SEO-Entry-Meta](https://github.com/nystudio107/seomatic/wiki/05.-SEO-Entry-Meta)

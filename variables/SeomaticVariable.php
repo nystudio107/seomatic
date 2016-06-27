@@ -464,18 +464,22 @@ class SeomaticVariable
     Get the identity record
 -------------------------------------------------------------------------------- */
 
-    public function getIdentity()
+    public function getIdentity($locale=null)
     {
-        return craft()->seomatic->getIdentity();
+        if (!$locale)
+            $locale = craft()->language;
+        return craft()->seomatic->getIdentity($locale);
     } /* -- getIdentity */
 
 /* --------------------------------------------------------------------------------
     Get the social record
 -------------------------------------------------------------------------------- */
 
-    public function getSocial()
+    public function getSocial($locale=null)
     {
-        return craft()->seomatic->getSocial();
+        if (!$locale)
+            $locale = craft()->language;
+        return craft()->seomatic->getSocial($locale);
     } /* -- getSocial */
 
 /* --------------------------------------------------------------------------------
