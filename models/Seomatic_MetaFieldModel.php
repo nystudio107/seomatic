@@ -29,6 +29,36 @@ class Seomatic_MetaFieldModel extends Seomatic_MetaModel
     }
 
     /**
+     * Returns the seoTitleUnparsed
+     *
+     * @return string
+     */
+    public function seoTitleUnparsed()
+    {
+        return $this->seoTitleUnparsed;
+    }
+
+    /**
+     * Returns the seoDescriptionUnparsed
+     *
+     * @return string
+     */
+    public function seoDescriptionUnparsed()
+    {
+        return $this->seoDescriptionUnparsed;
+    }
+
+    /**
+     * Returns the seoKeywordsUnparsed
+     *
+     * @return string
+     */
+    public function seoKeywordsUnparsed()
+    {
+        return $this->seoKeywordsUnparsed;
+    }
+
+    /**
      * Returns whether the current user can edit the element.
      *
      * @return bool
