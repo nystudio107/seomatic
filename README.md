@@ -53,6 +53,13 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.23 -- 2016.07.02
+
+* [Fixed] Keywords in the SEOmatic Meta FieldType are now tokenized again
+* [Fixed] Fixed the variable accessor rountines getSocial() and getIdentity()
+* [Fixed] Fixed an issue with the 'custom' data not displaying in SEOmatic Meta FieldTypes
+* [Improved] Updated the README.md
+
 ### 1.1.22 -- 2016.06.27
 
 * [Fixed] Fixed the variable accessor rountines getSocial() and getIdentity()
