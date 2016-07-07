@@ -9,8 +9,12 @@
 {% if seomaticMeta.robots is defined and seomaticMeta.robots %}
 <meta name="robots" content="{{ seomaticMeta.robots |raw }}" />
 {% endif %}
+{% if seomaticMeta.seoKeywords is defined and seomaticMeta.seoKeywords %}
 <meta name="keywords" content="{{ seomaticMeta.seoKeywords |raw }}" />
+{% endif %}
+{% if seomaticMeta.seoDescription is defined and seomaticMeta.seoDescription %}
 <meta name="description" content="{{ seomaticMeta.seoDescription |raw }}" />
+{% endif %}
 <meta name="generator" content="SEOmatic" />
 <link rel="canonical" href="{{ seomaticMeta.canonicalUrl }}" />
 {% set localizedUrls = getLocalizedUrls() %}

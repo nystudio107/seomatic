@@ -9,8 +9,12 @@
 {% if seomaticMeta.robots is defined and seomaticMeta.robots %}
 <meta name="robots" content="{{ seomaticMeta.robots |raw }}" /> <!-- {% verbatim %}{{ seomaticMeta.robots }}{% endverbatim %} -->
 {% endif %}
+{% if seomaticMeta.seoKeywords is defined and seomaticMeta.seoKeywords %}
 <meta name="keywords" content="{{ seomaticMeta.seoKeywords |raw }}" /> <!-- {% verbatim %}{{ seomaticMeta.seoKeywords }}{% endverbatim %} -->
+{% endif %}
+{% if seomaticMeta.seoDescription is defined and seomaticMeta.seoDescription %}
 <meta name="description" content="{{ seomaticMeta.seoDescription |raw }}" /> <!-- {% verbatim %}{{ seomaticMeta.seoDescription }}{% endverbatim %} -->
+{% endif %}
 <meta name="generator" content="SEOmatic" /> <!-- {% verbatim %}SEOmatic{% endverbatim %} -->
 <link rel="canonical" href="{{ seomaticMeta.canonicalUrl }}" /> <!-- {% verbatim %}{{ seomaticMeta.canonicalUrl }} (defaults to craft.request.url){% endverbatim %} -->
 {% set localizedUrls = getLocalizedUrls() %}
