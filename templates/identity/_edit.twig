@@ -91,6 +91,17 @@
                     }) }}
 
                     {{ forms.textField({
+                        label: "Google Tag Manager ID"|t,
+                        instructions: "If you enter your Google Tag Manager ID here, the Google Tag Manager script tags will be included in your <code>&lt;head&gt;</code> (the script is not included if <code>devMode</code> is on or during Live Preview).  Only enter the ID, e.g.: <code>GTM-XXXXXX</code>, not the entire script code.  <a href='https://support.google.com/tagmanager/answer/6102821?hl=en' target='_blank'>Here's how to get it.</a>" |t |raw,
+                        id: 'googleTagManagerID',
+                        class: 'nicetext',
+                        name: 'googleTagManagerID',
+                        value: identity.googleTagManagerID,
+                        required: false,
+                        locale: identity.locale,
+                    }) }}
+
+                    {{ forms.textField({
                         label: "Google Analytics Tracking ID"|t,
                         instructions: "If you enter your Google Analytics Tracking ID here, the Google Analytics script tags will be included in your <code>&lt;head&gt;</code> (the script is not included if <code>devMode</code> is on or during Live Preview).  Only enter the ID, e.g.: <code>UA-XXXXXX-XX</code>, not the entire script code.  <a href='https://support.google.com/analytics/answer/1032385?hl=en' target='_blank'>Here's how to get it.</a>" |t |raw,
                         id: 'googleAnalyticsUID',

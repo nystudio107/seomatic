@@ -270,6 +270,33 @@ class SeomaticService extends BaseApplicationComponent
     } /* -- renderPlace */
 
 /* --------------------------------------------------------------------------------
+    Render the Google Tag Manager <script> tags
+-------------------------------------------------------------------------------- */
+
+    public function renderGoogleTagManager($metaVars, $locale, $isPreview=false)
+    {
+        $htmlText = "";
+        $shouldRenderGTM = craft()->config->get("renderGoogleTagManagerScript", "seomatic");
+        if (($shouldRenderGTM) || ($isPreview))
+        {
+            $oldPath = method_exists(craft()->templates, 'getTemplatesPath') ? craft()->templates->getTemplatesPath() : craft()->path->getTemplatesPath();
+            $newPath = craft()->path->getPluginsPath().'seomatic/templates';
+            method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($newPath) : craft()->path->setTemplatesPath($newPath);
+
+    /* -- Render the core template */
+
+            $templateName = '_googleTagManager';
+            if (craft()->plugins->getPlugin('Minify') && !$isPreview)
+                $htmlText = craft()->minify->jsMin($htmlText = craft()->templates->render($templateName, $metaVars));
+            else
+                $htmlText = craft()->templates->render($templateName, $metaVars);
+
+            method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($oldPath) : craft()->path->setTemplatesPath($oldPath);
+        }
+        return $htmlText;
+    } /* -- renderGoogleTagManager */
+
+/* --------------------------------------------------------------------------------
     Render the Google Analytics <script> tags
 -------------------------------------------------------------------------------- */
 
@@ -1145,6 +1172,7 @@ class SeomaticService extends BaseApplicationComponent
         $identity['googleSiteVerification'] = $settings['googleSiteVerification'];
         $identity['bingSiteVerification'] = $settings['bingSiteVerification'];
         $identity['googleAnalyticsUID'] = $settings['googleAnalyticsUID'];
+        $identity['googleTagManagerID'] = $settings['googleTagManagerID'];
         $identity['googleAnalyticsSendPageview'] = $settings['googleAnalyticsSendPageview'];
         $identity['googleAnalyticsAdvertising'] = $settings['googleAnalyticsAdvertising'];
         $identity['googleAnalyticsEcommerce'] = $settings['googleAnalyticsEcommerce'];
@@ -2149,6 +2177,7 @@ function parseAsTemplate($templateStr, $element)
         $helper['ownerGoogleSiteVerification'] = $identity['googleSiteVerification'];
         $helper['ownerBingSiteVerification'] = $identity['bingSiteVerification'];
         $helper['ownerGoogleAnalyticsUID'] = $identity['googleAnalyticsUID'];
+        $helper['ownerGoogleTagManagerID'] = $identity['googleTagManagerID'];
         $helper['googleAnalyticsSendPageview'] = $identity['googleAnalyticsSendPageview'];
         $helper['googleAnalyticsAdvertising'] = $identity['googleAnalyticsAdvertising'];
         $helper['googleAnalyticsEcommerce'] = $identity['googleAnalyticsEcommerce'];

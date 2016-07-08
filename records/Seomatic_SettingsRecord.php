@@ -38,6 +38,7 @@ class Seomatic_SettingsRecord extends BaseRecord
             'googleSiteVerification'            => array(AttributeType::String, 'default' => ''),
             'bingSiteVerification'              => array(AttributeType::String, 'default' => ''),
             'googleAnalyticsUID'                => array(AttributeType::String, 'default' => ''),
+            'googleTagManagerID'                => array(AttributeType::String, 'default' => ''),
             'googleAnalyticsSendPageview'       => array(AttributeType::Bool, 'default' => true),
             'googleAnalyticsAdvertising'        => array(AttributeType::Bool, 'default' => false),
             'googleAnalyticsEcommerce'          => array(AttributeType::Bool, 'default' => false),

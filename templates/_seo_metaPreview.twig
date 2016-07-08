@@ -117,6 +117,10 @@
 <meta name="msvalidate.01" content="{{ seomaticHelper.ownerBingSiteVerification |raw }}" />  <!-- {% verbatim %}{{ seomaticHelper.ownerBingSiteVerification }}{% endverbatim %} -->
 {% endif %}
 
+<!-- Google Tag Manager -->
+
+{{ craft.seomatic.renderGoogleTagManager(null, null, true) |raw }}
+
 <!-- Google Analytics -->
 
 {{ craft.seomatic.renderGoogleAnalytics(null, null, true) |raw }}
