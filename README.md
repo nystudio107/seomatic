@@ -55,7 +55,7 @@ Some things to do, and ideas for potential features:
 
 ### 1.1.23 -- 2016.07.09
 
-* [Added] Added support for Google Tag Manager
+* [Added] Added support for Google Tag Manager (including `dataLayer`)
 * [Fixed] Keywords in the SEOmatic Meta FieldType are now tokenized again
 * [Fixed] Fixed Javascript error in the FieldType Source popup menu
 * [Fixed] Fix Undefined index in getLocalizedUrls

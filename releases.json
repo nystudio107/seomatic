@@ -4,7 +4,7 @@
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-07-09T11:00:00-11:00",
         "notes": [
-            "[Added] Added support for Google Tag Manager",
+            "Added support for Google Tag Manager (including `dataLayer`)",
             "[Fixed] Keywords in the SEOmatic Meta FieldType are now tokenized again",
             "[Fixed] Fixed Javascript error in the FieldType Source popup menu",
             "[Fixed] Fix Undefined index in getLocalizedUrls",
