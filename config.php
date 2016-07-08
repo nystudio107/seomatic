@@ -58,6 +58,14 @@ return array(
     "renderGoogleAnalyticsScript" => true,
 
 /**
+ * SEOmatic will render the Google Tag Manager <script> tag and code for you, if you
+ * enter a Google Tag Manager ID tracking code in the Site Identity settings.  It
+ * does not render the <script> tag if devMode is on, but here is an additional
+ * override for controlling it.
+ */
+    "renderGoogleTagManagerScript" => true,
+
+/**
  * SEOmatic will render Product JSON-LD microdata for you automatically, if an SEOmatic Meta
  * FieldType is attached to a Craft Commerce Product.  Set this to false to override
  * this behavior, and not render the Product JSON-LD microdata.
