@@ -2,7 +2,7 @@
     {
         "version": "1.1.23",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
-        "date": "2016-07-09T11:00:00-11:00",
+        "date": "2016-07-08T11:00:00-11:00",
         "notes": [
             "Added support for Google Tag Manager (including `dataLayer`)",
             "[Fixed] Keywords in the SEOmatic Meta FieldType are now tokenized again",

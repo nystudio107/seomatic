@@ -53,7 +53,7 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
-### 1.1.23 -- 2016.07.09
+### 1.1.23 -- 2016.07.08
 
 * [Added] Added support for Google Tag Manager (including `dataLayer`)
 * [Fixed] Keywords in the SEOmatic Meta FieldType are now tokenized again
