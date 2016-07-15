@@ -135,7 +135,7 @@
 
 <!-- Google Tag Manager -->
 
-{% if not craft.config.devMode and not craft.request.isLivePreview %}{{ craft.seomatic.renderGoogleTagManager() |raw }}{% else %}<!-- Google Tag Manager script is NOT included in LivePreview or if devMode is on -->{% endif %}
+{% if not craft.request.isLivePreview %}{{ craft.seomatic.renderGoogleTagManager() |raw }}{% else %}<!-- Google Tag Manager script is NOT included in LivePreview -->{% endif %}
 
 <!-- Google Analytics -->
 

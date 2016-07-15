@@ -116,7 +116,7 @@ Leave any fields blank that aren't applicable or which you do not want as part o
 #### Site Ownership
 * **Google Site Verification** - For the `<meta name='google-site-verification'>` tag. Only enter the code in the `content=''`, not the entire tag. [Here's how to get it.](https://www.google.com/webmasters/verification/).
 * **Bing Site Verification** - For the `<meta name='msvalidate.01'>` tag. Only enter the code in the `content=''`, not the entire tag. [Here's how to get it.](https://www.bing.com/webmaster/help/how-to-verify-ownership-of-your-site-afcfefc6).
-* **Google Tag Manager ID** - If you enter your Google Tag Manager ID here, the Google Tag Manager script tags will be included in your `<head>` (the script is not included if `devMode` is on or during Live Preview). Only enter the ID, e.g.: `GTM-XXXXXX`, not the entire script code. [Here's how to get it.](https://support.google.com/tagmanager/answer/6102821?hl=en)
+* **Google Tag Manager ID** - If you enter your Google Tag Manager ID here, the Google Tag Manager script tags will be included in your `<head>` (the script is not included during Live Preview). Only enter the ID, e.g.: `GTM-XXXXXX`, not the entire script code. [Here's how to get it.](https://support.google.com/tagmanager/answer/6102821?hl=en)
 * **Google Analytics Tracking ID** - If you enter your Google Analytics Tracking ID here, the Google Analytics script tags will be included in your `<head>` (the script is not included if `devMode` is on or during Live Preview). Only enter the ID, e.g.: `UA-XXXXXX-XX`, not the entire script code. [Here's how to get it.](https://support.google.com/analytics/answer/1032385?hl=en)
 * **Automatically send Google Analytics PageView** - Controls whether the Google Analytics script automatically sends a PageView to Google Analytics when your pages are loaded
 * **Google Analytics Plugins** - Select which Google Analytics plugins to enable. [Learn More](https://developers.google.com/analytics/devguides/collection/analyticsjs/)
@@ -134,6 +134,8 @@ Note that the Google Tag Manager implementation supports the `dataLayer` propert
 	} %}
 
 You can set the `dataLayer` Twig variable either in your templates that extend your `layout.twig` or in your `layout.twig` itself.  The usual rules on Twig variable scoping apply, you just need to set the `dataLayer` array before the `{% hook seomaticRender %}` is called.  [Learn More](https://developers.google.com/tag-manager/devguide)
+
+There is also a `gtmDataLayerVariableName` variable in `config.php` which allows you to control the name of the Javascript `dataLayer` variable.
 
 #### General Info
 * **Entity Name** - The name of the entity that owns the website

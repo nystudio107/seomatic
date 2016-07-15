@@ -52,16 +52,17 @@ return array(
 /**
  * SEOmatic will render the Google Analytics <script> tag and code for you, if you
  * enter a Google Analytics UID tracking code in the Site Identity settings.  It
- * does not render the <script> tag if devMode is on, but here is an additional
- * override for controlling it.
+ * does not render the <script> tag if devMode is on or during Live Preview, but
+ * here is an additional override for controlling it.
  */
     "renderGoogleAnalyticsScript" => true,
 
 /**
  * SEOmatic will render the Google Tag Manager <script> tag and code for you, if you
  * enter a Google Tag Manager ID tracking code in the Site Identity settings.  It
- * does not render the <script> tag if devMode is on, but here is an additional
- * override for controlling it.
+ * does not render the <script> tag during Live Preview, but here is an additional
+ * override for controlling it.  It does render the script tag if devMode is on,
+ * to allow for debugging GTM.
  */
     "renderGoogleTagManagerScript" => true,
 

@@ -6,6 +6,7 @@
         "notes": [
             "[Added] Added the ability to control the name of the GTM dataLayer variable",
             "[Fixed] Added renderGoogleTagManagerScript in config.php",
+            "[Improved] The GTM script tags are now rendered when `devMode` is on, for debugging GTM",
             "[Improved] Updated the README.md"
         ]
     },

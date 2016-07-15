@@ -57,6 +57,7 @@ Some things to do, and ideas for potential features:
 
 * [Added] Added the ability to control the name of the GTM dataLayer variable
 * [Fixed] Added renderGoogleTagManagerScript in config.php
+* [Improved] The GTM script tags are now rendered when `devMode` is on, for debugging GTM
 * [Improved] Updated the README.md
 
 ### 1.1.23 -- 2016.07.08
