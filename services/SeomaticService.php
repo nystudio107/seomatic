@@ -277,6 +277,7 @@ class SeomaticService extends BaseApplicationComponent
     {
         $htmlText = "";
         $shouldRenderGTM = craft()->config->get("renderGoogleTagManagerScript", "seomatic");
+        $metaVars['gtmDataLayerVariableName'] = craft()->config->get("gtmDataLayerVariableName", "seomatic");
         if (($shouldRenderGTM) || ($isPreview))
         {
             $oldPath = method_exists(craft()->templates, 'getTemplatesPath') ? craft()->templates->getTemplatesPath() : craft()->path->getTemplatesPath();

@@ -66,6 +66,13 @@ return array(
     "renderGoogleTagManagerScript" => true,
 
 /**
+ * This controls the name of the Javascript variable that SEOmatic outputs for the
+ * dataLayer variable.  Note that the Twig variable always will be named:
+ * `dataLayer` regardless of this setting.
+ */
+    "gtmDataLayerVariableName" => "dataLayer",
+
+/**
  * SEOmatic will render Product JSON-LD microdata for you automatically, if an SEOmatic Meta
  * FieldType is attached to a Craft Commerce Product.  Set this to false to override
  * this behavior, and not render the Product JSON-LD microdata.

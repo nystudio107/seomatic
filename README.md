@@ -53,6 +53,12 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.24 -- 2016.07.15
+
+* [Added] Added the ability to control the name of the GTM dataLayer variable
+* [Fixed] Added renderGoogleTagManagerScript in config.php
+* [Improved] Updated the README.md
+
 ### 1.1.23 -- 2016.07.08
 
 * [Added] Added support for Google Tag Manager (including `dataLayer`)
