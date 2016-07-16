@@ -283,7 +283,7 @@
 
     {{ forms.selectField({
         label: "Twitter Image Transform"|t,
-        instructions: "The image transform to apply to the Twitter SEO Image."|t,
+        instructions: "The image transform to apply to the Twitter SEO Image.  Twitter recommends: 120 x 120 pixels minimum size, 1:1 aspect ratio, 1mb max size for Summary Card images, and 280x150 pixels minimum size, 1.86:1 aspect ratio, 1mb max size for Summary Card with Large Image images."|t,
         id: id ~ "seoTwitterImageTransform",
         options: transformsList,
         name: name ~ "[seoTwitterImageTransform]",
@@ -309,7 +309,7 @@
 
     {{ forms.selectField({
         label: "Facebook Image Transform"|t,
-        instructions: "The image transform to apply to the Facebook SEO Image."|t,
+        instructions: "The image transform to apply to the Facebook SEO Image.  Facebook recommends: 1200 x 630 pixels minimum size, 1.9:1 aspect ratio, 8mb max size."|t,
         id: id ~ "seoFacebookImageTransform",
         options: transformsList,
         name: name ~ "[seoFacebookImageTransform]",
