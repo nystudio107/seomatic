@@ -99,6 +99,8 @@ class Seomatic_MetaFieldType extends BaseFieldType
         $variables['openGraphTypeChangeable'] = $this->getSettings()->openGraphTypeChangeable;
         $variables['robotsChangeable'] = $this->getSettings()->robotsChangeable;
 
+        $variables['transformsList'] = craft()->seomatic->getTransformsList();
+
 /* -- Extract a list of the other plain text fields that are in this entry's layout */
 
         $fieldList = array('title' => 'Title');
@@ -184,12 +186,15 @@ class Seomatic_MetaFieldType extends BaseFieldType
                 'seoImageIdSource' => AttributeType::String,
                 'seoImageIdSourceField' => AttributeType::String,
                 'seoImageIdSourceChangeable' => array(AttributeType::Bool, 'default' => 1),
+                'seoImageTransform' => AttributeType::String,
 
                 'twitterCardType' => AttributeType::String,
                 'twitterCardTypeChangeable' => array(AttributeType::Bool, 'default' => 1),
+                'seoTwitterImageTransform' => AttributeType::String,
 
                 'openGraphType' => AttributeType::String,
                 'openGraphTypeChangeable' => array(AttributeType::Bool, 'default' => 1),
+                'seoFacebookImageTransform' => AttributeType::String,
 
                 'robots' => AttributeType::String,
                 'robotsChangeable' => array(AttributeType::Bool, 'default' => 1),
@@ -250,6 +255,7 @@ class Seomatic_MetaFieldType extends BaseFieldType
             'fieldList'             => $fieldList,
             'imageFieldList'        => $imageFieldList,
             'titleLength'           => $titleLength,
+            'transformsList'        => craft()->seomatic->getTransformsList(),
             'settings'              => $this->getSettings()
         ));
    }
@@ -298,9 +304,12 @@ class Seomatic_MetaFieldType extends BaseFieldType
 
             $value->seoImageIdSource = $this->getSettings()->seoImageIdSource;
             $value->seoImageIdSourceField = $this->getSettings()->seoImageIdSourceField;
+            $value->seoImageTransform = $this->getSettings()->seoImageTransform;
 
             $value->twitterCardType = $this->getSettings()->twitterCardType;
+            $value->seoTwitterImageTransform = $this->getSettings()->seoTwitterImageTransform;
             $value->openGraphType = $this->getSettings()->openGraphType;
+            $value->seoFacebookImageTransform = $this->getSettings()->seoFacebookImageTransform;
 
             $value->robots = $this->getSettings()->robots;
         }

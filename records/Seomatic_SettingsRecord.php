@@ -20,34 +20,37 @@ class Seomatic_SettingsRecord extends BaseRecord
 
             'siteSeoName'                   	=> array(AttributeType::String, 'default' => ''),
             'siteSeoTitle'                  	=> array(AttributeType::String, 'default' => ''),
-            'siteSeoTitleSeparator'             => array(AttributeType::String, 'default' => '|'),
+            'siteSeoTitleSeparator'             => array(AttributeType::String, 'maxLength' => 10, 'default' => '|'),
             'siteSeoTitlePlacement'             => array(AttributeType::Enum, 'values' => "before,after,none", 'default' => 'after'),
             'siteSeoDescription'            	=> array(AttributeType::String, 'default' => ''),
             'siteSeoKeywords'               	=> array(AttributeType::String, 'default' => ''),
-            'siteTwitterCardType'				=> array(AttributeType::String, 'default' => ''),
-            'siteOpenGraphType'					=> array(AttributeType::String, 'default' => ''),
-            'siteRobots'						=> array(AttributeType::String, 'default' => ''),
+            'siteSeoImageTransform'             => array(AttributeType::String, 'maxLength' => 100, 'default' => ''),
+            'siteSeoFacebookImageTransform'     => array(AttributeType::String, 'maxLength' => 100, 'default' => ''),
+            'siteSeoTwitterImageTransform'      => array(AttributeType::String, 'maxLength' => 100, 'default' => ''),
+            'siteTwitterCardType'				=> array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
+            'siteOpenGraphType'					=> array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
+            'siteRobots'						=> array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
             'siteRobotsTxt'                     => array(AttributeType::String, 'column' => ColumnType::Text),
             'siteLinksSearchTargets'            => array(AttributeType::Mixed),
-            'siteLinksQueryInput'               => array(AttributeType::String, 'default' => ''),
+            'siteLinksQueryInput'               => array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
 
 /* --------------------------------------------------------------------------------
 	IDENTITY settings
 -------------------------------------------------------------------------------- */
 
-            'googleSiteVerification'            => array(AttributeType::String, 'default' => ''),
-            'bingSiteVerification'              => array(AttributeType::String, 'default' => ''),
-            'googleAnalyticsUID'                => array(AttributeType::String, 'default' => ''),
-            'googleTagManagerID'                => array(AttributeType::String, 'default' => ''),
+            'googleSiteVerification'            => array(AttributeType::String, 'maxLength' => 100, 'default' => ''),
+            'bingSiteVerification'              => array(AttributeType::String, 'maxLength' => 100, 'default' => ''),
+            'googleAnalyticsUID'                => array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
+            'googleTagManagerID'                => array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
             'googleAnalyticsSendPageview'       => array(AttributeType::Bool, 'default' => true),
             'googleAnalyticsAdvertising'        => array(AttributeType::Bool, 'default' => false),
             'googleAnalyticsEcommerce'          => array(AttributeType::Bool, 'default' => false),
             'googleAnalyticsEEcommerce'         => array(AttributeType::Bool, 'default' => false),
             'googleAnalyticsLinkAttribution'    => array(AttributeType::Bool, 'default' => false),
             'googleAnalyticsLinker'             => array(AttributeType::Bool, 'default' => false),
-            'siteOwnerType'                     => array(AttributeType::String, 'default' => ''),
-            'siteOwnerSubType'                  => array(AttributeType::String, 'default' => ''),
-            'siteOwnerSpecificType'             => array(AttributeType::String, 'default' => ''),
+            'siteOwnerType'                     => array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
+            'siteOwnerSubType'                  => array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
+            'siteOwnerSpecificType'             => array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
 
 /* -- Generic owner fields */
 
@@ -102,17 +105,17 @@ class Seomatic_SettingsRecord extends BaseRecord
 	SOCIAL settings
 -------------------------------------------------------------------------------- */
 
-            'twitterHandle'             		=> array(AttributeType::String, 'default' => ''),
-            'facebookHandle'            		=> array(AttributeType::String, 'default' => ''),
-            'facebookProfileId'                 => array(AttributeType::String, 'default' => ''),
-            'facebookAppId'                     => array(AttributeType::String, 'default' => ''),
-            'linkedInHandle'            		=> array(AttributeType::String, 'default' => ''),
-            'googlePlusHandle'          		=> array(AttributeType::String, 'default' => ''),
-            'youtubeHandle'                     => array(AttributeType::String, 'default' => ''),
-            'youtubeChannelHandle'              => array(AttributeType::String, 'default' => ''),
-            'instagramHandle'					=> array(AttributeType::String, 'default' => ''),
-            'pinterestHandle'                   => array(AttributeType::String, 'default' => ''),
-            'githubHandle'                      => array(AttributeType::String, 'default' => ''),
+            'twitterHandle'             		=> array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
+            'facebookHandle'            		=> array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
+            'facebookProfileId'                 => array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
+            'facebookAppId'                     => array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
+            'linkedInHandle'            		=> array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
+            'googlePlusHandle'          		=> array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
+            'youtubeHandle'                     => array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
+            'youtubeChannelHandle'              => array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
+            'instagramHandle'					=> array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
+            'pinterestHandle'                   => array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
+            'githubHandle'                      => array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
 
 
 /* --------------------------------------------------------------------------------

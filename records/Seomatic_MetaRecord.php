@@ -12,16 +12,19 @@ class Seomatic_MetaRecord extends BaseRecord
     protected function defineAttributes()
     {
         return array(
-            'locale'			=> array(AttributeType::String, 'default' => craft()->language),
-            'elementId'			=> array(AttributeType::Number, 'default' => 0),
-            'metaType'          => array(AttributeType::Enum, 'values' => "default,template", 'default' => 'template'),
-            'metaPath'          => array(AttributeType::String, 'default' => ''),
-            'seoTitle'          => array(AttributeType::String, 'default' => ''),
-            'seoDescription'    => array(AttributeType::String, 'default' => ''),
-            'seoKeywords'       => array(AttributeType::String, 'default' => ''),
-            'twitterCardType'	=> array(AttributeType::String, 'default' => 'summary'),
-            'openGraphType'		=> array(AttributeType::String, 'default' => 'website'),
-            'robots'			=> array(AttributeType::String, 'default' => ''),
+            'locale'			        => array(AttributeType::String, 'default' => craft()->language),
+            'elementId'			        => array(AttributeType::Number, 'default' => 0),
+            'metaType'                  => array(AttributeType::Enum, 'values' => "default,template", 'default' => 'template'),
+            'metaPath'                  => array(AttributeType::String, 'default' => ''),
+            'seoTitle'                  => array(AttributeType::String, 'default' => ''),
+            'seoDescription'            => array(AttributeType::String, 'default' => ''),
+            'seoKeywords'               => array(AttributeType::String, 'default' => ''),
+            'seoImageTransform'         => array(AttributeType::String, 'default' => ''),
+            'seoFacebookImageTransform' => array(AttributeType::String, 'default' => ''),
+            'seoTwitterImageTransform'  => array(AttributeType::String, 'default' => ''),
+            'twitterCardType'	        => array(AttributeType::String, 'default' => 'summary'),
+            'openGraphType'		        => array(AttributeType::String, 'default' => 'website'),
+            'robots'			        => array(AttributeType::String, 'default' => ''),
 /* -- This is defined in definteRelations() below, of note:
       You don’t need to specify the foreign key column name in BELONGS_TO relations (defaults to the relation name appended with “Id”)
       https://craftcms.com/docs/plugins/records

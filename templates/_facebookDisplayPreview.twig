@@ -33,7 +33,7 @@
     for (i = 0; i < x.length; i++) {
         x[i].style.backgroundImage = "url(" + "{{ resourceUrl('seomatic/images/no_image_set.png') }}" + ")";
         {% if seomaticMeta.og.image %}
-            x[i].style.backgroundImage = "url(" + "{{ seomaticMeta.seoImage }}" + ")";
+            x[i].style.backgroundImage = "url(" + "{{ seomaticMeta.og.image }}" + ")";
         {% endif %}
     }
 </script>

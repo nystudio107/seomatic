@@ -55,6 +55,8 @@ Some things to do, and ideas for potential features:
 
 ### 1.1.24 -- 2016.07.15
 
+* [Added] You can now specify image transforms for your SEO Image, Twitter Image, and Facebook Image for Site Meta, Template Meta, and Entry Metas
+* [Improved] Trimmed the fat on some of the settings storage maxLength's
 * [Added] Added the ability to control the name of the GTM dataLayer variable
 * [Fixed] Added renderGoogleTagManagerScript in config.php
 * [Improved] The GTM script tags are now rendered when `devMode` is on, for debugging GTM

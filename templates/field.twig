@@ -255,6 +255,16 @@
         </div>
     </div>
 
+    {{ forms.selectField({
+        label: "SEO Image Transform"|t,
+        instructions: "The image transform to apply to the Site SEO Image."|t,
+        id: id ~ "seoImageTransform",
+        options: transformsList,
+        name: name ~ "[seoImageTransform]",
+        value: meta.seoImageTransform,
+        locale: meta.locale,
+    }) }}
+
     <div class="field comboField-wrapper"{% if not twitterCardTypeChangeable %} style="display: none;"{% endif %}>
     {{ forms.selectField({
         label: "Twitter Card Type"|t,
@@ -271,6 +281,16 @@
     }) }}
     </div>
 
+    {{ forms.selectField({
+        label: "Twitter Image Transform"|t,
+        instructions: "The image transform to apply to the Twitter SEO Image."|t,
+        id: id ~ "seoTwitterImageTransform",
+        options: transformsList,
+        name: name ~ "[seoTwitterImageTransform]",
+        value: meta.seoTwitterImageTransform,
+        locale: meta.locale,
+    }) }}
+
     <div class="field comboField-wrapper"{% if not openGraphTypeChangeable %} style="display: none;"{% endif %}>
     {{ forms.selectField({
         label: "Facebook Open Graph Type"|t,
@@ -286,6 +306,16 @@
         locale: field.translatable ? locale,
     }) }}
     </div>
+
+    {{ forms.selectField({
+        label: "Facebook Image Transform"|t,
+        instructions: "The image transform to apply to the Facebook SEO Image."|t,
+        id: id ~ "seoFacebookImageTransform",
+        options: transformsList,
+        name: name ~ "[seoFacebookImageTransform]",
+        value: meta.seoFacebookImageTransform,
+        locale: meta.locale,
+    }) }}
 
     <div class="field comboField-wrapper"{% if not robotsChangeable %} style="display: none;"{% endif %}>
     {{ forms.selectField({

@@ -236,6 +236,15 @@
         }) }}
     </div>
 
+    {{ forms.selectField({
+        label: "Default SEO Image Transform"|t,
+        instructions: "Set the default image transform to apply to the Site SEO Image."|t,
+        id: "seoImageTransform",
+        options: transformsList,
+        name: "seoImageTransform",
+        value: settings.seoImageTransform,
+    }) }}
+
 <!-- twitterCardType -->
 
     {{ forms.selectField({
@@ -258,6 +267,15 @@
         on: settings.twitterCardTypeChangeable,
     }) }}
 
+    {{ forms.selectField({
+        label: "Default Twitter Image Transform"|t,
+        instructions: "Set the default image transform to apply to the Twitter SEO Image."|t,
+        id: "seoTwitterImageTransform",
+        options: transformsList,
+        name: "seoTwitterImageTransform",
+        value: settings.seoTwitterImageTransform,
+    }) }}
+
 <!-- openGraphType -->
 
     {{ forms.selectField({
@@ -278,6 +296,15 @@
         name: 'openGraphTypeChangeable',
         instructions: "Whether to allow the user to change the Facebook Open Graph Type while editing the entry"|t,
         on: settings.openGraphTypeChangeable,
+    }) }}
+
+    {{ forms.selectField({
+        label: "Default Facebook Image Transform"|t,
+        instructions: "Set the default image transform to apply to the Facebook SEO Image."|t,
+        id: "seoFacebookImageTransform",
+        options: transformsList,
+        name: "seoFacebookImageTransform",
+        value: settings.seoFacebookImageTransform,
     }) }}
 
 <!-- robots -->

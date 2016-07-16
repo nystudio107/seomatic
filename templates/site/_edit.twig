@@ -188,6 +188,16 @@
                     </div>
 
                     {{ forms.selectField({
+                        label: "SEO Image Transform"|t,
+                        instructions: "The image transform to apply to the Site SEO Image."|t,
+                        id: "siteSeoImageTransform",
+                        options: transformsList,
+                        name: "siteSeoImageTransform",
+                        value: siteMeta.siteSeoImageTransform,
+                        locale: siteMeta.locale,
+                    }) }}
+
+                    {{ forms.selectField({
                         label: "Site Twitter Card Type"|t,
                         instructions: "With Twitter Cards, you can attach rich photos and information to Tweets that drive traffic to your website. Users who Tweet links to your content will have a “Card” added to the Tweet that’s visible to all of their followers."|t,
                         id: "siteTwitterCardType",
@@ -201,6 +211,16 @@
                     }) }}
 
                     {{ forms.selectField({
+                        label: "Twitter Image Transform"|t,
+                        instructions: "The image transform to apply to the Twitter SEO Image."|t,
+                        id: "siteSeoTwitterImageTransform",
+                        options: transformsList,
+                        name: "siteSeoTwitterImageTransform",
+                        value: siteMeta.siteSeoTwitterImageTransform,
+                        locale: siteMeta.locale,
+                    }) }}
+
+                    {{ forms.selectField({
                         label: "Site Facebook Open Graph Type"|t,
                         instructions: "Adding Open Graph tags to your website influences the performance of your links on social media by allowing you to control what appears when a user posts a link to your content on Facebook."|t,
                         id: "siteOpenGraphType",
@@ -210,6 +230,16 @@
                         },
                         name: "siteOpenGraphType",
                         value: siteMeta.siteOpenGraphType,
+                        locale: siteMeta.locale,
+                    }) }}
+
+                    {{ forms.selectField({
+                        label: "Facebook Image Transform"|t,
+                        instructions: "The image transform to apply to the Facebook SEO Image."|t,
+                        id: "siteSeoFacebookImageTransform",
+                        options: transformsList,
+                        name: "siteSeoFacebookImageTransform",
+                        value: siteMeta.siteSeoFacebookImageTransform,
                         locale: siteMeta.locale,
                     }) }}
 

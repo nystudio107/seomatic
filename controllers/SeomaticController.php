@@ -291,6 +291,7 @@ class SeomaticController extends BaseController
 
         // Set the "Continue Editing" URL
         $variables['continueEditingUrl'] = 'seomatic/site';
+        $variables['transformsList'] = craft()->seomatic->getTransformsList();
 
         // Render the template!
         $this->renderTemplate('seomatic/site/_edit', $variables);
@@ -459,6 +460,8 @@ class SeomaticController extends BaseController
         $sources = craft()->assets->findFolders();
         $variables['assetsSourceExists'] = count($sources);
 
+        $variables['transformsList'] = craft()->seomatic->getTransformsList();
+
         // URL to create a new assets source
         $variables['newAssetsSourceUrl'] = UrlHelper::getUrl('settings/assets/sources/new');
 
@@ -544,6 +547,9 @@ class SeomaticController extends BaseController
         $model->seoTitle = craft()->request->getPost('seoTitle', $model->seoTitle);
         $model->seoDescription = craft()->request->getPost('seoDescription', $model->seoDescription);
         $model->seoKeywords = craft()->request->getPost('seoKeywords', $model->seoKeywords);
+        $model->seoImageTranform = craft()->request->getPost('seoImageTranform', $model->seoImageTranform);
+        $model->seoFacebookImageTranform = craft()->request->getPost('seoFacebookImageTranform', $model->seoFacebookImageTranform);
+        $model->seoTwitterImageTranform = craft()->request->getPost('seoTwitterImageTranform', $model->seoTwitterImageTranform);
         $model->twitterCardType = craft()->request->getPost('twitterCardType', $model->twitterCardType);
         $model->openGraphType = craft()->request->getPost('openGraphType', $model->openGraphType);
         $model->robots = craft()->request->getPost('robots', $model->robots);
@@ -621,6 +627,9 @@ class SeomaticController extends BaseController
         $record->siteSeoTitlePlacement = craft()->request->getPost('siteSeoTitlePlacement', $record->siteSeoTitlePlacement);
         $record->siteSeoDescription = craft()->request->getPost('siteSeoDescription', $record->siteSeoDescription);
         $record->siteSeoKeywords = craft()->request->getPost('siteSeoKeywords', $record->siteSeoKeywords);
+        $record->siteSeoImageTransform = craft()->request->getPost('siteSeoImageTransform', $record->siteSeoImageTransform);
+        $record->siteSeoFacebookImageTransform = craft()->request->getPost('siteSeoFacebookImageTransform', $record->siteSeoFacebookImageTransform);
+        $record->siteSeoTwitterImageTransform = craft()->request->getPost('siteSeoTwitterImageTransform', $record->siteSeoTwitterImageTransform);
         $record->siteTwitterCardType = craft()->request->getPost('siteTwitterCardType', $record->siteTwitterCardType);
         $record->siteOpenGraphType = craft()->request->getPost('siteOpenGraphType', $record->siteOpenGraphType);
         $record->siteRobots = craft()->request->getPost('siteRobots', $record->siteRobots);
