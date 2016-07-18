@@ -47,13 +47,11 @@ Some things to do, and ideas for potential features:
 * [bug] Get the Template Metas implemented with full `locale` support, so the settings can all be per-locale based
 * [bug] Enforce *required fields on the various settings pages in the Admin CP by doing proper validation
 * [bug] The `foundingDate` fields probably should be dateTimeField types on the Settings pages
-* [feature] Add support for `og:image:type`, `og:image:width`, and `og:image:height`
-* [feature] Change the preview to a live preview when editing things in SEOmatic
 * [feature] Provide SiteMap functionality.  Yes, it's SEO-related, but seems like it might be better to keep SEOmatic focused (?)
 
 ## Changelog
 
-### 1.1.24 -- 2016.07.15
+### 1.1.24 -- 2016.07.17
 
 * [Added] You can now specify image transforms for your SEO Image, Twitter Image, and Facebook Image for Site Meta, Template Meta, and Entry Metas
 * [Added] Added og:image:type, og:image:width, and og:image:height to the OpenGraph meta

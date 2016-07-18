@@ -2,7 +2,7 @@
     {
         "version": "1.1.24",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
-        "date": "2016-07-15T11:00:00-11:00",
+        "date": "2016-07-17T11:00:00-11:00",
         "notes": [
             "[Added] You can now specify image transforms for your SEO Image, Twitter Image, and Facebook Image for Site Meta, Template Meta, and Entry Metas",
             "[Added] Added og:image:type, og:image:width, and og:image:height to the OpenGraph meta",
