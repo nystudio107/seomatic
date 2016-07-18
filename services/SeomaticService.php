@@ -228,7 +228,7 @@ class SeomaticService extends BaseApplicationComponent
     } /* -- renderWebsite */
 
 /* --------------------------------------------------------------------------------
-    Render the SEOmatic Product template
+    Render the Product JSON-LD
 -------------------------------------------------------------------------------- */
 
     public function renderProduct($metaVars, $locale, $isPreview=false)
@@ -241,7 +241,24 @@ class SeomaticService extends BaseApplicationComponent
             $htmlText = $this->renderJSONLD($metaVars['seomaticProduct'], $isPreview);
         }
         return $htmlText;
-    } /* -- renderWebsite */
+    } /* -- renderProduct */
+
+/* --------------------------------------------------------------------------------
+    Render the Breadcrumbs JSON-LD
+-------------------------------------------------------------------------------- */
+
+    public function renderBreadcrumbs($metaVars, $locale, $isPreview=false)
+    {
+        $htmlText = "";
+
+        if (!empty($metaVars['seomaticMeta']['breadcrumbs']))
+        {
+            $this->sanitizeMetaVars($metaVars);
+            $crumbsJSON = $this->getBreadcrumbsJSONLD($metaVars['seomaticMeta']['breadcrumbs']);
+            $htmlText = $this->renderJSONLD($crumbsJSON, $isPreview);
+        }
+        return $htmlText;
+    } /* -- renderBreadcrumbs */
 
 /* --------------------------------------------------------------------------------
     Render the SEOmatic Place template
@@ -977,6 +994,10 @@ class SeomaticService extends BaseApplicationComponent
             'seomaticTemplatePath' => '',
         );
 
+/* -- Fill in the breadcrumbs */
+
+        $meta['breadcrumbs'] = $this->getDefaultBreadcrumbs($meta);
+
 /* -- Return everything is an array of arrays */
 
         $result = array('seomaticMeta' => $meta,
@@ -1000,6 +1021,32 @@ class SeomaticService extends BaseApplicationComponent
 
         return $result;
     } /* -- getGlobals */
+
+/* --------------------------------------------------------------------------------
+    Get the default breadcrumbs.
+-------------------------------------------------------------------------------- */
+
+    public function getDefaultBreadcrumbs($meta)
+    {
+        $result = array();
+        $homeName = craft()->config->get("breadcrumbsHomeName", "seomatic");
+        $result[$homeName] = $this->getFullyQualifiedUrl(craft()->getSiteUrl());
+        $element = craft()->urlManager->getMatchedElement();
+        if ($element)
+        {
+/* -- Undecided whether this is the best behavior
+            if ($element->uri == '__home__')
+                unset($result[$homeName]);
+*/
+            if ($element->uri != '__home__')
+                $result[$element->title] = $element->url;
+        }
+        else if ($this->entryMeta)
+        {
+            $result[$this->entryMeta['seoTitle']] = $meta['canonicalUrl'];
+        }
+        return $result;
+    } /* -- getDefaultBreadcrumbs */
 
 /* --------------------------------------------------------------------------------
     Get the Settings record
@@ -1914,6 +1961,38 @@ class SeomaticService extends BaseApplicationComponent
     } /* -- getProductJSONLD */
 
 /* --------------------------------------------------------------------------------
+    Get the Breadcrumbs JSON-LD
+-------------------------------------------------------------------------------- */
+
+    public function getBreadcrumbsJSONLD($crumbs)
+    {
+
+        $crumbsArrayJSONLD = array();
+        $crumbsArrayJSONLD['type'] = "BreadcrumbList";
+        $crumbsArrayJSONLD['itemListElement'] = array();
+        $crumbCounter = 1;
+
+        foreach ($crumbs as $key => $value)
+        {
+            $itemListJSONLD = array();
+
+    /* -- Settings generic to all Creator types */
+
+            $itemListJSONLD['type'] = "ListItem";
+            $itemListJSONLD['position'] = $crumbCounter;
+            $itemListJSONLD['item'] = array(
+                "@id" => $value,
+                "name" => $key,
+                );
+
+            array_push($crumbsArrayJSONLD['itemListElement'], array_filter($itemListJSONLD));
+            $crumbCounter++;
+        }
+
+        return $crumbsArrayJSONLD;
+    } /* -- getBreadcrumbsJSONLD */
+
+/* --------------------------------------------------------------------------------
     Get the WebSite JSON-LD
 -------------------------------------------------------------------------------- */
 
@@ -2690,7 +2769,7 @@ public function getFullyQualifiedUrl($url)
             {
                 if (empty($value))
                 {
-                    $line = $key . ": [],\n";
+                    $line = "\"" . $key . "\"" . ": [],\n";
                     $line = str_pad($line, strlen($line) + ($level * 4), " ", STR_PAD_LEFT);
                 }
                 else
@@ -2728,21 +2807,23 @@ public function getFullyQualifiedUrl($url)
                         }
                         if ($level < 1)
                         {
-                            $predicate = "{% set " . $key . " = [ ";
+                            $predicate = "{% set " . "\"" . $key . "\"" . " = [ ";
                             $suffix = "] %}" . "\n\n";
                             $key = "";
                         }
+                        else
+                            $key = "\"" . $key . "\"";
                         $line =  $key . $predicate;
                         $line = str_pad($line, strlen($line) + ($level * 4), " ", STR_PAD_LEFT);
                         $line = $line . $subLines . $suffix;
                     }
                     else
                     {
-                        $predicate = $key . ": { " . "\n";
+                        $predicate = "\"" . $key . "\"" . ": { " . "\n";
                         $suffix = $comma;
                         if ($level < 1)
                         {
-                            $predicate = "{% set " . $key . " = { " . "\n";
+                            $predicate = "{% set " . "\"" . $key . "\"" . " = { " . "\n";
                             $suffix = " %}" . "\n";
                         }
                         $predicate = str_pad($predicate, strlen($predicate) + ($level * 4), " ", STR_PAD_LEFT);
@@ -2756,10 +2837,10 @@ public function getFullyQualifiedUrl($url)
             else
             {
                 if ($level < 1)
-                    $line = "{% set " . $key . " = \"" . htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, 'UTF-8', false) . "\" %}" . "\n";
+                    $line = "{% set " . "\"" . $key . "\"" . " = \"" . htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, 'UTF-8', false) . "\" %}" . "\n";
                 else
                     {
-                        $line = $key . ": \"" . htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, 'UTF-8', false) . "\"" . $comma . "\n";
+                        $line = "\"" . $key . "\"" . ": \"" . htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, 'UTF-8', false) . "\"" . $comma . "\n";
                         $line = str_pad($line, strlen($line) + ($level * 4), " ", STR_PAD_LEFT);
                     }
             }

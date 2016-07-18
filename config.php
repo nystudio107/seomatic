@@ -93,6 +93,11 @@ return array(
     "displaySeoMetrics" => true,
 
 /**
+ * Determines the name used for the "Home" default breadcrumb.
+ */
+    "breadcrumbsHomeName" => 'Home',
+
+/**
  * Determines the string prepended to the <title> tag when devMode is on.
  */
     "siteDevModeTitle" => '[devMode]',

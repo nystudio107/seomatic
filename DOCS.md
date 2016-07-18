@@ -387,6 +387,32 @@ See the section **Dynamic Twig SEO Meta** for more information on how to manipul
 
 SEOmatic also automatically strips HTML/PHP tags from the variables, and translates HTML entities to ensure that they are properly encoded.
 
+## Breadcrumbs Microdata
+
+![Screenshot](resources/screenshots/seomatic06.png)
+
+SEOmatic will automatically generate [Breadcrumbs](https://developers.google.com/search/docs/data-types/breadcrumbs) JSON-LD microdata that is used by Google to display breadcrumbs on the SERP rich cards.
+
+By default, SEOmatic will generate breadcrumbs automatically for `Home` (the name is configurable via `breadcrumbsHomeName` in `config.json`), and for the current `entry`, `product`, or `category` the template is displaying.
+
+If you want to do your own custom breadcrumbs, you can set them yourself in the `breadcrumbs` array in the `seomaticMeta` variable like this:
+
+	{% set myBreadcrumbs = {
+		"Home": "http://nystudio107.dev/",
+		"Books": "http://nystudio107.dev/books/",
+		"Candide": "http://nystudio107.dev/books/candide",
+	} %}
+
+	{% set seomaticMeta = seomaticMeta | merge({'breadcrumbs': myBreadcrumbs }) %}
+
+Since this is just a Twig array, you can alter it as you see fit, and whatever changes you make will be reflected in the JSON-LD that SEOmatic renders via the `{% hook 'seomaticRender' %}`  Because of the way that Twig handles arrays, you **must** include every field in the array when doing a `set` or `merge`, otherwise the fields you exclude will not exist.
+
+You can change these `breadcrumbs` variables in your templates that `extends` your main `layout.twig` template, and due to the Twig rendering order, when `{% hook 'seomaticRender' %}` is called, they'll be populated in your rendered SEO Meta tags.
+
+See the section **Dynamic Twig SEO Meta** for more information on how to manipulate SEOmatic variables via Twig.
+
+SEOmatic also automatically strips HTML/PHP tags from the variables, and translates HTML entities to ensure that they are properly encoded.
+
 ## Dynamic Twig SEO Meta
 
 All this SEO is great, but what if you want to generate dynamic SEO in an Twig template, with custom or specific requirements that the SEOmatic FieldType can't handle?  SEOmatic makes it easy.

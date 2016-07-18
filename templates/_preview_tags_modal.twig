@@ -34,6 +34,12 @@
                     </div>
 
                     <div class="preview-column">
+                        <h1><br />{{ "Rendered Breadcrumbs Microdata" |t }}</h1>
+                        <p>{{ "The <code>{% hook 'seomaticRender' %}</code> tag also generates <a href='https://developers.google.com/schemas/formats/json-ld?hl=en' target='_blank'>JSON-LD</a> for <a href='https://developers.google.com/search/docs/data-types/breadcrumbs' target='_blank'>Breadcrumbs</a>.  JSON-LD is an alternative to microdata you may already be familiar with, such as: <code>&lt;div itemscope itemtype='http://schema.org/Organization'&gt;</code>.  JSON-LD has the advantage of not being intertwined with HTML markup, so it's easier to use.  It is parsed and consumed by Google, allowing you to tell Google what breadcrumbs to display on the SERP rich card." |t |raw }}</p>
+                        <pre><code class="language-markup">{{ craft.seomatic.renderBreadcrumbs(elementId, locale, true) }}</code></pre>
+                    </div>
+
+                    <div class="preview-column">
                         <h1><br />{{ "Rendered Place Microdata" |t }}</h1>
                         <p>{{ "The <code>{% hook 'seomaticRender' %}</code> tag also generates <a href='https://developers.google.com/schemas/formats/json-ld?hl=en' target='_blank'>JSON-LD</a> Place microdata for Organizations that tells search engines where the organization is located.  JSON-LD is an alternative to microdata you may already be familiar with, such as: <code>&lt;div itemscope itemtype='http://schema.org/Organization'&gt;</code>.  JSON-LD has the advantage of not being intertwined with HTML markup, so it's easier to use.  It is parsed and consumed by Google, allowing you to tell Google what your site is about, rather than having it try to guess." |t |raw }}</p>
                         <pre><code class="language-markup">{{ craft.seomatic.renderPlace(elementId, locale, true) }}</code></pre>

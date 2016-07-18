@@ -288,7 +288,7 @@ class SeomaticVariable
     } /* -- renderWebsite */
 
 /* --------------------------------------------------------------------------------
-    Render the SEOmatic Product template
+    Render the Product JSON-LD
 -------------------------------------------------------------------------------- */
 
     function renderProduct($elementId=null, $locale=null, $isPreview=false)
@@ -312,6 +312,32 @@ class SeomaticVariable
 
         return rtrim($result);
     } /* -- renderProduct */
+
+/* --------------------------------------------------------------------------------
+    Render the Breadcrumbs JSON-LD
+-------------------------------------------------------------------------------- */
+
+    function renderBreadcrumbs($elementId=null, $locale=null, $isPreview=false)
+    {
+        if (!$locale)
+            $locale = craft()->language;
+
+        if ($elementId)
+        {
+            $element = craft()->elements->getElementById($elementId, null, $locale);
+            if ($element)
+            {
+                $entryMeta = craft()->seomatic->getMetaFromElement($element);
+                if ($entryMeta)
+                    craft()->seomatic->setEntryMeta($entryMeta, $element->url);
+            }
+        }
+
+        $metaVars = craft()->seomatic->getGlobals('', $locale);
+        $result = craft()->seomatic->renderBreadcrumbs($metaVars, $locale, $isPreview);
+
+        return rtrim($result);
+    } /* -- renderBreadcrumbs */
 
 /* --------------------------------------------------------------------------------
     Render the SEOmatic Place template
