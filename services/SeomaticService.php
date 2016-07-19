@@ -2807,7 +2807,7 @@ public function getFullyQualifiedUrl($url)
                         }
                         if ($level < 1)
                         {
-                            $predicate = "{% set " . "\"" . $key . "\"" . " = [ ";
+                            $predicate = "{% set " . $key . " = [ ";
                             $suffix = "] %}" . "\n\n";
                             $key = "";
                         }
@@ -2823,7 +2823,7 @@ public function getFullyQualifiedUrl($url)
                         $suffix = $comma;
                         if ($level < 1)
                         {
-                            $predicate = "{% set " . "\"" . $key . "\"" . " = { " . "\n";
+                            $predicate = "{% set " . $key . " = { " . "\n";
                             $suffix = " %}" . "\n";
                         }
                         $predicate = str_pad($predicate, strlen($predicate) + ($level * 4), " ", STR_PAD_LEFT);
@@ -2837,7 +2837,7 @@ public function getFullyQualifiedUrl($url)
             else
             {
                 if ($level < 1)
-                    $line = "{% set " . "\"" . $key . "\"" . " = \"" . htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, 'UTF-8', false) . "\" %}" . "\n";
+                    $line = "{% set " . $key . " = \"" . htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, 'UTF-8', false) . "\" %}" . "\n";
                 else
                     {
                         $line = "\"" . $key . "\"" . ": \"" . htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, 'UTF-8', false) . "\"" . $comma . "\n";
