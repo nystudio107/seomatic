@@ -161,7 +161,7 @@
                     <div class="field" id="siteSeoImageId-field">
                         <div class="heading">
                             <label for="siteSeoImageId">{{ "Site SEO Image"|t}}{% if craft.isLocalized and siteMeta.locale %}<span class="locale">{{ siteMeta.locale }}</span>{% endif %}</label>
-                            <div class="instructions"><p>{{ "This is the image that will be used for display as the global website brand, as well as on Twitter Cards and Facebook OpenGraph that link to the website.  It should be an image that displays well when cropped to a square format (for Twitter)" |t |raw}}</p></div>
+                            <div class="instructions"><p>{{ "This is the image that will be used for display as the global website brand, as well as on Twitter Cards and Facebook OpenGraph that link to the website.  The image must be in JPG, PNG, or GIF format." |t |raw}}</p></div>
                         </div>
                         <div class="input">
                             {% if assetsSourceExists %}
@@ -171,7 +171,7 @@
                                     name: 'siteSeoImageId',
                                     elementType: elementType,
                                     criteria: {
-                                        'kind': [],
+                                        'kind': ['image'],
                                         'localeEnabled': null,
                                         'locale': craft.locale,
                                     },

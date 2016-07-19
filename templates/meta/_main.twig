@@ -79,7 +79,7 @@
 <div class="field" id="seoImageId-field">
 	<div class="heading">
 		<label for="seoImageId">{{ "SEO Image"|t}}{% if meta.locale %}<span class="locale">{{ meta.locale }}</span>{% endif %}</label>
-		<div class="instructions"><p>{{ "This is the image that will be used for display as the webpage brand for this template, as well as on Twitter Cards and Facebook OpenGraph that link to this page.  It should be an image that displays well when cropped to a square format (for Twitter)" |t |raw}}</p></div>
+		<div class="instructions"><p>{{ "This is the image that will be used for display as the webpage brand for this template, as well as on Twitter Cards and Facebook OpenGraph that link to this page.  The image must be in JPG, PNG, or GIF format." |t |raw}}</p></div>
 	</div>
 	<div class="input">
 		{% if assetsSourceExists %}
@@ -89,7 +89,7 @@
 				name: 'seoImageId',
 				elementType: elementType,
 				criteria: {
-					'kind': [],
+					'kind': ['image'],
 					'localeEnabled': null,
 					'locale': craft.locale,
 				},

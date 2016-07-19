@@ -72,7 +72,7 @@ You can also dynamically change any of these SEO Meta fields in your Twig templa
 * **Site SEO Name Separator** - The character that should be used to separate the Site SEO Name and Title in the `<title>` tag
 * **Site SEO Description** - This should be between 70 and 160 characters (spaces included). Meta descriptions allow you to influence how your web pages are described and displayed in search results. Ensure that all of your web pages have a unique meta description that is explicit and contains your most important keywords.
 * **Site SEO Keywords** - Google ignores this tag; though other search engines do look at it. Utilize it carefully, as improper or spammy use most likely will hurt you, or even have your site marked as spam. Avoid overstuffing the keywords and do not include keywords that are not related to the specific page you place them on.
-* **Site SEO Image** - This is the image that will be used for display as the global website brand, as well as on Twitter Cards and Facebook OpenGraph that link to the website. It should be an image that displays well when cropped to a square format (for Twitter)
+* **Site SEO Image** - This is the image that will be used for display as the global website brand, as well as on Twitter Cards and Facebook OpenGraph that link to the website. The image must be in JPG, PNG, or GIF format.
 * **SEO Image Transform** - The image transform to apply to the Site SEO Image.
 * **Site Twitter Card Type** - With Twitter Cards, you can attach rich photos and information to Tweets that drive traffic to your website. Users who Tweet links to your content will have a “Card” added to the Tweet that’s visible to all of their followers.
 * **Twitter Image Transform** - The image transform to apply to the Twitter SEO Image. Twitter recommends: 120 x 120 pixels minimum size, 1:1 aspect ratio, 1mb max size for Summary Card images, and 280x150 pixels minimum size, 1.86:1 aspect ratio, 1mb max size for Summary Card with Large Image images.
@@ -144,7 +144,7 @@ There is also a `gtmDataLayerVariableName` variable in `config.php` which allows
 * **Alternate Entity Name** - An alternate or nickname for the entity that owns the website
 * **Entity Description** - A description of the entity that owns the website
 * **Entity URL** - A URL for the entity that owns the website
-* **Entity Brand** - An image or logo that represents the entity that owns the website
+* **Entity Brand** - An image or logo that represents the entity that owns the website.  The image must be in JPG, PNG, or GIF format.
 * **Entity Telephone** - The primary contact telephone number for the entity that owns the website
 * **Entity Email** - The primary contact email address for the entity that owns the website
 
@@ -227,7 +227,7 @@ Leave any fields blank that aren't applicable or which you do not want as part o
 * **Alternate Entity Name** - An alternate or nickname for the entity that created the website
 * **Entity Description** - A description of the entity that created the website
 * **Entity URL** - A URL for the entity that created the website
-* **Entity Brand** - An image or logo that represents the entity that created the website
+* **Entity Brand** - An image or logo that represents the entity that created the website.  The image must be in JPG, PNG, or GIF format.
 * **Entity Telephone** - The primary contact telephone number for the entity that created the website
 * **Entity Email** - The primary contact email address for the entity that created the website
 
@@ -282,7 +282,7 @@ You can also dynamically change any of these SEO Meta fields in your Twig templa
 * **SEO Title** - This should be between 10 and 70 characters (spaces included). Make sure your title tag is explicit and contains your most important keywords. Be sure that each page has a unique title tag.
 * **SEO Description** - This should be between 70 and 160 characters (spaces included). Meta descriptions allow you to influence how your web pages are described and displayed in search results. Ensure that all of your web pages have a unique meta description that is explicit and contains your most important keywords.
 * **SEO Keywords** - Google ignores this tag; though other search engines do look at it. Utilize it carefully, as improper or spammy use most likely will hurt you, or even have your site marked as spam. Avoid overstuffing the keywords and do not include keywords that are not related to the specific page you place them on.
-* **SEO Image** - This is the image that will be used for display as the webpage brand for this template, as well as on Twitter Cards and Facebook OpenGraph that link to this page. It should be an image that displays well when cropped to a square format (for Twitter)
+* **SEO Image** - This is the image that will be used for display as the webpage brand for this template, as well as on Twitter Cards and Facebook OpenGraph that link to this page. The image must be in JPG, PNG, or GIF format.
 * **SEO Image Transform** - The image transform to apply to the Site SEO Image.
 * **Twitter Card Type** - With Twitter Cards, you can attach rich photos and information to Tweets that drive traffic to your website. Users who Tweet links to your content will have a “Card” added to the Tweet that’s visible to all of their followers.
 * **Twitter Image Transform** - The image transform to apply to the Twitter SEO Image. Twitter recommends: 120 x 120 pixels minimum size, 1:1 aspect ratio, 1mb max size for Summary Card images, and 280x150 pixels minimum size, 1.86:1 aspect ratio, 1mb max size for Summary Card with Large Image images.
@@ -313,7 +313,7 @@ You can also dynamically change any of these SEO Meta fields in your Twig templa
 * **SEO Title** - This should be between 10 and 70 characters (spaces included). Make sure your title tag is explicit and contains your most important keywords. Be sure that each page has a unique title tag.
 * **SEO Description** - This should be between 70 and 160 characters (spaces included). Meta descriptions allow you to influence how your web pages are described and displayed in search results. Ensure that all of your web pages have a unique meta description that is explicit and contains your most important keywords.
 * **SEO Keywords** - Google ignores this tag; though other search engines do look at it. Utilize it carefully, as improper or spammy use most likely will hurt you, or even have your site marked as spam. Avoid overstuffing the keywords and do not include keywords that are not related to the specific page you place them on.
-* **SEO Image** - This is the image that will be used for display as the webpage brand for this template, as well as on Twitter Cards and Facebook OpenGraph that link to this page. It should be an image that displays well when cropped to a square format (for Twitter)
+* **SEO Image** - This is the image that will be used for display as the webpage brand for this template, as well as on Twitter Cards and Facebook OpenGraph that link to this page. The image must be in JPG, PNG, or GIF format.
 * **SEO Image Transform** - The image transform to apply to the Site SEO Image.
 * **Twitter Card Type** - With Twitter Cards, you can attach rich photos and information to Tweets that drive traffic to your website. Users who Tweet links to your content will have a “Card” added to the Tweet that’s visible to all of their followers.
 * **Twitter Image Transform** - The image transform to apply to the Twitter SEO Image. Twitter recommends: 120 x 120 pixels minimum size, 1:1 aspect ratio, 1mb max size for Summary Card images, and 280x150 pixels minimum size, 1.86:1 aspect ratio, 1mb max size for Summary Card with Large Image images.

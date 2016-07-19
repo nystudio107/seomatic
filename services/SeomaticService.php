@@ -727,7 +727,7 @@ class SeomaticService extends BaseApplicationComponent
             $meta['seoDescription'] = $entryMeta->seoDescription;
             $meta['seoKeywords'] = $entryMeta->seoKeywords;
             if (isset($entryMeta->seoImageId[0]))
-                $meta['seoImageId'] = $entryMeta->seoImageId[0];
+                $meta['seoImageId'] = $entryMeta->seoImageId;
             else
                 $meta['seoImageId'] = null;
             $meta['canonicalUrl'] =  $this->getFullyQualifiedUrl($entryMetaUrl);

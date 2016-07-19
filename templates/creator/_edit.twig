@@ -143,7 +143,7 @@
                     <div class="field" id="genericCreatorImageId-field">
                         <div class="heading">
                             <label for="genericCreatorImageId">{{ "Entity Brand"|t}}{% if craft.isLocalized and creator.locale %}<span class="locale">{{ creator.locale }}</span>{% endif %}</label>
-                            <div class="instructions"><p>{{ "An image or logo that represents the entity that created the website" |t |raw}}</p></div>
+                            <div class="instructions"><p>{{ "An image or logo that represents the entity that created the website.  The image must be in JPG, PNG, or GIF format." |t |raw}}</p></div>
                         </div>
                         <div class="input">
                             {% if assetsSourceExists %}
@@ -153,7 +153,7 @@
                                     name: 'genericCreatorImageId',
                                     elementType: elementType,
                                     criteria: {
-                                        'kind': [],
+                                        'kind': ['image'],
                                         'localeEnabled': null,
                                         'locale': craft.locale,
                                     },
