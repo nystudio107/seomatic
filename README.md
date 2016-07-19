@@ -51,7 +51,7 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
-### 1.1.25 -- 2016.07.20
+### 1.1.25 -- 2016.07.19
 
 * [Fixed] Fixed an issue with SEO images not rendering properly via the FieldType
 * [Improved] Added a fallback if `iconv` is not installed for UTF-8 conversion
