@@ -547,9 +547,9 @@ class SeomaticController extends BaseController
         $model->seoTitle = craft()->request->getPost('seoTitle', $model->seoTitle);
         $model->seoDescription = craft()->request->getPost('seoDescription', $model->seoDescription);
         $model->seoKeywords = craft()->request->getPost('seoKeywords', $model->seoKeywords);
-        $model->seoImageTranform = craft()->request->getPost('seoImageTranform', $model->seoImageTranform);
-        $model->seoFacebookImageTranform = craft()->request->getPost('seoFacebookImageTranform', $model->seoFacebookImageTranform);
-        $model->seoTwitterImageTranform = craft()->request->getPost('seoTwitterImageTranform', $model->seoTwitterImageTranform);
+        $model->seoImageTransform = craft()->request->getPost('seoImageTransform', $model->seoImageTransform);
+        $model->seoFacebookImageTransform = craft()->request->getPost('seoFacebookImageTransform', $model->seoFacebookImageTransform);
+        $model->seoTwitterImageTransform = craft()->request->getPost('seoTwitterImageTransform', $model->seoTwitterImageTransform);
         $model->twitterCardType = craft()->request->getPost('twitterCardType', $model->twitterCardType);
         $model->openGraphType = craft()->request->getPost('openGraphType', $model->openGraphType);
         $model->robots = craft()->request->getPost('robots', $model->robots);
