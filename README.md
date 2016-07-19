@@ -51,6 +51,11 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.25 -- 2016.07.20
+
+* [Improved] Added a fallback if `iconv` is not installed for UTF-8 conversion
+* [Improved] Updated the README.md
+
 ### 1.1.24 -- 2016.07.18
 
 * [Added] You can now specify image transforms for your SEO Image, Twitter Image, and Facebook Image for Site Meta, Template Meta, and Entry Metas

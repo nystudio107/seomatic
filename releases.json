@@ -1,5 +1,14 @@
 [
     {
+        "version": "1.1.25",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
+        "date": "2016-07-20T11:00:00-11:00",
+        "notes": [
+            "[Improved] Added a fallback if `iconv` is not installed for UTF-8 conversion",
+            "[Improved] Updated the README.md"
+        ]
+    },
+    {
         "version": "1.1.24",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-07-18T11:00:00-11:00",
