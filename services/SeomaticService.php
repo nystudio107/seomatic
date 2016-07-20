@@ -1043,7 +1043,8 @@ class SeomaticService extends BaseApplicationComponent
         }
         else if ($this->entryMeta)
         {
-            $result[$this->entryMeta['seoTitle']] = $meta['canonicalUrl'];
+            if ((isset($this->entryMeta['seoTitle'])) && (!empty($this->entryMeta['seoTitle'])))
+                $result[$this->entryMeta['seoTitle']] = $meta['canonicalUrl'];
         }
         return $result;
     } /* -- getDefaultBreadcrumbs */
