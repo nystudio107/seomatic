@@ -51,6 +51,11 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.26 -- 2016.07.24
+
+* [Improved] The 'logo' and 'image' in Creator and Identity JSON-LD is now an ImageObject
+* [Improved] Updated the README.md
+
 ### 1.1.25 -- 2016.07.19
 
 * [Fixed] Fixed an issue with SEO images not rendering properly via the FieldType

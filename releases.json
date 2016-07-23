@@ -1,5 +1,14 @@
 [
     {
+        "version": "1.1.26",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
+        "date": "2016-07-25T11:00:00-11:00",
+        "notes": [
+            "[Improved] The 'logo' and 'image' in Creator and Identity JSON-LD is now an ImageObject",
+            "[Improved] Updated the README.md"
+        ]
+    },
+    {
         "version": "1.1.25",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-07-19T11:00:00-11:00",

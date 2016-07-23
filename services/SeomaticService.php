@@ -1326,7 +1326,11 @@ class SeomaticService extends BaseApplicationComponent
         $identity['genericOwnerImageId'] = $settings['genericOwnerImageId'];
         $image = craft()->assets->getFileById($settings['genericOwnerImageId']);
         if ($image)
+        {
             $identity['genericOwnerImage'] = $this->getFullyQualifiedUrl($image->url);
+            $identity['genericOwnerImageHeight'] = $image->getHeight();
+            $identity['genericOwnerImageWidth'] = $image->getWidth();
+        }
         else
             $identity['genericOwnerImage'] = '';
         $identity['genericOwnerTelephone'] = $settings['genericOwnerTelephone'];
@@ -1459,8 +1463,20 @@ class SeomaticService extends BaseApplicationComponent
         if (!empty($sameAs))
             $identityJSONLD['sameAs'] = $sameAs;
 
+        if ($identity['genericOwnerImage'])
+        {
+            $ownerImage = array(
+                "type" => "ImageObject",
+                "url" => $identity['genericOwnerImage'],
+                "height" => $identity['genericOwnerImageHeight'],
+                "width" => $identity['genericOwnerImageWidth'],
+                );
+        }
+        else
+            $ownerImage = "";
+
         if (isset($identity['genericOwnerImage']))
-            $identityJSONLD['image'] = $identity['genericOwnerImage'];
+            $identityJSONLD['image'] = $ownerImage;
         $identityJSONLD['telephone'] = $identity['genericOwnerTelephone'];
         $identityJSONLD['email'] = $identity['genericOwnerEmail'];
         $address = array(
@@ -1489,7 +1505,7 @@ class SeomaticService extends BaseApplicationComponent
         if ($identity['siteOwnerType'] == "Organization")
         {
             if (isset($identity['genericOwnerImage']))
-                $identityJSONLD['logo'] = $identity['genericOwnerImage'];
+                $identityJSONLD['logo'] = $ownerImage;
             $geo = array(
                 "type" => "GeoCoordinates",
                 "latitude" => $identity['genericOwnerGeoLatitude'],
@@ -1499,7 +1515,7 @@ class SeomaticService extends BaseApplicationComponent
 
             $locImage = "";
             if (isset($identity['genericOwnerImage']))
-                $locImage = $identity['genericOwnerImage'];
+                $locImage = $ownerImage;
 
             $location = array(
                 "type" => "Place",
@@ -1683,7 +1699,11 @@ class SeomaticService extends BaseApplicationComponent
         $creator['genericCreatorImageId'] = $settings['genericCreatorImageId'];
         $image = craft()->assets->getFileById($settings['genericCreatorImageId']);
         if ($image)
+        {
             $creator['genericCreatorImage'] = $this->getFullyQualifiedUrl($image->url);
+            $creator['genericCreatorImageHeight'] = $image->getHeight();
+            $creator['genericCreatorImageWidth'] = $image->getWidth();
+        }
         else
             $creator['genericCreatorImage'] = '';
         $creator['genericCreatorTelephone'] = $settings['genericCreatorTelephone'];
@@ -1768,8 +1788,20 @@ class SeomaticService extends BaseApplicationComponent
         $creatorJSONLD['description'] = $creator['genericCreatorDescription'];
         $creatorJSONLD['url'] = $creator['genericCreatorUrl'];
 
+        if ($creator['genericCreatorImage'])
+        {
+            $creatorImage = array(
+                "type" => "ImageObject",
+                "url" => $creator['genericCreatorImage'],
+                "height" => $creator['genericCreatorImageHeight'],
+                "width" => $creator['genericCreatorImageWidth'],
+                );
+        }
+        else
+            $creatorImage = "";
+
         if (isset($creator['genericCreatorImage']))
-            $creatorJSONLD['image'] = $creator['genericCreatorImage'];
+            $creatorJSONLD['image'] = $creatorImage;
         $creatorJSONLD['telephone'] = $creator['genericCreatorTelephone'];
         $creatorJSONLD['email'] = $creator['genericCreatorEmail'];
         $address = array(
@@ -1811,7 +1843,7 @@ class SeomaticService extends BaseApplicationComponent
         if ($creator['siteCreatorType'] == "Organization" || $creator['siteCreatorType'] == "Corporation")
         {
             if (isset($creator['genericCreatorImage']))
-                $creatorJSONLD['logo'] = $creator['genericCreatorImage'];
+                $creatorJSONLD['logo'] = $creatorImage;
             $geo = array(
                 "type" => "GeoCoordinates",
                 "latitude" => $creator['genericCreatorGeoLatitude'],
@@ -1821,7 +1853,7 @@ class SeomaticService extends BaseApplicationComponent
 
             $locImage = "";
             if (isset($identity['genericCreatorImage']))
-                $locImage = $identity['genericCreatorImage'];
+                $locImage = $creatorImage;
 
             $location = array(
                 "type" => "Place",
