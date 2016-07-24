@@ -45,7 +45,8 @@ class SeomaticController extends BaseController
 /* -- Silly work-around for what appears to be a file_get_contents bug with https -> http://stackoverflow.com/questions/10524748/why-im-getting-500-error-when-using-file-get-contents-but-works-in-a-browser */
             $opts = array('http'=>array('header' => "User-Agent:MyAgent/1.0\r\n"));
             $context = stream_context_create($opts);
-            $dom = HtmlDomParser::file_get_html($url, false, $context);            if ($dom)
+            $dom = HtmlDomParser::file_get_html($url, false, $context);
+            if ($dom)
             {
                 $textStatistics = new TS\TextStatistics;
                 foreach($dom->find('style') as $element)
@@ -88,6 +89,7 @@ class SeomaticController extends BaseController
                 $textToHtmlRatio = (strlen($strippedDom) / (strlen($htmlDom) - strlen($strippedDom))) * 100;
 
                 $pageKeywords = craft()->seomatic->extractKeywords($strippedDom);
+                $pageKeywords = str_replace(",",", ", $pageKeywords);
 
 /* -- Focus keywords */
 

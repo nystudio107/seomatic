@@ -55,6 +55,7 @@ Some things to do, and ideas for potential features:
 
 * [Added] Added Main Entity of Page JSON-LD microdata
 * [Improved] The 'logo' and 'image' in Creator and Identity JSON-LD is now an ImageObject
+* [Improved] Added a space after each keyword in SEOmetrics to prevent horizontal scrolling due to frame overflow
 * [Fixed] Fixed the locale of the transform fields in the FieldType
 * [Fixed] Fix for empty SEO Titles for breadcrumbs
 * [Improved] Updated the README.md
