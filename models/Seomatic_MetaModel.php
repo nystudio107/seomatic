@@ -16,7 +16,7 @@ class Seomatic_MetaModel extends BaseElementModel
             'elementId'                 => array(AttributeType::Number, 'default' => 0),
             'metaType'                  => array(AttributeType::Enum, 'values' => "default,template", 'default' => 'template'),
             'metaPath'                  => array(AttributeType::String, 'default' => ''),
-            'seoMainEntityOfPage'       => array(AttributeType::String, 'default' => ''),
+            'seoMainEntityOfPage'       => array(AttributeType::String, 'default' => 'WebPage'),
             'seoTitle'                  => array(AttributeType::String, 'default' => ''),
             'seoDescription'            => array(AttributeType::String, 'default' => ''),
             'seoKeywords'               => array(AttributeType::String, 'default' => ''),

@@ -168,7 +168,7 @@ class Seomatic_MetaFieldType extends BaseFieldType
             return array(
                 'assetSources' => AttributeType::Mixed,
 
-                'seoMainEntityOfPage' => AttributeType::String,
+                'seoMainEntityOfPage' => array(AttributeType::String, 'default' => 'WebPage'),
 
                 'seoTitle' => AttributeType::String,
                 'seoTitleSource' => array(AttributeType::String, 'default' => 'field'),

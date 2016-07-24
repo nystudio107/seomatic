@@ -10,6 +10,7 @@ class SeomaticService extends BaseApplicationComponent
 {
 
     protected $entryMeta = null;
+    protected $lastElement = null;
     protected $entrySeoCommerceVariants = null;
     protected $cachedSettings = array();
     protected $cachedSiteMeta = array();
@@ -521,6 +522,8 @@ class SeomaticService extends BaseApplicationComponent
                         if ($value->elementType == "Seomatic_FieldMeta")
                         {
                             $entryMeta = $value;
+                            $this->lastElement = $element;
+
                             $entryMetaUrl = $this->getFullyQualifiedUrl($element->url);
 
     /* -- If this is a Commerce Product, fill in some additional info */
@@ -973,6 +976,22 @@ class SeomaticService extends BaseApplicationComponent
 
         $this->setSocialForMeta($meta, $siteMeta, $social, $helper, $identity, $locale);
 
+/* -- Swap in our JSON-LD objects */
+
+        $identity = $this->getIdentityJSONLD($identity, $helper, $locale);
+        $creator = $this->getCreatorJSONLD($creator, $helper, $locale);
+
+/* -- Handle the Main Entity of Page, if set */
+
+        $seomaticMainEntityOfPage = "";
+        if (isset($meta['seoMainEntityOfPage']) && $meta['seoMainEntityOfPage'])
+            $seomaticMainEntityOfPage = $this->getMainEntityOfPageJSONLD($meta, $identity, $locale);
+
+/* -- Special-case for Craft Commerce products */
+
+        if ($this->entryMeta && isset($this->entrySeoCommerceVariants) && !empty($this->entrySeoCommerceVariants))
+            $seomaticMainEntityOfPage = $this->getProductJSONLD($meta, $identity, $locale);
+
 /* -- Get rid of variables we don't want to expose */
 
         unset($siteMeta['siteSeoImageId']);
@@ -983,6 +1002,7 @@ class SeomaticService extends BaseApplicationComponent
         unset($siteMeta['siteSeoFacebookImageTransform']);
         unset($siteMeta['siteSeoTwitterImageTransform']);
 
+        unset($meta['seoMainEntityOfPage']);
         unset($meta['twitterCardType']);
         unset($meta['openGraphType']);
         unset($meta['seoImageId']);
@@ -1010,20 +1030,10 @@ class SeomaticService extends BaseApplicationComponent
                         'seomaticCreator' => $creator,
                         );
 
-/* -- Swap in our JSON-LD objects */
+/* -- Fill in the main entity of the page */
 
-        $result['seomaticIdentity'] = $this->getIdentityJSONLD($result['seomaticIdentity'], $helper, $locale);
-        $result['seomaticCreator'] = $this->getCreatorJSONLD($result['seomaticCreator'], $helper, $locale);
-
-/* -- Handle the Main Entity of Page, if set */
-
-        if (isset($meta['seoMainEntityOfPage']) && $meta['seoMainEntityOfPage'])
-            $result['seomaticMainEntityOfPage'] = $this->getMainEntityOfPageJSONLD($result, $locale);
-
-/* -- Special-case for Craft Commerce products */
-
-        if ($this->entryMeta && isset($this->entrySeoCommerceVariants) && !empty($this->entrySeoCommerceVariants))
-            $result['seomaticMainEntityOfPage'] = $this->getProductJSONLD($result, $locale);
+        if ($seomaticMainEntityOfPage)
+            $result['seomaticMainEntityOfPage'] = $seomaticMainEntityOfPage;
 
 /* -- Return our global variables */
 
@@ -1959,10 +1969,10 @@ class SeomaticService extends BaseApplicationComponent
     Get the Main Entity of Page JSON-LD
 -------------------------------------------------------------------------------- */
 
-    public function getMainEntityOfPageJSONLD($metaVars, $locale)
+    public function getMainEntityOfPageJSONLD($meta, $identity, $locale)
     {
 
-        $entityType = $metaVars['seomaticMeta']['seoMainEntityOfPage'];
+        $entityType = "CreativeWork";
 
 /* -- Cache it in our class; no need to fetch it more than once */
 
@@ -1971,29 +1981,60 @@ class SeomaticService extends BaseApplicationComponent
 
         $mainEntityOfPageJSONLD = array();
 
-    /* -- Product JSON-LD */
+        $title = $meta['seoTitle'];
+        $imageObject = $dateCreated = $dateModified = $datePublished = $copyrightYear = "";
+        if (isset($meta['seoImageId']))
+        {
+            $image = craft()->assets->getFileById($meta['seoImageId']);
+            if ($image)
+            {
+                $imgUrl = $image->getUrl($meta['seoImageTransform']);
+                $imageObject = array(
+                    "type" => "ImageObject",
+                    "url" => $this->getFullyQualifiedUrl($imgUrl),
+                    "width" => $image->getWidth($meta['seoImageTransform']),
+                    "height" => $image->getHeight($meta['seoImageTransform']),
+                    );
+            }
+        }
 
-        $mainEntityOfPageJSONLD['type'] = $entityType;
-        $mainEntityOfPageJSONLD['name'] = $metaVars['seomaticMeta']['seoTitle'];
-        $mainEntityOfPageJSONLD['description'] = $metaVars['seomaticMeta']['seoDescription'];
-        $mainEntityOfPageJSONLD['image'] = $metaVars['seomaticMeta']['seoImage'];
-        $mainEntityOfPageJSONLD['url'] = $metaVars['seomaticMeta']['canonicalUrl'];
-        $mainEntityOfPageJSONLD['mainEntityOfPage'] = $metaVars['seomaticMeta']['canonicalUrl'];
+/* -- If an element was injected into the current template, scrape it for attribuates */
+
+        if ($this->lastElement)
+        {
+            $title = $this->lastElement->title;
+            $dateCreated = $this->lastElement->dateCreated->iso8601();
+            $dateModified = $this->lastElement->dateUpdated->iso8601();
+            $datePublished = $this->lastElement->postDate->iso8601();
+            $copyrightYear = $this->lastElement->postDate->year();
+        }
+
+    /* -- Main Entity of Page common JSON-LD */
+
+        $mainEntityOfPageJSONLD['type'] = $meta['seoMainEntityOfPage'];
+        $mainEntityOfPageJSONLD['name'] = $title;
+        $mainEntityOfPageJSONLD['description'] = $meta['seoDescription'];
+        $mainEntityOfPageJSONLD['image'] = $imageObject;
+        $mainEntityOfPageJSONLD['url'] = $meta['canonicalUrl'];
+        $mainEntityOfPageJSONLD['mainEntityOfPage'] = $meta['canonicalUrl'];
 
 /* -- Special-cased attributes */
 
         switch ($entityType)
         {
-            case "Article":
-            case "BlogPosting":
-            case "NewsArticle":
-            case "Report":
-            case "ScholarlyArticle":
-            case "SocialMediaPosting":
-            case "Article":
-            case "TechArticle":
+            case "CreativeWork":
             {
+                $mainEntityOfPageJSONLD['inLanguage'] = craft()->language;
+                $mainEntityOfPageJSONLD['headline'] = $title;
+                $mainEntityOfPageJSONLD['keywords'] = $meta['seoKeywords'];
+                $mainEntityOfPageJSONLD['dateCreated'] = $dateCreated;
+                $mainEntityOfPageJSONLD['dateModified'] = $dateModified;
+                $mainEntityOfPageJSONLD['datePublished'] = $datePublished;
+                $mainEntityOfPageJSONLD['copyrightYear'] = $copyrightYear;
 
+                $mainEntityOfPageJSONLD['author'] = $identity;
+                $mainEntityOfPageJSONLD['publisher'] = $identity;
+                $mainEntityOfPageJSONLD['copyrightHolder'] = $identity;
             }
         }
 
@@ -2008,7 +2049,7 @@ class SeomaticService extends BaseApplicationComponent
     Get the Product JSON-LD
 -------------------------------------------------------------------------------- */
 
-    public function getProductJSONLD($metaVars, $locale)
+    public function getProductJSONLD($meta, $identity, $locale)
     {
 
 /* -- Cache it in our class; no need to fetch it more than once */
@@ -2026,21 +2067,21 @@ class SeomaticService extends BaseApplicationComponent
 
             $productJSONLD['type'] = "Product";
             $productJSONLD['name'] = $variant['seoProductDescription'];
-            $productJSONLD['description'] = $metaVars['seomaticMeta']['seoDescription'];
-            $productJSONLD['image'] = $metaVars['seomaticMeta']['seoImage'];
-            $productJSONLD['logo'] = $metaVars['seomaticMeta']['seoImage'];
-            $productJSONLD['url'] = $metaVars['seomaticMeta']['canonicalUrl'];
-            $productJSONLD['mainEntityOfPage'] = $metaVars['seomaticMeta']['canonicalUrl'];
+            $productJSONLD['description'] = $meta['seoDescription'];
+            $productJSONLD['image'] = $meta['seoImage'];
+            $productJSONLD['logo'] = $meta['seoImage'];
+            $productJSONLD['url'] = $meta['canonicalUrl'];
+            $productJSONLD['mainEntityOfPage'] = $meta['canonicalUrl'];
 
             $productJSONLD['sku'] = $variant['seoProductSku'];
 
             $offer = array(
                 "type" => "Offer",
-                "url" => $metaVars['seomaticMeta']['canonicalUrl'],
+                "url" => $meta['canonicalUrl'],
                 "price" =>  $variant['seoProductPrice'],
                 "priceCurrency" =>  $variant['seoProductCurrency'],
-                "offeredBy" =>  $metaVars['seomaticIdentity'],
-                "seller" =>  $metaVars['seomaticIdentity'],
+                "offeredBy" =>  $identity,
+                "seller" =>  $identity,
             );
             $offer = array_filter($offer);
             $productJSONLD['offers'] = $offer;

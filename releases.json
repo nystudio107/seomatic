@@ -4,8 +4,10 @@
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-07-25T11:00:00-11:00",
         "notes": [
+            "[Added] Added Main Entity of Page JSON-LD microdata",
             "[Improved] The 'logo' and 'image' in Creator and Identity JSON-LD is now an ImageObject",
             "[Fixed] Fixed the locale of the transform fields in the FieldType",
+            "[Fixed] Fix for empty SEO Titles for breadcrumbs",
             "[Improved] Updated the README.md"
         ]
     },
