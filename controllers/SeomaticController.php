@@ -544,6 +544,7 @@ class SeomaticController extends BaseController
         $model->elementId = $metaId;
         $model->metaType = craft()->request->getPost('metaType', $model->metaType);
         $model->metaPath = craft()->request->getPost('metaPath', $model->metaPath);
+        $model->seoMainEntityOfPage = craft()->request->getPost('seoMainEntityOfPage', $model->seoMainEntityOfPage);
         $model->seoTitle = craft()->request->getPost('seoTitle', $model->seoTitle);
         $model->seoDescription = craft()->request->getPost('seoDescription', $model->seoDescription);
         $model->seoKeywords = craft()->request->getPost('seoKeywords', $model->seoKeywords);

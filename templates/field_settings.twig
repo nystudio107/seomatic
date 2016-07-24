@@ -18,6 +18,26 @@
 
     <!-- seoTitleSource -->
 
+    {{ forms.selectField({
+        label: "Default Main Entity of Page"|t,
+        instructions: "Choose the default Main Entity of Page.  The Main Entity of Page is a more specific, additional type that describes this entry.  You don't need to select anything here, but if you do, an additional JSON-LD structured data entity will be added to your page, more specifically describing the page's content.  It is accessible via the `seomaticMainEntityOfPage` Twig variable."|t,
+        id: "seoMainEntityOfPage",
+        options: {
+            "": "None",
+            "Article": "Article",
+            "BlogPosting": "    BlogPosting",
+            "NewsArticle": "    NewsArticle",
+            "Report": "    Report",
+            "ScholarlyArticle": "    ScholarlyArticle",
+            "SocialMediaPosting": "    SocialMediaPosting",
+            "TechArticle": "    TechArticle",
+
+            "Product": "Product",
+        },
+        name: "seoMainEntityOfPage",
+        value: settings.seoMainEntityOfPage,
+    }) }}
+
     <div class="field comboField-wrapper first">
         <div class="heading">
             <label for="seoTitleSource">{{ "Default SEO Title"|t}}</label>

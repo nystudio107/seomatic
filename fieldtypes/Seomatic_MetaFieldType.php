@@ -168,6 +168,8 @@ class Seomatic_MetaFieldType extends BaseFieldType
             return array(
                 'assetSources' => AttributeType::Mixed,
 
+                'seoMainEntityOfPage' => AttributeType::String,
+
                 'seoTitle' => AttributeType::String,
                 'seoTitleSource' => array(AttributeType::String, 'default' => 'field'),
                 'seoTitleSourceField' => array(AttributeType::String, 'default' => 'title'),
@@ -287,6 +289,8 @@ class Seomatic_MetaFieldType extends BaseFieldType
         {
             $value = new Seomatic_MetaFieldModel();
 
+            $value->seoMainEntityOfPage = $this->getSettings()->seoMainEntityOfPage;
+
             $value->seoTitle = $this->getSettings()->seoTitle;
             $value->seoTitleUnparsed = $this->getSettings()->seoTitle;
             $value->seoTitleSource = $this->getSettings()->seoTitleSource;
@@ -323,6 +327,12 @@ class Seomatic_MetaFieldType extends BaseFieldType
             $value->seoDescriptionUnparsed = $value->seoDescription;
         if ($value->seoKeywordsUnparsed == "")
             $value->seoKeywordsUnparsed = $value->seoKeywords;
+
+/* -- If we're attached to a Commerce_Product element, always have the Main Enity of Page be a Product */
+
+        $elemType = $element->getElementType();
+        if ($elemType == "Commerce_Product")
+            $value->seoMainEntityOfPage = "Product";
 
         if ($element)
         {

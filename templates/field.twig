@@ -23,6 +23,28 @@
             </div>
         </div>
     </div>
+
+    {{ forms.selectField({
+        label: "Main Entity of Page"|t,
+        instructions: "The Main Entity of Page is a more specific, additional type that describes this entry.  You don't need to select anything here, but if you do, an additional JSON-LD structured data entity will be added to your page, more specifically describing the page's content.  It is accessible via the `seomaticMainEntityOfPage` Twig variable."|t,
+        id: id ~ "seoMainEntityOfPage",
+        options: {
+            "": "None",
+            "Article": "Article",
+            "BlogPosting": "    BlogPosting",
+            "NewsArticle": "    NewsArticle",
+            "Report": "    Report",
+            "ScholarlyArticle": "    ScholarlyArticle",
+            "SocialMediaPosting": "    SocialMediaPosting",
+            "TechArticle": "    TechArticle",
+
+            "Product": "Product",
+        },
+        name: name ~ "[seoMainEntityOfPage]",
+        value: meta.seoMainEntityOfPage,
+        locale: field.translatable ? locale,
+    }) }}
+
     <div class="field comboField-wrapper first">
         <div class="heading">
             <label for="seoTitle">{{ "SEO Title"|t}}{% if locale %}<span class="locale">{{ locale }}</span>{% endif %}</label>
@@ -262,7 +284,7 @@
         options: transformsList,
         name: name ~ "[seoImageTransform]",
         value: meta.seoImageTransform,
-        locale: meta.locale,
+        locale: field.translatable ? locale,
     }) }}
 
     <div class="field comboField-wrapper"{% if not twitterCardTypeChangeable %} style="display: none;"{% endif %}>
@@ -288,7 +310,7 @@
         options: transformsList,
         name: name ~ "[seoTwitterImageTransform]",
         value: meta.seoTwitterImageTransform,
-        locale: meta.locale,
+        locale: field.translatable ? locale,
     }) }}
 
     <div class="field comboField-wrapper"{% if not openGraphTypeChangeable %} style="display: none;"{% endif %}>
@@ -314,7 +336,7 @@
         options: transformsList,
         name: name ~ "[seoFacebookImageTransform]",
         value: meta.seoFacebookImageTransform,
-        locale: meta.locale,
+        locale: field.translatable ? locale,
     }) }}
 
     <div class="field comboField-wrapper"{% if not robotsChangeable %} style="display: none;"{% endif %}>

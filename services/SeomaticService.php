@@ -19,6 +19,7 @@ class SeomaticService extends BaseApplicationComponent
     protected $cachedCreator = array();
     protected $cachedCreatorJSONLD = array();
     protected $cachedProductJSONLD = array();
+    protected $cachedMainEntityOfPageJSONLD = array();
     protected $cachedWebSiteJSONLD = array();
     protected $renderedMetaVars = null;
 
@@ -228,20 +229,20 @@ class SeomaticService extends BaseApplicationComponent
     } /* -- renderWebsite */
 
 /* --------------------------------------------------------------------------------
-    Render the Product JSON-LD
+    Render the Main Entity of Page JSON-LD
 -------------------------------------------------------------------------------- */
 
-    public function renderProduct($metaVars, $locale, $isPreview=false)
+    public function renderMainEntityOfPage($metaVars, $locale, $isPreview=false)
     {
         $htmlText = "";
 
-        if (isset($metaVars['seomaticProduct']))
+        if (isset($metaVars['seomaticMainEntityOfPage']))
         {
             $this->sanitizeMetaVars($metaVars);
-            $htmlText = $this->renderJSONLD($metaVars['seomaticProduct'], $isPreview);
+            $htmlText = $this->renderJSONLD($metaVars['seomaticMainEntityOfPage'], $isPreview);
         }
         return $htmlText;
-    } /* -- renderProduct */
+    } /* -- renderMainEntityOfPage */
 
 /* --------------------------------------------------------------------------------
     Render the Breadcrumbs JSON-LD
@@ -723,6 +724,7 @@ class SeomaticService extends BaseApplicationComponent
         if ($entryMeta)
         {
             $meta = array();
+            $meta['seoMainEntityOfPage'] = $entryMeta->seoMainEntityOfPage;
             $meta['seoTitle'] = $entryMeta->seoTitle;
             $meta['seoDescription'] = $entryMeta->seoDescription;
             $meta['seoKeywords'] = $entryMeta->seoKeywords;
@@ -1012,8 +1014,16 @@ class SeomaticService extends BaseApplicationComponent
 
         $result['seomaticIdentity'] = $this->getIdentityJSONLD($result['seomaticIdentity'], $helper, $locale);
         $result['seomaticCreator'] = $this->getCreatorJSONLD($result['seomaticCreator'], $helper, $locale);
+
+/* -- Handle the Main Entity of Page, if set */
+
+        if (isset($meta['seoMainEntityOfPage']) && $meta['seoMainEntityOfPage'])
+            $result['seomaticMainEntityOfPage'] = $this->getMainEntityOfPageJSONLD($result, $locale);
+
+/* -- Special-case for Craft Commerce products */
+
         if ($this->entryMeta && isset($this->entrySeoCommerceVariants) && !empty($this->entrySeoCommerceVariants))
-            $result['seomaticProduct'] = $this->getProductJSONLD($result, $locale);
+            $result['seomaticMainEntityOfPage'] = $this->getProductJSONLD($result, $locale);
 
 /* -- Return our global variables */
 
@@ -1946,6 +1956,55 @@ class SeomaticService extends BaseApplicationComponent
     } /* -- getCreatorJSONLD */
 
 /* --------------------------------------------------------------------------------
+    Get the Main Entity of Page JSON-LD
+-------------------------------------------------------------------------------- */
+
+    public function getMainEntityOfPageJSONLD($metaVars, $locale)
+    {
+
+        $entityType = $metaVars['seomaticMeta']['seoMainEntityOfPage'];
+
+/* -- Cache it in our class; no need to fetch it more than once */
+
+        if (isset($this->cachedMainEntityOfPageJSONLD[$locale]))
+            return $this->cachedMainEntityOfPageJSONLD[$locale];
+
+        $mainEntityOfPageJSONLD = array();
+
+    /* -- Product JSON-LD */
+
+        $mainEntityOfPageJSONLD['type'] = $entityType;
+        $mainEntityOfPageJSONLD['name'] = $metaVars['seomaticMeta']['seoTitle'];
+        $mainEntityOfPageJSONLD['description'] = $metaVars['seomaticMeta']['seoDescription'];
+        $mainEntityOfPageJSONLD['image'] = $metaVars['seomaticMeta']['seoImage'];
+        $mainEntityOfPageJSONLD['url'] = $metaVars['seomaticMeta']['canonicalUrl'];
+        $mainEntityOfPageJSONLD['mainEntityOfPage'] = $metaVars['seomaticMeta']['canonicalUrl'];
+
+/* -- Special-cased attributes */
+
+        switch ($entityType)
+        {
+            case "Article":
+            case "BlogPosting":
+            case "NewsArticle":
+            case "Report":
+            case "ScholarlyArticle":
+            case "SocialMediaPosting":
+            case "Article":
+            case "TechArticle":
+            {
+
+            }
+        }
+
+        $mainEntityOfPageJSONLD = array_filter($mainEntityOfPageJSONLD);
+
+        $this->cachedMainEntityOfPageJSONLD[$locale] = $mainEntityOfPageJSONLD;
+
+        return $mainEntityOfPageJSONLD;
+    } /* -- getMainEntityOfPageJSONLD */
+
+/* --------------------------------------------------------------------------------
     Get the Product JSON-LD
 -------------------------------------------------------------------------------- */
 
@@ -1963,7 +2022,7 @@ class SeomaticService extends BaseApplicationComponent
         {
             $productJSONLD = array();
 
-    /* -- Settings generic to all Creator types */
+    /* -- Product JSON-LD */
 
             $productJSONLD['type'] = "Product";
             $productJSONLD['name'] = $variant['seoProductDescription'];
@@ -1971,6 +2030,7 @@ class SeomaticService extends BaseApplicationComponent
             $productJSONLD['image'] = $metaVars['seomaticMeta']['seoImage'];
             $productJSONLD['logo'] = $metaVars['seomaticMeta']['seoImage'];
             $productJSONLD['url'] = $metaVars['seomaticMeta']['canonicalUrl'];
+            $productJSONLD['mainEntityOfPage'] = $metaVars['seomaticMeta']['canonicalUrl'];
 
             $productJSONLD['sku'] = $variant['seoProductSku'];
 
@@ -2489,8 +2549,8 @@ function parseAsTemplate($templateStr, $element)
         $seomaticSocial = $metaVars['seomaticSocial'];
         $seomaticCreator = $metaVars['seomaticCreator'];
 
-        if (isset($metaVars['seomaticProduct']))
-            $seomaticProduct = $metaVars['seomaticCreator'];
+        if (isset($metaVars['seomaticMainEntityOfPage']))
+            $seomaticMainEntityOfPage = $metaVars['seomaticMainEntityOfPage'];
 
 /* -- Set up the title prefix and suffix for the OpenGraph and Twitter titles */
 
@@ -2543,16 +2603,16 @@ function parseAsTemplate($templateStr, $element)
         $this->sanitizeArray($seomaticIdentity);
         $this->sanitizeArray($seomaticSocial);
         $this->sanitizeArray($seomaticCreator);
-        if (isset($metaVars['seomaticProduct']))
-            $this->sanitizeArray($seomaticProduct);
+        if (isset($metaVars['seomaticMainEntityOfPage']))
+            $this->sanitizeArray($seomaticMainEntityOfPage);
 
         $metaVars['seomaticMeta'] = $seomaticMeta;
         $metaVars['seomaticSiteMeta'] = $seomaticSiteMeta;
         $metaVars['seomaticIdentity'] = $seomaticIdentity;
         $metaVars['seomaticSocial'] = $seomaticSocial;
         $metaVars['seomaticCreator'] = $seomaticCreator;
-        if (isset($metaVars['seomaticProduct']))
-            $metaVars['seomaticCreator'] = $seomaticProduct;
+        if (isset($metaVars['seomaticMainEntityOfPage']))
+            $metaVars['seomaticMainEntityOfPage'] = $seomaticMainEntityOfPage;
 
     } /* -- sanitizeMetaVars */
 

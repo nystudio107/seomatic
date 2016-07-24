@@ -46,9 +46,9 @@
                     </div>
 
                     <div class="preview-column">
-                        <h1><br />{{ "Rendered Product Microdata" |t }}</h1>
-                        <p>{{ "The <code>{% hook 'seomaticRender' %}</code> tag also generates <a href='https://developers.google.com/schemas/formats/json-ld?hl=en' target='_blank'>JSON-LD</a> Product microdata if an SEOmatic FieldType is attached to a Craft Commerce Product.  JSON-LD is an alternative to microdata you may already be familiar with, such as: <code>&lt;div itemscope itemtype='http://schema.org/Organization'&gt;</code>.  JSON-LD has the advantage of not being intertwined with HTML markup, so it's easier to use.  It is parsed and consumed by Google, allowing you to tell Google what your site is about, rather than having it try to guess." |t |raw }}</p>
-                        <pre><code class="language-markup">{{ craft.seomatic.renderProduct(elementId, locale, true) }}</code></pre>
+                        <h1><br />{{ "Main Entity of Page Microdata" |t }}</h1>
+                        <p>{{ "The <code>{% hook 'seomaticRender' %}</code> tag also generates additional <a href='https://developers.google.com/schemas/formats/json-ld?hl=en' target='_blank'>JSON-LD</a> for the, if specified.  The Main Entity of Page is a more specific, additional type of information that describes the page. This additional JSON-LD structured data entity will be added to your page, more specifically describing the page's content. It is accessible via the seomaticMainEntityOfPage Twig variable.  If an SEOmatic FieldType is attached to a Craft Commerce Product, SEOmatic will automatically extrapolate information from the Product.  Otherwise, you can choose your own Main Entity of Page in the SEOmatic FieldType." |t |raw }}</p>
+                        <pre><code class="language-markup">{{ craft.seomatic.renderMainEntityOfPage(elementId, locale, true) }}</code></pre>
                     </div>
                 </div>
 

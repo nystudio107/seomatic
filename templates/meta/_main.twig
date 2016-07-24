@@ -1,4 +1,3 @@
-
 {{ forms.textField({
 	label: "Title"|t,
 	id: 'title',
@@ -24,9 +23,30 @@
 	locale: meta.locale,
 }) }}
 
+{{ forms.selectField({
+    label: "Main Entity of Page"|t,
+    instructions: "The Main Entity of Page is a more specific, additional type that describes this entry.  You don't need to select anything here, but if you do, an additional JSON-LD structured data entity will be added to your page, more specifically describing the page's content.  It is accessible via the `seomaticMainEntityOfPage` Twig variable."|t,
+    id: "seoMainEntityOfPage",
+    options: {
+        "": "None",
+        "Article": "Article",
+        "BlogPosting": "    BlogPosting",
+        "NewsArticle": "    NewsArticle",
+        "Report": "    Report",
+        "ScholarlyArticle": "    ScholarlyArticle",
+        "SocialMediaPosting": "    SocialMediaPosting",
+        "TechArticle": "    TechArticle",
+
+        "Product": "Product",
+    },
+    name: "seoMainEntityOfPage",
+    value: meta.seoMainEntityOfPage,
+    locale: meta.locale,
+}) }}
+
 {{ forms.textField({
 	label: "SEO Title"|t,
-	instructions: "<a href='http://blog.woorank.com/2014/07/15-title-tag-optimization-guidelines-usability-seo/' target='_blank'>The SEO Title</a> should be between 10 and 70 characters (spaces included).  Make sure your title tag is explicit and contains your most important keywords. Be sure that each page has a unique title tag.  The <code>siteSeoName</code> length is subtracted from the 70 character limit automatically, since it is appended to the <code>seoTitle</code>." |t |raw,
+	instructions: "<a href='http://blog.woorank.com/2014/07/15-title-tag-optimization-guidelines-usability-seo/' target='_blank'>The SEO Title</a> should be between 10 and 70 characters (spaces included).  Make sure your title tag is explicit and contains your most important keywords. Be sure that each page has a unique title tag.  The <code>siteSeoName</code> length is subtracted from the 70 character limit automatically, since it is appended to the <code>seoTitle</code>.  <br /><br />You can include tags that output entry properties, such as <code>{title}</code> or <code>{myCustomField}</code> in the text field below." |t |raw,
 	id: 'seoTitle',
 	class: 'nicetext',
 	name: 'seoTitle',
@@ -41,7 +61,7 @@
 <div class="field" id="seoDescription-field">
 	<div class="heading">
 		<label for="seoDescription">{{ "SEO Description"|t}}{% if meta.locale %}<span class="locale">{{ meta.locale }}</span>{% endif %}</label>
-		<div class="instructions"><p>{{ "<a href='http://blog.woorank.com/2013/03/the-importance-of-meta-descriptions/' target='_blank'>The SEO Description</a> should be between 70 and 160 characters (spaces included).  Meta descriptions allow you to influence how your web pages are described and displayed in search results.  Ensure that all of your web pages have a unique meta description that is explicit and contains your most important keywords." |t |raw}}</p></div>
+		<div class="instructions"><p>{{ "<a href='http://blog.woorank.com/2013/03/the-importance-of-meta-descriptions/' target='_blank'>The SEO Description</a> should be between 70 and 160 characters (spaces included).  Meta descriptions allow you to influence how your web pages are described and displayed in search results.  Ensure that all of your web pages have a unique meta description that is explicit and contains your most important keywords.  <br /><br />You can include tags that output entry properties, such as <code>{title}</code> or <code>{myCustomField}</code> in the text field below." |t |raw}}</p></div>
 	</div>
 {{ forms.textarea({
 	id: 'seoDescription',
@@ -59,11 +79,11 @@
 <div class="field" id="seoKeywords-field">
 	<div class="heading">
 		<label for="seoDescription">{{ "SEO Keywords"|t}}{% if meta.locale %}<span class="locale">{{ meta.locale }}</span>{% endif %}</label>
-		<div class="instructions"><p>{{ "Google ignores <a href='http://blog.woorank.com/2014/06/meta-element-a-beguiners-guide/#metakeyword' target='_blank'>SEO Keywords tag</a>; though other search engines do look at it.  Utilize it carefully, as improper or spammy use most likely will hurt you, or even have your site marked as spam.  Avoid overstuffing the keywords and do not include keywords that are not related to the specific page you place them on." |t |raw}}</p></div>
+		<div class="instructions"><p>{{ "Google ignores <a href='http://blog.woorank.com/2014/06/meta-element-a-beguiners-guide/#metakeyword' target='_blank'>SEO Keywords tag</a>; though other search engines do look at it.  Utilize it carefully, as improper or spammy use most likely will hurt you, or even have your site marked as spam.  Avoid overstuffing the keywords and do not include keywords that are not related to the specific page you place them on.  <br /><br />You can include tags that output entry properties, such as <code>{title}</code> or <code>{myCustomField}</code> in the text field below." |t |raw}}</p></div>
 	</div>
 {{ forms.textarea({
 	label: "SEO Keywords"|t,
-	instructions: "Google ignores this tag; though other search engines do look at it.  Utilize it carefully, as improper or spammy use most likely will hurt you, or even have your site marked as spam.  Avoid overstuffing the keywords and do not include keywords that are not related to the specific page you place them on." |t |raw,
+	instructions: "Google ignores this tag; though other search engines do look at it.  Utilize it carefully, as improper or spammy use most likely will hurt you, or even have your site marked as spam.  Avoid overstuffing the keywords and do not include keywords that are not related to the specific page you place them on.  <br /><br />You can include tags that output entry properties, such as <code>{title}</code> or <code>{myCustomField}</code> in the text field below." |t |raw,
 	id: 'seoKeywords',
 	class: 'nicetext',
 	name: 'seoKeywords',
