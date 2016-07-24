@@ -279,6 +279,7 @@ You can also dynamically change any of these SEO Meta fields in your Twig templa
 
 * **Title** - The human readable title for this SEO Template Meta
 * **Template Path** - Enter the path to the template to associate this meta with (just as you would on the Section settings). It will override the SEO Site Meta for this template. Leave any field blank if you want it to fall back on the default global settings for that field.
+* **Main Entity of Page** - The Main Entity of Page is a more specific, additional type that describes this page. You don't need to select anything here, but if you do, an additional JSON-LD structured data entity will be added to your page, more specifically describing the page's content. It is accessible via the `seomaticMainEntityOfPage` Twig variable.
 * **SEO Title** - This should be between 10 and 70 characters (spaces included). Make sure your title tag is explicit and contains your most important keywords. Be sure that each page has a unique title tag.
 * **SEO Description** - This should be between 70 and 160 characters (spaces included). Meta descriptions allow you to influence how your web pages are described and displayed in search results. Ensure that all of your web pages have a unique meta description that is explicit and contains your most important keywords.
 * **SEO Keywords** - Google ignores this tag; though other search engines do look at it. Utilize it carefully, as improper or spammy use most likely will hurt you, or even have your site marked as spam. Avoid overstuffing the keywords and do not include keywords that are not related to the specific page you place them on.
@@ -310,6 +311,7 @@ If any fields are left blank in an Entry Meta, those fields are pulled from the 
 
 You can also dynamically change any of these SEO Meta fields in your Twig templates, and they will appear in the rendered SEO Meta.
 
+* **Main Entity of Page** - The Main Entity of Page is a more specific, additional type that describes this entry. You don't need to select anything here, but if you do, an additional JSON-LD structured data entity will be added to your page, more specifically describing the page's content. It is accessible via the `seomaticMainEntityOfPage` Twig variable.
 * **SEO Title** - This should be between 10 and 70 characters (spaces included). Make sure your title tag is explicit and contains your most important keywords. Be sure that each page has a unique title tag.
 * **SEO Description** - This should be between 70 and 160 characters (spaces included). Meta descriptions allow you to influence how your web pages are described and displayed in search results. Ensure that all of your web pages have a unique meta description that is explicit and contains your most important keywords.
 * **SEO Keywords** - Google ignores this tag; though other search engines do look at it. Utilize it carefully, as improper or spammy use most likely will hurt you, or even have your site marked as spam. Avoid overstuffing the keywords and do not include keywords that are not related to the specific page you place them on.
@@ -334,6 +336,31 @@ In addition to being able to hold custom data that you enter manually, you can a
 The **SEO Keywords** field also allows you to extract keywords automatically from an existing field in your Entry via the `Keywords From Field` Source option.
 
 SEOmatic Meta FieldTypes also have default settings that allow you to control what the default settings should be for each meta field, and whether they can be changed by the person editing the entry.
+
+### Entry Meta Properties in your Templates
+
+If you're using an `SEOmatic Meta` FieldType in your entries, you can also access the properties of it in your templates.  This is useful, for instance, if you're iterating through `craft.entries` and want to be able to access the meta properties of each entry in the loop.
+
+Assume that we have an `SEOmatic Meta` FieldType with the handle `seoMeta` in our template, we can do things like:
+
+	{% for newsItem in craft.entries.section('news').limit(10) %}
+		{{ newsItem.seoMeta.seoTitle }}
+		{{ newsItem.seoMeta.seoDescription }}
+		{{ newsItem.seoMeta.seoKeywords }}
+		{{ newsItem.seoMeta.seoImage }}
+	{% endfor %}
+
+In addition, you can do:
+
+	{% set assetID = newsItem.seoMeta.seoImageId %}
+
+...to get the seoImage's AssetID, and you can also do:
+
+	{% set newsJsonLD =  newsItem.seoMeta.getJsonLD(newsItem) %}
+
+...to get the Main Entity of Page JSON-LD array for the entry, which you can then manipulate, or output via SEOmatic's Twig function:
+
+	{{ newsJsonLD | renderJSONLD }}
 
 ## SEOmetrics during Live Preview
 
