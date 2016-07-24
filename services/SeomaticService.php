@@ -985,12 +985,12 @@ class SeomaticService extends BaseApplicationComponent
 
         $seomaticMainEntityOfPage = "";
         if (isset($meta['seoMainEntityOfPage']) && $meta['seoMainEntityOfPage'])
-            $seomaticMainEntityOfPage = $this->getMainEntityOfPageJSONLD($meta, $identity, $locale);
+            $seomaticMainEntityOfPage = $this->getMainEntityOfPageJSONLD($meta, $identity, $locale, true);
 
 /* -- Special-case for Craft Commerce products */
 
         if ($this->entryMeta && isset($this->entrySeoCommerceVariants) && !empty($this->entrySeoCommerceVariants))
-            $seomaticMainEntityOfPage = $this->getProductJSONLD($meta, $identity, $locale);
+            $seomaticMainEntityOfPage = $this->getProductJSONLD($meta, $identity, $locale, true);
 
 /* -- Get rid of variables we don't want to expose */
 
@@ -1969,7 +1969,7 @@ class SeomaticService extends BaseApplicationComponent
     Get the Main Entity of Page JSON-LD
 -------------------------------------------------------------------------------- */
 
-    public function getMainEntityOfPageJSONLD($meta, $identity, $locale)
+    public function getMainEntityOfPageJSONLD($meta, $identity, $locale, $isMainEntityOfPage)
     {
 
         $entityType = "CreativeWork";
@@ -2016,7 +2016,8 @@ class SeomaticService extends BaseApplicationComponent
         $mainEntityOfPageJSONLD['description'] = $meta['seoDescription'];
         $mainEntityOfPageJSONLD['image'] = $imageObject;
         $mainEntityOfPageJSONLD['url'] = $meta['canonicalUrl'];
-        $mainEntityOfPageJSONLD['mainEntityOfPage'] = $meta['canonicalUrl'];
+        if ($isMainEntityOfPage)
+            $mainEntityOfPageJSONLD['mainEntityOfPage'] = $meta['canonicalUrl'];
 
 /* -- Special-cased attributes */
 

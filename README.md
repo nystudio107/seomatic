@@ -54,6 +54,7 @@ Some things to do, and ideas for potential features:
 ### 1.1.26 -- 2016.07.24
 
 * [Added] Added Main Entity of Page JSON-LD microdata
+* [Added] Added the method getJsonLD($element) to the FieldType model, so you can get the Main Entity of Page JSON-LD for an arbitrary entry (maybe in a craft.entries loop, for instance)
 * [Improved] The 'logo' and 'image' in Creator and Identity JSON-LD is now an ImageObject
 * [Improved] Added a space after each keyword in SEOmetrics to prevent horizontal scrolling due to frame overflow
 * [Fixed] Fixed the locale of the transform fields in the FieldType
