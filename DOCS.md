@@ -414,6 +414,27 @@ See the section **Dynamic Twig SEO Meta** for more information on how to manipul
 
 SEOmatic also automatically strips HTML/PHP tags from the variables, and translates HTML entities to ensure that they are properly encoded.
 
+## Main Entity of Page Microdata
+
+![Screenshot](resources/screenshots/seomatic07.png)
+
+SEOmatic will automatically generate [Main Entity of Page](http://www.seoskeptic.com/how-to-use-schema-org-v2-0s-mainentityofpage-property/) JSON-LD microdata for Template and Entry SEO Meta.
+
+The Main Entity of Page is a more specific, additional type of information that describes the page. This additional JSON-LD structured data entity will be added to your page, more specifically describing the page's content. It is accessible via the `seomaticMainEntityOfPage` Twig variable.
+
+If an SEOmatic FieldType is attached to a Craft Commerce Product, SEOmatic will automatically extrapolate information from the Product. Otherwise, you can choose your own Main Entity of Page in the SEOmatic FieldType.
+
+SEOmatic fills in the basic information for whatever schema type you set as the Main Entity of Page, but since this is just a Twig array, you can alter it as you see fit, and whatever changes you make will be reflected in the JSON-LD that SEOmatic renders via the `{% hook 'seomaticRender' %}`  Because of the way that Twig handles arrays, you **must** include every field in the array when doing a `set` or `merge`, otherwise the fields you exclude will not exist.
+
+Here's an example of how you might add a `startDate` to an `Event` schema type:
+
+    {% if seomaticMainEntityOfPage is defined %}
+        {% set eventStartDate = entry.eventDate %}
+        {% set seomaticMainEntityOfPage = seomaticMainEntityOfPage | merge({'startDate': seomaticMainEntityOfPage }) %}
+    {% endif %}
+
+Note that `Event` schema types require `startDate` and `location` to be set, which SEOmatic is unable to automatically fill in for you.  Additionally, you may want to add more information to any of the schema types used for Main Entity of Page to give search engines more information to add to their knowledge graph.
+
 ## Breadcrumbs Microdata
 
 ![Screenshot](resources/screenshots/seomatic06.png)

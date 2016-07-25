@@ -51,7 +51,7 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
-### 1.1.26 -- 2016.07.24
+### 1.1.26 -- 2016.07.25
 
 * [Added] Added Main Entity of Page JSON-LD microdata
 * [Added] Added the method getJsonLD($element) to the FieldType model, so you can get the Main Entity of Page JSON-LD for an arbitrary entry (maybe in a craft.entries loop, for instance)
@@ -59,6 +59,7 @@ Some things to do, and ideas for potential features:
 * [Improved] Added a space after each keyword in SEOmetrics to prevent horizontal scrolling due to frame overflow
 * [Fixed] Fixed the locale of the transform fields in the FieldType
 * [Fixed] Fix for empty SEO Titles for breadcrumbs
+* [Improved] Updated the DOCS.md and wiki docs
 * [Improved] Updated the README.md
 
 ### 1.1.25 -- 2016.07.19
