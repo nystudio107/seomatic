@@ -430,7 +430,7 @@ Here's an example of how you might add a `startDate` to an `Event` schema type:
 
     {% if seomaticMainEntityOfPage is defined %}
         {% set eventStartDate = entry.eventDate %}
-        {% set seomaticMainEntityOfPage = seomaticMainEntityOfPage | merge({'startDate': seomaticMainEntityOfPage }) %}
+        {% set seomaticMainEntityOfPage = seomaticMainEntityOfPage | merge({'startDate': eventStartDate }) %}
     {% endif %}
 
 Note that `Event` schema types require `startDate` and `location` to be set, which SEOmatic is unable to automatically fill in for you.  Additionally, you may want to add more information to any of the schema types used for Main Entity of Page to give search engines more information to add to their knowledge graph.
