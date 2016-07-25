@@ -2895,7 +2895,7 @@ public function getFullyQualifiedUrl($url)
                 $value = craft()->config->parseEnvironmentString($value);
                 $value = strip_tags($value);
 /* -- Strip all control characters */
-                $value = preg_replace('/[\x00-\x1F\x7F]/', '', $value);;
+                $value = preg_replace('/[\x00-\x1F\x7F]/', ' ', $value);;
                 if ($key === 'email')
                     $value = $this->encodeEmailAddress($value);
                 elseif ($key === 'url' || $key === 'image' || $key === 'logo')
