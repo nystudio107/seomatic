@@ -10,7 +10,7 @@
             "[Improved] Added a space after each keyword in SEOmetrics to prevent horizontal scrolling due to frame overflow",
             "[Fixed] Fixed the locale of the transform fields in the FieldType",
             "[Fixed] Fix for empty SEO Titles for breadcrumbs",
-            "[Improved] Updated the DOCS.md and wiki docs"
+            "[Improved] Updated the DOCS.md and wiki docs",
             "[Improved] Updated the README.md"
         ]
     },
