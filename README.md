@@ -55,6 +55,7 @@ Some things to do, and ideas for potential features:
 
 * [Fixed] Fixed a regression with Entry Meta cascade
 * [Fixed] Fixed an issue with SEOmatic FieldTypes on categories
+* [Fixed] Fixed invalid releases.json
 * [Improved] Updated the README.md
 
 ### 1.1.26 -- 2016.07.25

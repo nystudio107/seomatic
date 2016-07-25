@@ -6,6 +6,7 @@
         "notes": [
             "[Fixed] Fixed a regression with Entry Meta cascade",
             "[Fixed] Fixed an issue with SEOmatic FieldTypes on categories",
+            "[Fixed] Fixed invalid releases.json",
             "[Improved] Updated the README.md"
         ]
     },
