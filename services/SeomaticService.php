@@ -2015,30 +2015,42 @@ class SeomaticService extends BaseApplicationComponent
                     case ElementType::Entry:
                     {
                         $title = $this->lastElement->title;
-                        $dateCreated = $this->lastElement->dateCreated->iso8601();
-                        $dateModified = $this->lastElement->dateUpdated->iso8601();
-                        $datePublished = $this->lastElement->postDate->iso8601();
-                        $copyrightYear = $this->lastElement->postDate->year();
+                        if ($this->lastElement->dateCreated)
+                            $dateCreated = $this->lastElement->dateCreated->iso8601();
+                        if ($this->lastElement->dateUpdated)
+                            $dateModified = $this->lastElement->dateUpdated->iso8601();
+                        if ($this->lastElement->postDate)
+                            $datePublished = $this->lastElement->postDate->iso8601();
+                        if ($this->lastElement->postDate)
+                            $copyrightYear = $this->lastElement->postDate->year();
                     }
                     break;
 
                     case "Commerce_Product":
                     {
                         $title = $this->lastElement->title;
-                        $dateCreated = $this->lastElement->dateCreated->iso8601();
-                        $dateModified = $this->lastElement->dateUpdated->iso8601();
-                        $datePublished = $this->lastElement->postDate->iso8601();
-                        $copyrightYear = $this->lastElement->postDate->year();
+                        if ($this->lastElement->dateCreated)
+                            $dateCreated = $this->lastElement->dateCreated->iso8601();
+                        if ($this->lastElement->dateUpdated)
+                            $dateModified = $this->lastElement->dateUpdated->iso8601();
+                        if ($this->lastElement->postDate)
+                            $datePublished = $this->lastElement->postDate->iso8601();
+                        if ($this->lastElement->postDate)
+                            $copyrightYear = $this->lastElement->postDate->year();
                     }
                     break;
 
                     case ElementType::Category:
                     {
                         $title = $this->lastElement->title;
-                        $dateCreated = $this->lastElement->dateCreated->iso8601();
-                        $dateModified = $this->lastElement->dateUpdated->iso8601();
-                        $datePublished = $this->lastElement->dateCreated->iso8601();
-                        $copyrightYear = $this->lastElement->dateCreated->year();
+                        if ($this->lastElement->dateCreated)
+                            $dateCreated = $this->lastElement->dateCreated->iso8601();
+                        if ($this->lastElement->dateUpdated)
+                            $dateModified = $this->lastElement->dateUpdated->iso8601();
+                        if ($this->lastElement->dateCreated)
+                            $datePublished = $this->lastElement->dateCreated->iso8601();
+                        if ($this->lastElement->dateCreated)
+                            $copyrightYear = $this->lastElement->dateCreated->year();
                     }
                     break;
 
