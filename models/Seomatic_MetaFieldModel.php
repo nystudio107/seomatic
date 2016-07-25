@@ -75,7 +75,7 @@ class Seomatic_MetaFieldModel extends Seomatic_MetaModel
         }
 
         $metaVars = craft()->seomatic->getGlobals('', $locale);
-        $result = craft()->seomatic->renderMainEntityOfPage($metaVars, $locale, false, false);
+        $result = craft()->seomatic->getMainEntityOfPageJSONLD($entryMeta, $metaVars['seomaticIdentity'], $locale, false);
 
         return rtrim($result);
     }

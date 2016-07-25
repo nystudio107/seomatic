@@ -38,6 +38,10 @@ div.lightswitch-list-container {
     padding-bottom: 3px;
 }
 
+div.inline-item-padding {
+    padding-left: 10px;
+}
+
 div.inline-item {
     display: inline-block;
     vertical-align: middle;

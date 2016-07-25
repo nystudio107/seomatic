@@ -1,3 +1,4 @@
+
 {{ forms.textField({
 	label: "Title"|t,
 	id: 'title',
@@ -23,103 +24,50 @@
 	locale: meta.locale,
 }) }}
 
-{{ forms.selectField({
-    label: "Main Entity of Page"|t,
-    instructions: "The Main Entity of Page is a more specific, additional type that describes this page.  You don't need to select anything here, but if you do, an additional JSON-LD structured data entity will be added to your page, more specifically describing the page's content.  It is accessible via the `seomaticMainEntityOfPage` Twig variable."|t,
-    id: "seoMainEntityOfPage",
-        options: {
-            "": "None",
-            "Article": "Article",
-                "BlogPosting": "    BlogPosting",
-                "NewsArticle": "    NewsArticle",
-                "Report": "    Report",
-                "ScholarlyArticle": "    ScholarlyArticle",
-                "SocialMediaPosting": "    SocialMediaPosting",
-                "TechArticle": "    TechArticle",
-            "Blog": "Blog",
-            "Book": "Book",
-                "Audiobook": "    Audiobook",
-            "Clip": "Clip",
-                "MovieClip": "    MovieClip",
-                "RadioClip": "    RadioClip",
-                "TVClip": "    TVClip",
-                "VideoGameClip": "    VideoGameClip",
-            "Comment": "Comment",
-            "Conversation": "Conversation",
-            "CreativeWorkSeason": "CreativeWorkSeason",
-                "RadioSeason": "    RadioSeason",
-                "TVSeason": "    TVSeason",
-            "CreativeWorkSeries": "CreativeWorkSeries",
-                "BookSeries": "    BookSeries",
-                "MovieSeries": "    MovieSeries",
-                "Periodical": "    Periodical",
-                "RadioSeries": "    RadioSeries",
-                "TVSeries": "    TVSeries",
-                "VideoGameSeries": "    VideoGameSeries",
-            "DataCatalog": "DataCatalog",
-            "Dataset": "Dataset",
-                "Datafeed": "    Datafeed",
-            "DigitalDocument": "DigitalDocument",
-                "NoteDigitalDocument": "    NoteDigitalDocument",
-                "PresentationDigitalDocument": "    PresentationDigitalDocument",
-                "SpreadsheetDigitalDocument": "    SpreadsheetDigitalDocument",
-                "TextDigitalDocument": "    TextDigitalDocument",
-            "Episode": "Episode",
-                "RadioEpisode": "    RadioEpisode",
-                "TVEpisode": "    TVEpisode",
-            "Game": "Game",
-                "VideoGame": "    VideoGame",
-            "Map": "Map",
-            "MediaObject": "MediaObject",
-                "AudioObject": "    AudioObject",
-                "DataDownload": "    DataDownload",
-                "ImageObject": "    ImageObject",
-                "MusicVideoObject": "    MusicVideoObject",
-                "VideoObject": "    VideoObject",
-            "Message": "Message",
-                "EmailMessage": "    EmailMessage",
-            "Movie": "Movie",
-            "MusicComposition": "MusicComposition",
-            "MusicPlaylist": "MusicPlaylist",
-                "MusicAlbum": "    MusicAlbum",
-                "MusicRelease": "    MusicRelease",
-            "MusicRecording": "MusicRecording",
-            "Painting": "Painting",
-            "Photograph": "Photograph",
-            "PublicationIssue": "PublicationIssue",
-                "ComicIssue": "    ComicIssue",
-            "PublicationVolume": "PublicationVolume",
-            "Question": "Question",
-            "Recipe": "Recipe",
-            "Review": "Review",
-                "ClaimReview": "    ClaimReview",
-            "Sculpture": "Sculpture",
-            "Series": "Series",
-            "SoftwareApplication": "SoftwareApplication",
-                "MobileApplication": "    MobileApplication",
-                "VideoGame": "    VideoGame",
-                "WebApplication": "    WebApplication",
-            "SoftwareSourceCode": "SoftwareSourceCode",
-            "TVSeason": "TVSeason",
-            "TVSeries": "TVSeries",
-            "VisualArtwork": "VisualArtwork",
-                "CoverArt": "    CoverArt",
-            "WebPage": "WebPage",
-                "AboutPage": "    AboutPage",
-                "CheckoutPage": "    CheckoutPage",
-                "CollectionPage": "    CollectionPage",
-                "ContactPage": "    ContactPage",
-                "ItemPage": "    ItemPage",
-                "MedicalWebPage": "    MedicalWebPage",
-                "ProfilePage": "    ProfilePage",
-                "QAPage": "    QAPage",
-                "SearchResultsPage": "    SearchResultsPage",
-            "Product": "Product",
-        },
-    name: "seoMainEntityOfPage",
-    value: meta.seoMainEntityOfPage,
-    locale: meta.locale,
-}) }}
+<div class="field">
+    <div class="heading">
+        <label for="seoMainEntityOfPage">{{ "Main Entity of Page"|t}}{% if craft.isLocalized and meta.locale %}<span class="locale">{{ meta.locale }}</span>{% endif %}</label>
+        <div class="instructions"><p>{{ "The Main Entity of Page is a more specific, additional type that describes this page.  This additional JSON-LD structured data entity will be added to your page, more specifically describing the page's content.  It is accessible via the <code>seomaticMainEntityOfPage</code> Twig variable, should you wish to modify or add to it." |t |raw}}</p></div>
+    </div>
+    <div>
+        <div class="inline-item">
+			{{ forms.selectField({
+			    id: "seoMainEntityCategory",
+                class: "inline-item",
+                fieldClass: "inline-item",
+			    options: {
+			    	"CreativeWork": "CreativeWork",
+			    	"Event": "Event",
+			    	"Product": "Product",
+				},
+			    name: "seoMainEntityCategory",
+			    value: meta.seoMainEntityCategory,
+			    locale: meta.locale,
+			}) }}
+        </div>
+        <div class="inline-item">
+			{{ forms.selectField({
+				label: "&rarr;",
+                class: "inline-item",
+                fieldClass: "inline-item",
+			    id: "seoMainEntityOfPage",
+			    options: {
+				},
+			    name: "seoMainEntityOfPage",
+			    value: meta.seoMainEntityOfPage,
+			    locale: meta.locale,
+			}) }}
+        </div>
+        <div class="inline-item">
+        	<div class="inline-item inline-item-padding seomaticSchemaInfo">
+        	</div>
+        </div>
+	</div>
+</div>
+{% set myJs %}
+    setSelectedValue("{{ meta.seoMainEntityOfPage }}");
+{% endset %}
+{% includeJs myJs %}
 
 {{ forms.textField({
 	label: "SEO Title"|t,

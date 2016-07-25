@@ -727,6 +727,7 @@ class SeomaticService extends BaseApplicationComponent
         if ($entryMeta)
         {
             $meta = array();
+            $meta['seoMainEntityCategory'] = $entryMeta->seoMainEntityCategory;
             $meta['seoMainEntityOfPage'] = $entryMeta->seoMainEntityOfPage;
             $meta['seoTitle'] = $entryMeta->seoTitle;
             $meta['seoDescription'] = $entryMeta->seoDescription;
@@ -775,7 +776,7 @@ class SeomaticService extends BaseApplicationComponent
             {
                 $this->entrySeoCommerceVariants = $entryMeta->seoCommerceVariants;
             }
-            $meta = array_filter($meta);
+            //$meta = array_filter($meta);
         }
         $this->entryMeta = $meta;
     } /* -- setEntryMeta */
@@ -984,8 +985,7 @@ class SeomaticService extends BaseApplicationComponent
 /* -- Handle the Main Entity of Page, if set */
 
         $seomaticMainEntityOfPage = "";
-        if (isset($meta['seoMainEntityOfPage']) && $meta['seoMainEntityOfPage'])
-            $seomaticMainEntityOfPage = $this->getMainEntityOfPageJSONLD($meta, $identity, $locale, true);
+        $seomaticMainEntityOfPage = $this->getMainEntityOfPageJSONLD($meta, $identity, $locale, true);
 
 /* -- Special-case for Craft Commerce products */
 
@@ -1002,6 +1002,7 @@ class SeomaticService extends BaseApplicationComponent
         unset($siteMeta['siteSeoFacebookImageTransform']);
         unset($siteMeta['siteSeoTwitterImageTransform']);
 
+        unset($meta['seoMainEntityCategory']);
         unset($meta['seoMainEntityOfPage']);
         unset($meta['twitterCardType']);
         unset($meta['openGraphType']);
@@ -1972,77 +1973,92 @@ class SeomaticService extends BaseApplicationComponent
     public function getMainEntityOfPageJSONLD($meta, $identity, $locale, $isMainEntityOfPage)
     {
 
-        $entityType = "CreativeWork";
-
-/* -- Cache it in our class; no need to fetch it more than once */
-
-        if (isset($this->cachedMainEntityOfPageJSONLD[$locale]))
-            return $this->cachedMainEntityOfPageJSONLD[$locale];
-
         $mainEntityOfPageJSONLD = array();
-
-        $title = $meta['seoTitle'];
-        $imageObject = $dateCreated = $dateModified = $datePublished = $copyrightYear = "";
-        if (isset($meta['seoImageId']))
+        if (isset($meta['seoMainEntityCategory']) && isset($meta['seoMainEntityOfPage']))
         {
-            $image = craft()->assets->getFileById($meta['seoImageId']);
-            if ($image)
+            $entityCategory = $meta['seoMainEntityCategory'];
+            $entityType = $meta['seoMainEntityCategory'];
+            if ($meta['seoMainEntityOfPage'])
+                $entityType = $meta['seoMainEntityOfPage'];
+
+    /* -- Cache it in our class; no need to fetch it more than once */
+
+            if (isset($this->cachedMainEntityOfPageJSONLD[$locale]))
+                return $this->cachedMainEntityOfPageJSONLD[$locale];
+
+            $title = $meta['seoTitle'];
+            $imageObject = $dateCreated = $dateModified = $datePublished = $copyrightYear = "";
+            if (isset($meta['seoImageId']))
             {
-                $imgUrl = $image->getUrl($meta['seoImageTransform']);
-                $imageObject = array(
-                    "type" => "ImageObject",
-                    "url" => $this->getFullyQualifiedUrl($imgUrl),
-                    "width" => $image->getWidth($meta['seoImageTransform']),
-                    "height" => $image->getHeight($meta['seoImageTransform']),
-                    );
+                $image = craft()->assets->getFileById($meta['seoImageId']);
+                if ($image)
+                {
+                    $imgUrl = $image->getUrl($meta['seoImageTransform']);
+                    $imageObject = array(
+                        "type" => "ImageObject",
+                        "url" => $this->getFullyQualifiedUrl($imgUrl),
+                        "width" => $image->getWidth($meta['seoImageTransform']),
+                        "height" => $image->getHeight($meta['seoImageTransform']),
+                        );
+                }
             }
-        }
 
-/* -- If an element was injected into the current template, scrape it for attribuates */
+    /* -- If an element was injected into the current template, scrape it for attribuates */
 
-        if ($this->lastElement)
-        {
-            $title = $this->lastElement->title;
-            $dateCreated = $this->lastElement->dateCreated->iso8601();
-            $dateModified = $this->lastElement->dateUpdated->iso8601();
-            $datePublished = $this->lastElement->postDate->iso8601();
-            $copyrightYear = $this->lastElement->postDate->year();
-        }
-
-    /* -- Main Entity of Page common JSON-LD */
-
-        $mainEntityOfPageJSONLD['type'] = $meta['seoMainEntityOfPage'];
-        $mainEntityOfPageJSONLD['name'] = $title;
-        $mainEntityOfPageJSONLD['description'] = $meta['seoDescription'];
-        $mainEntityOfPageJSONLD['image'] = $imageObject;
-        $mainEntityOfPageJSONLD['url'] = $meta['canonicalUrl'];
-        if ($isMainEntityOfPage)
-            $mainEntityOfPageJSONLD['mainEntityOfPage'] = $meta['canonicalUrl'];
-
-/* -- Special-cased attributes */
-
-        switch ($entityType)
-        {
-            case "CreativeWork":
+            if ($this->lastElement)
             {
-                $mainEntityOfPageJSONLD['inLanguage'] = craft()->language;
-                $mainEntityOfPageJSONLD['headline'] = $title;
-                $mainEntityOfPageJSONLD['keywords'] = $meta['seoKeywords'];
-                $mainEntityOfPageJSONLD['dateCreated'] = $dateCreated;
-                $mainEntityOfPageJSONLD['dateModified'] = $dateModified;
-                $mainEntityOfPageJSONLD['datePublished'] = $datePublished;
-                $mainEntityOfPageJSONLD['copyrightYear'] = $copyrightYear;
-
-                $mainEntityOfPageJSONLD['author'] = $identity;
-                $mainEntityOfPageJSONLD['publisher'] = $identity;
-                $mainEntityOfPageJSONLD['copyrightHolder'] = $identity;
+                $title = $this->lastElement->title;
+                $dateCreated = $this->lastElement->dateCreated->iso8601();
+                $dateModified = $this->lastElement->dateUpdated->iso8601();
+                $datePublished = $this->lastElement->postDate->iso8601();
+                $copyrightYear = $this->lastElement->postDate->year();
             }
+
+        /* -- Main Entity of Page common JSON-LD */
+
+            $mainEntityOfPageJSONLD['type'] = $entityType;
+            $mainEntityOfPageJSONLD['name'] = $title;
+            $mainEntityOfPageJSONLD['description'] = $meta['seoDescription'];
+            $mainEntityOfPageJSONLD['image'] = $imageObject;
+            $mainEntityOfPageJSONLD['url'] = $meta['canonicalUrl'];
+            if ($isMainEntityOfPage)
+                $mainEntityOfPageJSONLD['mainEntityOfPage'] = $meta['canonicalUrl'];
+
+    /* -- Special-cased attributes */
+
+            switch ($entityCategory)
+            {
+                case "CreativeWork":
+                {
+                    $mainEntityOfPageJSONLD['inLanguage'] = craft()->language;
+                    $mainEntityOfPageJSONLD['headline'] = $title;
+                    $mainEntityOfPageJSONLD['keywords'] = $meta['seoKeywords'];
+                    $mainEntityOfPageJSONLD['dateCreated'] = $dateCreated;
+                    $mainEntityOfPageJSONLD['dateModified'] = $dateModified;
+                    $mainEntityOfPageJSONLD['datePublished'] = $datePublished;
+                    $mainEntityOfPageJSONLD['copyrightYear'] = $copyrightYear;
+
+                    $mainEntityOfPageJSONLD['author'] = $identity;
+                    $mainEntityOfPageJSONLD['publisher'] = $identity;
+                    $mainEntityOfPageJSONLD['copyrightHolder'] = $identity;
+                }
+                break;
+
+                case "Event":
+                {
+                }
+                break;
+
+                case "Product":
+                {
+                }
+                break;
+            }
+
+            $mainEntityOfPageJSONLD = array_filter($mainEntityOfPageJSONLD);
+
+            $this->cachedMainEntityOfPageJSONLD[$locale] = $mainEntityOfPageJSONLD;
         }
-
-        $mainEntityOfPageJSONLD = array_filter($mainEntityOfPageJSONLD);
-
-        $this->cachedMainEntityOfPageJSONLD[$locale] = $mainEntityOfPageJSONLD;
-
         return $mainEntityOfPageJSONLD;
     } /* -- getMainEntityOfPageJSONLD */
 
