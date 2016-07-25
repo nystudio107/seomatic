@@ -776,7 +776,9 @@ class SeomaticService extends BaseApplicationComponent
             {
                 $this->entrySeoCommerceVariants = $entryMeta->seoCommerceVariants;
             }
-            //$meta = array_filter($meta);
+            $meta = array_filter($meta);
+            if (!isset($meta['seoMainEntityOfPage']))
+                $meta['seoMainEntityOfPage'] ="";
         }
         $this->entryMeta = $meta;
     } /* -- setEntryMeta */

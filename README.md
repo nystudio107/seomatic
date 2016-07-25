@@ -51,6 +51,11 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.27 -- 2016.07.26
+
+* [Fixed] Fixed a regression with Entry Meta cascade
+* [Improved] Updated the README.md
+
 ### 1.1.26 -- 2016.07.25
 
 * [Added] Added Main Entity of Page JSON-LD microdata
