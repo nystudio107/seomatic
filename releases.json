@@ -5,6 +5,7 @@
         "date": "2016-07-26T11:00:00-11:00",
         "notes": [
             "[Fixed] Fixed a regression with Entry Meta cascade",
+            "[Fixed] Fixed an issue with SEOmatic FieldTypes on categories",
             "[Improved] Updated the README.md"
         ]
     },

@@ -2009,11 +2009,40 @@ class SeomaticService extends BaseApplicationComponent
 
             if ($this->lastElement)
             {
-                $title = $this->lastElement->title;
-                $dateCreated = $this->lastElement->dateCreated->iso8601();
-                $dateModified = $this->lastElement->dateUpdated->iso8601();
-                $datePublished = $this->lastElement->postDate->iso8601();
-                $copyrightYear = $this->lastElement->postDate->year();
+                $elemType = $this->lastElement->getElementType();
+                switch ($elemType)
+                {
+                    case ElementType::Entry:
+                    {
+                        $title = $this->lastElement->title;
+                        $dateCreated = $this->lastElement->dateCreated->iso8601();
+                        $dateModified = $this->lastElement->dateUpdated->iso8601();
+                        $datePublished = $this->lastElement->postDate->iso8601();
+                        $copyrightYear = $this->lastElement->postDate->year();
+                    }
+                    break;
+
+                    case "Commerce_Product":
+                    {
+                        $title = $this->lastElement->title;
+                        $dateCreated = $this->lastElement->dateCreated->iso8601();
+                        $dateModified = $this->lastElement->dateUpdated->iso8601();
+                        $datePublished = $this->lastElement->postDate->iso8601();
+                        $copyrightYear = $this->lastElement->postDate->year();
+                    }
+                    break;
+
+                    case ElementType::Category:
+                    {
+                        $title = $this->lastElement->title;
+                        $dateCreated = $this->lastElement->dateCreated->iso8601();
+                        $dateModified = $this->lastElement->dateUpdated->iso8601();
+                        $datePublished = $this->lastElement->dateCreated->iso8601();
+                        $copyrightYear = $this->lastElement->dateCreated->year();
+                    }
+                    break;
+
+                }
             }
 
         /* -- Main Entity of Page common JSON-LD */
