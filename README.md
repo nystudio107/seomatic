@@ -53,6 +53,7 @@ Some things to do, and ideas for potential features:
 
 ### 1.1.28 -- 2016.07.27
 
+* [Added] Added modified_time and published_time to OpenGraph articles when an SEOmatic Meta FieldType is used
 * [Improved] Safeguard against 'Undefined index: seoImageTransform'
 * [Fixed] Handle non-posted entries
 * [Improved] Updated the README.md

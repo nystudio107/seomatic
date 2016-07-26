@@ -921,6 +921,44 @@ class SeomaticService extends BaseApplicationComponent
                 $openGraphArticle['author'] = $helper['facebookUrl'];
                 $openGraphArticle['publisher'] = $helper['facebookUrl'];
                 $openGraphArticle['tag'] = array_map('trim', explode(',', $meta['seoKeywords']));
+
+    /* -- If an element was injected into the current template, scrape it for attribuates */
+
+                if ($this->lastElement)
+                {
+                    $elemType = $this->lastElement->getElementType();
+                    switch ($elemType)
+                    {
+                        case ElementType::Entry:
+                        {
+                            if ($this->lastElement->dateUpdated)
+                                $openGraphArticle['modified_time'] = $this->lastElement->dateUpdated->iso8601();
+                            if ($this->lastElement->postDate)
+                                $openGraphArticle['published_time'] = $this->lastElement->postDate->iso8601();
+                        }
+                        break;
+
+                        case "Commerce_Product":
+                        {
+                            if ($this->lastElement->dateUpdated)
+                                $openGraphArticle['modified_time'] = $this->lastElement->dateUpdated->iso8601();
+                            if ($this->lastElement->postDate)
+                                $openGraphArticle['published_time'] = $this->lastElement->postDate->iso8601();
+                        }
+                        break;
+
+                        case ElementType::Category:
+                        {
+                            if ($this->lastElement->dateUpdated)
+                                $openGraphArticle['modified_time'] = $this->lastElement->dateUpdated->iso8601();
+                            if ($this->lastElement->dateCreated)
+                                $openGraphArticle['published_time'] = $this->lastElement->dateCreated->iso8601();
+                        }
+                        break;
+
+                    }
+                }
+
                 $meta['article'] = $openGraphArticle;
             }
         }
