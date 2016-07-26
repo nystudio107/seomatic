@@ -2313,7 +2313,9 @@ function parseAsTemplate($templateStr, $element)
                     $image = craft()->assets->getFileById($meta['seoImageId']);
                     if ($image)
                     {
-                        $imgUrl = $image->getUrl($meta['seoImageTransform']);
+                        $imgUrl = "";
+                        if (isset($meta['seoImageTransform']))
+                            $imgUrl = $image->getUrl($meta['seoImageTransform']);
                         if (!$imgUrl)
                             $imgUrl = $image->url;
                         $meta['seoImage'] = $this->getFullyQualifiedUrl($imgUrl);
