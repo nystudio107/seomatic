@@ -51,6 +51,12 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.28 -- 2016.07.27
+
+* [Improved] Safeguard against 'Undefined index: seoImageTransform'
+* [Fixed] Handle non-posted entries
+* [Improved] Updated the README.md
+
 ### 1.1.27 -- 2016.07.26
 
 * [Fixed] Fixed a regression with Entry Meta cascade

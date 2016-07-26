@@ -1,5 +1,15 @@
 [
     {
+        "version": "1.1.28",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
+        "date": "2016-07-27T11:00:00-11:00",
+        "notes": [
+            "[Improved] Safeguard against 'Undefined index: seoImageTransform'",
+            "[Fixed] Handle non-posted entries",
+            "[Improved] Updated the README.md"
+        ]
+    },
+    {
         "version": "1.1.27",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-07-26T11:00:00-11:00",
