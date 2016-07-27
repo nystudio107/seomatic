@@ -374,6 +374,10 @@ During Live Preview, a small SEOmatic icon is displayed in the lower-left corner
 
 You can enter **Focus Keyworks**, comma separated, for an additional analysis of how well optimized your page is for those specific SEO keywords.
 
+### Video SEOmetrics in Action:
+
+[![Video SEOmetrics in Action](https://img.youtube.com/vi/y7swBbGwEJE/0.jpg)](https://www.youtube.com/watch?v=y7swBbGwEJE)
+
 You can disable this feature by setting `displaySeoMetrics` to `false` in the `config.php`, should you wish to not have it displayed.
 
 SEOmetrics during Live Preview only works if System Status is set to "on".
