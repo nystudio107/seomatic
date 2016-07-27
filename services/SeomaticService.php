@@ -781,6 +781,7 @@ class SeomaticService extends BaseApplicationComponent
                 $meta['seoMainEntityOfPage'] ="";
         }
         $this->entryMeta = $meta;
+        return $meta;
     } /* -- setEntryMeta */
 
 /* --------------------------------------------------------------------------------

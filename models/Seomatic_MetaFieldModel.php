@@ -71,13 +71,13 @@ class Seomatic_MetaFieldModel extends Seomatic_MetaModel
         {
             $entryMeta = craft()->seomatic->getMetaFromElement($element);
             if ($entryMeta)
-                craft()->seomatic->setEntryMeta($entryMeta, $element->url);
+                $entryMeta = craft()->seomatic->setEntryMeta($entryMeta, $element->url);
         }
 
         $metaVars = craft()->seomatic->getGlobals('', $locale);
         $result = craft()->seomatic->getMainEntityOfPageJSONLD($entryMeta, $metaVars['seomaticIdentity'], $locale, false);
 
-        return rtrim($result);
+        return $result;
     }
 
 

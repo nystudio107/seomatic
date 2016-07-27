@@ -7,6 +7,7 @@
             "[Added] Added modified_time and published_time to OpenGraph articles when an SEOmatic Meta FieldType is used",
             "[Improved] Safeguard against 'Undefined index: seoImageTransform'",
             "[Fixed] Handle non-posted entries",
+            "[Fixed] Fixed an issue with getJsonLD($element)",
             "[Improved] Updated the README.md"
         ]
     },
@@ -18,7 +19,7 @@
             "[Fixed] Fixed a regression with Entry Meta cascade",
             "[Fixed] Fixed an issue with SEOmatic FieldTypes on categories",
             "[Fixed] Fixed invalid releases.json",
-            "[Improved] We now strip all control characters (including \n and \r) from the JSON-LD arrays",
+            "[Improved] We now strip all control characters from the JSON-LD arrays",
             "[Improved] Updated the README.md"
         ]
     },
