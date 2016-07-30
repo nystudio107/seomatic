@@ -714,6 +714,36 @@ class SeomaticService extends BaseApplicationComponent
     } /* -- extractTextFromMatrix */
 
 /* --------------------------------------------------------------------------------
+    Extract text from a Neo field
+-------------------------------------------------------------------------------- */
+
+    public function extractTextFromNeo($neoBlocks)
+    {
+        $result = "";
+        foreach ($neoBlocks as $block)
+        {
+            $neoBlockTypeModel = $block->getType();
+            $fieldLayoutFields = craft()->fields->getLayoutFieldsById($neoBlockTypeModel->fieldLayoutId);
+            foreach ($fieldLayoutFields as $fieldLayoutField)
+            {
+                $field = $fieldLayoutField->getField();
+
+//                foreach ($fields as $field)
+                {
+                    if ($field->type == "PlainText"
+                        || $field->type == "RichText"
+                        || $field->type == "RedactorI)"
+                        )
+                        {
+                            $result .= strip_tags($block[$field->handle]) . " ";
+                        }
+                }
+            }
+        }
+        return $result;
+    } /* -- extractTextFromNeo */
+
+/* --------------------------------------------------------------------------------
     Set the entry-level meta
 -------------------------------------------------------------------------------- */
 

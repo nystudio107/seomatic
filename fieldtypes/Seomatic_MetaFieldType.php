@@ -126,6 +126,13 @@ class Seomatic_MetaFieldType extends BaseFieldType
                             200);
                     break;
 
+                case "Neo":
+                    $fieldList[$field->handle] = $field->name;
+                    $fieldData[$field->handle] = craft()->seomatic->truncateStringOnWord(
+                            craft()->seomatic->extractTextFromNeo($this->element[$field->handle]),
+                            200);
+                    break;
+
                 case "Matrix":
                     $fieldList[$field->handle] = $field->name;
                     $fieldData[$field->handle] = craft()->seomatic->truncateStringOnWord(
