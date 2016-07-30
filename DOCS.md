@@ -18,6 +18,10 @@ SEOmatic works on Craft 2.4.x, Craft 2.5.x, and Craft 2.6.x.
 
 ## Overview
 
+### Video overview of SEOmatic:
+
+[![Video Overview of SEOmatic](https://img.youtube.com/vi/f1149YVEF_0/0.jpg)](https://www.youtube.com/watch?v=f1149YVEF_0)
+
 SEOmatic allows you to quickly get a website up and running with a robust, comprehensive SEO strategy.  It is also implemented in a Craft-y way, in that it is also flexible and customizable.  The SEOmetrics feature scans your content for focus keywords, and offers analysis on how to improve your SEO.
 
 It implements [JSON-LD](https://developers.google.com/schemas/formats/json-ld?hl=en) microdata, [Dublin Core](http://dublincore.org) core metadata, [Twitter Cards](https://dev.twitter.com/cards/overview) tags, [Facebook OpenGraph](https://developers.facebook.com/docs/sharing/opengraph) tags, [Humans.txt](http://humanstxt.org) authorship accreditation, and as well as HTML meta tags.
@@ -369,6 +373,10 @@ In addition, you can do:
 During Live Preview, a small SEOmatic icon is displayed in the lower-left corner of the Live Preview screen.  If you click on it, it will run a variety of tests on your web page, and offer you analysis with helpful tips on how to correct the problem.
 
 You can enter **Focus Keyworks**, comma separated, for an additional analysis of how well optimized your page is for those specific SEO keywords.
+
+### Video SEOmetrics in Action:
+
+[![Video SEOmetrics in Action](https://img.youtube.com/vi/y7swBbGwEJE/0.jpg)](https://www.youtube.com/watch?v=y7swBbGwEJE)
 
 You can disable this feature by setting `displaySeoMetrics` to `false` in the `config.php`, should you wish to not have it displayed.
 
