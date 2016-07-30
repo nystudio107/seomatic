@@ -51,6 +51,11 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.29 -- 2016.07.31
+
+* [Improved] seoTitles, seoDescriptions, and seoKeywords are now truncated on save in SEOmatic Meta FieldTypes when they pull from other fields
+* [Improved] Updated the README.md
+
 ### 1.1.28 -- 2016.07.27
 
 * [Added] Added modified_time and published_time to OpenGraph articles when an SEOmatic Meta FieldType is used
