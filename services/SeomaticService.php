@@ -639,13 +639,12 @@ class SeomaticService extends BaseApplicationComponent
         foreach ($neoBlocks as $block)
         {
             $neoBlockTypeModel = $block->getType();
-            $fieldLayoutFields = craft()->fields->getLayoutFieldsById($neoBlockTypeModel->fieldLayoutId);
-            foreach ($fieldLayoutFields as $fieldLayoutField)
-            {
-                $field = $fieldLayoutField->getField();
+            $fieldLayout = craft()->fields->getLayoutById($neoBlockTypeModel->fieldLayoutId);
+            $fieldLayoutFields = $fieldLayout->getFields();
 
-//                foreach ($fields as $field)
+                foreach ($fieldLayoutFields as $fieldLayoutField)
                 {
+                    $field = $fieldLayoutField->field;
                     if ($field->type == "PlainText"
                         || $field->type == "RichText"
                         || $field->type == "RedactorI)"
@@ -654,7 +653,6 @@ class SeomaticService extends BaseApplicationComponent
                             $result .= strip_tags($block[$field->handle]) . " ";
                         }
                 }
-            }
         }
         return $result;
     } /* -- extractTextFromNeo */

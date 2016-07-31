@@ -4,6 +4,8 @@
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-07-31T11:00:00-11:00",
         "notes": [
+            "[Added] Added the ability to extract seoTitle, seoDescription, and seoKeywords from Neo fields",
+            "[Added] Added the ability to extract seoTitle, seoDescription, and seoKeywords from Preparse fields",
             "[Added] Added detection of Twitter Card meta tags, OpenGraph meta tags, and JSON-LD structured data in SEOmetrics",
             "[Added] Added detection robots.txt and sitemaps in SEOmetrics",
             "[Improved] seoTitles, seoDescriptions, and seoKeywords are now truncated on save in SEOmatic Meta FieldTypes when they pull from other fields",

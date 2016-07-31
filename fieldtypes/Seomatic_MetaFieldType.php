@@ -120,6 +120,7 @@ class Seomatic_MetaFieldType extends BaseFieldType
                 case "PlainText":
                 case "RichText":
                 case "RedactorI":
+                case "PreparseField_Preparse":
                     $fieldList[$field->handle] = $field->name;
                     $fieldData[$field->handle] = craft()->seomatic->truncateStringOnWord(
                             strip_tags($this->element->content[$field->handle]),
@@ -235,10 +236,15 @@ class Seomatic_MetaFieldType extends BaseFieldType
                 case "PlainText":
                 case "RichText":
                 case "RedactorI":
+                case "PreparseField_Preparse":
                     $fieldList[$field->handle] = $field->name;
                     break;
 
                 case "Matrix":
+                    $fieldList[$field->handle] = $field->name;
+                    break;
+
+                case "Neo":
                     $fieldList[$field->handle] = $field->name;
                     break;
 
