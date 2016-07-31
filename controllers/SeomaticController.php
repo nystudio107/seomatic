@@ -49,6 +49,20 @@ class SeomaticController extends BaseController
             if ($dom)
             {
                 $textStatistics = new TS\TextStatistics;
+
+/* -- Scrape for JSON-LD before we remove the <script> tags */
+
+                $jsonLdTypes = array();
+                foreach($dom->find('script[type=application/ld+json]') as $elem)
+                {
+                    $jsonArray = json_decode($elem->innertext, true);
+                    if (isset($jsonArray['@type']))
+                        array_push($jsonLdTypes, $jsonArray['@type']);
+                }
+                $jsonLdTypes = array_unique($jsonLdTypes);
+
+/* -- Remove inline <script> and <style> tags, and then strip the DOM down */
+
                 foreach($dom->find('style') as $element)
                     $element->outertext = '';
                 foreach($dom->find('script') as $element)
@@ -65,6 +79,16 @@ class SeomaticController extends BaseController
 
                 $metaDescriptionTag = html_entity_decode($dom->find('meta[name=description]', 0)->content);
                 $metaDescriptionLength = strlen($metaDescriptionTag);
+
+                $metaTwitterTag = "";
+                $elem = $dom->find('meta[name=twitter:card]', 0);
+                if ($elem)
+                    $metaTwitterTag = html_entity_decode($elem->content);
+
+                $metaOpenGraphTag = "";
+                $elem = $dom->find('meta[property=og:type]', 0);
+                if ($elem)
+                    $metaOpenGraphTag = html_entity_decode($elem->content);
 
                 $emptyImageAlts = count($dom->find('img[!alt]'));
 
@@ -142,6 +166,9 @@ class SeomaticController extends BaseController
                     'titleLength' => $titleLength,
                     'metaDescriptionTag' => $metaDescriptionTag,
                     'metaDescriptionLength' => $metaDescriptionLength,
+                    'metaTwitterTag' => $metaTwitterTag,
+                    'metaOpenGraphTag' => $metaOpenGraphTag,
+                    'jsonLdTypes' => $jsonLdTypes,
                     'emptyImageAlts' => $emptyImageAlts,
                     'h1Tags' => $h1Tags,
                     'h2Tags' => $h2Tags,

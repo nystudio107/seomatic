@@ -4,7 +4,9 @@
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-07-31T11:00:00-11:00",
         "notes": [
+            "[Added] Added detection of Twitter Card meta tags, OpenGraph meta tags, and JSON-LD structured data in SEOmetrics",
             "[Improved] seoTitles, seoDescriptions, and seoKeywords are now truncated on save in SEOmatic Meta FieldTypes when they pull from other fields",
+            "[Improved] Improved the SEOmetrics preview CSS a bit"
             "[Improved] Updated the README.md"
         ]
     },

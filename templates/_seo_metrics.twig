@@ -24,6 +24,7 @@
                         <th class="text-left" scope="col">{{ "Focus Keyword"|t ~ ": " }}<span class="seo-metrics-keyword">{{ keyword }}</span></th>
                     </thead>
                     <tbody>
+
                         <tr>
                             <td class="text-center">{% if keywordStats.appearsInTitleTag >= 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                             <td class="text-left">The focus keyword <code>{{ keyword }}</code> {% if keywordStats.appearsInTitleTag >= 1 %} appears in the <code>&lt;title&gt;</code> tag.{% else %}does not appear in the <code>&lt;title&gt;</code> tag.  Adding it to the <code>&lt;title&gt;</code> tag can influence search engines in ranking the page for this keyword.{% endif %}</td>
@@ -77,7 +78,23 @@
                 <th class="text-left" scope="col">{{ "SEO Analysis"|t }}</th>
             </thead>
             <tbody>
+
                 <tr>
+                    <td class="text-center">{% if jsonLdTypes |length %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    <td class="text-left">{% if jsonLdTypes |length %} The following JSON-LD structured data was found on the page: <code>{% for jsonLdType in jsonLdTypes%}{% if loop.last%}&amp; {% endif %}{{ jsonLdType }}{% if not loop.last%}, {% endif %}{% endfor %}</code>, which is used by search engines to better understand the contents of your page.  The JSON-LD structured data also has the potential to be added to the Google Knowledge Graph, or be used in Google Rich Cards.{% else %}This page does not include any JSON-LD structured data.  This leaves search engines to guess at what the page is about.  Modern SEO practice should include having structured data on your web pages.{% endif %}</td>
+                </tr>
+
+                <tr>
+                    <td class="text-center">{% if metaOpenGraphTag |length %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    <td class="text-left">{% if metaOpenGraphTag |length %} Great, this page includes Facebook OpenGraph meta tags of the type <code>{{ metaOpenGraphTag }}</code>, which will be used by Facebook when the URL is shared on Facebook{% else %}This page does not include Facebook OpenGraph meta tags, they should be used so you can control what is displayed when the URL is shared on Facebook{% endif %}</td>
+                </tr>
+
+                <tr>
+                    <td class="text-center">{% if metaTwitterTag |length %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    <td class="text-left">{% if metaTwitterTag |length %} Great, this page includes Twitter Card meta tags of the type <code>{{ metaTwitterTag }}</code>, which will be attached to Tweets that include this URL{% else %}This page does not include Twitter Card meta tags, so your content will not be displayed when this link is tweeted.  Configure your Twitter handle in the SEOmatic Social tab{% endif %}</td>
+                </tr>
+
+               <tr>
                     <td class="text-center">{% if titleLength >= 40 and titleLength <= 70 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                     <td class="text-left">The title tag <code>{{ titleTag }}</code> {% if titleLength < 40 %}may be too short; make sure it is descriptive, and unique on a per-page basis.{% elseif titleLength >70 %}may be too long, it will be truncated when displayed by search engines.  Make sure it is unique on a per-page basis{% else %}is a good length; make sure it is unique on a per-page basis{% endif %}.  <a href="https://support.google.com/webmasters/answer/35624?hl=en" target="_blank">Learn More</a></td>
                 </tr>
