@@ -94,6 +94,16 @@
                     <td class="text-left">{% if metaTwitterTag |length %} Great, this page includes Twitter Card meta tags of the type <code>{{ metaTwitterTag }}</code>, which will be attached to Tweets that include this URL{% else %}This page does not include Twitter Card meta tags, so your content will not be displayed when this link is tweeted.  Configure your Twitter handle in the SEOmatic Social tab{% endif %}</td>
                 </tr>
 
+                <tr>
+                    <td class="text-center">{% if hasRobotsTxt %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    <td class="text-left">{% if hasRobotsTxt |length %}A <code>robots.txt</code> file was detected.  <code>robots.txt</code> is a text file that instructs robots (typically search engine robots) how to crawl and index pages on the website.{% else %}A <code>robots.txt</code> file was not detected.  <code>robots.txt</code> is a text file that instructs robots (typically search engine robots) how to crawl and index pages on the website.{% endif %}</td>
+                </tr>
+
+                <tr>
+                    <td class="text-center">{% if hasSitemap %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    <td class="text-left">{% if hasSitemap |length %}A <code>sitemap</code> was detected.  Search engine web crawlers like Googlebot read this file to more intelligently crawl your site.{% else %}A <code>sitemap</code> was not detected.  Search engine web crawlers like Googlebot read this file to more intelligently crawl your site.{% endif %}</td>
+                </tr>
+
                <tr>
                     <td class="text-center">{% if titleLength >= 40 and titleLength <= 70 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                     <td class="text-left">The title tag <code>{{ titleTag }}</code> {% if titleLength < 40 %}may be too short; make sure it is descriptive, and unique on a per-page basis.{% elseif titleLength >70 %}may be too long, it will be truncated when displayed by search engines.  Make sure it is unique on a per-page basis{% else %}is a good length; make sure it is unique on a per-page basis{% endif %}.  <a href="https://support.google.com/webmasters/answer/35624?hl=en" target="_blank">Learn More</a></td>

@@ -50,6 +50,37 @@ class SeomaticController extends BaseController
             {
                 $textStatistics = new TS\TextStatistics;
 
+/* -- See if robots.txt exists */
+
+                $hasRobotsTxt = false;
+                $hasSitemap = false;
+                $url = rtrim(craft()->getSiteUrl(), '/') . "/robots.txt";
+                $robots = file_get_contents($url, false, $context);
+                if ($robots !== false)
+                {
+                    $hasRobotsTxt = true;
+                    $lines = explode("\n", $robots);
+                    foreach ($lines as $line)
+                    {
+                        $line = ltrim($line);
+                        if (stripos($line, 'Sitemap') === 0)
+                        {
+                            $sitemapParts = explode(":", $line);
+                            $sitemapUrl = $sitemapParts[1];
+                            $sitemapUrl = trim($sitemapUrl);
+
+                            $ch = curl_init($sitemapUrl);
+
+                            curl_setopt($ch, CURLOPT_NOBODY, true);
+                            curl_exec($ch);
+                            $retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                            if (($retcode == 200) || ($retcode == 301) || ($retcode == 302))
+                                $hasSitemap = true;
+                            curl_close($ch);
+                        }
+                    }
+                }
+
 /* -- Scrape for JSON-LD before we remove the <script> tags */
 
                 $jsonLdTypes = array();
@@ -169,6 +200,8 @@ class SeomaticController extends BaseController
                     'metaTwitterTag' => $metaTwitterTag,
                     'metaOpenGraphTag' => $metaOpenGraphTag,
                     'jsonLdTypes' => $jsonLdTypes,
+                    'hasRobotsTxt' => $hasRobotsTxt,
+                    'hasSitemap' => $hasSitemap,
                     'emptyImageAlts' => $emptyImageAlts,
                     'h1Tags' => $h1Tags,
                     'h2Tags' => $h2Tags,

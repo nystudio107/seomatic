@@ -58,6 +58,7 @@ Some things to do, and ideas for potential features:
 ### 1.1.29 -- 2016.07.31
 
 * [Added] Added detection of Twitter Card meta tags, OpenGraph meta tags, and JSON-LD structured data in SEOmetrics
+* [Added] Added detection robots.txt and sitemaps in SEOmetrics
 * [Improved] seoTitles, seoDescriptions, and seoKeywords are now truncated on save in SEOmatic Meta FieldTypes when they pull from other fields
 * [Improved] Improved the SEOmetrics preview CSS a bit
 * [Improved] Updated the README.md
