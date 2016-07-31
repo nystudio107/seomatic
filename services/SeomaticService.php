@@ -1047,11 +1047,14 @@ class SeomaticService extends BaseApplicationComponent
 
         $uri = "";
         $segments = craft()->request->getSegments();
-        if ($this->entryMeta)
+        if ($this->lastElement)
         {
-            $path = parse_url($this->entryMeta['canonicalUrl'], PHP_URL_PATH);
-            $path = trim($path, "/");
-            $segments = explode("/", $path);
+            if ($this->lastElement->uri != "__home__")
+            {
+                $path = parse_url($this->lastElement->url, PHP_URL_PATH);
+                $path = trim($path, "/");
+                $segments = explode("/", $path);
+            }
         }
 
 /* -- Parse through the segments looking for elements that match */
