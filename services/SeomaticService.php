@@ -568,6 +568,9 @@ class SeomaticService extends BaseApplicationComponent
         {
             switch ($srcField->elementType->classHandle)
             {
+                case "Neo":
+                    $result= $this->extractTextFromNeo($srcField);
+                    break;
                 case ElementType::MatrixBlock:
                     $result= $this->extractTextFromMatrix($srcField);
                     break;
@@ -606,7 +609,7 @@ class SeomaticService extends BaseApplicationComponent
     Extract text from a matrix field
 -------------------------------------------------------------------------------- */
 
-    public function extractTextFromMatrix($matrixBlocks)
+    public function extractTextFromMatrix($matrixBlocks, $fieldHandle="")
     {
         $result = "";
         foreach ($matrixBlocks as $block)
@@ -618,10 +621,11 @@ class SeomaticService extends BaseApplicationComponent
             {
                 if ($field->type == "PlainText"
                     || $field->type == "RichText"
-                    || $field->type == "RedactorI)"
+                    || $field->type == "RedactorI"
                     )
                     {
-                        $result .= strip_tags($block[$field->handle]) . " ";
+                        if (($field->handle == $fieldHandle) || ($fieldHandle == ""))
+                            $result .= strip_tags($block[$field->handle]) . " ";
                     }
             }
 
@@ -633,7 +637,7 @@ class SeomaticService extends BaseApplicationComponent
     Extract text from a Neo field
 -------------------------------------------------------------------------------- */
 
-    public function extractTextFromNeo($neoBlocks)
+    public function extractTextFromNeo($neoBlocks, $fieldHandle="")
     {
         $result = "";
         foreach ($neoBlocks as $block)
@@ -647,10 +651,11 @@ class SeomaticService extends BaseApplicationComponent
                     $field = $fieldLayoutField->field;
                     if ($field->type == "PlainText"
                         || $field->type == "RichText"
-                        || $field->type == "RedactorI)"
+                        || $field->type == "RedactorI"
                         )
                         {
-                            $result .= strip_tags($block[$field->handle]) . " ";
+                            if (($field->handle == $fieldHandle) || ($fieldHandle == ""))
+                                $result .= strip_tags($block[$field->handle]) . " ";
                         }
                 }
         }
