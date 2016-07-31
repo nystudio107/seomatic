@@ -52,6 +52,7 @@ Some things to do, and ideas for potential features:
 * [bug] Enforce *required fields on the various settings pages in the Admin CP by doing proper validation
 * [bug] The `foundingDate` fields probably should be dateTimeField types on the Settings pages
 * [feature] Provide SiteMap functionality.  Yes, it's SEO-related, but seems like it might be better to keep SEOmatic focused (?)
+* [feature] Allow people to choose individual fields to pull from inside of Matrix and Neo blocks
 
 ## Changelog
 
@@ -61,6 +62,7 @@ Some things to do, and ideas for potential features:
 * [Added] Added the ability to extract seoTitle, seoDescription, and seoKeywords from Preparse fields
 * [Added] Added detection of Twitter Card meta tags, OpenGraph meta tags, and JSON-LD structured data in SEOmetrics
 * [Added] Added detection robots.txt and sitemaps in SEOmetrics
+* [Improved] Breadcrumbs are now generated for every element that matches a URI in the current URL segments
 * [Improved] seoTitles, seoDescriptions, and seoKeywords are now truncated on save in SEOmatic Meta FieldTypes when they pull from other fields
 * [Improved] Improved the SEOmetrics preview CSS a bit
 * [Improved] Updated the README.md

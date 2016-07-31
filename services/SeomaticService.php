@@ -1037,21 +1037,31 @@ class SeomaticService extends BaseApplicationComponent
         $result = array();
         $homeName = craft()->config->get("breadcrumbsHomeName", "seomatic");
         $result[$homeName] = $this->getFullyQualifiedUrl(craft()->getSiteUrl());
-        $element = craft()->urlManager->getMatchedElement();
-        if ($element)
+
+/* -- Build up the segments, and look for elements that match */
+
+        $uri = "";
+        $segments = craft()->request->getSegments();
+        if ($this->entryMeta)
         {
-/* -- Undecided whether this is the best behavior
-            if ($element->uri == '__home__')
-                unset($result[$homeName]);
-*/
-            if ($element->uri != '__home__')
-                $result[$element->title] = $element->url;
+            $path = parse_url($this->entryMeta['canonicalUrl'], PHP_URL_PATH);
+            $path = trim($path, "/");
+            $segments = explode("/", $path);
         }
-        else if ($this->entryMeta)
+
+/* -- Parse through the segments looking for elements that match */
+
+        foreach ($segments as $segment)
         {
-            if ((isset($this->entryMeta['seoTitle'])) && (!empty($this->entryMeta['seoTitle'])))
-                $result[$this->entryMeta['seoTitle']] = $meta['canonicalUrl'];
+            $uri .= $segment;
+            $element = craft()->elements->getElementByUri($uri);
+            if ($element)
+            {
+                $result[$element->title] = $this->getFullyQualifiedUrl($element->url);
+            }
+            $uri .= "/";
         }
+
         return $result;
     } /* -- getDefaultBreadcrumbs */
 
