@@ -108,8 +108,14 @@ class SeomaticController extends BaseController
                 $titleTag = html_entity_decode($dom->find('title', 0)->plaintext);
                 $titleLength = strlen($titleTag);
 
-                $metaDescriptionTag = html_entity_decode($dom->find('meta[name=description]', 0)->content);
-                $metaDescriptionLength = strlen($metaDescriptionTag);
+                $metaDescriptionTag = "";
+                $metaDescriptionLength = 0;
+                $elem = $dom->find('meta[name=description]', 0);
+                if ($elem)
+                {
+                    $metaDescriptionTag = html_entity_decode($elem->content);
+                    $metaDescriptionLength = strlen($metaDescriptionTag);
+                }
 
                 $metaTwitterTag = "";
                 $elem = $dom->find('meta[name=twitter:card]', 0);
