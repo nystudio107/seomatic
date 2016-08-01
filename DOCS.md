@@ -451,6 +451,8 @@ SEOmatic will automatically generate [Breadcrumbs](https://developers.google.com
 
 By default, SEOmatic will generate breadcrumbs automatically for `Home` (the name is configurable via `breadcrumbsHomeName` in `config.json`), and every element (category, entry, product, whatever) that has a URI matches the current URL segments.
 
+### Changing Breadcrumbs
+
 If you want to do your own custom breadcrumbs, you can set them yourself in the `breadcrumbs` array in the `seomaticMeta` variable like this:
 
 	{% set myBreadcrumbs = {
@@ -468,6 +470,16 @@ You can change these `breadcrumbs` variables in your templates that `extends` yo
 See the section **Dynamic Twig SEO Meta** for more information on how to manipulate SEOmatic variables via Twig.
 
 SEOmatic also automatically strips HTML/PHP tags from the variables, and translates HTML entities to ensure that they are properly encoded.
+
+### Displaying Breadcrumbs on the Frontend
+
+Should you wish to display the breadcrumbs in your front-end templates so that they are visible to the user, you can do that with code like this:
+
+    <ul class="crumbs">
+        {% for crumbName, crumbUrl in seomaticMeta.breadcrumbs %}
+            <li class="crumbs"><a href="{{ crumbUrl }}">{{ crumbName }}</a></li>
+        {% endfor %}
+    </ul>
 
 ## Dynamic Twig SEO Meta
 
