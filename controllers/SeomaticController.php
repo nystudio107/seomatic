@@ -55,7 +55,7 @@ class SeomaticController extends BaseController
                 $hasRobotsTxt = false;
                 $hasSitemap = false;
                 $url = rtrim(craft()->getSiteUrl(), '/') . "/robots.txt";
-                $robots = file_get_contents($url, false, $context);
+                $robots = @file_get_contents($url, false, $context);
                 if ($robots !== false)
                 {
                     $hasRobotsTxt = true;
