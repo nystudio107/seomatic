@@ -1040,8 +1040,17 @@ class SeomaticService extends BaseApplicationComponent
     public function getDefaultBreadcrumbs($meta)
     {
         $result = array();
-        $homeName = craft()->config->get("breadcrumbsHomeName", "seomatic");
-        $result[$homeName] = $this->getFullyQualifiedUrl(craft()->getSiteUrl());
+
+        $element = craft()->elements->getElementByUri("__home__");
+        if ($element)
+        {
+            $result[$element->title] = $this->getFullyQualifiedUrl($element->url);
+        }
+        else
+        {
+            $homeName = craft()->config->get("breadcrumbsHomeName", "seomatic");
+            $result[$homeName] = $this->getFullyQualifiedUrl(craft()->getSiteUrl());
+        }
 
 /* -- Build up the segments, and look for elements that match */
 
