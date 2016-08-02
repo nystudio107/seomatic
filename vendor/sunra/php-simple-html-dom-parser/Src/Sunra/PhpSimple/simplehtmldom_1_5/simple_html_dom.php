@@ -67,7 +67,7 @@ define('DEFAULT_BR_TEXT', "\r\n");
 define('DEFAULT_SPAN_TEXT', " ");
 if (!defined('MAX_FILE_SIZE'))
 {
-    define('MAX_FILE_SIZE', 600000);
+    define('MAX_FILE_SIZE', 2000000);
 }
 // helper functions
 // -----------------------------------------------------------------------------
