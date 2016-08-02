@@ -19,12 +19,16 @@
 
 {% set docsUrl = "https://github.com/nystudio107/seomatic/wiki" %}
 
+{% set localeUrlSuffix = "" %}
+{% if craft.isLocalized %}
+    {% set localeUrlSuffix = "/" ~ siteMeta.locale %}
+{% endif %}
 {% set seomaticSections = {
     meta:       { label: "Template Meta"|t, url: url('seomatic/meta') },
-    site:       { label: "Site Meta"|t, url: url('seomatic/site') },
-    identity:   { label: "Site Identity"|t, url: url('seomatic/identity') },
-    social:     { label: "Social Media"|t, url: url('seomatic/social') },
-    creator:    { label: "Site Creator"|t, url: url('seomatic/creator') },
+    site:       { label: "Site Meta"|t, url: url('seomatic/site' ~ localeUrlSuffix ) },
+    identity:   { label: "Site Identity"|t, url: url('seomatic/identity' ~ localeUrlSuffix ) },
+    social:     { label: "Social Media"|t, url: url('seomatic/social' ~ localeUrlSuffix ) },
+    creator:    { label: "Site Creator"|t, url: url('seomatic/creator' ~ localeUrlSuffix ) },
     settings:    { label: "Settings"|t, url: url('seomatic/settings') },
 } %}
 

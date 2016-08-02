@@ -1,5 +1,20 @@
 [
     {
+        "version": "1.1.30",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
+        "date": "2016-08-05T11:00:00-11:00",
+        "notes": [
+            "[Added] Added 'Learn More' link for JSON-LD structured data in SEOmetrics",
+            "[Added] Breadcrumbs get added to WebPage objects, too",
+            "[Improved] SEOmatic now remembers the selected locale in its tabbed settings",
+            "[Improved] Fixed a regression in SEOmetric's keyword in URL checking",
+            "[Improved] Increased HTML SimpleDom's MAX_FILE_SIZE to allow for parsing larger pages (especially with devMode on)",
+            "[Improved] SEOmetrics handles missing robots.txt files more elegantly",
+            "[Improved] SEOmetrics no longer depends on there being an meta description tag",
+            "[Improved] Updated the README.md"
+        ]
+    },
+    {
         "version": "1.1.29",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-07-31T11:00:00-11:00",

@@ -56,6 +56,17 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.30 -- 2016.08.05
+
+* [Added] Added 'Learn More' link for JSON-LD structured data in SEOmetrics
+* [Added] Breadcrumbs get added to WebPage objects, too
+* [Improved] SEOmatic now remembers the selected locale in its tabbed settings
+* [Improved] Fixed a regression in SEOmetric's keyword in URL checking
+* [Improved] Increased HTML SimpleDom's MAX_FILE_SIZE to allow for parsing larger pages (especially with devMode on)
+* [Improved] SEOmetrics handles missing robots.txt files more elegantly
+* [Improved] SEOmetrics no longer depends on there being an meta description tag
+* [Improved] Updated the README.md
+
 ### 1.1.29 -- 2016.07.31
 
 * [Added] Added the ability to extract seoTitle, seoDescription, and seoKeywords from Neo fields
