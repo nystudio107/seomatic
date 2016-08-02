@@ -967,6 +967,10 @@ class SeomaticService extends BaseApplicationComponent
 
         $this->setSocialForMeta($meta, $siteMeta, $social, $helper, $identity, $locale);
 
+/* -- Fill in the breadcrumbs */
+
+        $meta['breadcrumbs'] = $this->getDefaultBreadcrumbs($meta);
+
 /* -- Swap in our JSON-LD objects */
 
         $identity = $this->getIdentityJSONLD($identity, $helper, $locale);
@@ -1006,10 +1010,6 @@ class SeomaticService extends BaseApplicationComponent
         $runtimeVars = array(
             'seomaticTemplatePath' => '',
         );
-
-/* -- Fill in the breadcrumbs */
-
-        $meta['breadcrumbs'] = $this->getDefaultBreadcrumbs($meta);
 
 /* -- Return everything is an array of arrays */
 
@@ -2106,6 +2106,12 @@ class SeomaticService extends BaseApplicationComponent
                 {
                 }
                 break;
+            }
+
+            if ((!empty($meta['breadcrumbs'])) && ($entityType == "WebPage"))
+            {
+                $crumbsJSON = $this->getBreadcrumbsJSONLD($meta['breadcrumbs']);
+                $mainEntityOfPageJSONLD['breadcrumb'] = $crumbsJSON;
             }
 
             $mainEntityOfPageJSONLD = array_filter($mainEntityOfPageJSONLD);
