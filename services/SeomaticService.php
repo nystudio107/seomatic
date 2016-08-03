@@ -506,7 +506,6 @@ class SeomaticService extends BaseApplicationComponent
 /* -- See if there is an 'entry' automagically put into this template, and if it contains an Seomatic_Meta */
 
         $entryMeta = null;
-        $entryMetaUrl = "";
         if (isset($element) && $element)
         {
             $elemType = $element->getElementType();
@@ -523,8 +522,6 @@ class SeomaticService extends BaseApplicationComponent
                         {
                             $entryMeta = $value;
                             $this->lastElement = $element;
-
-                            $entryMetaUrl = $this->getFullyQualifiedUrl($element->url);
 
     /* -- If this is a Commerce Product, fill in some additional info */
 

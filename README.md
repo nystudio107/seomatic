@@ -65,6 +65,7 @@ Some things to do, and ideas for potential features:
 * [Improved] Increased HTML SimpleDom's MAX_FILE_SIZE to allow for parsing larger pages (especially with devMode on)
 * [Improved] SEOmetrics handles missing robots.txt files more elegantly
 * [Improved] SEOmetrics no longer depends on there being an meta description tag
+* [Fixed] Fixed an error when using the Share arrow on a draft from Live Preview
 * [Improved] Updated the README.md
 
 ### 1.1.29 -- 2016.07.31
