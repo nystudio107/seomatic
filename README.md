@@ -66,6 +66,8 @@ Some things to do, and ideas for potential features:
 * [Improved] SEOmetrics handles missing robots.txt files more elegantly
 * [Improved] SEOmetrics no longer depends on there being an meta description tag
 * [Fixed] Fixed an error when using the Share arrow on a draft from Live Preview
+* [Fixed] Fixed an issue accessing getJsonLd from an entry that has no URLs or has empty SEOmatic values
+* [Fixed] mainEntityOfPage now works for Template Metas
 * [Improved] Updated the README.md
 
 ### 1.1.29 -- 2016.07.31

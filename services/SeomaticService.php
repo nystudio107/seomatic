@@ -1995,19 +1995,25 @@ class SeomaticService extends BaseApplicationComponent
             if (isset($this->cachedMainEntityOfPageJSONLD[$locale]))
                 return $this->cachedMainEntityOfPageJSONLD[$locale];
 
-            $title = $meta['seoTitle'];
+            $title = "";
+            if (isset($meta['seoTitle']))
+                $title = $meta['seoTitle'];
             $imageObject = $dateCreated = $dateModified = $datePublished = $copyrightYear = "";
             if (isset($meta['seoImageId']))
             {
                 $image = craft()->assets->getFileById($meta['seoImageId']);
                 if ($image)
                 {
-                    $imgUrl = $image->getUrl($meta['seoImageTransform']);
+                    if (isset($meta['seoImageTransform']))
+                        $transform = $meta['seoImageTransform'];
+                    else
+                        $transform = '';
+                    $imgUrl = $image->getUrl($transform);
                     $imageObject = array(
                         "type" => "ImageObject",
                         "url" => $this->getFullyQualifiedUrl($imgUrl),
-                        "width" => $image->getWidth($meta['seoImageTransform']),
-                        "height" => $image->getHeight($meta['seoImageTransform']),
+                        "width" => $image->getWidth($transform),
+                        "height" => $image->getHeight($transform),
                         );
                 }
             }
@@ -2068,11 +2074,15 @@ class SeomaticService extends BaseApplicationComponent
 
             $mainEntityOfPageJSONLD['type'] = $entityType;
             $mainEntityOfPageJSONLD['name'] = $title;
-            $mainEntityOfPageJSONLD['description'] = $meta['seoDescription'];
+            if (isset($meta['seoDescription']))
+                $mainEntityOfPageJSONLD['description'] = $meta['seoDescription'];
             $mainEntityOfPageJSONLD['image'] = $imageObject;
-            $mainEntityOfPageJSONLD['url'] = $meta['canonicalUrl'];
-            if ($isMainEntityOfPage)
-                $mainEntityOfPageJSONLD['mainEntityOfPage'] = $meta['canonicalUrl'];
+            if (isset($meta['canonicalUrl']))
+            {
+                $mainEntityOfPageJSONLD['url'] = $meta['canonicalUrl'];
+                if ($isMainEntityOfPage)
+                    $mainEntityOfPageJSONLD['mainEntityOfPage'] = $meta['canonicalUrl'];
+            }
 
     /* -- Special-cased attributes */
 
@@ -2082,7 +2092,8 @@ class SeomaticService extends BaseApplicationComponent
                 {
                     $mainEntityOfPageJSONLD['inLanguage'] = craft()->language;
                     $mainEntityOfPageJSONLD['headline'] = $title;
-                    $mainEntityOfPageJSONLD['keywords'] = $meta['seoKeywords'];
+                    if (isset($meta['seoKeywords']))
+                        $mainEntityOfPageJSONLD['keywords'] = $meta['seoKeywords'];
                     $mainEntityOfPageJSONLD['dateCreated'] = $dateCreated;
                     $mainEntityOfPageJSONLD['dateModified'] = $dateModified;
                     $mainEntityOfPageJSONLD['datePublished'] = $datePublished;
@@ -2302,6 +2313,9 @@ function parseAsTemplate($templateStr, $element)
                 $meta['seoTitle'] = $this->parseAsTemplate($metaRecord->seoTitle, $element);
                 $meta['seoDescription'] = $this->parseAsTemplate($metaRecord->seoDescription, $element);
                 $meta['seoKeywords'] = $this->parseAsTemplate($metaRecord->seoKeywords, $element);
+                $meta['seoMainEntityCategory'] = $metaRecord->seoMainEntityCategory;
+                $meta['seoMainEntityOfPage'] = $metaRecord->seoMainEntityOfPage;
+
                 if (isset($metaRecord->seoImageId))
                     $meta['seoImageId'] = $metaRecord->seoImageId;
                 else
