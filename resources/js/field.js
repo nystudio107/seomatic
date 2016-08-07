@@ -62,6 +62,16 @@
                     createTokensOnBlur: true,
                     });
 
+                $('#' + seomatic.options.prefix + 'preview-seometrics').on('click', function(e) {
+
+                    // Prevents the default action to be triggered.
+                    e.preventDefault();
+
+                    // Triggering bPopup when click event is fired
+                    $('#' + seomatic.options.prefix + 'preview-seometrics-popup').bPopup();
+
+                });
+
                 $('#' + seomatic.options.prefix + 'preview-tags').on('click', function(e) {
 
                     // Prevents the default action to be triggered.

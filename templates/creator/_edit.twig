@@ -46,6 +46,7 @@
 
 {% block main %}
 
+    {% include "seomatic/_preview_seometrics_modal" with {'urlToAnalyze': siteUrl} %}
     {% include "seomatic/_preview_display_modal" with {'previewMetaPath': '', 'elementId': 0,  'locale': creator.locale } %}
     {% include "seomatic/_preview_tags_modal" with {'previewMetaPath': '', 'elementId': 0, 'locale': creator.locale } %}
     {% include "seomatic/_preview_humans_modal" %}
@@ -500,7 +501,11 @@
 
             <div class="item" data-position="right" data-colspan="1">
 
-                <div id="preview-display" class="btn big livepreviewbtn">
+                <div id="preview-seometrics" class="btn big livepreviewbtn">
+                    {{ "SEOmetrics Content Analysis" |t }}
+                </div>
+
+                <div id="preview-display" class="btn big livepreviewbtn secondbtn">
                     {{ "Preview SEO Meta Display" |t }}
                 </div>
 
