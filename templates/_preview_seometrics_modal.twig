@@ -1,19 +1,22 @@
 <style>
 
+div#fields-seomatic-metrics-content,
 div#seomatic-metrics-content {
     padding: 0px;
     border: none;
     width: 100%;
     height: 60vh;
-    display: none;
+    display: block;
     background-color: #FFF;
 }
 
+div#fields-seomatic-metrics-content-inner,
 div#seomatic-metrics-content-inner {
     width: 100%;
     height: 60vh;
 }
 
+div#fields-seomatic-metrics-content object ,
 div#seomatic-metrics-content object {
     width: 100%;
     height: 100%;
@@ -118,23 +121,23 @@ div.seomatic-metrics-header:after {
 
 
 {% set js %}
+var fieldsPrefix = "{{ fieldsPrefix }}";
 load_metrics();
 
-document.getElementById(metaFieldPrefix + "seomatic-metrics-keywords")
+document.getElementById(fieldsPrefix + "seomatic-metrics-keywords")
     .addEventListener("keyup", function(event) {
     event.preventDefault();
     if (event.keyCode == 13) {
-        document.getElementById(metaFieldPrefix + "seomatic-metrics-analyze").click();
+        document.getElementById(fieldsPrefix + "seomatic-metrics-analyze").click();
     }
 });
     function load_metrics()
     {
-    alert(metaFieldPrefix);
-        var floaterDiv = document.getElementById(metaFieldPrefix + 'seomatic-metrics-content');
+    alert(fieldsPrefix);
+        var floaterDiv = document.getElementById(fieldsPrefix + 'seomatic-metrics-content');
         var dataUrl = "{{ metricsActionUrl }}";
-        var dataKeywords = encodeURIComponent(document.getElementById(metaFieldPrefix + "seomatic-metrics-keywords").value);
-        floaterDiv.style.display='block';
-        document.getElementById(metaFieldPrefix + "seomatic-metrics-content-inner").innerHTML='<object type="text/html" data="' + dataUrl + dataKeywords + '" ></object>';
+        var dataKeywords = encodeURIComponent(document.getElementById(fieldsPrefix + "seomatic-metrics-keywords").value);
+        document.getElementById(fieldsPrefix + "seomatic-metrics-content-inner").innerHTML='<object type="text/html" data="' + dataUrl + dataKeywords + '" ></object>';
     }
 
 {% endset %}
