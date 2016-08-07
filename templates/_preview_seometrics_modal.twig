@@ -117,23 +117,25 @@ div.seomatic-metrics-header:after {
 
 
 
-<script>
+{% set js %}
 load_metrics();
 
-document.getElementById("seomatic-metrics-keywords")
+document.getElementById(metaFieldPrefix + "seomatic-metrics-keywords")
     .addEventListener("keyup", function(event) {
     event.preventDefault();
     if (event.keyCode == 13) {
-        document.getElementById("seomatic-metrics-analyze").click();
+        document.getElementById(metaFieldPrefix + "seomatic-metrics-analyze").click();
     }
 });
     function load_metrics()
     {
-        var floaterDiv = document.getElementById('seomatic-metrics-content');
+    alert(metaFieldPrefix);
+        var floaterDiv = document.getElementById(metaFieldPrefix + 'seomatic-metrics-content');
         var dataUrl = "{{ metricsActionUrl }}";
-        var dataKeywords = encodeURIComponent(document.getElementById("seomatic-metrics-keywords").value);
+        var dataKeywords = encodeURIComponent(document.getElementById(metaFieldPrefix + "seomatic-metrics-keywords").value);
         floaterDiv.style.display='block';
-        document.getElementById("seomatic-metrics-content-inner").innerHTML='<object type="text/html" data="' + dataUrl + dataKeywords + '" ></object>';
+        document.getElementById(metaFieldPrefix + "seomatic-metrics-content-inner").innerHTML='<object type="text/html" data="' + dataUrl + dataKeywords + '" ></object>';
     }
 
-</script>
+{% endset %}
+{% includeJs js %}
