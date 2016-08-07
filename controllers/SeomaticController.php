@@ -138,7 +138,7 @@ class SeomaticController extends BaseController
                 $effectiveHTags = true;
                 if ($h1Tags != 1)
                     $effectiveHTags = false;
-                if ($totalHTags < 6)
+                if ($totalHTags < 4)
                     $effectiveHTags = false;
                 if ($h2Tags == 0 && ($h3Tags || $h4Tags || $h5Tags))
                     $effectiveHTags = false;

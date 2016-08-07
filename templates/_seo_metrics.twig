@@ -42,7 +42,7 @@
 
                         <tr>
                             <td class="text-center">{% if keywordStats.appearsInH1Tag >= 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
-                            <td class="text-left">The focus keyword <code>{{ keyword }}</code> appears in <code>&lt;H1&gt;</code> or <code>&lt;H2&gt;</code> tags {{ keywordStats.appearsInH1Tag}} time{% if keywordStats.appearsInH1Tag != 1 %}s{% endif %}.  {% if keywordStats.appearsInH1Tag >= 1 %}{% else %} Having it appear in <code>&lt;H1&gt;</code> or <code>&lt;H1&gt;</code> tags can influence search engines in ranking the page for this keyword.{% endif %}</td>
+                            <td class="text-left">The focus keyword <code>{{ keyword }}</code> appears in <code>&lt;H1&gt;</code> or <code>&lt;H2&gt;</code> tags {{ keywordStats.appearsInH1Tag}} time{% if keywordStats.appearsInH1Tag != 1 %}s{% endif %}.  {% if keywordStats.appearsInH1Tag >= 1 %}{% else %} Having it appear in <code>&lt;H1&gt;</code> or <code>&lt;H2&gt;</code> tags can influence search engines in ranking the page for this keyword.{% endif %}</td>
                         </tr>
 
                         <tr>
