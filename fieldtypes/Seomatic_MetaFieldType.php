@@ -148,6 +148,7 @@ class Seomatic_MetaFieldType extends BaseFieldType
                             200);
                     break;
 
+                case "FocusPoint_FocusPoint":
                 case "Assets":
                     $imageFieldList[$field->handle] = $field->name;
                     $img = $this->element[$field->handle]->first();
@@ -252,6 +253,7 @@ class Seomatic_MetaFieldType extends BaseFieldType
                     $fieldList[$field->handle] = $field->name;
                     break;
 
+                case "FocusPoint_FocusPoint":
                 case "Assets":
                     $imageFieldList[$field->handle] = $field->name;
                     break;

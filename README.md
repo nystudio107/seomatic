@@ -56,6 +56,11 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.31 -- 2016.08.12
+
+* [Added] SEOmatic can now pull images from FocusPoint FieldTypes
+* [Improved] Updated the README.md
+
 ### 1.1.30 -- 2016.08.05
 
 * [Added] Added 'Learn More' link for JSON-LD structured data in SEOmetrics
