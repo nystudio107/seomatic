@@ -1992,8 +1992,11 @@ class SeomaticService extends BaseApplicationComponent
 
     /* -- Cache it in our class; no need to fetch it more than once */
 
-            if (isset($this->cachedMainEntityOfPageJSONLD[$locale]))
-                return $this->cachedMainEntityOfPageJSONLD[$locale];
+            if ($isMainEntityOfPage)
+            {
+                if (isset($this->cachedMainEntityOfPageJSONLD[$locale]))
+                    return $this->cachedMainEntityOfPageJSONLD[$locale];
+            }
 
             $title = "";
             if (isset($meta['seoTitle']))
@@ -2124,7 +2127,10 @@ class SeomaticService extends BaseApplicationComponent
 
             $mainEntityOfPageJSONLD = array_filter($mainEntityOfPageJSONLD);
 
-            $this->cachedMainEntityOfPageJSONLD[$locale] = $mainEntityOfPageJSONLD;
+            if ($isMainEntityOfPage)
+            {
+                $this->cachedMainEntityOfPageJSONLD[$locale] = $mainEntityOfPageJSONLD;
+            }
         }
         return $mainEntityOfPageJSONLD;
     } /* -- getMainEntityOfPageJSONLD */

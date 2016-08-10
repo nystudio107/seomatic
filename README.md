@@ -59,6 +59,7 @@ Some things to do, and ideas for potential features:
 ### 1.1.31 -- 2016.08.12
 
 * [Added] SEOmatic can now pull images from FocusPoint FieldTypes
+* [Fixed] The mainEntityOfPage is no longer improperly cached if being called by getJsonLd()
 * [Improved] Updated the README.md
 
 ### 1.1.30 -- 2016.08.05
