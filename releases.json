@@ -5,6 +5,7 @@
         "date": "2016-08-12T11:00:00-11:00",
         "notes": [
             "[Added] SEOmatic can now pull images from FocusPoint FieldTypes",
+            "[Added] Added 'Person' as a type for the Main Entity of Page",
             "[Fixed] The mainEntityOfPage is no longer improperly cached if being called by getJsonLd()",
             "[Improved] Updated the README.md"
         ]

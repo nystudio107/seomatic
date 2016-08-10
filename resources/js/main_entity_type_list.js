@@ -110,6 +110,10 @@ var main_enitity_items = {
         {value: "TheaterEvent", name: "TheaterEvent"},
         {value: "VisualArtsEvent", name: "VisualArtsEvent"},
         ],
+    'Person': [
+        {value: '', name: ''},
+        {value: "Patient", name: "Patient"},
+        ],
     'Product': [
         {value: '', name: ''},
         {value: "IndividualProduct", name: "IndividualProduct"},
