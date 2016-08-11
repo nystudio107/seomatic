@@ -1,3 +1,39 @@
+{% import "_includes/forms" as forms %}
+
+{% extends "_layouts/cp" %}
+{% import '_includes/forms' as forms %}
+
+{% set title = craft.seomatic.getPluginName() %}
+
+{% set fullPageForm = true %}
+
+{% set docsUrl = "https://github.com/nystudio107/seomatic/wiki" %}
+
+{% set seomaticSections = {
+    seometrics: { label: "SEOmetrics"|t, url: url('seomatic/seometrics') },
+    meta:       { label: "Template Meta"|t, url: url('seomatic/meta') },
+    site:       { label: "Site Meta"|t, url: url('seomatic/site') },
+    identity:   { label: "Site Identity"|t, url: url('seomatic/identity') },
+    social:     { label: "Social Media"|t, url: url('seomatic/social') },
+    creator:    { label: "Site Creator"|t, url: url('seomatic/creator') },
+    settings:   { label: "Settings"|t, url: url('seomatic/settings') },
+} %}
+
+{% set crumbs = [
+    { label: craft.seomatic.getPluginName(), url: url('seomatic') },
+    { label: "SEOmetrics"|t, url: url('seomatic/seometrics') },
+] %}
+
+{% if craft.app.version < 2.5 %}
+    {% set tabs = seomaticSections %}
+    {% set selectedTab = 'seometrics' %}
+{% else %}
+    {% set subnav = seomaticSections %}
+    {% set selectedSubnavItem = 'seometrics' %}
+{% endif %}
+
+{% set content %}
+
 <style>
 
 div#fields-seomatic-metrics-content,
@@ -5,7 +41,6 @@ div#seomatic-metrics-content {
     padding: 0px;
     border: none;
     width: 100%;
-    height: 60vh;
     display: block;
     background-color: #FFF;
 }
@@ -91,9 +126,10 @@ div.seomatic-metrics-header:after {
 
 </style>
 
+{% set urlToAnalyze = siteUrl %}
 {% set metricsActionUrl = actionUrl('seomatic/renderMetrics', { url: urlToAnalyze, keywords: "" }) %}
 
-	<div id="preview-seometrics-popup" style="display: none;">
+	<div id="preview-seometrics-popup">
 		<div class="preview-modal">
 			<div class="preview-modal-inner">
 				<div class="displaypreview-container">
@@ -118,26 +154,26 @@ div.seomatic-metrics-header:after {
 		</div>
 	</div>
 
+{% endset %}
+
 
 
 {% set js %}
-var fieldsPrefix = "{{ fieldsPrefix }}";
 load_metrics();
 
-document.getElementById(fieldsPrefix + "seomatic-metrics-keywords")
+document.getElementById("seomatic-metrics-keywords")
     .addEventListener("keyup", function(event) {
     event.preventDefault();
     if (event.keyCode == 13) {
-        document.getElementById(fieldsPrefix + "seomatic-metrics-analyze").click();
+        document.getElementById("seomatic-metrics-analyze").click();
     }
 });
     function load_metrics()
     {
-    alert(fieldsPrefix);
-        var floaterDiv = document.getElementById(fieldsPrefix + 'seomatic-metrics-content');
+        var floaterDiv = document.getElementById('seomatic-metrics-content');
         var dataUrl = "{{ metricsActionUrl }}";
-        var dataKeywords = encodeURIComponent(document.getElementById(fieldsPrefix + "seomatic-metrics-keywords").value);
-        document.getElementById(fieldsPrefix + "seomatic-metrics-content-inner").innerHTML='<object type="text/html" data="' + dataUrl + dataKeywords + '" ></object>';
+        var dataKeywords = encodeURIComponent(document.getElementById("seomatic-metrics-keywords").value);
+        document.getElementById("seomatic-metrics-content-inner").innerHTML='<object type="text/html" data="' + dataUrl + dataKeywords + '" ></object>';
     }
 
 {% endset %}

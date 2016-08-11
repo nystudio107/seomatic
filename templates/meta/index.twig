@@ -10,12 +10,13 @@
 {% set docsUrl = "https://github.com/nystudio107/seomatic/wiki" %}
 
 {% set seomaticSections = {
+    seometrics: { label: "SEOmetrics"|t, url: url('seomatic/seometrics') },
 	meta:		{ label: "Template Meta"|t, url: url('seomatic/meta') },
 	site:		{ label: "Site Meta"|t, url: url('seomatic/site') },
 	identity:	{ label: "Site Identity"|t, url: url('seomatic/identity') },
 	social:		{ label: "Social Media"|t, url: url('seomatic/social') },
 	creator:	{ label: "Site Creator"|t, url: url('seomatic/creator') },
-    settings:    { label: "Settings"|t, url: url('seomatic/settings') },
+    settings:   { label: "Settings"|t, url: url('seomatic/settings') },
 } %}
 
 {% set crumbs = [

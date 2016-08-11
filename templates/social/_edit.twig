@@ -21,12 +21,13 @@
     {% set localeUrlSuffix = "/" ~ social.locale %}
 {% endif %}
 {% set seomaticSections = {
+    seometrics: { label: "SEOmetrics"|t, url: url('seomatic/seometrics') },
     meta:       { label: "Template Meta"|t, url: url('seomatic/meta') },
     site:       { label: "Site Meta"|t, url: url('seomatic/site' ~ localeUrlSuffix ) },
     identity:   { label: "Site Identity"|t, url: url('seomatic/identity' ~ localeUrlSuffix ) },
     social:     { label: "Social Media"|t, url: url('seomatic/social' ~ localeUrlSuffix ) },
     creator:    { label: "Site Creator"|t, url: url('seomatic/creator' ~ localeUrlSuffix ) },
-    settings:    { label: "Settings"|t, url: url('seomatic/settings') },
+    settings:   { label: "Settings"|t, url: url('seomatic/settings') },
 } %}
 
 {% set crumbs = [
@@ -44,7 +45,6 @@
 
 {% block main %}
 
-    {% include "seomatic/_preview_seometrics_modal" with {'urlToAnalyze': siteUrl} %}
     {% include "seomatic/_preview_display_modal" with {'previewMetaPath': '', 'elementId': 0, 'locale': social.locale } %}
     {% include "seomatic/_preview_tags_modal" with {'previewMetaPath': '', 'elementId': 0, 'locale': social.locale } %}
 
@@ -196,10 +196,6 @@
             </div>
 
             <div class="item" data-position="right" data-colspan="1">
-
-                <div id="preview-seometrics" class="btn big livepreviewbtn">
-                    {{ "SEOmetrics Content Analysis" |t }}
-                </div>
 
                 <div id="preview-display" class="btn big livepreviewbtn secondbtn">
                     {{ "Preview SEO Meta Display" |t }}
