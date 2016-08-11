@@ -58,6 +58,7 @@ Some things to do, and ideas for potential features:
 
 ### 1.1.31 -- 2016.08.12
 
+* [Added] SEOmetrics now has its own tab, and can evaluate any arbitrary URL you pasted into it
 * [Added] SEOmatic can now pull images from FocusPoint FieldTypes
 * [Added] Added 'Person' as a type for the Main Entity of Page
 * [Added] Added Vimeo Handle to Social Media settings

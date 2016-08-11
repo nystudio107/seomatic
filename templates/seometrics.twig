@@ -48,7 +48,7 @@ div#seomatic-metrics-content {
 div#fields-seomatic-metrics-content-inner,
 div#seomatic-metrics-content-inner {
     width: 100%;
-    height: 60vh;
+    height: 45vh;
 }
 
 div#fields-seomatic-metrics-content object ,
@@ -127,7 +127,6 @@ div.seomatic-metrics-header:after {
 </style>
 
 {% set urlToAnalyze = siteUrl %}
-{% set metricsActionUrl = actionUrl('seomatic/renderMetrics', { url: urlToAnalyze, keywords: "" }) %}
 
 	<div id="preview-seometrics-popup">
 		<div class="preview-modal">
@@ -136,8 +135,9 @@ div.seomatic-metrics-header:after {
 
 					<div class="preview-column">
 						<h1>{{ "SEOmetics Content Analysis" |t }}</h1>
-						<p>{{ ("SEOmetrics Content Analysis will run a variety of tests on your web page, and offer you analysis with helpful tips on how to correct any problems it finds.  The URL being analyzed is: <code>" ~ urlToAnalyze ~ "</code>") |t |raw }}</p>
-						<p>{{ "You can enter Focus Keyworks, comma separated, for an additional analysis of how well optimized your page is for those specific SEO keywords." |t |raw }}</p>
+						<p>{{ ("SEOmetrics Content Analysis will run a variety of tests on your web page, and offer you analysis with helpful tips on how to correct any problems it finds.  For Craft Entries/Sections, you can access SEOmetrics via Live Preview by clicking on the SEOmetrics badge:") |t |raw }}</p>
+                        <p><img src="{{ resourceUrl('seomatic/images/seometrics_badge.png') }}" width="auto" height="auto" /></p>
+						<p>{{ "Enter any URL below to analyze.  You can enter Focus Keyworks, comma separated, for an additional analysis of how well optimized your page is for those specific SEO keywords." |t |raw }}</p>
 
 						<div id ="seomatic-metrics-content">
 						    <div class="seomatic-metrics-header">
@@ -174,9 +174,11 @@ document.getElementById("seomatic-metrics-keywords")
     function load_metrics()
     {
         var floaterDiv = document.getElementById('seomatic-metrics-content');
-        var dataUrl = "{{ metricsActionUrl }}";
-        var dataKeywords = encodeURIComponent(document.getElementById("seomatic-metrics-keywords").value);
-        document.getElementById("seomatic-metrics-content-inner").innerHTML='<object type="text/html" data="' + dataUrl + dataKeywords + '" ></object>';
+        var whichUrl = document.getElementById('seomatic-metrics-url').value;
+        var whichKeywords = document.getElementById('seomatic-metrics-keywords').value;
+        var dataUrl = Craft.getActionUrl('seomatic/renderMetrics', {url: whichUrl, keywords: whichKeywords});
+
+        document.getElementById("seomatic-metrics-content-inner").innerHTML='<object type="text/html" data="' + dataUrl + '" ></object>';
     }
 
 {% endset %}
