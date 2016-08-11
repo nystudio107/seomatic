@@ -190,6 +190,17 @@
                     locale:  social.locale,
                 }) }}
 
+                {{ forms.textField({
+                    label: "Vimeo Handle"|t,
+                    instructions: ("Your Vimeo page handle (the part after <code>https://vimeo.com/</code>)") |t |raw,
+                    id: "vimeoHandle",
+                    class: 'nicetext',
+                    name: "vimeoHandle",
+                    value: social.vimeoHandle,
+                    required: false,
+                    locale:  social.locale,
+                }) }}
+
                 <p>&nbsp;</p>
                     <p>{{ "<p>You can use any Craft <code>environmentVariables</code> in these fields in addition to static text, e.g.:<br /> <code>This is my {baseUrl}</code></p>" |t |raw }}</p>
                 </div>

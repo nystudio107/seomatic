@@ -141,9 +141,12 @@ div.seomatic-metrics-header:after {
 
 						<div id ="seomatic-metrics-content">
 						    <div class="seomatic-metrics-header">
-						        <div style="float: left; width: 95%;">
-						            <label class="seomatic-metrics-label">Focus Keywords:</label><input id="seomatic-metrics-keywords" type="text" class="seomatic-metrics-input" placeholder="comma separated keywords"> <a id="seomatic-metrics-analyze" class="seomatic-metrics-button" href="#" onclick="load_metrics()">Analyze</a>
-						        </div>
+                                <div style="float: left; width: 95%; padding-left: 21px;">
+                                    <label class="seomatic-metrics-label">Analyze URL:</label><input id="seomatic-metrics-url" type="text" class="seomatic-metrics-input" placeholder="https://nystudio107.com/" value="{{ urlToAnalyze }}">
+                                </div>
+                                <div style="float: left; width: 95%;">
+                                    <label class="seomatic-metrics-label">Focus Keywords:</label><input id="seomatic-metrics-keywords" type="text" class="seomatic-metrics-input" placeholder="comma separated keywords"> <a id="seomatic-metrics-analyze" class="seomatic-metrics-button" href="#" onclick="load_metrics()">Analyze</a>
+                                </div>
 						    </div>
 						    <div id="seomatic-metrics-content-inner">
 						    </div>

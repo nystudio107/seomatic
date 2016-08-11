@@ -116,6 +116,7 @@ class Seomatic_SettingsRecord extends BaseRecord
             'instagramHandle'					=> array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
             'pinterestHandle'                   => array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
             'githubHandle'                      => array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
+            'vimeoHandle'                       => array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
 
 
 /* --------------------------------------------------------------------------------

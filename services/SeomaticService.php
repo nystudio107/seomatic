@@ -853,6 +853,7 @@ class SeomaticService extends BaseApplicationComponent
             array_push($sameAs, $helper['instagramUrl']);
             array_push($sameAs, $helper['pinterestUrl']);
             array_push($sameAs, $helper['githubUrl']);
+            array_push($sameAs, $helper['vimeoUrl']);
             $sameAs = array_filter($sameAs);
             $sameAs = array_values($sameAs);
             if (!empty($sameAs))
@@ -1488,6 +1489,7 @@ class SeomaticService extends BaseApplicationComponent
         array_push($sameAs, $helper['instagramUrl']);
         array_push($sameAs, $helper['pinterestUrl']);
         array_push($sameAs, $helper['githubUrl']);
+        array_push($sameAs, $helper['vimeoUrl']);
         $sameAs = array_filter($sameAs);
         $sameAs = array_values($sameAs);
         if (!empty($sameAs))
@@ -1675,6 +1677,7 @@ class SeomaticService extends BaseApplicationComponent
         $social['instagramHandle'] = $settings['instagramHandle'];
         $social['pinterestHandle'] = $settings['pinterestHandle'];
         $social['githubHandle'] = $settings['githubHandle'];
+        $social['vimeoHandle'] = $settings['vimeoHandle'];
 
         $result = $social;
 
@@ -2264,6 +2267,7 @@ class SeomaticService extends BaseApplicationComponent
         array_push($sameAs, $metaVars['seomaticHelper']['instagramUrl']);
         array_push($sameAs, $metaVars['seomaticHelper']['pinterestUrl']);
         array_push($sameAs, $metaVars['seomaticHelper']['githubUrl']);
+        array_push($sameAs, $metaVars['seomaticHelper']['vimeoUrl']);
         $sameAs = array_filter($sameAs);
         $sameAs = array_values($sameAs);
         if (!empty($sameAs))
@@ -2552,6 +2556,13 @@ function parseAsTemplate($templateStr, $element)
         }
         else
             $helper['githubUrl'] = '';
+
+        if ($social['vimeoHandle'])
+        {
+            $helper['vimeoUrl'] = "https://vimeo.com/" . $social['vimeoHandle'];
+        }
+        else
+            $helper['vimeoUrl'] = '';
     } /* -- addSocialHelpers */
 
 /* --------------------------------------------------------------------------------

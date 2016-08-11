@@ -60,6 +60,7 @@ Some things to do, and ideas for potential features:
 
 * [Added] SEOmatic can now pull images from FocusPoint FieldTypes
 * [Added] Added 'Person' as a type for the Main Entity of Page
+* [Added] Added Vimeo Handle to Social Media settings
 * [Fixed] The mainEntityOfPage is no longer improperly cached if being called by getJsonLd()
 * [Improved] Updated the README.md
 

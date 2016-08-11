@@ -110,6 +110,7 @@ class Seomatic_SettingsModel extends BaseModel
             'instagramHandle'                   => array(AttributeType::String, 'default' => ''),
             'pinterestHandle'                   => array(AttributeType::String, 'default' => ''),
             'githubHandle'                      => array(AttributeType::String, 'default' => ''),
+            'vimeoHandle'                       => array(AttributeType::String, 'default' => ''),
 
 /* --------------------------------------------------------------------------------
     CEATOR settings

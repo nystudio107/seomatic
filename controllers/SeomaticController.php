@@ -865,6 +865,7 @@ class SeomaticController extends BaseController
         $record->instagramHandle = craft()->request->getPost('instagramHandle', $record->instagramHandle);
         $record->pinterestHandle = craft()->request->getPost('pinterestHandle', $record->pinterestHandle);
         $record->githubHandle = craft()->request->getPost('githubHandle', $record->githubHandle);
+        $record->vimeoHandle = craft()->request->getPost('vimeoHandle', $record->vimeoHandle);
 
         if ($record->save())
         {
