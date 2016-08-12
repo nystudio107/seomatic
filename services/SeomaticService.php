@@ -956,6 +956,15 @@ class SeomaticService extends BaseApplicationComponent
         if ($this->entryMeta)
             $meta = array_merge($meta, $this->entryMeta);
 
+/* -- Merge with the global override config settings */
+
+        $globalMetaOverride = craft()->config->get("globalMetaOverride", "seomatic");
+        if (!empty($globalMetaOverride))
+        {
+            $globalMetaOverride = array_filter($globalMetaOverride);
+            $meta = array_merge($meta, $globalMetaOverride);
+        }
+
 /* -- Add the helper vars */
 
         $helper = array();

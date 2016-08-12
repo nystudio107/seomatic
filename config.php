@@ -102,4 +102,29 @@ return array(
  */
     "siteDevModeTitle" => '[devMode]',
 
+/**
+ * This allows you to globally override the meta settings on your website.  WARNING:
+ * anything you set here will REPLACE the meta settings globally.  You might wish to
+ * use this, for instance, to set 'robots' to be 'none' on development/staging to
+ * prevent crawlers from indexing it.  Since this config file is multi-environment aware,
+ * like any Craft config file, this allows you to do just that.
+ * Leave any value in the array blank to cause it to not override.
+ */
+
+    "globalMetaOverride" => array(
+        'locale'                    => '',
+        'seoMainEntityCategory'     => '',
+        'seoMainEntityOfPage'       => '',
+        'seoTitle'                  => '',
+        'seoDescription'            => '',
+        'seoKeywords'               => '',
+        'seoImageTransform'         => '',
+        'seoFacebookImageTransform' => '',
+        'seoTwitterImageTransform'  => '',
+        'twitterCardType'           => '',
+        'openGraphType'             => '',
+        'robots'                    => '',
+        'seoImageId'                => '',
+    ),
+
 );
