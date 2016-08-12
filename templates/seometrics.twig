@@ -45,10 +45,15 @@ div#seomatic-metrics-content {
     background-color: #FFF;
 }
 
+iframe.seomatic-metrics-iframe {
+    width: 100%;
+    min-height: 45vw;
+}
+
 div#fields-seomatic-metrics-content-inner,
 div#seomatic-metrics-content-inner {
     width: 100%;
-    height: 45vh;
+    height: 100%;
 }
 
 div#fields-seomatic-metrics-content object ,
@@ -178,21 +183,22 @@ document.getElementById("seomatic-metrics-keywords")
         var whichKeywords = document.getElementById('seomatic-metrics-keywords').value;
         var dataUrl = Craft.getActionUrl('seomatic/renderMetrics', {url: whichUrl, keywords: whichKeywords});
 
-        document.getElementById("seomatic-metrics-content-inner").innerHTML='<object id="iFrame1" type="text/html" data="' + dataUrl + '" ></object>';
-        var iFrame = document.getElementById( 'iFrame1' );
-     resizeIFrameToFitContent( iFrame );
+        document.getElementById("seomatic-metrics-content-inner").innerHTML='<iframe id="iFrame1" class="seomatic-metrics-iframe" src="' + dataUrl + '" ></iframe>';
+        $('#iFrame1').load(function(){
+            var iFrame = document.getElementById( 'iFrame1' );
+            resizeIFrameToFitContent(iFrame);
+        });
    }
 
 function resizeIFrameToFitContent( iFrame ) {
-
     iFrame.width  = iFrame.contentWindow.document.body.scrollWidth;
     iFrame.height = iFrame.contentWindow.document.body.scrollHeight;
 }
 
-window.addEventListener('DOMContentReady', function(e) {
-
+$( window ).resize(function() {
     var iFrame = document.getElementById( 'iFrame1' );
-    resizeIFrameToFitContent( iFrame );
-} );
+    resizeIFrameToFitContent(iFrame);
+});
+
 {% endset %}
 {% includeJs js %}
