@@ -118,12 +118,12 @@ class SeomaticController extends BaseController
                 }
 
                 $metaTwitterTag = "";
-                $elem = $dom->find('meta[name=twitter:card]', 0);
+                $elem = $dom->find('meta[name=twitter:card],meta[property=twitter:card]', 0);
                 if ($elem)
                     $metaTwitterTag = html_entity_decode($elem->content);
 
                 $metaOpenGraphTag = "";
-                $elem = $dom->find('meta[property=og:type]', 0);
+                $elem = $dom->find('meta[property=og:type],meta[property=og:url]', 0);
                 if ($elem)
                     $metaOpenGraphTag = html_entity_decode($elem->content);
 
