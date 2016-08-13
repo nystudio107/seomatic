@@ -109,7 +109,19 @@
                     <td class="text-left">{% if hasSitemap %}A <code>sitemap</code> was detected.  Search engine web crawlers like Googlebot read this file to more intelligently crawl your site.{% else %}A <code>sitemap</code> was not detected.  Search engine web crawlers like Googlebot read this file to more intelligently crawl your site.{% endif %}  <a href="http://www.sitemaps.org/protocol.html" target="_blank">Learn More</a></td>
                 </tr>
 
-               <tr>
+                {% if validatorStatus |length %}
+                    <tr>
+                        <td class="text-center">{% if validatorStatus == "Valid" %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                        <td class="text-left">WC3 HTML Validator status: {{ validatorStatus}}.  Results: {{ validatorErrors }} errors, {{ validatorWarnings }} warnings.  In addition to being important to ensure that your webpage displays properly, HTML validity can also affect web crawler's ability to parse and index your pages.  <a href="{{ validatorUrl }}" target="_blank">Learn More</a></td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td class="text-center"><span class="attentionscore">{{ attentionmark |raw }}</span></td>
+                        <td class="text-left">Unable to determine WC3 HTML validity.  Is this a publicly accessible URL?</td>
+                    </tr>
+                {% endif %}
+
+                <tr>
                     <td class="text-center">{% if titleLength >= 40 and titleLength <= 70 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                     <td class="text-left">The title tag <code>{{ titleTag }}</code> {% if titleLength < 40 %}may be too short; make sure it is descriptive, and unique on a per-page basis.{% elseif titleLength >70 %}may be too long, it will be truncated when displayed by search engines.  Make sure it is unique on a per-page basis{% else %}is a good length; make sure it is unique on a per-page basis{% endif %}.  <a href="https://support.google.com/webmasters/answer/35624?hl=en" target="_blank">Learn More</a></td>
                 </tr>

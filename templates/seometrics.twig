@@ -34,6 +34,12 @@
 
 <style>
 
+div.seometrics-spinner-wrapper {
+    margin: 0 auto;
+    padding: 50px;
+    display: block;
+}
+
 div#fields-seomatic-metrics-content,
 div#seomatic-metrics-content {
     padding: 0px;
@@ -151,6 +157,10 @@ div.seomatic-metrics-header:after {
                                     <label class="seomatic-metrics-label">Focus Keywords:</label><input id="seomatic-metrics-keywords" type="text" class="seomatic-metrics-input" placeholder="comma separated keywords"> <a id="seomatic-metrics-analyze" class="seomatic-metrics-button" href="#" onclick="load_metrics()">Analyze</a>
                                 </div>
 						    </div>
+                            <div id="seometrics-spinner">
+                                <div class="spinner big seometrics-spinner-wrapper">
+                                </div>
+                            </div>
 						    <div id="seomatic-metrics-content-inner">
 						    </div>
 						</div>
@@ -190,9 +200,11 @@ document.getElementById("seomatic-metrics-url")
         var dataUrl = Craft.getActionUrl('seomatic/renderMetrics', {url: whichUrl, keywords: whichKeywords});
 
         document.getElementById("seomatic-metrics-content-inner").innerHTML='<iframe id="iFrame1" class="seomatic-metrics-iframe" src="' + dataUrl + '" ></iframe>';
+        $('#seometrics-spinner').show();
         $('#iFrame1').load(function(){
             var iFrame = document.getElementById( 'iFrame1' );
             resizeIFrameToFitContent(iFrame);
+            $('#seometrics-spinner').hide();
         });
    }
 

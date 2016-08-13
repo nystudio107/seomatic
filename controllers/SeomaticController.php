@@ -97,6 +97,46 @@ class SeomaticController extends BaseController
                     $hasSitemap = true;
                 curl_close($ch);
 
+/* -- Check to see if the page is valid */
+
+                $validatorUrl = "https://validator.w3.org/check?uri=" . urlencode($url) . "&output=json";
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_HEADER, false);
+                curl_setopt($ch, CURLOPT_URL, $validatorUrl);
+                $validatorResult = curl_exec($ch);
+                curl_close($ch);
+
+                $validatorStatus = $validatorErrors = $validatorWarnings = "";
+                if ($validatorResult)
+                {
+                    $searchStr = "X-W3C-Validator-Status: ";
+                    $pos = strpos($validatorResult, $searchStr);
+                    if ($pos !== false)
+                    {
+                        $pos += strlen($searchStr);
+                        $validatorStatus = substr($validatorResult, $pos, ( strpos($validatorResult, PHP_EOL, $pos) ) - $pos);
+                    }
+
+                    $searchStr = "X-W3C-Validator-Errors: ";
+                    $pos = strpos($validatorResult, $searchStr);
+                    if ($pos !== false)
+                    {
+                        $pos += strlen($searchStr);
+                        $validatorErrors = substr($validatorResult, $pos, ( strpos($validatorResult, PHP_EOL, $pos) ) - $pos);
+                    }
+
+                    $searchStr = "X-W3C-Validator-Warnings: ";
+                    $pos = strpos($validatorResult, $searchStr);
+                    if ($pos !== false)
+                    {
+                        $pos += strlen($searchStr);
+                        $validatorWarnings = substr($validatorResult, $pos, ( strpos($validatorResult, PHP_EOL, $pos) ) - $pos);
+                    }
+                }
+                $validatorUrl = "https://validator.w3.org/check?uri=" . urlencode($url);
+
 /* -- Scrape for JSON-LD before we remove the <script> tags */
 
                 $jsonLdTypes = array();
@@ -231,6 +271,10 @@ class SeomaticController extends BaseController
                     'hasRobotsTxt' => $hasRobotsTxt,
                     'hasSitemap' => $hasSitemap,
                     'emptyImageAlts' => $emptyImageAlts,
+                    'validatorUrl' => $validatorUrl,
+                    'validatorStatus' => $validatorStatus,
+                    'validatorErrors' => $validatorErrors,
+                    'validatorWarnings' => $validatorWarnings,
                     'h1Tags' => $h1Tags,
                     'h2Tags' => $h2Tags,
                     'h3Tags' => $h3Tags,
