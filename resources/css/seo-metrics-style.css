@@ -2,6 +2,11 @@ body.seo-metrics {
     background-color: #FFF;
 }
 
+div.score-display {
+    padding-top: 10px;
+    padding-left: 30px;
+}
+
 span.goodscore {
     color: green;
 }

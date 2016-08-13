@@ -15,7 +15,12 @@
     <div class="seomatic-metrics-wrapper">
     <h1>SEOmetrics</h1>
 
+{# -- Focus Keywords section #}
+
+
     {% for keyword,keywordStats in keywords %}
+        {% set totalStats = 0 %}
+        {% set totalPassed = 0 %}
         {% if keyword |length %}
             <div class="tableview seo-metrics-section">
                 <table id="textual" class="data fullwidth">
@@ -26,43 +31,71 @@
                     <tbody>
 
                         <tr>
-                            <td class="text-center">{% if keywordStats.appearsInTitleTag >= 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                            {% set totalStats = totalStats + 1 %}
+                            <td class="text-center">{% if keywordStats.appearsInTitleTag >= 1 %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                             <td class="text-left">The focus keyword <code>{{ keyword }}</code> {% if keywordStats.appearsInTitleTag >= 1 %} appears in the <code>&lt;title&gt;</code> tag.{% else %}does not appear in the <code>&lt;title&gt;</code> tag.  Adding it to the <code>&lt;title&gt;</code> tag can influence search engines in ranking the page for this keyword.{% endif %}</td>
                         </tr>
 
                         <tr>
-                            <td class="text-center">{% if keywordStats.appearsInUrl >= 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                            {% set totalStats = totalStats + 1 %}
+                            <td class="text-center">{% if keywordStats.appearsInUrl >= 1 %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                             <td class="text-left">The focus keyword <code>{{ keyword }}</code> {% if keywordStats.appearsInUrl >= 1 %} appears in the <code>URL</code>.{% else %}does not appear in the <code>URL</code>.  Adding it to the URL can influence search engines in ranking the page for this keyword.{% endif %}</td>
                         </tr>
 
                         <tr>
-                            <td class="text-center">{% if keywordStats.appearsInMetaDescriptionTag >= 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                            {% set totalStats = totalStats + 1 %}
+                            <td class="text-center">{% if keywordStats.appearsInMetaDescriptionTag >= 1 %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                             <td class="text-left">The focus keyword <code>{{ keyword }}</code> {% if keywordStats.appearsInMetaDescriptionTag >= 1 %} appears in the meta description tag.{% else %}does not appear in the meta description tag.  Adding it to the meta description can influence search engines in ranking the page for this keyword.{% endif %}</td>
                         </tr>
 
                         <tr>
-                            <td class="text-center">{% if keywordStats.appearsInH1Tag >= 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                            {% set totalStats = totalStats + 1 %}
+                            <td class="text-center">{% if keywordStats.appearsInH1Tag >= 1 %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                             <td class="text-left">The focus keyword <code>{{ keyword }}</code> appears in <code>&lt;H1&gt;</code> or <code>&lt;H2&gt;</code> tags {{ keywordStats.appearsInH1Tag}} time{% if keywordStats.appearsInH1Tag != 1 %}s{% endif %}.  {% if keywordStats.appearsInH1Tag >= 1 %}{% else %} Having it appear in <code>&lt;H1&gt;</code> or <code>&lt;H2&gt;</code> tags can influence search engines in ranking the page for this keyword.{% endif %}</td>
                         </tr>
 
                         <tr>
-                            <td class="text-center">{% if keywordStats.appearsInAhrefTag == 0 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                            {% set totalStats = totalStats + 1 %}
+                            <td class="text-center">{% if keywordStats.appearsInAhrefTag == 0 %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                             <td class="text-left">The focus keyword <code>{{ keyword }}</code> {% if keywordStats.appearsInAhrefTag == 0 %}does not appear in a link to another page; this is good.{% else %}appears in a link to another page; this can dilute the effectiveness of your keyword to search engines.{% endif %}</td>
                         </tr>
 
                         <tr>
-                            <td class="text-center">{% if keywordStats.appearsInImgTag >= 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                            {% set totalStats = totalStats + 1 %}
+                            <td class="text-center">{% if keywordStats.appearsInImgTag >= 1 %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                             <td class="text-left">The focus keyword <code>{{ keyword }}</code> appears in <code>&lt;IMG ALT=""&gt;</code> attributes {{ keywordStats.appearsInImgTag}} time{% if keywordStats.appearsInImgTag != 1 %}s{% endif %}.  {% if keywordStats.appearsInImgTag >= 1 %}{% else %} Having it appear in <code>&lt;IMG ALT=""&gt;</code> attributes can influence search engines in ranking the page for this keyword.{% endif %}</td>
                         </tr>
 
                         <tr>
-                            <td class="text-center">{% if keywordStats.appearsInPageKeywords >= 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                            {% set totalStats = totalStats + 1 %}
+                            <td class="text-center">{% if keywordStats.appearsInPageKeywords >= 1 %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                             <td class="text-left">The focus keyword <code>{{ keyword }}</code> {% if keywordStats.appearsInPageKeywords >= 1 %} appears in the mostly highly ranked keywords extracted from the page.{% else %}does not appear in the mostly highly ranked keywords extracted from the page.{% endif %}</td>
                         </tr>
 
                         <tr>
-                            <td class="text-center">{% if keywordStats.appearsOnWebPage >= 3 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                            {% set totalStats = totalStats + 1 %}
+                            <td class="text-center">{% if keywordStats.appearsOnWebPage >= 3 %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                             <td class="text-left">The focus keyword <code>{{ keyword }}</code> appears on the page {{ keywordStats.appearsOnWebPage}} time{% if keywordStats.appearsOnWebPage != 1 %}s{% endif %}.  {% if keywordStats.appearsOnWebPage >= 3 %}{% else %} Having it appear more times can influence search engines in ranking the page for this keyword.{% endif %}</td>
+                        </tr>
+
+{# -- The score tally -- #}
+                        <tr>
+                            <td>
+                            {% set scorePercentile = ((totalPassed / totalStats) * 100) |number_format(0) %}
+                            {% if scorePercentile < 60 %}
+                                {% set scoreClass = "badscore" %}
+                                <span class="{{ scoreClass }}">{{ checkmark |raw }}</span>
+                            {% elseif scorePercentile < 80 %}
+                                {% set scoreClass = "attentionscore" %}
+                                <span class="{{ scoreClass }}">{{ attentionmark |raw }}</span>
+                            {% else %}
+                                {% set scoreClass = "goodscore" %}
+                                <span class="{{ scoreClass }}">{{ checkmark |raw }}</span>
+                            {% endif %}
+                            </td>
+                            <td>
+                            <h2><span style="color: #333">Score: </span><span class="{{ scoreClass }}">{{ scorePercentile }}%</span></h2>
+                            </td>
                         </tr>
 
                     </tbody>
@@ -70,6 +103,11 @@
             </div>
         {% endif %}
     {% endfor%}
+
+{# -- SEO Metrics section #}
+
+    {% set totalStats = 0 %}
+    {% set totalPassed = 0 %}
 
     <div class="tableview seo-metrics-section">
         <table id="seo" class="data fullwidth">
@@ -80,74 +118,87 @@
             <tbody>
 
                 <tr>
-                    <td class="text-center">{% if jsonLdTypes |length %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    {% set totalStats = totalStats + 1 %}
+                    <td class="text-center">{% if jsonLdTypes |length %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                     <td class="text-left">{% if jsonLdTypes |length %} The following JSON-LD structured data was found on the page: <code>{% for jsonLdType in jsonLdTypes%}{% if loop.last%}&amp; {% endif %}{{ jsonLdType }}{% if not loop.last%}, {% endif %}{% endfor %}</code>, which is used by search engines to better understand the contents of your page.  The JSON-LD structured data also has the potential to be added to the Google Knowledge Graph, or be used in Google Rich Cards.{% else %}This page does not include any JSON-LD structured data.  This leaves search engines to guess at what the page is about.  Modern SEO practice should include having structured data on your web pages.{% endif %}  <a href="https://developers.google.com/search/docs/guides/intro-structured-data" target="_blank">Learn More</a></td>
                 </tr>
 
                 <tr>
-                    <td class="text-center">{% if metaOpenGraphTag |length %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    {% set totalStats = totalStats + 1 %}
+                    <td class="text-center">{% if metaOpenGraphTag |length %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                     <td class="text-left">{% if metaOpenGraphTag |length %} Great, this page includes Facebook OpenGraph meta tags of the type <code>{{ metaOpenGraphTag }}</code>, which will be used by Facebook when the URL is shared on Facebook.{% else %}This page does not include Facebook OpenGraph meta tags, they should be used so you can control what is displayed when the URL is shared on Facebook.{% endif %}  <a href="https://developers.facebook.com/docs/sharing/opengraph" target="_blank">Learn More</a></td>
                 </tr>
 
                 <tr>
-                    <td class="text-center">{% if metaTwitterTag |length %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    {% set totalStats = totalStats + 1 %}
+                    <td class="text-center">{% if metaTwitterTag |length %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                     <td class="text-left">{% if metaTwitterTag |length %} Great, this page includes Twitter Card meta tags of the type <code>{{ metaTwitterTag }}</code>, which will be attached to Tweets that include this URL.{% else %}This page does not include Twitter Card meta tags, so your content will not be displayed when this link is tweeted.  Configure your Twitter handle in the SEOmatic Social tab.{% endif %}  <a href="https://dev.twitter.com/cards/overview" target="_blank">Learn More</a></td>
                 </tr>
 
                 <tr>
-                    <td class="text-center">{% if hasRelPublisherTag %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    {% set totalStats = totalStats + 1 %}
+                    <td class="text-center">{% if hasRelPublisherTag %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                     <td class="text-left"><code>link rel="publisher"</code> {% if hasRelPublisherTag %}was detected.  {% else %} was not detected.  {% endif %}This tag is very important, because it affects whether your brand will be shown in Google SERP results.  <a href="https://www.woorank.com/en/blog/how-to-implement-rel-publisher-tag" target="_blank">Learn More</a></td>
                 </tr>
 
                 <tr>
-                    <td class="text-center">{% if hasRobotsTxt %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    {% set totalStats = totalStats + 1 %}
+                    <td class="text-center">{% if hasRobotsTxt %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                     <td class="text-left">{% if hasRobotsTxt %}A <code>robots.txt</code> file was detected.  <code>robots.txt</code> is a text file that instructs robots (typically search engine robots) how to crawl and index pages on the website.{% else %}A <code>robots.txt</code> file was not detected.  <code>robots.txt</code> is a text file that instructs robots (typically search engine robots) how to crawl and index pages on the website.{% endif %}  <a href="http://www.robotstxt.org/robotstxt.html" target="_blank">Learn More</a></td>
                 </tr>
 
                 <tr>
-                    <td class="text-center">{% if hasSitemap %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    {% set totalStats = totalStats + 1 %}
+                    <td class="text-center">{% if hasSitemap %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                     <td class="text-left">{% if hasSitemap %}A <code>sitemap</code> was detected.  Search engine web crawlers like Googlebot read this file to more intelligently crawl your site.{% else %}A <code>sitemap</code> was not detected.  Search engine web crawlers like Googlebot read this file to more intelligently crawl your site.{% endif %}  <a href="http://www.sitemaps.org/protocol.html" target="_blank">Learn More</a></td>
                 </tr>
 
                 {% if validatorStatus |length %}
                     <tr>
-                        <td class="text-center">{% if validatorStatus == "Valid" %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                        {% set totalStats = totalStats + 1 %}
+                        <td class="text-center">{% if validatorStatus == "Valid" %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                         <td class="text-left">WC3 HTML Validator status: {{ validatorStatus}}.  Results: {{ validatorErrors }} errors, {{ validatorWarnings }} warnings.  In addition to being important to ensure that your webpage displays properly, HTML validity can also affect web crawler's ability to parse and index your pages.  <a href="{{ validatorUrl }}" target="_blank">Learn More</a></td>
                     </tr>
                 {% else %}
                     <tr>
                         <td class="text-center"><span class="attentionscore">{{ attentionmark |raw }}</span></td>
-                        <td class="text-left">Unable to determine WC3 HTML validity.  Is this a publicly accessible URL?</td>
+                        <td class="text-left">Unable to determine WC3 HTML validity.  Is this a valid, publicly accessible URL?</td>
                     </tr>
                 {% endif %}
 
                 <tr>
-                    <td class="text-center">{% if titleLength >= 40 and titleLength <= 70 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    {% set totalStats = totalStats + 1 %}
+                    <td class="text-center">{% if titleLength >= 40 and titleLength <= 70 %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                     <td class="text-left">The title tag <code>{{ titleTag }}</code> {% if titleLength < 40 %}may be too short; make sure it is descriptive, and unique on a per-page basis.{% elseif titleLength >70 %}may be too long, it will be truncated when displayed by search engines.  Make sure it is unique on a per-page basis{% else %}is a good length; make sure it is unique on a per-page basis{% endif %}.  <a href="https://support.google.com/webmasters/answer/35624?hl=en" target="_blank">Learn More</a></td>
                 </tr>
 
                 <tr>
-                    <td class="text-center">{% if metaDescriptionLength >= 70 and metaDescriptionLength <= 160 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    {% set totalStats = totalStats + 1 %}
+                    <td class="text-center">{% if metaDescriptionLength >= 70 and metaDescriptionLength <= 160 %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                     <td class="text-left">The meta description tag is {{ metaDescriptionLength }} characters long.  {% if metaDescriptionLength < 70 %}This may be too short; make sure it is descriptive, contains your most important keywords, and is unique on a per-page basis.{% elseif metaDescriptionLength > 160 %} This may be too long, it will be truncated when being digested by search engines, or be considered "spammy" and be ignored.  Make sure it is descriptive, contains your most important keywords, and is unique on a per-page basis.{% else %}This is a good length; make sure it is descriptive, contains your most important keywords, and is unique on a per-page basis.{% endif %} <a href="http://blog.woorank.com/2013/03/the-importance-of-meta-descriptions/" target="_blank">Learn More</a></td>
                 </tr>
 
                 <tr>
-                    <td class="text-center">{% if h1Tags == 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    {% set totalStats = totalStats + 1 %}
+                    <td class="text-center">{% if h1Tags == 1 %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                     <td class="text-left">{% if h1Tags == 1 %}There is 1 <code>&lt;H1&gt;</code> tag on the page; make sure it describes the content effectively{% else %}There are {{ h1Tags }} <code>&lt;H1&gt;</code> tags on the page; there should be one and only one <code>&lt;H1&gt;</code> tag, which describes the content effectively.{% endif %}  <a href="https://www.woorank.com/en/edu/seo-guides/html-header" target="_blank">Learn More</a></td>
                 </tr>
 
                 <tr>
-                    <td class="text-center">{% if effectiveHTags %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    {% set totalStats = totalStats + 1 %}
+                    <td class="text-center">{% if effectiveHTags %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                     <td class="text-left">{% if effectiveHTags %}Heading tags are being used to effectively structure content on the page: {% else %}Heading tags are not being used to effectively structure content on the page.  Make sure that there are no gaps in the heading hierarchy, and that headings are used appropriately:{% endif %} {{ h1Tags }} <code>&lt;H1&gt;</code>, {{ h2Tags }} <code>&lt;H2&gt;</code>, {{ h3Tags }} <code>&lt;H3&gt;</code>, {{ h4Tags }} <code>&lt;H4&gt;</code>, {{ h5Tags }} <code>&lt;H5&gt;</code>, <a href="https://www.woorank.com/en/edu/seo-guides/html-header" target="_blank">Learn More</a></td>
                 </tr>
 
                 <tr>
-                    <td class="text-center">{% if emptyImageAlts == 0 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    {% set totalStats = totalStats + 1 %}
+                    <td class="text-center">{% if emptyImageAlts == 0 %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                     <td class="text-left">{% if emptyImageAlts == 0 %}All of your <code>&lt;img&gt;</code> tags have <code>alt</code> attributes.  Make sure they describe the images well.{% else %}There are {{ emptyImageAlts }} images on the page that do not have <code>alt</code> attributes.  Search engines use <code>alt</code> attributes to help them understand the images, and they aid in accessibility as well. {% endif %}  <a href="http://blog.woorank.com/2013/01/image-alt-text-relevant-for-seo-and-usability/" target="_blank">Learn More</a></td>
                 </tr>
 
                 <tr>
-                    <td class="text-center">{% if textToHtmlRatio > 25 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    {% set totalStats = totalStats + 1 %}
+                    <td class="text-center">{% if textToHtmlRatio > 25 %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                     <td class="text-left">{% if textToHtmlRatio > 25 %}The percentage of human-readable text on this page compared to HTML is {{ round(textToHtmlRatio, 2) }}%, which is above the recommended 25%. {% else %}The percentage of human-readable text on this page compared to HTML is {{ round(textToHtmlRatio, 2) }}%, which is below the recommended 25%. {% endif %}  <a href="http://blog.woorank.com/2013/03/are-text-to-html-ratios-important/" target="_blank">Learn More</a></td>
                 </tr>
 
@@ -156,9 +207,34 @@
                     <td class="text-left">Here are the top ranked keywords in the text on your page.  Consider having some of these keywords in your <code>&lt;title&gt;</code> &amp; <code>&lt;H1&gt;</code> tags, or alter your content to reflect the keywords in your tags: <code>{{ pageKeywords }}</code></td>
                 </tr>
 
+{# -- The score tally -- #}
+                <tr>
+                    <td>
+                    {% set scorePercentile = ((totalPassed / totalStats) * 100) |number_format(0) %}
+                    {% if scorePercentile < 60 %}
+                        {% set scoreClass = "badscore" %}
+                        <span class="{{ scoreClass }}">{{ checkmark |raw }}</span>
+                    {% elseif scorePercentile < 80 %}
+                        {% set scoreClass = "attentionscore" %}
+                        <span class="{{ scoreClass }}">{{ attentionmark |raw }}</span>
+                    {% else %}
+                        {% set scoreClass = "goodscore" %}
+                        <span class="{{ scoreClass }}">{{ checkmark |raw }}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    <h2><span style="color: #333">Score: </span><span class="{{ scoreClass }}">{{ scorePercentile }}%</span></h2>
+                    </td>
+                </tr>
+
             </tbody>
         </table>
     </div>
+
+{# -- Texual Analysis section #}
+
+    {% set totalStats = 0 %}
+    {% set totalPassed = 0 %}
 
     <div class="tableview seo-metrics-section">
         <table id="textual" class="data fullwidth">
@@ -168,7 +244,8 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="text-center">{% if wordCount >= 300 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    {% set totalStats = totalStats + 1 %}
+                    <td class="text-center">{% if wordCount >= 300 %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                     <td class="text-left">The text has {{ round(wordCount) }} words which is {% if wordCount >= 300 %}above{% else %}below{% endif %} the recommended 300 words.</td>
                 </tr>
                 <tr>
@@ -177,7 +254,8 @@
                 </tr>
 
                 <tr>
-                    <td class="text-center">{% if fleschKincaidReadingEase >= 50 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    {% set totalStats = totalStats + 1 %}
+                    <td class="text-center">{% if fleschKincaidReadingEase >= 50 %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                     <td class="text-left">The text scores {{ fleschKincaidReadingEase }} on the <a href="https://en.wikipedia.org/wiki/Flesch–Kincaid_readability_tests" target="_blank">Flesch-Kincaid Reading Ease</a> score, which makes it 
                     {% if fleschKincaidReadingEase >= 90 %}very easy to read. Easily understood by an average 11-year-old student.
                     {% elseif fleschKincaidReadingEase >= 80 %}easy to read. Conversational English for consumers.
@@ -190,23 +268,47 @@
                 </tr>
 
                 <tr>
-                    <td class="text-center">{% if gunningFogScore <= 12 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    {% set totalStats = totalStats + 1 %}
+                    <td class="text-center">{% if gunningFogScore <= 12 %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                     <td class="text-left">The text is equivalent to a grade {{ round(gunningFogScore) }} reading level on the <a href="https://en.wikipedia.org/wiki/Gunning_fog_index" target="_blank">Gunning-fog index</a>.</td>
                 </tr>
 
                 <tr>
-                    <td class="text-center">{% if colemanLiauIndex <= 12 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    {% set totalStats = totalStats + 1 %}
+                    <td class="text-center">{% if colemanLiauIndex <= 12 %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                     <td class="text-left">The text is equivalent to a grade {{ round(colemanLiauIndex) }} reading level on the <a href="https://en.wikipedia.org/wiki/Coleman–Liau_index" target="_blank">Coleman–Liau index</a>.</td>
                 </tr>
 
                 <tr>
-                    <td class="text-center">{% if smogIndex <= 12 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    {% set totalStats = totalStats + 1 %}
+                    <td class="text-center">{% if smogIndex <= 12 %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                     <td class="text-left">The text is equivalent to a grade {{ round(smogIndex) }} reading level on the <a href="https://en.wikipedia.org/wiki/SMOG" target="_blank">SMOG index</a>.</td>
                 </tr>
 
                 <tr>
-                    <td class="text-center">{% if automatedReadabilityIndex <= 12 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    {% set totalStats = totalStats + 1 %}
+                    <td class="text-center">{% if automatedReadabilityIndex <= 12 %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
                     <td class="text-left">The text is equivalent to a grade {{ round(automatedReadabilityIndex) }} reading level on the <a href="https://en.wikipedia.org/wiki/Automated_readability_index" target="_blank">Automated readability index</a>.</td>
+                </tr>
+
+{# -- The score tally -- #}
+                <tr>
+                    <td>
+                    {% set scorePercentile = ((totalPassed / totalStats) * 100) |number_format(0) %}
+                    {% if scorePercentile < 60 %}
+                        {% set scoreClass = "badscore" %}
+                        <span class="{{ scoreClass }}">{{ checkmark |raw }}</span>
+                    {% elseif scorePercentile < 80 %}
+                        {% set scoreClass = "attentionscore" %}
+                        <span class="{{ scoreClass }}">{{ attentionmark |raw }}</span>
+                    {% else %}
+                        {% set scoreClass = "goodscore" %}
+                        <span class="{{ scoreClass }}">{{ checkmark |raw }}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    <h2><span style="color: #333">Score: </span><span class="{{ scoreClass }}">{{ scorePercentile }}%</span></h2>
+                    </td>
                 </tr>
 
             </tbody>
