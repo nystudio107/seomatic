@@ -180,7 +180,7 @@ class SeomaticController extends BaseController
                         $metaTwitterTag = html_entity_decode($elem->content);
 
                     $metaOpenGraphTag = "";
-                    $elem = $dom->find('meta[property=og:type],meta[property=og:url]', 0);
+                    $elem = $dom->find('meta[property=og:type],meta[property=og:url],meta[property=og:title]', 0);
                     if ($elem)
                         $metaOpenGraphTag = html_entity_decode($elem->content);
 

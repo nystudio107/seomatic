@@ -143,15 +143,15 @@ div.seomatic-metrics-header:after {
 				<div class="displaypreview-container">
 
 					<div class="preview-column">
-						<h1>{{ "SEOmetics Content Analysis" |t }}</h1>
-						<p>{{ ("SEOmetrics Content Analysis will run a variety of tests on your web page, and offer you analysis with helpful tips on how to correct any problems it finds.  For Craft Entries/Sections, you can access SEOmetrics via Live Preview by clicking on the SEOmetrics badge:") |t |raw }}</p>
+						<h1>{{ "SEOmetrics Content Analysis" |t }}</h1>
+						<p>{{ ("SEOmetrics Content Analysis will run a variety of tests on your web page, and offer you analysis with helpful tips on how to correct any problems it finds.  For Craft Entries/Sections, you can access SEOmetrics for specific pages via Live Preview by clicking on the SEOmetrics badge:") |t |raw }}</p>
                         <p><img src="{{ resourceUrl('seomatic/images/seometrics_badge.png') }}" width="auto" height="auto" /></p>
 						<p>{{ "Enter any URL below to analyze.  You can enter Focus Keyworks, comma separated, for an additional analysis of how well optimized your page is for those specific SEO keywords." |t |raw }}</p>
 
 						<div id ="seomatic-metrics-content">
 						    <div class="seomatic-metrics-header">
-                                <div style="float: left; width: 95%; padding-left: 21px;">
-                                    <label class="seomatic-metrics-label">Analyze URL:</label><input id="seomatic-metrics-url" type="text" class="seomatic-metrics-input" placeholder="https://nystudio107.com/" value="{{ urlToAnalyze }}">
+                                <div style="float: left; width: 95%; padding-left: 6px;">
+                                    <label class="seomatic-metrics-label">URL to Analyze:</label><input id="seomatic-metrics-url" type="text" class="seomatic-metrics-input" placeholder="https://nystudio107.com/" value="{{ urlToAnalyze }}">
                                 </div>
                                 <div style="float: left; width: 95%;">
                                     <label class="seomatic-metrics-label">Focus Keywords:</label><input id="seomatic-metrics-keywords" type="text" class="seomatic-metrics-input" placeholder="comma separated keywords"> <a id="seomatic-metrics-analyze" class="seomatic-metrics-button" href="#" onclick="load_metrics()">Analyze</a>
