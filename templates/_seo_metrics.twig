@@ -86,22 +86,27 @@
 
                 <tr>
                     <td class="text-center">{% if metaOpenGraphTag |length %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
-                    <td class="text-left">{% if metaOpenGraphTag |length %} Great, this page includes Facebook OpenGraph meta tags of the type <code>{{ metaOpenGraphTag }}</code>, which will be used by Facebook when the URL is shared on Facebook{% else %}This page does not include Facebook OpenGraph meta tags, they should be used so you can control what is displayed when the URL is shared on Facebook{% endif %}</td>
+                    <td class="text-left">{% if metaOpenGraphTag |length %} Great, this page includes Facebook OpenGraph meta tags of the type <code>{{ metaOpenGraphTag }}</code>, which will be used by Facebook when the URL is shared on Facebook.{% else %}This page does not include Facebook OpenGraph meta tags, they should be used so you can control what is displayed when the URL is shared on Facebook.{% endif %}  <a href="https://developers.facebook.com/docs/sharing/opengraph" target="_blank">Learn More</a></td>
                 </tr>
 
                 <tr>
                     <td class="text-center">{% if metaTwitterTag |length %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
-                    <td class="text-left">{% if metaTwitterTag |length %} Great, this page includes Twitter Card meta tags of the type <code>{{ metaTwitterTag }}</code>, which will be attached to Tweets that include this URL{% else %}This page does not include Twitter Card meta tags, so your content will not be displayed when this link is tweeted.  Configure your Twitter handle in the SEOmatic Social tab{% endif %}</td>
+                    <td class="text-left">{% if metaTwitterTag |length %} Great, this page includes Twitter Card meta tags of the type <code>{{ metaTwitterTag }}</code>, which will be attached to Tweets that include this URL.{% else %}This page does not include Twitter Card meta tags, so your content will not be displayed when this link is tweeted.  Configure your Twitter handle in the SEOmatic Social tab.{% endif %}  <a href="https://dev.twitter.com/cards/overview" target="_blank">Learn More</a></td>
+                </tr>
+
+                <tr>
+                    <td class="text-center">{% if hasRelPublisherTag %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    <td class="text-left"><code>link rel="publisher"</code> {% if hasRelPublisherTag %}was detected.  {% else %} was not detected.  {% endif %}This tag is very important, because it affects whether your brand will be shown in Google SERP results.  <a href="https://www.woorank.com/en/blog/how-to-implement-rel-publisher-tag" target="_blank">Learn More</a></td>
                 </tr>
 
                 <tr>
                     <td class="text-center">{% if hasRobotsTxt %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
-                    <td class="text-left">{% if hasRobotsTxt |length %}A <code>robots.txt</code> file was detected.  <code>robots.txt</code> is a text file that instructs robots (typically search engine robots) how to crawl and index pages on the website.{% else %}A <code>robots.txt</code> file was not detected.  <code>robots.txt</code> is a text file that instructs robots (typically search engine robots) how to crawl and index pages on the website.{% endif %}</td>
+                    <td class="text-left">{% if hasRobotsTxt %}A <code>robots.txt</code> file was detected.  <code>robots.txt</code> is a text file that instructs robots (typically search engine robots) how to crawl and index pages on the website.{% else %}A <code>robots.txt</code> file was not detected.  <code>robots.txt</code> is a text file that instructs robots (typically search engine robots) how to crawl and index pages on the website.{% endif %}  <a href="http://www.robotstxt.org/robotstxt.html" target="_blank">Learn More</a></td>
                 </tr>
 
                 <tr>
                     <td class="text-center">{% if hasSitemap %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
-                    <td class="text-left">{% if hasSitemap |length %}A <code>sitemap</code> was detected.  Search engine web crawlers like Googlebot read this file to more intelligently crawl your site.{% else %}A <code>sitemap</code> was not detected.  Search engine web crawlers like Googlebot read this file to more intelligently crawl your site.{% endif %}</td>
+                    <td class="text-left">{% if hasSitemap %}A <code>sitemap</code> was detected.  Search engine web crawlers like Googlebot read this file to more intelligently crawl your site.{% else %}A <code>sitemap</code> was not detected.  Search engine web crawlers like Googlebot read this file to more intelligently crawl your site.{% endif %}  <a href="http://www.sitemaps.org/protocol.html" target="_blank">Learn More</a></td>
                 </tr>
 
                <tr>

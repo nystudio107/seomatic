@@ -5,8 +5,6 @@
 
 {% set title = craft.seomatic.getPluginName() %}
 
-{% set fullPageForm = true %}
-
 {% set docsUrl = "https://github.com/nystudio107/seomatic/wiki" %}
 
 {% set seomaticSections = {
@@ -176,6 +174,14 @@ document.getElementById("seomatic-metrics-keywords")
         document.getElementById("seomatic-metrics-analyze").click();
     }
 });
+document.getElementById("seomatic-metrics-url")
+    .addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode == 13) {
+        document.getElementById("seomatic-metrics-analyze").click();
+    }
+});
+
     function load_metrics()
     {
         var floaterDiv = document.getElementById('seomatic-metrics-content');

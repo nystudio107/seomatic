@@ -39,6 +39,17 @@ class SeomaticController extends BaseController
     /* -- Render the SEOmatic display preview template */
 
             $url = urldecode(craft()->request->getParam('url'));
+            $urlParts = parse_url($url);
+
+            if (isset($urlParts['scheme']))
+                $rootUrl = $urlParts['scheme'] . "://" . $urlParts['host'];
+            else
+                $rootUrl = "http" . "://" . $urlParts['host'];
+            if (isset($urlParts['port']))
+                $rootUrl .= $urlParts['port'] . "/";
+            else
+                $rootUrl .= "/";
+
             $keywordsParam = urldecode(craft()->request->getParam('keywords'));
             $keywordsKeys = explode(",", $keywordsParam);
             $keywords = array();
@@ -54,7 +65,9 @@ class SeomaticController extends BaseController
 
                 $hasRobotsTxt = false;
                 $hasSitemap = false;
-                $robotsUrl = rtrim(craft()->getSiteUrl(), '/') . "/robots.txt";
+                $sitemapUrl = rtrim($rootUrl, '/') . "/sitemap.xml";
+
+                $robotsUrl = rtrim($rootUrl, '/') . "/robots.txt";
                 $robots = @file_get_contents($robotsUrl, false, $context);
                 if ($robots !== false)
                 {
@@ -69,17 +82,20 @@ class SeomaticController extends BaseController
                             $sitemapUrl = $sitemapParts[1];
                             $sitemapUrl = trim($sitemapUrl);
 
-                            $ch = curl_init($sitemapUrl);
-
-                            curl_setopt($ch, CURLOPT_NOBODY, true);
-                            curl_exec($ch);
-                            $retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-                            if (($retcode == 200) || ($retcode == 301) || ($retcode == 302))
-                                $hasSitemap = true;
-                            curl_close($ch);
                         }
                     }
                 }
+
+/* -- Check to see if a sitemap exists */
+
+                $ch = curl_init($sitemapUrl);
+
+                curl_setopt($ch, CURLOPT_NOBODY, true);
+                curl_exec($ch);
+                $retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                if (($retcode == 200) || ($retcode == 301) || ($retcode == 302))
+                    $hasSitemap = true;
+                curl_close($ch);
 
 /* -- Scrape for JSON-LD before we remove the <script> tags */
 
@@ -126,6 +142,11 @@ class SeomaticController extends BaseController
                 $elem = $dom->find('meta[property=og:type],meta[property=og:url]', 0);
                 if ($elem)
                     $metaOpenGraphTag = html_entity_decode($elem->content);
+
+                $hasRelPublisherTag = false;
+                $elem = $dom->find('link[rel=publisher]', 0);
+                if ($elem)
+                    $hasRelPublisherTag = true;
 
                 $emptyImageAlts = count($dom->find('img[!alt]'));
 
@@ -205,6 +226,7 @@ class SeomaticController extends BaseController
                     'metaDescriptionLength' => $metaDescriptionLength,
                     'metaTwitterTag' => $metaTwitterTag,
                     'metaOpenGraphTag' => $metaOpenGraphTag,
+                    'hasRelPublisherTag' => $hasRelPublisherTag,
                     'jsonLdTypes' => $jsonLdTypes,
                     'hasRobotsTxt' => $hasRobotsTxt,
                     'hasSitemap' => $hasSitemap,

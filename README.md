@@ -64,6 +64,8 @@ Some things to do, and ideas for potential features:
 * [Added] Added Vimeo Handle to Social Media settings
 * [Added] Added a 'globalMetaOverride' setting to config.php
 * [Fixed] The mainEntityOfPage is no longer improperly cached if being called by getJsonLd()
+* [Improved] SEOmetrics now looks for link rel='publisher'
+* [Improved] Refined SEOmetrics a bit, and added more 'Learn More' links
 * [Improved] Updated the README.md
 
 ### 1.1.30 -- 2016.08.05
