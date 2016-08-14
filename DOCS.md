@@ -630,6 +630,18 @@ Or if you want to set just one variable in the array, you can use the Twig funct
 
     {% set seomaticMeta = seomaticMeta | merge({'seoDescription': entry.summary }) %}
 
+Here's an example of how to change just the `image` in Twitter:
+
+	{% set twitter = seomaticMeta.twitter %}
+	{% set twitter = twitter | merge({'image': someiImage}) %}
+	{% set seomaticMeta = seomaticMeta | merge({'twitter': twitter}) %}
+
+...and here's an example of how to change just the `image` in OpenGraph:
+
+	{% set og = seomaticMeta.og %}
+	{% set og = og | merge({'image': someiImage}) %}
+	{% set seomaticMeta = seomaticMeta | merge({'og': og}) %}
+
 You can change these `seomaticMeta` variables in your templates that `extends` your main `layout.twig` template, and due to the Twig rendering order, when `{% hook 'seomaticRender' %}` is called, they'll be populated in your rendered SEO Meta tags.
 
 Some of the `seomaticMeta` variables have character limitations on them, because search engines want to see only the most relevant, succinct information, and will truncate them during processing:
