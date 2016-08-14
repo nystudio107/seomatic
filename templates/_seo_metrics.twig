@@ -163,7 +163,7 @@
                 {% else %}
                     <tr>
                         <td class="text-center"><span class="attentionscore">{{ attentionmark |raw }}</span></td>
-                        <td class="text-left">Unable to determine Google Pagespeed Insights score.  Is this a valid, publicly accessible URL?</td>
+                        <td class="text-left">Unable to determine Google Pagespeed Insights score.  Is this a valid, publicly accessible URL?  <a href="{{ pagespeedDesktopUrl }}" target="_blank">Learn More</a></td>
                     </tr>
                 {% endif %}
 
@@ -176,7 +176,7 @@
                 {% else %}
                     <tr>
                         <td class="text-center"><span class="attentionscore">{{ attentionmark |raw }}</span></td>
-                        <td class="text-left">Unable to determine Google Mobile Usability score.  Is this a valid, publicly accessible URL?</td>
+                        <td class="text-left">Unable to determine Google Mobile Usability score.  Is this a valid, publicly accessible URL?  <a href="{{ pagespeedMobileUrl }}" target="_blank">Learn More</a></td>
                     </tr>
                 {% endif %}
 
@@ -189,7 +189,7 @@
                 {% else %}
                     <tr>
                         <td class="text-center"><span class="attentionscore">{{ attentionmark |raw }}</span></td>
-                        <td class="text-left">Unable to determine WC3 HTML validity.  Is this a valid, publicly accessible URL?</td>
+                        <td class="text-left">Unable to determine WC3 HTML validity.  Is this a valid, publicly accessible URL?  <a href="{{ validatorUrl }}" target="_blank">Learn More</a></td>
                     </tr>
                 {% endif %}
 

@@ -93,6 +93,7 @@ class SeomaticController extends BaseController
                     $ch = curl_init($sitemapUrl);
 
                     curl_setopt($ch, CURLOPT_NOBODY, true);
+                    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
                     curl_exec($ch);
                     $retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
                     if (($retcode == 200) || ($retcode == 301) || ($retcode == 302))
