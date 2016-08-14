@@ -366,11 +366,23 @@ In addition, you can do:
 
 	{{ newsJsonLD | renderJSONLD }}
 
-## SEOmetrics during Live Preview
+## SEOmetrics Content Analysis
+
+The SEOmetrics feature in SEOmatic allows you to analyze your pages to measure the effectiveness of the SEO on them.  It can be accessed in two different places, either analyzing arbitrary URLs via the Admin CP, or analyzing specific Entries/Sections via Live Preview.
+
+### SEOmetrics in the Admin CP
+
+SEOmetrics Content Analysis will run a variety of tests on your web page, and offer you analysis with helpful tips on how to correct any problems it finds.  For each test, there is a `Learn More` link that will offer details on the thing being tested.
+
+You can enter any arbitrary URL in the **URL to Analyze** field, even URLs to external websites, should you wish to.
+
+You can enter **Focus Keyworks**, comma separated, for an additional analysis of how well optimized your page is for those specific SEO keywords.
+
+### SEOmetrics during Live Preview
 
 ![Screenshot](resources/screenshots/seomatic05.png)
 
-During Live Preview, a small SEOmatic icon is displayed in the lower-left corner of the Live Preview screen.  If you click on it, it will run a variety of tests on your web page, and offer you analysis with helpful tips on how to correct the problem.
+During Live Preview, a small SEOmatic icon is displayed in the lower-left corner of the Live Preview screen.  If you click on it, it will run a variety of tests on your web page, and offer you analysis with helpful tips on how to correct any problems it finds.
 
 You can enter **Focus Keyworks**, comma separated, for an additional analysis of how well optimized your page is for those specific SEO keywords.
 
