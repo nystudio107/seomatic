@@ -138,6 +138,57 @@ class SeomaticController extends BaseController
                     }
                     $validatorUrl = "https://validator.w3.org/check?uri=" . urlencode($url);
 
+    /* -- Check Google Pagespeed insights for desktop */
+
+                    $pagespeedDesktopScore = "";
+                    $pagespeedDesktopUrl = "https://www.googleapis.com/pagespeedonline/v2/runPagespeed?url=" . urlencode($url) . "&strategy=desktop";
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($ch, CURLOPT_URL, $pagespeedDesktopUrl);
+                    $pagespeedDesktopResult = curl_exec($ch);
+                    curl_close($ch);
+                    if ($pagespeedDesktopResult)
+                    {
+                        $pagespeedJson = json_decode($pagespeedDesktopResult, true);
+                        if ($pagespeedJson)
+                        {
+                            if (isset($pagespeedJson['responseCode']) && ($pagespeedJson['responseCode'] == "200" || $pagespeedJson['responseCode'] == "301" || $pagespeedJson['responseCode'] == "302"))
+                            {
+                                if (isset($pagespeedJson['ruleGroups']['SPEED']['score']))
+                                    $pagespeedDesktopScore = intval($pagespeedJson['ruleGroups']['SPEED']['score']);
+                            }
+                        }
+                    }
+                    $pagespeedDesktopUrl = "https://developers.google.com/speed/pagespeed/insights/?url=" . urlencode($url) . "&tab=desktop";
+
+    /* -- Check Google Pagespeed insights for desktop */
+
+                    $pagespeedMobileScore = "";
+                    $pagespeedMobileUsability = "";
+                    $pagespeedMobileUrl = "https://www.googleapis.com/pagespeedonline/v2/runPagespeed?url=" . urlencode($url) . "&strategy=mobile";
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($ch, CURLOPT_URL, $pagespeedMobileUrl);
+                    $pagespeedMobileResult = curl_exec($ch);
+                    curl_close($ch);
+                    if ($pagespeedMobileResult)
+                    {
+                        $pagespeedJson = json_decode($pagespeedMobileResult, true);
+                        if ($pagespeedJson)
+                        {
+                            if (isset($pagespeedJson['responseCode']) && ($pagespeedJson['responseCode'] == "200" || $pagespeedJson['responseCode'] == "301" || $pagespeedJson['responseCode'] == "302"))
+                            {
+                                if (isset($pagespeedJson['ruleGroups']['SPEED']['score']))
+                                    $pagespeedMobileScore = intval($pagespeedJson['ruleGroups']['SPEED']['score']);
+                                if (isset($pagespeedJson['ruleGroups']['USABILITY']['score']))
+                                    $pagespeedMobileUsability = intval($pagespeedJson['ruleGroups']['USABILITY']['score']);
+                            }
+                        }
+                    }
+                    $pagespeedMobileUrl = "https://developers.google.com/speed/pagespeed/insights/?url=" . urlencode($url) . "&tab=mobile";
+
     /* -- Scrape for JSON-LD before we remove the <script> tags */
 
                     $jsonLdTypes = array();
@@ -276,6 +327,11 @@ class SeomaticController extends BaseController
                         'validatorStatus' => $validatorStatus,
                         'validatorErrors' => $validatorErrors,
                         'validatorWarnings' => $validatorWarnings,
+                        'pagespeedDesktopScore' => $pagespeedDesktopScore,
+                        'pagespeedDesktopUrl' => $pagespeedDesktopUrl,
+                        'pagespeedMobileScore' => $pagespeedMobileScore,
+                        'pagespeedMobileUsability' => $pagespeedMobileUsability,
+                        'pagespeedMobileUrl' => $pagespeedMobileUrl,
                         'h1Tags' => $h1Tags,
                         'h2Tags' => $h2Tags,
                         'h3Tags' => $h3Tags,

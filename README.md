@@ -65,6 +65,7 @@ Some things to do, and ideas for potential features:
 * [Added] Added a 'globalMetaOverride' setting to config.php
 * [Added] SEOmetrics checks for HTML validity via the WC3 Validator
 * [Added] Added a Score % summary for each SEOmetrics category
+* [Added] SEOmetrics now includes Google Pagespeed Insights scores and Google Mobile Usability scores
 * [Improved] SEOmetrics now looks for link rel='publisher'
 * [Improved] Refined SEOmetrics a bit, and added more 'Learn More' links
 * [Fixed] The mainEntityOfPage is no longer improperly cached if being called by getJsonLd()

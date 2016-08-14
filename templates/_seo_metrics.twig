@@ -153,6 +153,33 @@
                     <td class="text-left">{% if hasSitemap %}A <code>sitemap</code> was detected.  Search engine web crawlers like Googlebot read this file to more intelligently crawl your site.{% else %}A <code>sitemap</code> was not detected.  Search engine web crawlers like Googlebot read this file to more intelligently crawl your site.{% endif %}  <a href="http://www.sitemaps.org/protocol.html" target="_blank">Learn More</a></td>
                 </tr>
 
+                {% if pagespeedDesktopScore |length and pagespeedMobileScore |length %}
+                    {% set averageGPSIScore = ((pagespeedDesktopScore + pagespeedMobileScore) / 2) | number_format(0) %}
+                    <tr>
+                        {% set totalStats = totalStats + 1 %}
+                        <td class="text-center">{% if averageGPSIScore >= 80 %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                        <td class="text-left">Google Pagespeed Insights score: {% if pagespeedDesktopScore >= 80 %}<span class="goodscore">{% else %}<span class="badscore">{% endif %}{{ pagespeedDesktopScore }}%</span> Desktop, {% if pagespeedMobileScore >= 80 %}<span class="goodscore">{% else %}<span class="badscore">{% endif %}{{ pagespeedMobileScore }}%</span> Mobile.  In addition to being important from a user experience point of view, your website's performance can affect its rankings on the Google search engine results page (SERP).  <a href="{{ pagespeedDesktopUrl }}" target="_blank">Learn More</a></td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td class="text-center"><span class="attentionscore">{{ attentionmark |raw }}</span></td>
+                        <td class="text-left">Unable to determine Google Pagespeed Insights score.  Is this a valid, publicly accessible URL?</td>
+                    </tr>
+                {% endif %}
+
+                {% if pagespeedMobileUsability |length %}
+                    <tr>
+                        {% set totalStats = totalStats + 1 %}
+                        <td class="text-center">{% if pagespeedMobileUsability >= 80 %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                        <td class="text-left">Google Mobile Usability score: {% if pagespeedMobileUsability >= 80 %}<span class="goodscore">{% else %}<span class="badscore">{% endif %}{{ pagespeedMobileUsability }}%</span>.  Users expect great mobile website experiences, and your website's mobile usability can affect its rankings on the Google search engine results page (SERP) for mobile searches.  <a href="{{ pagespeedMobileUrl }}" target="_blank">Learn More</a></td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td class="text-center"><span class="attentionscore">{{ attentionmark |raw }}</span></td>
+                        <td class="text-left">Unable to determine Google Mobile Usability score.  Is this a valid, publicly accessible URL?</td>
+                    </tr>
+                {% endif %}
+
                 {% if validatorStatus |length %}
                     <tr>
                         {% set totalStats = totalStats + 1 %}
