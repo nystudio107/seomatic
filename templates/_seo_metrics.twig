@@ -120,7 +120,7 @@
                 <tr>
                     {% set totalStats = totalStats + 1 %}
                     <td class="text-center">{% if jsonLdTypes |length %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
-                    <td class="text-left">{% if jsonLdTypes |length %} The following JSON-LD structured data was found on the page: <code>{% for jsonLdType in jsonLdTypes%}{% if loop.last%}&amp; {% endif %}{{ jsonLdType }}{% if not loop.last%}, {% endif %}{% endfor %}</code>, which is used by search engines to better understand the contents of your page.  The JSON-LD structured data also has the potential to be added to the Google Knowledge Graph, or be used in Google Rich Cards.{% else %}This page does not include any JSON-LD structured data.  This leaves search engines to guess at what the page is about.  Modern SEO practice should include having structured data on your web pages.{% endif %}  <a href="https://developers.google.com/search/docs/guides/intro-structured-data" target="_blank">Learn More</a></td>
+                    <td class="text-left">{% if jsonLdTypes |length %} The following JSON-LD structured data was found on the page: <code>{% for jsonLdType in jsonLdTypes%}{% if loop.last and loop.index0 != 0 %}&amp; {% endif %}{{ jsonLdType }}{% if not loop.last%}, {% endif %}{% endfor %}</code>, which is used by search engines to better understand the contents of your page.  The JSON-LD structured data also has the potential to be added to the Google Knowledge Graph, or be used in Google Rich Cards.{% else %}This page does not include any JSON-LD structured data.  This leaves search engines to guess at what the page is about.  Modern SEO practice should include having structured data on your web pages.{% endif %}  <a href="https://developers.google.com/search/docs/guides/intro-structured-data" target="_blank">Learn More</a></td>
                 </tr>
 
                 <tr>
@@ -192,6 +192,12 @@
                         <td class="text-left">Unable to determine WC3 HTML validity.  Is this a valid, publicly accessible URL?  <a href="{{ validatorUrl }}" target="_blank">Learn More</a></td>
                     </tr>
                 {% endif %}
+
+                <tr>
+                    {% set totalStats = totalStats + 1 %}
+                    <td class="text-center">{% if sslReturnCode == 200 %}{% set totalPassed = totalPassed + 1 %}<span class="goodscore">{{ checkmark |raw }}</span>{% else %}<span class="badscore">{{ xmark |raw }}</span>{% endif %}</td>
+                    <td class="text-left">{% if sslReturnCode == 200 %}This website is SSL encrypted via https.  {% else %}This website is not SSL encrypted via https; consider using <a href="https://letsencrypt.org" target="_blank">LetsEncrypt.org</a> for a free SSL certficate.  {% endif %}  In addition to securing the connection, the use of <code>https</code> can result in an improved ranking on Google's Search Engine Results Page (SERP).  <a href="https://webmasters.googleblog.com/2014/08/https-as-ranking-signal.html" target="_blank">Learn More</a></td>
+                </tr>
 
                 <tr>
                     {% set totalStats = totalStats + 1 %}

@@ -12,6 +12,8 @@
             "[Added] SEOmetrics checks for HTML validity via the WC3 Validator",
             "[Added] Added a Score % summary for each SEOmetrics category",
             "[Added] SEOmetrics now includes Google Pagespeed Insights scores and Google Mobile Usability scores",
+            "[Added] SEOmetrics checks for SSL encryption via https",
+            "[Improved] Better extraction of 'top keywords on page' in SEOmetrics",
             "[Improved] SEOmetrics now looks for link rel='publisher'",
             "[Improved] Refined SEOmetrics a bit, and added more 'Learn More' links",
             "[Fixed] The mainEntityOfPage is no longer improperly cached if being called by getJsonLd()",

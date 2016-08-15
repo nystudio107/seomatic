@@ -56,7 +56,7 @@ class SeomaticController extends BaseController
                 $keywordsKeys = explode(",", $keywordsParam);
                 $keywords = array();
     /* -- Silly work-around for what appears to be a file_get_contents bug with https -> http://stackoverflow.com/questions/10524748/why-im-getting-500-error-when-using-file-get-contents-but-works-in-a-browser */
-                $opts = array('http'=>array('header' => "User-Agent:MyAgent/1.0\r\n"));
+                $opts = array('http'=>array('header' => "User-Agent:Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13\r\n"));
                 $context = stream_context_create($opts);
                 $dom = HtmlDomParser::file_get_html($url, false, $context);
                 if ($dom)
@@ -94,10 +94,31 @@ class SeomaticController extends BaseController
 
                     curl_setopt($ch, CURLOPT_NOBODY, true);
                     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+                    curl_setopt($ch, CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
                     curl_exec($ch);
                     $retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
                     if (($retcode == 200) || ($retcode == 301) || ($retcode == 302))
                         $hasSitemap = true;
+                    curl_close($ch);
+
+/* -- See if the site is https */
+
+                    $sslReturnCode = 0;
+                    $sslUrl = "https" . "://" . $urlParts['host'];
+                    if (isset($urlParts['port']))
+                        $sslUrl .= $sslUrl['port'] . '/';
+                    else
+                        $sslUrl .= '/';
+
+                    $ch = curl_init($sslUrl);
+
+                    curl_setopt($ch, CURLOPT_NOBODY, true);
+                    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+                    curl_setopt($ch, CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
+                    curl_exec($ch);
+                    $sslReturnCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
                     curl_close($ch);
 
     /* -- Check to see if the page is valid */
@@ -105,6 +126,7 @@ class SeomaticController extends BaseController
                     $validatorUrl = "https://validator.w3.org/check?uri=" . urlencode($url) . "&output=json";
                     $ch = curl_init();
                     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                    curl_setopt($ch, CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                     curl_setopt($ch, CURLOPT_URL, $validatorUrl);
                     $validatorResult = curl_exec($ch);
@@ -145,6 +167,7 @@ class SeomaticController extends BaseController
                     $pagespeedDesktopUrl = "https://www.googleapis.com/pagespeedonline/v2/runPagespeed?url=" . urlencode($url) . "&strategy=desktop";
                     $ch = curl_init();
                     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                    curl_setopt($ch, CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                     curl_setopt($ch, CURLOPT_URL, $pagespeedDesktopUrl);
                     $pagespeedDesktopResult = curl_exec($ch);
@@ -171,6 +194,7 @@ class SeomaticController extends BaseController
                     $ch = curl_init();
                     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($ch, CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
                     curl_setopt($ch, CURLOPT_URL, $pagespeedMobileUrl);
                     $pagespeedMobileResult = curl_exec($ch);
                     curl_close($ch);
@@ -208,7 +232,7 @@ class SeomaticController extends BaseController
                     foreach($dom->find('script') as $element)
                         $element->outertext = '';
                     $strippedDom = html_entity_decode($dom->plaintext);
-                    $strippedDom = preg_replace('@[^0-9a-z\.\!]+@i', ' ', $strippedDom);
+                    $strippedDom = preg_replace('@[^0-9a-z\.\!]+@i', ', ', $strippedDom);
                     $htmlDom = html_entity_decode($dom->outertext);
                     $htmlDom = preg_replace('@[^0-9a-z\.\!]+@i', '', $htmlDom);
 
@@ -252,7 +276,7 @@ class SeomaticController extends BaseController
                     $effectiveHTags = true;
                     if ($h1Tags != 1)
                         $effectiveHTags = false;
-                    if ($totalHTags < 4)
+                    if ($totalHTags < 3)
                         $effectiveHTags = false;
                     if ($h2Tags == 0 && ($h3Tags || $h4Tags || $h5Tags))
                         $effectiveHTags = false;
@@ -333,6 +357,7 @@ class SeomaticController extends BaseController
                         'pagespeedMobileScore' => $pagespeedMobileScore,
                         'pagespeedMobileUsability' => $pagespeedMobileUsability,
                         'pagespeedMobileUrl' => $pagespeedMobileUrl,
+                        'sslReturnCode' => $sslReturnCode,
                         'h1Tags' => $h1Tags,
                         'h2Tags' => $h2Tags,
                         'h3Tags' => $h3Tags,
