@@ -2,9 +2,9 @@
     {
         "version": "1.1.31",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
-        "date": "2016-08-12T11:00:00-11:00",
+        "date": "2016-08-15T11:00:00-11:00",
         "notes": [
-            "[Added] SEOmetrics now has its own tab, and can evaluate any arbitrary URL you pasted into it",
+            "[Added] SEOmetrics now has its own tab, and can evaluate any arbitrary URL you paste into it",
             "[Added] SEOmatic can now pull images from FocusPoint FieldTypes",
             "[Added] Added 'Person' as a type for the Main Entity of Page",
             "[Added] Added Vimeo Handle to Social Media settings",
