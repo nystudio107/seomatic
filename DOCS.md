@@ -475,6 +475,10 @@ If you want to do your own custom breadcrumbs, you can set them yourself in the 
 
 	{% set seomaticMeta = seomaticMeta | merge({'breadcrumbs': myBreadcrumbs }) %}
 
+    {% if seomaticMainEntityOfPage is defined and seomaticMainEntityOfPage.type == "WebPage" %}
+        {% set seomaticMainEntityOfPage = seomaticMainEntityOfPage | merge({'breadcrumbs': myBreadcrumbs }) %}
+    {% endif %}
+
 Since this is just a Twig array, you can alter it as you see fit, and whatever changes you make will be reflected in the JSON-LD that SEOmatic renders via the `{% hook 'seomaticRender' %}`  Because of the way that Twig handles arrays, you **must** include every field in the array when doing a `set` or `merge`, otherwise the fields you exclude will not exist.
 
 You can change these `breadcrumbs` variables in your templates that `extends` your main `layout.twig` template, and due to the Twig rendering order, when `{% hook 'seomaticRender' %}` is called, they'll be populated in your rendered SEO Meta tags.
