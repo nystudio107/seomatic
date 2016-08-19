@@ -56,6 +56,12 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.32 -- 2016.08.22
+
+* [Improved] The SEOmetrics tab in the AdminCP now doesn't start analyzing until you click Analyze
+* [Improved] Improved SEOmetric's sitemap.xml detection
+* [Improved] Updated the README.md
+
 ### 1.1.31 -- 2016.08.15
 
 * [Added] SEOmetrics now has its own tab, and can evaluate any arbitrary URL you paste into it
@@ -65,7 +71,7 @@ Some things to do, and ideas for potential features:
 * [Added] Added a 'globalMetaOverride' setting to config.php
 * [Added] SEOmetrics checks for HTML validity via the WC3 Validator
 * [Added] Added a Score % summary for each SEOmetrics category
-* [Added] SEOmetrics now includes Google Pagespeed Insights scores and Google Mobile Usability 
+* [Added] SEOmetrics now includes Google Pagespeed Insights scores and Google Mobile Usability
 * [Added] SEOmetrics checks for SSL encryption via https
 * [Improved] Better extraction of 'top keywords on page' in SEOmetrics
 * [Improved] SEOmetrics now looks for link rel='publisher'

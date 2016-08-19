@@ -68,6 +68,7 @@ class SeomaticController extends BaseController
                     $hasRobotsTxt = false;
                     $hasSitemap = false;
                     $sitemapUrl = rtrim($rootUrl, '/') . "/sitemap.xml";
+                    $foundSitemapUrl = "";
 
                     $robotsUrl = rtrim($rootUrl, '/') . "/robots.txt";
                     $robots = @file_get_contents($robotsUrl, false, $context);
@@ -78,29 +79,33 @@ class SeomaticController extends BaseController
                         foreach ($lines as $line)
                         {
                             $line = ltrim($line);
-                            if (stripos($line, 'Sitemap') === 0)
-                            {
-                                $sitemapParts = explode(":", $line);
-                                $sitemapUrl = $sitemapParts[1];
-                                $sitemapUrl = trim($sitemapUrl);
 
+                            $searchStr = 'Sitemap';
+                            $pos = strpos($line, $searchStr);
+                            if ($pos !== false)
+                            {
+                                $pos += strlen($searchStr);
+                                $foundSitemapUrl = substr($line, $pos);
+                                $foundSitemapUrl = trim($sitemapUrl, ':');
+                                $foundSitemapUrl = trim($sitemapUrl);
                             }
                         }
                     }
 
     /* -- Check to see if a sitemap exists */
 
-                    $ch = curl_init($sitemapUrl);
+                    if ($foundSitemapUrl)
+                    {
+                        $siteMapContents = "";
+                        $siteMapContents = @file_get_contents($sitemapUrl, false, $context, 0, 1);
+                        if ($siteMapContents !== false)
+                            $hasSitemap = true;
+                    }
 
-                    curl_setopt($ch, CURLOPT_NOBODY, true);
-                    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-                    curl_setopt($ch, CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
-                    curl_exec($ch);
-                    $retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-                    if (($retcode == 200) || ($retcode == 301) || ($retcode == 302))
+                    $siteMapContents = "";
+                    $siteMapContents = @file_get_contents($sitemapUrl, false, $context, 0, 1);
+                    if ($siteMapContents !== false)
                         $hasSitemap = true;
-                    curl_close($ch);
 
 /* -- See if the site is https */
 

@@ -157,7 +157,7 @@ div.seomatic-metrics-header:after {
                                     <label class="seomatic-metrics-label">Focus Keywords:</label><input id="seomatic-metrics-keywords" type="text" class="seomatic-metrics-input" placeholder="comma separated keywords"> <a id="seomatic-metrics-analyze" class="seomatic-metrics-button" href="#" onclick="load_metrics()">Analyze</a>
                                 </div>
 						    </div>
-                            <div id="seometrics-spinner">
+                            <div id="seometrics-spinner" style="display: none;">
                                 <div class="spinner big seometrics-spinner-wrapper">
                                 </div>
                             </div>
@@ -175,7 +175,7 @@ div.seomatic-metrics-header:after {
 
 
 {% set js %}
-load_metrics();
+// load_metrics();
 
 document.getElementById("seomatic-metrics-keywords")
     .addEventListener("keyup", function(event) {
