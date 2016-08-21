@@ -424,9 +424,21 @@ It does this by pulling values from the `seomaticMeta` settings from the SEOmati
 
 Since this is just a Twig array, you can alter it as you see fit, and whatever changes you make will be reflected in the JSON-LD that SEOmatic renders via the `{% hook 'seomaticRender' %}`  Because of the way that Twig handles arrays, you **must** include every field in the array when doing a `set` or `merge`, otherwise the fields you exclude will not exist.
 
-Or if you want to set just one variable in the array, you can use the Twig function [merge](http://twig.sensiolabs.org/doc/filters/merge.html):
+Or if you want to set just one variable in the array, you can use the Twig function [merge](http://twig.sensiolabs.org/doc/filters/merge.html).  Because this is an _array_ of Products, you need to do something like this to add to each Product in the array:
 
-    {% set seomaticMainEntityOfPage = seomaticMainEntityOfPage | merge({'brand': entry.brandInfo }) %}
+    {% if seomaticMainEntityOfPage is defined %}
+        {% set productBrand = {
+            'type': 'thing',
+            'name': product.title
+            }
+        %}
+        {% set tempMainEntityOfPage = [] %}
+        {% for productJsonLd in seomaticMainEntityOfPage %}
+            {% set productJsonLd = productJsonLd | merge({"brand": productBrand }) %}
+            {% set tempMainEntityOfPage = tempMainEntityOfPage |merge([productJsonLd])  %}
+        {% endfor %}
+        {% set seomaticMainEntityOfPage = tempMainEntityOfPage %}
+    {% endif %}
 
 You can change these `seomaticMainEntityOfPage` variables in your templates that `extends` your main `layout.twig` template, and due to the Twig rendering order, when `{% hook 'seomaticRender' %}` is called, they'll be populated in your rendered SEO Meta tags.
 
