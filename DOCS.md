@@ -400,9 +400,9 @@ SEOmetrics during Live Preview only works if System Status is set to "on".
 
 If an SEOmatic FieldType is attached to a Craft Commerce Product, in addition to rendering the page SEO Meta, it will also generate [Product JSON-LD microdata](https://developers.google.com/structured-data/rich-snippets/products) that describes the product.
 
-It does this by pulling values from the `seomaticMeta` settings from the SEOmatic FieldType, as well as by pulling data from the Craft Commerce Product.  If you have an SEOmatic FieldType attached to a Craft Commerce Product, a new `seomaticProduct` array is injected into your page template:
+It does this by pulling values from the `seomaticMeta` settings from the SEOmatic FieldType, as well as by pulling data from the Craft Commerce Product.  If you have an SEOmatic FieldType attached to a Craft Commerce Product,  `seomaticMainEntityOfPage` array is injected into your page template:
 
-    {% set seomaticProduct = [
+    {% set seomaticMainEntityOfPage = [
         {
             type: "Product",
             name: "Romper for a Red Eye",
@@ -426,9 +426,9 @@ Since this is just a Twig array, you can alter it as you see fit, and whatever c
 
 Or if you want to set just one variable in the array, you can use the Twig function [merge](http://twig.sensiolabs.org/doc/filters/merge.html):
 
-    {% set seomaticProduct = seomaticProduct | merge({'brand': entry.brandInfo }) %}
+    {% set seomaticMainEntityOfPage = seomaticMainEntityOfPage | merge({'brand': entry.brandInfo }) %}
 
-You can change these `seomaticProduct` variables in your templates that `extends` your main `layout.twig` template, and due to the Twig rendering order, when `{% hook 'seomaticRender' %}` is called, they'll be populated in your rendered SEO Meta tags.
+You can change these `seomaticMainEntityOfPage` variables in your templates that `extends` your main `layout.twig` template, and due to the Twig rendering order, when `{% hook 'seomaticRender' %}` is called, they'll be populated in your rendered SEO Meta tags.
 
 See the section **Dynamic Twig SEO Meta** for more information on how to manipulate SEOmatic variables via Twig.
 

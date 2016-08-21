@@ -60,6 +60,7 @@ Some things to do, and ideas for potential features:
 
 * [Improved] The SEOmetrics tab in the AdminCP now doesn't start analyzing until you click Analyze
 * [Improved] Improved SEOmetric's sitemap.xml detection
+* [Improved] Updated DOCS.md to reflect the change from `seomaticProduct` to `seomaticMainEntityOfPage`
 * [Improved] Updated the README.md
 
 ### 1.1.31 -- 2016.08.15
