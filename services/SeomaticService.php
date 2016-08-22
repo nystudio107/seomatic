@@ -535,7 +535,7 @@ class SeomaticService extends BaseApplicationComponent
                                 {
                                     $commerceVariant = array(
                                         'seoProductDescription' => $variant->getDescription(),
-                                        'seoProductPrice' => number_format($variant->getPrice(), 2),
+                                        'seoProductPrice' => number_format($variant->getPrice(), 2, '.', ''),
                                         'seoProductCurrency' => $commerceSettings['defaultCurrency'],
                                         'seoProductSku' => $variant->getSku(),
                                     );
