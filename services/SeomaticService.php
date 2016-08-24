@@ -1065,7 +1065,7 @@ class SeomaticService extends BaseApplicationComponent
         $segments = craft()->request->getSegments();
         if ($this->lastElement)
         {
-            if ($this->lastElement->uri != "__home__")
+            if ($this->lastElement->uri != "__home__" && $element->uri)
             {
                 $path = parse_url($this->lastElement->url, PHP_URL_PATH);
                 $path = trim($path, "/");
@@ -1079,7 +1079,7 @@ class SeomaticService extends BaseApplicationComponent
         {
             $uri .= $segment;
             $element = craft()->elements->getElementByUri($uri);
-            if ($element)
+            if ($element && $element->uri)
             {
                 $result[$element->title] = $this->getFullyQualifiedUrl($element->url);
             }
