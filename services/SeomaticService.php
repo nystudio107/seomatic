@@ -564,15 +564,19 @@ class SeomaticService extends BaseApplicationComponent
     public function isFieldHandleInEntry($entryElement = null, $fieldHandle="")
     {
         $result = false;
-        $fieldLayout = craft()->fields->getLayoutById($entryElement->fieldLayout->id);
-        $fieldLayoutFields = $fieldLayout->getFields();
-
+        if (!empty($entryElement) && is_object($entryElement))
+        {
+            $fieldLayoutFields = $entryElement->fieldLayout->getFields();
             foreach ($fieldLayoutFields as $fieldLayoutField)
             {
                 $field = $fieldLayoutField->field;
-                if (($field->handle == $fieldHandle))
+                if ($field->handle == $fieldHandle)
+                {
                     $result = true;
+                    return $result;
+                }
             }
+        }
         return $result;
     } /* -- isFieldHandleInEntry */
 
