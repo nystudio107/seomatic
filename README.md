@@ -63,6 +63,7 @@ Some things to do, and ideas for potential features:
 * [Improved] Updated DOCS.md to reflect the change from `seomaticProduct` to `seomaticMainEntityOfPage`
 * [Improved] Products now have commas stripped from their price, and use a `.` as a decimal point
 * [Fixed] Fixed an issue that caused SEOmatic to throw an error in a tokenized entry draft
+* [Fixed] Fixed an issue with stale SEOmatic FieldTypes that were added to a section, but then later removed
 * [Improved] Updated the README.md
 
 ### 1.1.31 -- 2016.08.15

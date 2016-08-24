@@ -520,29 +520,31 @@ class SeomaticService extends BaseApplicationComponent
                     {
                         if ($value->elementType == "Seomatic_FieldMeta")
                         {
-                            $entryMeta = $value;
-                            $this->lastElement = $element;
-
-    /* -- If this is a Commerce Product, fill in some additional info */
-
-                            if ($elemType == "Commerce_Product" && craft()->config->get("renderCommerceProductJSONLD", "seomatic"))
+                            if ($this->isFieldHandleInEntry($element, $key))
                             {
-                                $commerceSettings = craft()->commerce_settings->getSettings();
-                                $variants = $element->getVariants();
-                                $commerceVariants = array();
+                                $entryMeta = $value;
+                                $this->lastElement = $element;
+        /* -- If this is a Commerce Product, fill in some additional info */
 
-                                foreach ($variants as $variant)
+                                if ($elemType == "Commerce_Product" && craft()->config->get("renderCommerceProductJSONLD", "seomatic"))
                                 {
-                                    $commerceVariant = array(
-                                        'seoProductDescription' => $variant->getDescription(),
-                                        'seoProductPrice' => number_format($variant->getPrice(), 2, '.', ''),
-                                        'seoProductCurrency' => $commerceSettings['defaultCurrency'],
-                                        'seoProductSku' => $variant->getSku(),
-                                    );
-                                    $commerceVariants[] = $commerceVariant;
+                                    $commerceSettings = craft()->commerce_settings->getSettings();
+                                    $variants = $element->getVariants();
+                                    $commerceVariants = array();
+
+                                    foreach ($variants as $variant)
+                                    {
+                                        $commerceVariant = array(
+                                            'seoProductDescription' => $variant->getDescription(),
+                                            'seoProductPrice' => number_format($variant->getPrice(), 2, '.', ''),
+                                            'seoProductCurrency' => $commerceSettings['defaultCurrency'],
+                                            'seoProductSku' => $variant->getSku(),
+                                        );
+                                        $commerceVariants[] = $commerceVariant;
+                                    }
+                                    if (!empty($commerceVariants))
+                                        $entryMeta['seoCommerceVariants'] = $commerceVariants;
                                 }
-                                if (!empty($commerceVariants))
-                                    $entryMeta['seoCommerceVariants'] = $commerceVariants;
                             }
 
     /* -- Swap in any SEOmatic fields that are pulling from other entry fields */
@@ -554,6 +556,25 @@ class SeomaticService extends BaseApplicationComponent
         }
     return $entryMeta;
     } /* -- getMetaFromElement */
+
+/* --------------------------------------------------------------------------------
+    Is a given fieldHandle in a entry?
+-------------------------------------------------------------------------------- */
+
+    public function isFieldHandleInEntry($entryElement = null, $fieldHandle="")
+    {
+        $result = false;
+        $fieldLayout = craft()->fields->getLayoutById($entryElement->fieldLayout->id);
+        $fieldLayoutFields = $fieldLayout->getFields();
+
+            foreach ($fieldLayoutFields as $fieldLayoutField)
+            {
+                $field = $fieldLayoutField->field;
+                if (($field->handle == $fieldHandle))
+                    $result = true;
+            }
+        return $result;
+    } /* -- isFieldHandleInEntry */
 
 /* --------------------------------------------------------------------------------
     Extract text from a generix field, do different things based on the classHandle
