@@ -56,7 +56,7 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
-### 1.1.32 -- 2016.08.22
+### 1.1.32 -- 2016.08.25
 
 * [Improved] The SEOmetrics tab in the AdminCP now doesn't start analyzing until you click Analyze
 * [Improved] Improved SEOmetric's sitemap.xml detection
