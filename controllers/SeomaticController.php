@@ -14,8 +14,8 @@ class SeomaticController extends BaseController
  */
     public function actionEditSettings()
     {
-        $retourPlugin = craft()->plugins->getPlugin('seomatic');
-        $settings = $retourPlugin->getSettings();
+        $seomaticPlugin = craft()->plugins->getPlugin('seomatic');
+        $settings = $seomaticPlugin->getSettings();
 
         $this->renderTemplate('seomatic/settings', array(
            'settings' => $settings
