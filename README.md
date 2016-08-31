@@ -56,6 +56,11 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.34 -- 2016.08.31
+
+* [Improved] Do more sanity checking when building the breadcrumbs
+* [Improved] Updated the README.md
+
 ### 1.1.32 -- 2016.08.25
 
 * [Improved] The SEOmetrics tab in the AdminCP now doesn't start analyzing until you click Analyze

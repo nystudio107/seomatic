@@ -1072,6 +1072,7 @@ class SeomaticService extends BaseApplicationComponent
     public function getDefaultBreadcrumbs($meta)
     {
         $result = array();
+        $element = null;
 
         $element = craft()->elements->getElementByUri("__home__");
         if ($element)
@@ -1088,7 +1089,7 @@ class SeomaticService extends BaseApplicationComponent
 
         $uri = "";
         $segments = craft()->request->getSegments();
-        if ($this->lastElement)
+        if ($this->lastElement && $element)
         {
             if ($this->lastElement->uri != "__home__" && $element->uri)
             {
