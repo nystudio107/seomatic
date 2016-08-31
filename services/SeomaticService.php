@@ -2068,7 +2068,8 @@ class SeomaticService extends BaseApplicationComponent
                 {
                     case ElementType::Entry:
                     {
-                        $title = $this->lastElement->title;
+                        if (!$isMainEntityOfPage)
+                            $title = $this->lastElement->title;
                         if ($this->lastElement->dateCreated)
                             $dateCreated = $this->lastElement->dateCreated->iso8601();
                         if ($this->lastElement->dateUpdated)
@@ -2082,7 +2083,8 @@ class SeomaticService extends BaseApplicationComponent
 
                     case "Commerce_Product":
                     {
-                        $title = $this->lastElement->title;
+                        if (!$isMainEntityOfPage)
+                            $title = $this->lastElement->title;
                         if ($this->lastElement->dateCreated)
                             $dateCreated = $this->lastElement->dateCreated->iso8601();
                         if ($this->lastElement->dateUpdated)
@@ -2096,7 +2098,8 @@ class SeomaticService extends BaseApplicationComponent
 
                     case ElementType::Category:
                     {
-                        $title = $this->lastElement->title;
+                        if (!$isMainEntityOfPage)
+                            $title = $this->lastElement->title;
                         if ($this->lastElement->dateCreated)
                             $dateCreated = $this->lastElement->dateCreated->iso8601();
                         if ($this->lastElement->dateUpdated)

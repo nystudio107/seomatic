@@ -5,6 +5,7 @@
         "date": "2016-08-31T11:00:00-11:00",
         "notes": [
             "[Improved] Do more sanity checking when building the breadcrumbs",
+            "[Improved] We don't swap in the element->title for mainEntityOfPage anymore",
             "[Improved] Updated the README.md"
         ]
     },

@@ -59,6 +59,7 @@ Some things to do, and ideas for potential features:
 ### 1.1.34 -- 2016.08.31
 
 * [Improved] Do more sanity checking when building the breadcrumbs
+* [Improved] We don't swap in the element->title for mainEntityOfPage anymore
 * [Improved] Updated the README.md
 
 ### 1.1.32 -- 2016.08.25
