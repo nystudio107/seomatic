@@ -6,6 +6,7 @@
         "notes": [
             "[Improved] Do more sanity checking when building the breadcrumbs",
             "[Improved] We don't swap in the element->title for mainEntityOfPage anymore",
+            "[Added] Added a variable for craft.seomatic.getTemplateMeta()",
             "[Improved] Updated the README.md"
         ]
     },
