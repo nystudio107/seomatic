@@ -61,6 +61,7 @@ Some things to do, and ideas for potential features:
 * [Improved] Do more sanity checking when building the breadcrumbs
 * [Improved] We don't swap in the element->title for mainEntityOfPage anymore
 * [Added] Added a variable for craft.seomatic.getTemplateMeta()
+* [Improved] Protocol-relative URLs are now allowed in  Schema
 * [Improved] Updated the README.md
 
 ### 1.1.32 -- 2016.08.25

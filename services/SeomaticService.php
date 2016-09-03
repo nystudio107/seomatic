@@ -2877,7 +2877,7 @@ public function getFullyQualifiedUrl($url)
     if (!isset($result) || $result == "")
         return $result;
     $srcUrlParts = parse_url($result);
-    if (isset($srcUrlParts['scheme']) && isset($srcUrlParts['host']))
+    if (UrlHelper::isAbsoluteUrl($url) || UrlHelper::isProtocolRelativeUrl($url))
     {
 /* -- The URL is already a fully qualfied URL, do nothing */
     }
