@@ -53,6 +53,18 @@
                 if (url == "" || typeof url == 'undefined')
                     url = seomatic.options.missing_image;
                 $('#' + seomatic.options.prefix + seomatic.options.id + 'seoImageIdSource-preview').attr('src', url);
+
+                var handle = $('#' + seomatic.options.prefix + seomatic.options.id + 'seoTwitterImageIdSourceField').val();
+                var url = seomatic.options.fieldImage[handle];
+                if (url == "" || typeof url == 'undefined')
+                    url = seomatic.options.missing_image;
+                $('#' + seomatic.options.prefix + seomatic.options.id + 'seoTwitterImageIdSource-preview').attr('src', url);
+
+                var handle = $('#' + seomatic.options.prefix + seomatic.options.id + 'seoFacebookImageIdSourceField').val();
+                var url = seomatic.options.fieldImage[handle];
+                if (url == "" || typeof url == 'undefined')
+                    url = seomatic.options.missing_image;
+                $('#' + seomatic.options.prefix + seomatic.options.id + 'seoFacebookImageIdSource-preview').attr('src', url);
                 }
 
             $(function () {

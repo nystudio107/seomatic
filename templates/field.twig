@@ -329,6 +329,70 @@
     }) }}
     </div>
 
+    <div class="field comboField-wrapper" id="{{ id }}seoTwitterImageId-field">
+        <div class="heading">
+            <label for="{{ id }}seoTwitterImageId">{{ "Twitter Card Image"|t}}{% if locale %}<span class="locale">{{ locale }}</span>{% endif %}</label>
+            <div class="instructions"><p>{{ "This is the image that will be used for display as the webpage brand for this template, as well as on Twitter Cards and Facebook OpenGraph that link to this page.  The image must be in JPG, PNG, or GIF format." |t |raw}}</p></div>
+        </div>
+        <div class="source-container"{% if not seoTwitterImageIdSourceChangeable %} style="display: none;"{% endif %}>
+            <div class="source-item">
+                <p>{{ "Source" |t }} </p>
+            </div>
+            <div class="source-item">
+                {{ forms.selectField({
+                    fieldClass: 'nomarginfield',
+                    class: 'selectField',
+                    id: id ~ "seoTwitterImageIdSource",
+                    options: {
+                        "custom": "Custom Image"|t,
+                        "field": "From Field"|t,
+                    },
+                    name: name ~ "[seoTwitterImageIdSource]",
+                    value: meta.seoTwitterImageIdSource,
+                    locale: field.translatable ? locale,
+                }) }}
+            </div>
+        </div>
+        <div id="seoTwitterImageIdSourceField-wrapper" class="selectFieldWrapper">
+            <div {% if not seoTwitterImageIdSourceChangeable %} style="display: none;"{% endif %}>
+            {{ forms.selectField({
+                fieldClass: 'nomarginfield',
+                id: id ~ "seoTwitterImageIdSourceField",
+                options: imageFieldList,
+                name: name ~ "[seoTwitterImageIdSourceField]",
+                value: meta.seoTwitterImageIdSourceField,
+                locale: field.translatable ? locale,
+            }) }}
+            </div>
+        <img id="{{ id ~ 'seoTwitterImageIdSource-preview' }}" class="scale-with-grid" src="{{ resourceUrl('seomatic/images/missing_image.png') }}" alt="Image Preview" />
+       </div>
+        <div id ="seoTwitterImageId-wrapper" class="customFieldWrapper">
+            <div class="input">
+                {% if assetsSourceExists %}
+                    {{ forms.elementSelect({
+                        elements: elementsTwitter,
+                        id: id ~ 'seoTwitterImageId',
+                        name: name ~ '[seoTwitterImageId]',
+                        elementType: elementType,
+                        criteria: {
+                            'kind': ['image'],
+                            'localeEnabled': null,
+                            'locale': craft.locale,
+                        },
+                        sourceElementId: seoTwitterImageId,
+                        sources: assetSources,
+                        jsClass: 'Craft.AssetSelectInput',
+                        addButtonLabel: "Select Twitter Card Image" |t,
+                        limit: 1,
+                        locale: field.translatable ? locale,
+                    }) }}
+                {% else %}
+                    <p class="error">No assets sources currently exist. <a href="{{ newAssetsSourceUrl }}">Create one now...</a></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
     {{ forms.selectField({
         label: "Twitter Image Transform"|t,
         instructions: "The image transform to apply to the Twitter SEO Image.  Twitter recommends: 120 x 120 pixels minimum size, 1:1 aspect ratio, 1mb max size for Summary Card images, and 280x150 pixels minimum size, 1.86:1 aspect ratio, 1mb max size for Summary Card with Large Image images."|t,
@@ -353,6 +417,70 @@
         value: meta.openGraphType,
         locale: field.translatable ? locale,
     }) }}
+    </div>
+
+    <div class="field comboField-wrapper" id="{{ id }}seoFacebookImageId-field">
+        <div class="heading">
+            <label for="{{ id }}seoFacebookImageId">{{ "Facebook OpenGraph Image"|t}}{% if locale %}<span class="locale">{{ locale }}</span>{% endif %}</label>
+            <div class="instructions"><p>{{ "This is the image that will be used for display as the webpage brand for this template, as well as on Twitter Cards and Facebook OpenGraph that link to this page.  The image must be in JPG, PNG, or GIF format." |t |raw}}</p></div>
+        </div>
+        <div class="source-container"{% if not seoFacebookImageIdSourceChangeable %} style="display: none;"{% endif %}>
+            <div class="source-item">
+                <p>{{ "Source" |t }} </p>
+            </div>
+            <div class="source-item">
+                {{ forms.selectField({
+                    fieldClass: 'nomarginfield',
+                    class: 'selectField',
+                    id: id ~ "seoFacebookImageIdSource",
+                    options: {
+                        "custom": "Custom Image"|t,
+                        "field": "From Field"|t,
+                    },
+                    name: name ~ "[seoFacebookImageIdSource]",
+                    value: meta.seoFacebookImageIdSource,
+                    locale: field.translatable ? locale,
+                }) }}
+            </div>
+        </div>
+        <div id="seoFacebookImageIdSourceField-wrapper" class="selectFieldWrapper">
+            <div {% if not seoFacebookImageIdSourceChangeable %} style="display: none;"{% endif %}>
+            {{ forms.selectField({
+                fieldClass: 'nomarginfield',
+                id: id ~ "seoFacebookImageIdSourceField",
+                options: imageFieldList,
+                name: name ~ "[seoFacebookImageIdSourceField]",
+                value: meta.seoFacebookImageIdSourceField,
+                locale: field.translatable ? locale,
+            }) }}
+            </div>
+        <img id="{{ id ~ 'seoFacebookImageIdSource-preview' }}" class="scale-with-grid" src="{{ resourceUrl('seomatic/images/missing_image.png') }}" alt="Image Preview" />
+       </div>
+        <div id ="seoFacebookImageId-wrapper" class="customFieldWrapper">
+            <div class="input">
+                {% if assetsSourceExists %}
+                    {{ forms.elementSelect({
+                        elements: elementsFacebook,
+                        id: id ~ 'seoFacebookImageId',
+                        name: name ~ '[seoFacebookImageId]',
+                        elementType: elementType,
+                        criteria: {
+                            'kind': ['image'],
+                            'localeEnabled': null,
+                            'locale': craft.locale,
+                        },
+                        sourceElementId: seoFacebookImageId,
+                        sources: assetSources,
+                        jsClass: 'Craft.AssetSelectInput',
+                        addButtonLabel: "Select Facebook OpenGraph Image" |t,
+                        limit: 1,
+                        locale: field.translatable ? locale,
+                    }) }}
+                {% else %}
+                    <p class="error">No assets sources currently exist. <a href="{{ newAssetsSourceUrl }}">Create one now...</a></p>
+                {% endif %}
+            </div>
+        </div>
     </div>
 
     {{ forms.selectField({

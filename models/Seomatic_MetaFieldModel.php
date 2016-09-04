@@ -22,7 +22,11 @@ class Seomatic_MetaFieldModel extends Seomatic_MetaModel
             'seoKeywordsSource'				=> array(AttributeType::Enum, 'values' => "custom,keywords,field", 'default' => 'custom'),
             'seoKeywordsSourceField'		=> array(AttributeType::String, 'default' => ''),
             'seoImageIdSource'				=> array(AttributeType::Enum, 'values' => "custom,field", 'default' => 'custom'),
-            'seoImageIdSourceField'			=> array(AttributeType::String, 'default' => ''),
+            'seoImageIdSourceField'         => array(AttributeType::String, 'default' => ''),
+            'seoTwitterImageIdSource'       => array(AttributeType::Enum, 'values' => "custom,field", 'default' => 'custom'),
+            'seoTwitterImageIdSourceField'  => array(AttributeType::String, 'default' => ''),
+            'seoFacebookImageIdSource'      => array(AttributeType::Enum, 'values' => "custom,field", 'default' => 'custom'),
+            'seoFacebookImageIdSourceField' => array(AttributeType::String, 'default' => ''),
 /* -- For Commerce products */
             'seoCommerceVariants'           => array(AttributeType::Mixed),
         ));

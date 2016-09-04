@@ -242,7 +242,7 @@
     <div class="field comboField-wrapper" id="seoImageId-field">
         <div class="heading">
             <label for="seoImageIdSource">{{ "Default SEO Image"|t}}</label>
-            <div class="instructions"><p>{{ "Set what the SEO Image should default to for each entry." |t |raw}}</p></div>
+            <div class="instructions"><p>{{ "Set what the SEO Image should default to for each entry.  This image is also used for Twitter Cards and Facebook OpenGraph images, if they are not specified.  The image must be in JPG, PNG, or GIF format." |t |raw}}</p></div>
         </div>
 
         <div class="source-container">
@@ -311,6 +311,49 @@
         on: settings.twitterCardTypeChangeable,
     }) }}
 
+    <!-- seoTwitterImageIdSource -->
+
+    <div class="field comboField-wrapper" id="seoTwitterImageId-field">
+        <div class="heading">
+            <label for="seoTwitterImageIdSource">{{ "Default Twitter Card Image"|t}}</label>
+            <div class="instructions"><p>{{ "Set what the Twitter Card Image should default to for each entry.  If no image is specified here, the Site SEO Image will be used for Twitter Cards instead.  The image must be in JPG, PNG, or GIF format." |t |raw}}</p></div>
+        </div>
+
+        <div class="source-container">
+            <div class="source-item">
+                <p>{{ "Source" |t }} </p>
+            </div>
+            <div class="source-item">
+                {{ forms.selectField({
+                    fieldClass: 'nomarginfield',
+                    class: 'selectField',
+                    id: 'seoTwitterImageIdSource',
+                    options: {
+                        "custom": "Custom Image"|t,
+                        "field": "From Field"|t,
+                    },
+                    name: 'seoTwitterImageIdSource',
+                    value: settings.seoTwitterImageIdSource,
+                }) }}
+            </div>
+        </div>
+        <div id="seoTwitterImageIdSourceField-wrapper" class="selectFieldWrapper">
+            {{ forms.selectField({
+                fieldClass: 'nomarginfield',
+                id: 'seoTwitterImageIdSourceField',
+                options: imageFieldList,
+                name: 'seoTwitterImageIdSourceField',
+                value: settings.seoTwitterImageIdSourceField,
+            }) }}
+        </div>
+        {{ forms.lightswitchField({
+            label: "Twitter Card Image Source Changeable"|t,
+            name: 'seoTwitterImageIdSourceChangeable',
+            instructions: "Whether to allow the user to change the Twitter Card Image source while editing the entry"|t,
+            on: settings.seoTwitterImageIdSourceChangeable,
+        }) }}
+    </div>
+
     {{ forms.selectField({
         label: "Default Twitter Image Transform"|t,
         instructions: "Set the default image transform to apply to the Twitter SEO Image.  Twitter recommends: 120 x 120 pixels minimum size, 1:1 aspect ratio, 1mb max size for Summary Card images, and 280x150 pixels minimum size, 1.86:1 aspect ratio, 1mb max size for Summary Card with Large Image images."|t,
@@ -341,6 +384,49 @@
         instructions: "Whether to allow the user to change the Facebook Open Graph Type while editing the entry"|t,
         on: settings.openGraphTypeChangeable,
     }) }}
+
+    <!-- seoFacebookImageIdSource -->
+
+    <div class="field comboField-wrapper" id="seoFacebookImageId-field">
+        <div class="heading">
+            <label for="seoFacebookImageIdSource">{{ "Default Facebook OpenGraph Image"|t}}</label>
+            <div class="instructions"><p>{{ "Set what the Facebook OpenGraph Image should default to for each entry.  If no image is specified here, the Site SEO Image will be used for Twitter Cards instead.  The image must be in JPG, PNG, or GIF format." |t |raw}}</p></div>
+        </div>
+
+        <div class="source-container">
+            <div class="source-item">
+                <p>{{ "Source" |t }} </p>
+            </div>
+            <div class="source-item">
+                {{ forms.selectField({
+                    fieldClass: 'nomarginfield',
+                    class: 'selectField',
+                    id: 'seoFacebookImageIdSource',
+                    options: {
+                        "custom": "Custom Image"|t,
+                        "field": "From Field"|t,
+                    },
+                    name: 'seoFacebookImageIdSource',
+                    value: settings.seoFacebookImageIdSource,
+                }) }}
+            </div>
+        </div>
+        <div id="seoFacebookImageIdSourceField-wrapper" class="selectFieldWrapper">
+            {{ forms.selectField({
+                fieldClass: 'nomarginfield',
+                id: 'seoFacebookImageIdSourceField',
+                options: imageFieldList,
+                name: 'seoFacebookImageIdSourceField',
+                value: settings.seoFacebookImageIdSourceField,
+            }) }}
+        </div>
+        {{ forms.lightswitchField({
+            label: "Facebook OpenGraph Image Source Changeable"|t,
+            name: 'seoFacebookImageIdSourceChangeable',
+            instructions: "Whether to allow the user to change the Facebook OpenGraph Image source while editing the entry"|t,
+            on: settings.seoImageIdSourceChangeable,
+        }) }}
+    </div>
 
     {{ forms.selectField({
         label: "Default Facebook Image Transform"|t,
