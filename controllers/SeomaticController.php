@@ -320,7 +320,10 @@ class SeomaticController extends BaseController
                     $pageKeywords = str_replace(",,",",", $pageKeywords);
                     $pageKeywords = str_replace(" ,",",", $pageKeywords);
                     $pageKeywords = str_replace(" .",".", $pageKeywords);
+                    $pageKeywords = preg_replace('/\.+/', '.', $pageKeywords);
                     $pageKeywords = preg_replace('/,+/', ',', $pageKeywords);
+                    $pageKeywords = str_replace(",.,",",", $pageKeywords);
+                    $pageKeywords = html_entity_decode($pageKeywords, ENT_COMPAT, 'UTF-8');
 
     /* -- Focus keywords */
 
