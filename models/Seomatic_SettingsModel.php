@@ -25,6 +25,8 @@ class Seomatic_SettingsModel extends BaseModel
             'siteTwitterCardType'               => array(AttributeType::String, 'default' => 'summary'),
             'siteOpenGraphType'                 => array(AttributeType::String, 'default' => 'website'),
             'siteSeoImageId'                    => array(AttributeType::Number, 'default' => null),
+            'siteSeoTwitterImageId'               => array(AttributeType::Number, 'default' => null),
+            'siteSeoFacebookImageId'              => array(AttributeType::Number, 'default' => null),
             'siteSeoImageTransform'             => array(AttributeType::String, 'default' => ''),
             'siteSeoFacebookImageTransform'     => array(AttributeType::String, 'default' => ''),
             'siteSeoTwitterImageTransform'      => array(AttributeType::String, 'default' => ''),

@@ -543,6 +543,34 @@ class SeomaticController extends BaseController
             $variables['elements'] = array();
         }
 
+        // Set asset ID
+        $variables['siteSeoTwitterImageId'] = $variables['siteMeta']['siteSeoTwitterImageId'];
+
+        // Set asset elements
+        if ($variables['siteSeoTwitterImageId']) {
+            if (is_array($variables['siteSeoTwitterImageId'])) {
+                $variables['siteSeoTwitterImageId'] = $variables['siteSeoTwitterImageId'][0];
+            }
+            $asset = craft()->elements->getElementById($variables['siteSeoTwitterImageId']);
+            $variables['elementsTwitter'] = array($asset);
+        } else {
+            $variables['elementsTwitter'] = array();
+        }
+
+        // Set asset ID
+        $variables['siteSeoFacebookImageId'] = $variables['siteMeta']['siteSeoFacebookImageId'];
+
+        // Set asset elements
+        if ($variables['siteSeoFacebookImageId']) {
+            if (is_array($variables['siteSeoFacebookImageId'])) {
+                $variables['siteSeoFacebookImageId'] = $variables['siteSeoFacebookImageId'][0];
+            }
+            $asset = craft()->elements->getElementById($variables['siteSeoFacebookImageId']);
+            $variables['elementsFacebook'] = array($asset);
+        } else {
+            $variables['elementsFacebook'] = array();
+        }
+
         // Set element type
         $variables['elementType'] = craft()->elements->getElementType(ElementType::Asset);
 
@@ -736,6 +764,34 @@ class SeomaticController extends BaseController
             $variables['elements'] = array();
         }
 
+        // Set asset ID
+        $variables['seoTwitterImageId'] = $variables['meta']->seoTwitterImageId;
+
+        // Set asset elements
+        if ($variables['seoTwitterImageId']) {
+            if (is_array($variables['seoTwitterImageId'])) {
+                $variables['seoTwitterImageId'] = $variables['seoTwitterImageId'][0];
+            }
+            $asset = craft()->elements->getElementById($variables['seoTwitterImageId']);
+            $variables['elementsTwitter'] = array($asset);
+        } else {
+            $variables['elementsTwitter'] = array();
+        }
+
+        // Set asset ID
+        $variables['seoFacebookImageId'] = $variables['meta']->seoFacebookImageId;
+
+        // Set asset elements
+        if ($variables['seoFacebookImageId']) {
+            if (is_array($variables['seoFacebookImageId'])) {
+                $variables['seoFacebookImageId'] = $variables['seoFacebookImageId'][0];
+            }
+            $asset = craft()->elements->getElementById($variables['seoFacebookImageId']);
+            $variables['elementsFacebook'] = array($asset);
+        } else {
+            $variables['elementsFacebook'] = array();
+        }
+
         // Set element type
         $variables['elementType'] = craft()->elements->getElementType(ElementType::Asset);
 
@@ -813,6 +869,8 @@ class SeomaticController extends BaseController
         $model->openGraphType = craft()->request->getPost('openGraphType', $model->openGraphType);
         $model->robots = craft()->request->getPost('robots', $model->robots);
         $model->seoImageId = craft()->request->getPost('seoImageId', $model->seoImageId);
+        $model->seoTwitterImageId = craft()->request->getPost('seoTwitterImageId', $model->seoTwitterImageId);
+        $model->seoFacebookImageId = craft()->request->getPost('seoFacebookImageId', $model->seoFacebookImageId);
         $model->enabled = (bool)craft()->request->getPost('enabled', $model->enabled);
         $model->getContent()->title = craft()->request->getPost('title', $model->title);
 
@@ -901,6 +959,14 @@ class SeomaticController extends BaseController
         $record->siteSeoImageId = craft()->request->getPost('siteSeoImageId', $record->siteSeoImageId);
         $assetId = (!empty($record->siteSeoImageId) ? $record->siteSeoImageId[0] : null);
         $record->siteSeoImageId = $assetId;
+
+        $record->siteSeoTwitterImageId = craft()->request->getPost('siteSeoTwitterImageId', $record->siteSeoTwitterImageId);
+        $assetId = (!empty($record->siteSeoTwitterImageId) ? $record->siteSeoTwitterImageId[0] : null);
+        $record->siteSeoTwitterImageId = $assetId;
+
+        $record->siteSeoFacebookImageId = craft()->request->getPost('siteSeoFacebookImageId', $record->siteSeoFacebookImageId);
+        $assetId = (!empty($record->siteSeoFacebookImageId) ? $record->siteSeoFacebookImageId[0] : null);
+        $record->siteSeoFacebookImageId = $assetId;
 
         if ($record->save())
         {

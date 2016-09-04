@@ -232,6 +232,8 @@ class Seomatic_SettingsRecord extends BaseRecord
     {
         return array(
             'siteSeoImage' => array(static::BELONGS_TO, 'AssetFileRecord'), /* -- "Id" is automatically appended */
+            'siteSeoTwitterImage' => array(static::BELONGS_TO, 'AssetFileRecord'), /* -- "Id" is automatically appended */
+            'siteSeoFacebookImage' => array(static::BELONGS_TO, 'AssetFileRecord'), /* -- "Id" is automatically appended */
             'genericOwnerImage' => array(static::BELONGS_TO, 'AssetFileRecord'), /* -- "Id" is automatically appended */
             'genericCreatorImage' => array(static::BELONGS_TO, 'AssetFileRecord'), /* -- "Id" is automatically appended */
         );

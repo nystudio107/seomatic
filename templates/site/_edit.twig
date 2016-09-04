@@ -166,7 +166,7 @@
                     <div class="field" id="siteSeoImageId-field">
                         <div class="heading">
                             <label for="siteSeoImageId">{{ "Site SEO Image"|t}}{% if craft.isLocalized and siteMeta.locale %}<span class="locale">{{ siteMeta.locale }}</span>{% endif %}</label>
-                            <div class="instructions"><p>{{ "This is the image that will be used for display as the global website brand, as well as on Twitter Cards and Facebook OpenGraph that link to the website.  The image must be in JPG, PNG, or GIF format." |t |raw}}</p></div>
+                            <div class="instructions"><p>{{ "This is the image that will be used for display as the global website brand, as well as on Twitter Cards and Facebook OpenGraph that link to the website, if they are not specified.  The image must be in JPG, PNG, or GIF format." |t |raw}}</p></div>
                         </div>
                         <div class="input">
                             {% if assetsSourceExists %}
@@ -215,6 +215,35 @@
                         locale: siteMeta.locale,
                     }) }}
 
+                    <div class="field" id="siteSeoTwitterImageId-field">
+                        <div class="heading">
+                            <label for="siteSeoTwitterImageId">{{ "Site Twitter Image"|t}}{% if craft.isLocalized and siteMeta.locale %}<span class="locale">{{ siteMeta.locale }}</span>{% endif %}</label>
+                            <div class="instructions"><p>{{ "This is the image that will be used for display on Twitter Cards that link to the website.  If no image is specified here, the Site SEO Image will be used for Twitter Cards instead.  The image must be in JPG, PNG, or GIF format." |t |raw}}</p></div>
+                        </div>
+                        <div class="input">
+                            {% if assetsSourceExists %}
+                                {{ forms.elementSelect({
+                                    elements: elementsTwitter,
+                                    id: 'siteSeoTwitterImageId',
+                                    name: 'siteSeoTwitterImageId',
+                                    elementType: elementType,
+                                    criteria: {
+                                        'kind': ['image'],
+                                        'localeEnabled': null,
+                                        'locale': craft.locale,
+                                    },
+                                    sourceElementId: siteSeoTwitterImageId,
+                                    jsClass: 'Craft.AssetSelectInput',
+                                    addButtonLabel: "Select Twitter Card Image" |t,
+                                    limit: 1,
+                                    locale: siteMeta.locale,
+                                }) }}
+                            {% else %}
+                                <p class="error">No assets sources currently exist. <a href="{{ newAssetsSourceUrl }}">Create one now...</a></p>
+                            {% endif %}
+                        </div>
+                    </div>
+
                     {{ forms.selectField({
                         label: "Twitter Image Transform"|t,
                         instructions: "The image transform to apply to the Twitter SEO Image.  Twitter recommends: 120 x 120 pixels minimum size, 1:1 aspect ratio, 1mb max size for Summary Card images, and 280x150 pixels minimum size, 1.86:1 aspect ratio, 1mb max size for Summary Card with Large Image images."|t,
@@ -237,6 +266,35 @@
                         value: siteMeta.siteOpenGraphType,
                         locale: siteMeta.locale,
                     }) }}
+
+                    <div class="field" id="siteSeoFacebookImageId-field">
+                        <div class="heading">
+                            <label for="siteSeoFacebookImageId">{{ "Site Facebook OpenGraph Image"|t}}{% if craft.isLocalized and siteMeta.locale %}<span class="locale">{{ siteMeta.locale }}</span>{% endif %}</label>
+                            <div class="instructions"><p>{{ "This is the image that will be used for display on Facebook posts that link to the website.  If no image is specified here, the Site SEO Image will be used for Facebook posts instead.  The image must be in JPG, PNG, or GIF format." |t |raw}}</p></div>
+                        </div>
+                        <div class="input">
+                            {% if assetsSourceExists %}
+                                {{ forms.elementSelect({
+                                    elements: elementsFacebook,
+                                    id: 'siteSeoFacebookImageId',
+                                    name: 'siteSeoFacebookImageId',
+                                    elementType: elementType,
+                                    criteria: {
+                                        'kind': ['image'],
+                                        'localeEnabled': null,
+                                        'locale': craft.locale,
+                                    },
+                                    sourceElementId: siteSeoFacebookImageId,
+                                    jsClass: 'Craft.AssetSelectInput',
+                                    addButtonLabel: "Select Facebook OpenGraph Image" |t,
+                                    limit: 1,
+                                    locale: siteMeta.locale,
+                                }) }}
+                            {% else %}
+                                <p class="error">No assets sources currently exist. <a href="{{ newAssetsSourceUrl }}">Create one now...</a></p>
+                            {% endif %}
+                        </div>
+                    </div>
 
                     {{ forms.selectField({
                         label: "Facebook Image Transform"|t,

@@ -31,7 +31,7 @@ class SeomaticPlugin extends BasePlugin
 
     public function getSchemaVersion()
     {
-        return '1.1.21';
+        return '1.1.22';
     }
 
     public function getDeveloper()

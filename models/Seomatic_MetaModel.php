@@ -28,6 +28,8 @@ class Seomatic_MetaModel extends BaseElementModel
             'openGraphType'             => array(AttributeType::String, 'default' => ''),
             'robots'                    => array(AttributeType::String, 'default' => ''),
             'seoImageId'                => array(AttributeType::Number, 'default' => 0),
+            'seoTwitterImageId'           => array(AttributeType::Number, 'default' => 0),
+            'seoFacebookImageId'          => array(AttributeType::Number, 'default' => 0),
         ));
     }
 

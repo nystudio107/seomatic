@@ -703,10 +703,22 @@ class SeomaticService extends BaseApplicationComponent
             $meta['seoTitle'] = $entryMeta->seoTitle;
             $meta['seoDescription'] = $entryMeta->seoDescription;
             $meta['seoKeywords'] = $entryMeta->seoKeywords;
+
             if (isset($entryMeta->seoImageId[0]))
                 $meta['seoImageId'] = $entryMeta->seoImageId;
             else
                 $meta['seoImageId'] = null;
+
+            if (isset($entryMeta->seoTwitterImageId[0]))
+                $meta['seoTwitterImageId'] = $entryMeta->seoTwitterImageId;
+            else
+                $meta['seoTwitterImageId'] = null;
+
+            if (isset($entryMeta->seoFacebookImageId[0]))
+                $meta['seoFacebookImageId'] = $entryMeta->seoFacebookImageId;
+            else
+                $meta['seoFacebookImageId'] = null;
+
             $meta['canonicalUrl'] =  $this->getFullyQualifiedUrl($entryMetaUrl);
 
             $meta['twitterCardType'] = $entryMeta->twitterCardType;
@@ -800,9 +812,14 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Swap in the seoImageId for the actual asset */
 
+                $imgId = 0;
                 if (isset($meta['seoImageId']))
+                    $imgId = $meta['seoImageId'];
+                if (isset($meta['seoTwitterImageId']))
+                    $imgId = $meta['seoTwitterImageId'];
+                if ($imgId)
                 {
-                    $image = craft()->assets->getFileById($meta['seoImageId']);
+                    $image = craft()->assets->getFileById($imgId);
                     if ($image)
                     {
                         $imgUrl = $image->getUrl($meta['seoTwitterImageTransform']);
@@ -838,9 +855,14 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- Swap in the seoImageId for the actual asset */
 
+            $imgId = 0;
             if (isset($meta['seoImageId']))
+                $imgId = $meta['seoImageId'];
+            if (isset($meta['seoFacebookImageId']))
+                $imgId = $meta['seoFacebookImageId'];
+            if ($imgId)
             {
-                $image = craft()->assets->getFileById($meta['seoImageId']);
+                $image = craft()->assets->getFileById($imgId);
                 if ($image)
                 {
                     $imgUrl = $image->getUrl($meta['seoFacebookImageTransform']);
@@ -968,6 +990,8 @@ class SeomaticService extends BaseApplicationComponent
         $globalMeta['seoKeywords'] = $siteMeta['siteSeoKeywords'];
         $globalMeta['seoImage'] = $this->getFullyQualifiedUrl($siteMeta['siteSeoImage']);
         $globalMeta['seoImageId'] = $siteMeta['siteSeoImageId'];
+        $globalMeta['seoTwitterImageId'] = $siteMeta['siteSeoTwitterImageId'];
+        $globalMeta['seoFacebookImageId'] = $siteMeta['siteSeoFacebookImageId'];
         $globalMeta['seoImageTransform'] = $siteMeta['siteSeoImageTransform'];
         $globalMeta['seoFacebookImageTransform'] = $siteMeta['siteSeoFacebookImageTransform'];
         $globalMeta['seoTwitterImageTransform'] = $siteMeta['siteSeoTwitterImageTransform'];
@@ -1021,6 +1045,8 @@ class SeomaticService extends BaseApplicationComponent
 /* -- Get rid of variables we don't want to expose */
 
         unset($siteMeta['siteSeoImageId']);
+        unset($siteMeta['siteSeoTwitterImageId']);
+        unset($siteMeta['siteSeoFacebookImageId']);
         unset($siteMeta['siteTwitterCardType']);
         unset($siteMeta['siteOpenGraphType']);
         unset($siteMeta['siteRobotsTxt']);
@@ -1033,6 +1059,8 @@ class SeomaticService extends BaseApplicationComponent
         unset($meta['twitterCardType']);
         unset($meta['openGraphType']);
         unset($meta['seoImageId']);
+        unset($meta['seoTwitterImageId']);
+        unset($meta['seoFacebookImageId']);
         unset($meta['seoImageTransform']);
         unset($meta['seoFacebookImageTransform']);
         unset($meta['seoTwitterImageTransform']);
@@ -1280,6 +1308,8 @@ class SeomaticService extends BaseApplicationComponent
         $siteMeta['siteSeoDescription'] = $settings['siteSeoDescription'];
         $siteMeta['siteSeoKeywords'] = $settings['siteSeoKeywords'];
         $siteMeta['siteSeoImageId'] = $settings['siteSeoImageId'];
+        $siteMeta['siteSeoTwitterImageId'] = $settings['siteSeoTwitterImageId'];
+        $siteMeta['siteSeoFacebookImageId'] = $settings['siteSeoFacebookImageId'];
         $siteMeta['siteSeoImageTransform'] = $settings['siteSeoImageTransform'];
         $siteMeta['siteSeoFacebookImageTransform'] = $settings['siteSeoFacebookImageTransform'];
         $siteMeta['siteSeoTwitterImageTransform'] = $settings['siteSeoTwitterImageTransform'];
@@ -2369,6 +2399,16 @@ function parseAsTemplate($templateStr, $element)
                 else
                     $meta['seoImageId'] = null;
 
+                if (isset($metaRecord->seoTwitterImageId))
+                    $meta['seoTwitterImageId'] = $metaRecord->seoTwitterImageId;
+                else
+                    $meta['seoTwitterImageId'] = null;
+
+                if (isset($metaRecord->seoFacebookImageId))
+                    $meta['seoFacebookImageId'] = $metaRecord->seoFacebookImageId;
+                else
+                    $meta['seoFacebookImageId'] = null;
+
                 $meta['twitterCardType'] = $metaRecord->twitterCardType;
                 if (!$meta['twitterCardType'])
                     $meta['twitterCardType'] = 'summary';
@@ -2455,6 +2495,12 @@ function parseAsTemplate($templateStr, $element)
         $record->setAttributes($model->getAttributes(), false);
         $assetId = (!empty($model->seoImageId) ? $model->seoImageId[0] : null);
         $record->seoImageId = $assetId;
+
+        $assetId = (!empty($model->seoTwitterImageId) ? $model->seoTwitterImageId[0] : null);
+        $record->seoTwitterImageId = $assetId;
+
+        $assetId = (!empty($model->seoFacebookImageId) ? $model->seoFacebookImageId[0] : null);
+        $record->seoFacebookImageId = $assetId;
 
         if (!$record->validate())
         {
