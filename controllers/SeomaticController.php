@@ -177,11 +177,29 @@ class SeomaticController extends BaseController
                     curl_setopt($ch, CURLOPT_URL, $pagespeedDesktopUrl);
                     $pagespeedDesktopResult = curl_exec($ch);
                     curl_close($ch);
+                    $pageSpeedPageStats = array();
                     if ($pagespeedDesktopResult)
                     {
                         $pagespeedJson = json_decode($pagespeedDesktopResult, true);
                         if ($pagespeedJson)
                         {
+                            $pageSpeedPageStats = $pagespeedJson['pageStats'];
+                            if (empty($pageSpeedPageStats['htmlResponseBytes']))
+                                $pageSpeedPageStats['htmlResponseBytes'] = 0;
+                            if (empty($pageSpeedPageStats['cssResponseBytes']))
+                                $pageSpeedPageStats['cssResponseBytes'] = 0;
+                            if (empty($pageSpeedPageStats['imageResponseBytes']))
+                                $pageSpeedPageStats['imageResponseBytes'] = 0;
+                            if (empty($pageSpeedPageStats['javascriptResponseBytes']))
+                                $pageSpeedPageStats['javascriptResponseBytes'] = 0;
+                            if (empty($pageSpeedPageStats['otherResponseBytes']))
+                                $pageSpeedPageStats['otherResponseBytes'] = 0;
+                            $pageSpeedPageStats['totalResponseBytes'] = $pageSpeedPageStats['htmlResponseBytes'] +
+                                $pageSpeedPageStats['cssResponseBytes'] +
+                                $pageSpeedPageStats['imageResponseBytes'] +
+                                $pageSpeedPageStats['javascriptResponseBytes'] +
+                                $pageSpeedPageStats['otherResponseBytes'];
+
                             if (isset($pagespeedJson['responseCode']) && ($pagespeedJson['responseCode'] == "200" || $pagespeedJson['responseCode'] == "301" || $pagespeedJson['responseCode'] == "302"))
                             {
                                 if (isset($pagespeedJson['ruleGroups']['SPEED']['score']))
@@ -237,9 +255,10 @@ class SeomaticController extends BaseController
                     foreach($dom->find('script') as $element)
                         $element->outertext = '';
                     $strippedDom = html_entity_decode($dom->plaintext);
-                    $strippedDom = preg_replace('@[^0-9a-z\.\!]+@i', ', ', $strippedDom);
+//                    $strippedDom = preg_replace('@[^0-9a-z\.\!]+@i', ', ', $strippedDom);
+                    $strippedDom = stripslashes($strippedDom);
                     $htmlDom = html_entity_decode($dom->outertext);
-                    $htmlDom = preg_replace('@[^0-9a-z\.\!]+@i', '', $htmlDom);
+//                    $htmlDom = preg_replace('@[^0-9a-z\.\!]+@i', '', $htmlDom);
 
     /* -- SEO statistics */
 
@@ -292,8 +311,16 @@ class SeomaticController extends BaseController
 
                     $textToHtmlRatio = (strlen($strippedDom) / (strlen($htmlDom) - strlen($strippedDom))) * 100;
 
+                    $strippedDom = preg_replace('/\s+/', ' ', $strippedDom);
+
+/* -- Extract the page keywords, and clean them up a bit */
+
                     $pageKeywords = craft()->seomatic->extractKeywords($strippedDom);
-                    $pageKeywords = str_replace(",",", ", $pageKeywords);
+
+                    $pageKeywords = str_replace(",,",",", $pageKeywords);
+                    $pageKeywords = str_replace(" ,",",", $pageKeywords);
+                    $pageKeywords = str_replace(" .",".", $pageKeywords);
+                    $pageKeywords = preg_replace('/,+/', ',', $pageKeywords);
 
     /* -- Focus keywords */
 
@@ -357,6 +384,7 @@ class SeomaticController extends BaseController
                         'validatorStatus' => $validatorStatus,
                         'validatorErrors' => $validatorErrors,
                         'validatorWarnings' => $validatorWarnings,
+                        'pageSpeedPageStats' => $pageSpeedPageStats,
                         'pagespeedDesktopScore' => $pagespeedDesktopScore,
                         'pagespeedDesktopUrl' => $pagespeedDesktopUrl,
                         'pagespeedMobileScore' => $pagespeedMobileScore,
