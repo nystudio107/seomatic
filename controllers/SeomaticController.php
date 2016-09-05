@@ -183,22 +183,25 @@ class SeomaticController extends BaseController
                         $pagespeedJson = json_decode($pagespeedDesktopResult, true);
                         if ($pagespeedJson)
                         {
-                            $pageSpeedPageStats = $pagespeedJson['pageStats'];
-                            if (empty($pageSpeedPageStats['htmlResponseBytes']))
-                                $pageSpeedPageStats['htmlResponseBytes'] = 0;
-                            if (empty($pageSpeedPageStats['cssResponseBytes']))
-                                $pageSpeedPageStats['cssResponseBytes'] = 0;
-                            if (empty($pageSpeedPageStats['imageResponseBytes']))
-                                $pageSpeedPageStats['imageResponseBytes'] = 0;
-                            if (empty($pageSpeedPageStats['javascriptResponseBytes']))
-                                $pageSpeedPageStats['javascriptResponseBytes'] = 0;
-                            if (empty($pageSpeedPageStats['otherResponseBytes']))
-                                $pageSpeedPageStats['otherResponseBytes'] = 0;
-                            $pageSpeedPageStats['totalResponseBytes'] = $pageSpeedPageStats['htmlResponseBytes'] +
-                                $pageSpeedPageStats['cssResponseBytes'] +
-                                $pageSpeedPageStats['imageResponseBytes'] +
-                                $pageSpeedPageStats['javascriptResponseBytes'] +
-                                $pageSpeedPageStats['otherResponseBytes'];
+                            if (!empty($pagespeedJson['pageStats']))
+                            {
+                                $pageSpeedPageStats = $pagespeedJson['pageStats'];
+                                if (empty($pageSpeedPageStats['htmlResponseBytes']))
+                                    $pageSpeedPageStats['htmlResponseBytes'] = 0;
+                                if (empty($pageSpeedPageStats['cssResponseBytes']))
+                                    $pageSpeedPageStats['cssResponseBytes'] = 0;
+                                if (empty($pageSpeedPageStats['imageResponseBytes']))
+                                    $pageSpeedPageStats['imageResponseBytes'] = 0;
+                                if (empty($pageSpeedPageStats['javascriptResponseBytes']))
+                                    $pageSpeedPageStats['javascriptResponseBytes'] = 0;
+                                if (empty($pageSpeedPageStats['otherResponseBytes']))
+                                    $pageSpeedPageStats['otherResponseBytes'] = 0;
+                                $pageSpeedPageStats['totalResponseBytes'] = $pageSpeedPageStats['htmlResponseBytes'] +
+                                    $pageSpeedPageStats['cssResponseBytes'] +
+                                    $pageSpeedPageStats['imageResponseBytes'] +
+                                    $pageSpeedPageStats['javascriptResponseBytes'] +
+                                    $pageSpeedPageStats['otherResponseBytes'];
+                            }
 
                             if (isset($pagespeedJson['responseCode']) && ($pagespeedJson['responseCode'] == "200" || $pagespeedJson['responseCode'] == "301" || $pagespeedJson['responseCode'] == "302"))
                             {

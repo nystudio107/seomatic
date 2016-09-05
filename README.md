@@ -56,8 +56,9 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
-### 1.1.34 -- 2016.08.31
+### 1.1.34 -- 2016.09.05
 
+* [Added] Added the ability to set separate images for Twitter Cards and Facebook OpenGraph images
 * [Improved] Do more sanity checking when building the breadcrumbs
 * [Improved] We don't swap in the element->title for mainEntityOfPage anymore
 * [Added] Added a variable for craft.seomatic.getTemplateMeta()

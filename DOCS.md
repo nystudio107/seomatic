@@ -76,11 +76,13 @@ You can also dynamically change any of these SEO Meta fields in your Twig templa
 * **Site SEO Name Separator** - The character that should be used to separate the Site SEO Name and Title in the `<title>` tag
 * **Site SEO Description** - This should be between 70 and 160 characters (spaces included). Meta descriptions allow you to influence how your web pages are described and displayed in search results. Ensure that all of your web pages have a unique meta description that is explicit and contains your most important keywords.
 * **Site SEO Keywords** - Google ignores this tag; though other search engines do look at it. Utilize it carefully, as improper or spammy use most likely will hurt you, or even have your site marked as spam. Avoid overstuffing the keywords and do not include keywords that are not related to the specific page you place them on.
-* **Site SEO Image** - This is the image that will be used for display as the global website brand, as well as on Twitter Cards and Facebook OpenGraph that link to the website. The image must be in JPG, PNG, or GIF format.
+* **Site SEO Image** - This is the image that will be used for display as the global website brand, as well as on Twitter Cards and Facebook OpenGraph that link to the website, if they are not specified. The image must be in JPG, PNG, or GIF format.
 * **SEO Image Transform** - The image transform to apply to the Site SEO Image.
 * **Site Twitter Card Type** - With Twitter Cards, you can attach rich photos and information to Tweets that drive traffic to your website. Users who Tweet links to your content will have a “Card” added to the Tweet that’s visible to all of their followers.
+* **Site Twitter Image** - This is the image that will be used for display on Twitter Cards in tweets that link to the website. If no image is specified here, the Site SEO Image will be used for Twitter Cards instead. The image must be in JPG, PNG, or GIF format.
 * **Twitter Image Transform** - The image transform to apply to the Twitter SEO Image. Twitter recommends: 120 x 120 pixels minimum size, 1:1 aspect ratio, 1mb max size for Summary Card images, and 280x150 pixels minimum size, 1.86:1 aspect ratio, 1mb max size for Summary Card with Large Image images.
 * **Site Facebook Open Graph Type** - Adding Open Graph tags to your website influences the performance of your links on social media by allowing you to control what appears when a user posts a link to your content on Facebook.
+* **Site Facebook OpenGraph Image** - This is the image that will be used for display on Facebook posts that link to the website. If no image is specified here, the Site SEO Image will be used for Facebook posts instead. The image must be in JPG, PNG, or GIF format.
 * **Facebook Image Transform** - The image transform to apply to the Facebook SEO Image. Facebook recommends: 1200 x 630 pixels minimum size, 1.9:1 aspect ratio, 8mb max size.
 * **Site Robots** - The [robots meta tag](https://developers.google.com/webmasters/control-crawl-index/docs/robots_meta_tag?hl=en) lets you utilize a granular, page-specific approach to controlling how an individual page should be indexed and served to users in search results.  Setting it to a blank value means 'no change'.
 
@@ -100,7 +102,7 @@ SEOmatic automatically handles requests for `/robots.txt`. For this to work, mak
 If you are running Nginx, make sure that you don't have a line like:
 
     location = /robots.txt  { access_log off; log_not_found off; }
-    
+
 ...in your config file.  A directive like this will prevent SEOmatic from being able to service the request for `/robots.txt`.  If you do have a line like this in your config file, just comment it out, and restart Nginx with `sudo nginx -s reload`.
 
 The **Preview Robots.txt** button lets you preview what your rendered robots.txt file will look like.
@@ -287,11 +289,13 @@ You can also dynamically change any of these SEO Meta fields in your Twig templa
 * **SEO Title** - This should be between 10 and 70 characters (spaces included). Make sure your title tag is explicit and contains your most important keywords. Be sure that each page has a unique title tag.
 * **SEO Description** - This should be between 70 and 160 characters (spaces included). Meta descriptions allow you to influence how your web pages are described and displayed in search results. Ensure that all of your web pages have a unique meta description that is explicit and contains your most important keywords.
 * **SEO Keywords** - Google ignores this tag; though other search engines do look at it. Utilize it carefully, as improper or spammy use most likely will hurt you, or even have your site marked as spam. Avoid overstuffing the keywords and do not include keywords that are not related to the specific page you place them on.
-* **SEO Image** - This is the image that will be used for display as the webpage brand for this template, as well as on Twitter Cards and Facebook OpenGraph that link to this page. The image must be in JPG, PNG, or GIF format.
+* **SEO Image** - This is the image that will be used for display as the webpage brand for this template, as well as on Twitter Cards and Facebook OpenGraph that link to this page, if they are not specified. The image must be in JPG, PNG, or GIF format.
 * **SEO Image Transform** - The image transform to apply to the Site SEO Image.
 * **Twitter Card Type** - With Twitter Cards, you can attach rich photos and information to Tweets that drive traffic to your website. Users who Tweet links to your content will have a “Card” added to the Tweet that’s visible to all of their followers.
+* **Twitter Card Image** - This is the image that will be used for Twitter Cards that link to this page. If no image is specified here, the Site SEO Image will be used for Twitter Cards instead. The image must be in JPG, PNG, or GIF format.
 * **Twitter Image Transform** - The image transform to apply to the Twitter SEO Image. Twitter recommends: 120 x 120 pixels minimum size, 1:1 aspect ratio, 1mb max size for Summary Card images, and 280x150 pixels minimum size, 1.86:1 aspect ratio, 1mb max size for Summary Card with Large Image images.
 * **Facebook Open Graph Type** - Adding Open Graph tags to your website influences the performance of your links on social media by allowing you to control what appears when a user posts a link to your content on Facebook.
+* **Facebook OpenGraph Image** - This is the image that will be used for Facebook posts that link to this page. If no image is specified here, the Site SEO Image will be used for Facebook posts instead. The image must be in JPG, PNG, or GIF format.
 * **Facebook Image Transform** - The image transform to apply to the Facebook SEO Image. Facebook recommends: 1200 x 630 pixels minimum size, 1.9:1 aspect ratio, 8mb max size.
 * **Robots** - The [robots meta tag](https://developers.google.com/webmasters/control-crawl-index/docs/robots_meta_tag?hl=en) lets you utilize a granular, page-specific approach to controlling how an individual page should be indexed and served to users in search results.  Setting it to a blank value means 'no change'.
 
@@ -319,11 +323,13 @@ You can also dynamically change any of these SEO Meta fields in your Twig templa
 * **SEO Title** - This should be between 10 and 70 characters (spaces included). Make sure your title tag is explicit and contains your most important keywords. Be sure that each page has a unique title tag.
 * **SEO Description** - This should be between 70 and 160 characters (spaces included). Meta descriptions allow you to influence how your web pages are described and displayed in search results. Ensure that all of your web pages have a unique meta description that is explicit and contains your most important keywords.
 * **SEO Keywords** - Google ignores this tag; though other search engines do look at it. Utilize it carefully, as improper or spammy use most likely will hurt you, or even have your site marked as spam. Avoid overstuffing the keywords and do not include keywords that are not related to the specific page you place them on.
-* **SEO Image** - This is the image that will be used for display as the webpage brand for this template, as well as on Twitter Cards and Facebook OpenGraph that link to this page. The image must be in JPG, PNG, or GIF format.
+* **SEO Image** - This is the image that will be used for display as the webpage brand for this entry, as well as on Twitter Cards and Facebook OpenGraph that link to this page, if they are not specified. The image must be in JPG, PNG, or GIF format.
 * **SEO Image Transform** - The image transform to apply to the Site SEO Image.
 * **Twitter Card Type** - With Twitter Cards, you can attach rich photos and information to Tweets that drive traffic to your website. Users who Tweet links to your content will have a “Card” added to the Tweet that’s visible to all of their followers.
+* **Twitter Card Image** - This is the image that will be used for display on Twitter Cards for tweets that link to this entry. If no image is specified here, the Site SEO Image will be used for Twitter Cards instead. The image must be in JPG, PNG, or GIF format.
 * **Twitter Image Transform** - The image transform to apply to the Twitter SEO Image. Twitter recommends: 120 x 120 pixels minimum size, 1:1 aspect ratio, 1mb max size for Summary Card images, and 280x150 pixels minimum size, 1.86:1 aspect ratio, 1mb max size for Summary Card with Large Image images.
 * **Facebook Open Graph Type** - Adding Open Graph tags to your website influences the performance of your links on social media by allowing you to control what appears when a user posts a link to your content on Facebook.
+* **Facebook OpenGraph Image** - This is the image that will be used for display on Facebook posts that link to this entry. If no image is specified here, the Site SEO Image will be used for Facebook posts instead. The image must be in JPG, PNG, or GIF format.
 * **Facebook Image Transform** - The image transform to apply to the Facebook SEO Image. Facebook recommends: 1200 x 630 pixels minimum size, 1.9:1 aspect ratio, 8mb max size.
 * **Robots** - The [robots meta tag](https://developers.google.com/webmasters/control-crawl-index/docs/robots_meta_tag?hl=en) lets you utilize a granular, page-specific approach to controlling how an individual page should be indexed and served to users in search results.  Setting it to a blank value means 'no change'.
 
@@ -371,6 +377,8 @@ In addition, you can do:
 The SEOmetrics feature in SEOmatic allows you to analyze your pages to measure the effectiveness of the SEO on them.  It can be accessed in two different places, either analyzing arbitrary URLs via the Admin CP, or analyzing specific Entries/Sections via Live Preview.
 
 ### SEOmetrics in the Admin CP
+
+![Screenshot](resources/screenshots/seomatic08.png)
 
 SEOmetrics Content Analysis will run a variety of tests on your web page, and offer you analysis with helpful tips on how to correct any problems it finds.  For each test, there is a `Learn More` link that will offer details on the thing being tested.
 

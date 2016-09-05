@@ -242,7 +242,7 @@
     <div class="field comboField-wrapper" id="{{ id }}seoImageId-field">
         <div class="heading">
             <label for="{{ id }}seoImageId">{{ "SEO Image"|t}}{% if locale %}<span class="locale">{{ locale }}</span>{% endif %}</label>
-            <div class="instructions"><p>{{ "This is the image that will be used for display as the webpage brand for this template, as well as on Twitter Cards and Facebook OpenGraph that link to this page.  The image must be in JPG, PNG, or GIF format." |t |raw}}</p></div>
+            <div class="instructions"><p>{{ "This is the image that will be used for display as the webpage brand for this entry, as well as on Twitter Cards and Facebook OpenGraph that link to this page, if they are not specified.  The image must be in JPG, PNG, or GIF format." |t |raw}}</p></div>
         </div>
         <div class="source-container"{% if not seoImageIdSourceChangeable %} style="display: none;"{% endif %}>
             <div class="source-item">
@@ -332,7 +332,7 @@
     <div class="field comboField-wrapper" id="{{ id }}seoTwitterImageId-field">
         <div class="heading">
             <label for="{{ id }}seoTwitterImageId">{{ "Twitter Card Image"|t}}{% if locale %}<span class="locale">{{ locale }}</span>{% endif %}</label>
-            <div class="instructions"><p>{{ "This is the image that will be used for display as the webpage brand for this template, as well as on Twitter Cards and Facebook OpenGraph that link to this page.  The image must be in JPG, PNG, or GIF format." |t |raw}}</p></div>
+            <div class="instructions"><p>{{ "This is the image that will be used for display on Twitter Cards for tweets that link to this entry.  If no image is specified here, the Site SEO Image will be used for Twitter Cards instead.  The image must be in JPG, PNG, or GIF format." |t |raw}}</p></div>
         </div>
         <div class="source-container"{% if not seoTwitterImageIdSourceChangeable %} style="display: none;"{% endif %}>
             <div class="source-item">
@@ -422,7 +422,7 @@
     <div class="field comboField-wrapper" id="{{ id }}seoFacebookImageId-field">
         <div class="heading">
             <label for="{{ id }}seoFacebookImageId">{{ "Facebook OpenGraph Image"|t}}{% if locale %}<span class="locale">{{ locale }}</span>{% endif %}</label>
-            <div class="instructions"><p>{{ "This is the image that will be used for display as the webpage brand for this template, as well as on Twitter Cards and Facebook OpenGraph that link to this page.  The image must be in JPG, PNG, or GIF format." |t |raw}}</p></div>
+            <div class="instructions"><p>{{ "This is the image that will be used for display on Facebook posts that link to this entry.  If no image is specified here, the Site SEO Image will be used for Facebook posts instead.  The image must be in JPG, PNG, or GIF format." |t |raw}}</p></div>
         </div>
         <div class="source-container"{% if not seoFacebookImageIdSourceChangeable %} style="display: none;"{% endif %}>
             <div class="source-item">
