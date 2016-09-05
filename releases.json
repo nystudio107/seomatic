@@ -5,7 +5,7 @@
         "date": "2016-09-05T11:00:00-11:00",
         "notes": [
             "[Added] Added the ability to set separate images for Twitter Cards and Facebook OpenGraph images",
-            "[Improved] Do more sanity checking when building the breadcrumbs",
+            "[Improved] Do more sanity checking when building the breadcrumbs, so it works if you have not element with the URI `__home__`",
             "[Improved] We don't swap in the element->title for mainEntityOfPage anymore",
             "[Added] Added a variable for craft.seomatic.getTemplateMeta()",
             "[Improved] Protocol-relative URLs are now allowed in the Schema",
