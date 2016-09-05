@@ -193,7 +193,7 @@
                     </div>
 
                     {{ forms.selectField({
-                        label: "SEO Image Transform"|t,
+                        label: "Site SEO Image Transform"|t,
                         instructions: "The image transform to apply to the Site SEO Image."|t,
                         id: "siteSeoImageTransform",
                         options: transformsList,
@@ -217,7 +217,7 @@
 
                     <div class="field" id="siteSeoTwitterImageId-field">
                         <div class="heading">
-                            <label for="siteSeoTwitterImageId">{{ "Site Twitter Image"|t}}{% if craft.isLocalized and siteMeta.locale %}<span class="locale">{{ siteMeta.locale }}</span>{% endif %}</label>
+                            <label for="siteSeoTwitterImageId">{{ "Site Twitter Card Image"|t}}{% if craft.isLocalized and siteMeta.locale %}<span class="locale">{{ siteMeta.locale }}</span>{% endif %}</label>
                             <div class="instructions"><p>{{ "This is the image that will be used for display on Twitter Cards in tweets that link to the website.  If no image is specified here, the Site SEO Image will be used for Twitter Cards instead.  The image must be in JPG, PNG, or GIF format." |t |raw}}</p></div>
                         </div>
                         <div class="input">
@@ -245,7 +245,7 @@
                     </div>
 
                     {{ forms.selectField({
-                        label: "Twitter Image Transform"|t,
+                        label: "Site Twitter Card Image Transform"|t,
                         instructions: "The image transform to apply to the Twitter SEO Image.  Twitter recommends: 120 x 120 pixels minimum size, 1:1 aspect ratio, 1mb max size for Summary Card images, and 280x150 pixels minimum size, 1.86:1 aspect ratio, 1mb max size for Summary Card with Large Image images."|t,
                         id: "siteSeoTwitterImageTransform",
                         options: transformsList,
@@ -255,8 +255,8 @@
                     }) }}
 
                     {{ forms.selectField({
-                        label: "Site Facebook Open Graph Type"|t,
-                        instructions: "Adding Open Graph tags to your website influences the performance of your links on social media by allowing you to control what appears when a user posts a link to your content on Facebook."|t,
+                        label: "Site Facebook OpenGraph Type"|t,
+                        instructions: "Adding OpenGraph tags to your website influences the performance of your links on social media by allowing you to control what appears when a user posts a link to your content on Facebook."|t,
                         id: "siteOpenGraphType",
                         options: {
                             "website": "Website"|t,
@@ -297,7 +297,7 @@
                     </div>
 
                     {{ forms.selectField({
-                        label: "Facebook Image Transform"|t,
+                        label: "Site Facebook OpenGraph Image Transform"|t,
                         instructions: "The image transform to apply to the Facebook SEO Image.  Facebook recommends: 1200 x 630 pixels minimum size, 1.9:1 aspect ratio, 8mb max size."|t,
                         id: "siteSeoFacebookImageTransform",
                         options: transformsList,

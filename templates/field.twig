@@ -394,8 +394,8 @@
     </div>
 
     {{ forms.selectField({
-        label: "Twitter Image Transform"|t,
-        instructions: "The image transform to apply to the Twitter SEO Image.  Twitter recommends: 120 x 120 pixels minimum size, 1:1 aspect ratio, 1mb max size for Summary Card images, and 280x150 pixels minimum size, 1.86:1 aspect ratio, 1mb max size for Summary Card with Large Image images."|t,
+        label: "Twitter Card Image Transform"|t,
+        instructions: "The image transform to apply to the Twitter Card Image.  Twitter recommends: 120 x 120 pixels minimum size, 1:1 aspect ratio, 1mb max size for Summary Card images, and 280x150 pixels minimum size, 1.86:1 aspect ratio, 1mb max size for Summary Card with Large Image images."|t,
         id: id ~ "seoTwitterImageTransform",
         options: transformsList,
         name: name ~ "[seoTwitterImageTransform]",
@@ -405,8 +405,8 @@
 
     <div class="field comboField-wrapper"{% if not openGraphTypeChangeable %} style="display: none;"{% endif %}>
     {{ forms.selectField({
-        label: "Facebook Open Graph Type"|t,
-        instructions: "Adding Open Graph tags to your website influences the performance of your links on social media by allowing you to control what appears when a user posts a link to your content on Facebook.  Setting it to a blank value means 'no change'."|t,
+        label: "Facebook OpenGraph Type"|t,
+        instructions: "Adding OpenGraph tags to your website influences the performance of your links on social media by allowing you to control what appears when a user posts a link to your content on Facebook.  Setting it to a blank value means 'no change'."|t,
         id: id ~ "openGraphType",
         options: {
             "": "",
@@ -484,8 +484,8 @@
     </div>
 
     {{ forms.selectField({
-        label: "Facebook Image Transform"|t,
-        instructions: "The image transform to apply to the Facebook SEO Image.  Facebook recommends: 1200 x 630 pixels minimum size, 1.9:1 aspect ratio, 8mb max size."|t,
+        label: "Facebook OpenGraph Image Transform"|t,
+        instructions: "The image transform to apply to the Facebook OpenGraph Image.  Facebook recommends: 1200 x 630 pixels minimum size, 1.9:1 aspect ratio, 8mb max size."|t,
         id: id ~ "seoFacebookImageTransform",
         options: transformsList,
         name: name ~ "[seoFacebookImageTransform]",
