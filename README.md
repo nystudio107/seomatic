@@ -56,6 +56,11 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.35 -- 2016.09.06
+
+* [Fixed] Fixed a regression that would cause Twitter and Facebook images to not show up
+* [Improved] Updated the README.md
+
 ### 1.1.34 -- 2016.09.05
 
 * [Added] Added the ability to set separate images for Twitter Cards and Facebook OpenGraph images
