@@ -45,7 +45,7 @@ class m160904_000000_seomatic_addTwitterFacebookImages extends BaseMigration
 			{
 				$this->addColumnAfter($tableName, $columnName, array(
 					'column' => $columnType,
-					'null'   => false,
+					'null'   => true,
 					),
 					$afterColumnHandle
 				);
