@@ -961,15 +961,15 @@ class SeomaticController extends BaseController
         $record->siteRobotsTxt = craft()->request->getPost('siteRobotsTxt', $record->siteRobotsTxt);
 
         $record->siteSeoImageId = craft()->request->getPost('siteSeoImageId', $record->siteSeoImageId);
-        $assetId = (!empty($record->siteSeoImageId) ? $record->siteSeoImageId[0] : 0);
+        $assetId = (!empty($record->siteSeoImageId) ? $record->siteSeoImageId[0] : null);
         $record->siteSeoImageId = $assetId;
 
         $record->siteSeoTwitterImageId = craft()->request->getPost('siteSeoTwitterImageId', $record->siteSeoTwitterImageId);
-        $assetId = (!empty($record->siteSeoTwitterImageId) ? $record->siteSeoTwitterImageId[0] : 0);
+        $assetId = (!empty($record->siteSeoTwitterImageId) ? $record->siteSeoTwitterImageId[0] : null);
         $record->siteSeoTwitterImageId = $assetId;
 
         $record->siteSeoFacebookImageId = craft()->request->getPost('siteSeoFacebookImageId', $record->siteSeoFacebookImageId);
-        $assetId = (!empty($record->siteSeoFacebookImageId) ? $record->siteSeoFacebookImageId[0] : 0);
+        $assetId = (!empty($record->siteSeoFacebookImageId) ? $record->siteSeoFacebookImageId[0] : null);
         $record->siteSeoFacebookImageId = $assetId;
 
         if ($record->save())

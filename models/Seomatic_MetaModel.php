@@ -27,9 +27,9 @@ class Seomatic_MetaModel extends BaseElementModel
             'twitterCardType'           => array(AttributeType::String, 'default' => ''),
             'openGraphType'             => array(AttributeType::String, 'default' => ''),
             'robots'                    => array(AttributeType::String, 'default' => ''),
-            'seoImageId'                => array(AttributeType::Number, 'default' => 0),
-            'seoTwitterImageId'           => array(AttributeType::Number, 'default' => 0),
-            'seoFacebookImageId'          => array(AttributeType::Number, 'default' => 0),
+            'seoImageId'                => array(AttributeType::Number, 'default' => null),
+            'seoTwitterImageId'           => array(AttributeType::Number, 'default' => null),
+            'seoFacebookImageId'          => array(AttributeType::Number, 'default' => null),
         ));
     }
 
