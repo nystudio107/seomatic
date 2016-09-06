@@ -3097,6 +3097,7 @@ public function getFullyQualifiedUrl($url)
 
         $text = preg_replace('/\s+/', ' ', $text);
 
+        $text = html_entity_decode($text);
         return $text;
     } /* -- _cleanupText */
 
