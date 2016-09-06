@@ -5,6 +5,7 @@
         "date": "2016-09-07T11:00:00-11:00",
         "notes": [
             "[Fixed] SEOmetrics will now work if `open_basedir` is set",
+            "[Improved] Added html_entity_decode() to the _cleanupText() method",
             "[Improved] Updated the README.md"
         ]
     },
