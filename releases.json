@@ -6,6 +6,7 @@
         "notes": [
             "[Fixed] SEOmetrics will now work if `open_basedir` is set",
             "[Improved] Added html_entity_decode() to the _cleanupText() method",
+            "[Fixed] Fixed an `Integrity constraint violation` MySQL error on certain MySQL versions",
             "[Improved] Updated the README.md"
         ]
     },
