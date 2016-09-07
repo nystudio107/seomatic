@@ -56,6 +56,11 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.37 -- 2016.09.08
+
+* [Fixed] The Settings template now works with Craft < 2.5
+* [Improved] Updated the README.md
+
 ### 1.1.36 -- 2016.09.07
 
 * [Fixed] SEOmetrics will now work if `open_basedir` is set

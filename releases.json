@@ -1,5 +1,14 @@
 [
     {
+        "version": "1.1.37",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
+        "date": "2016-09-87T11:00:00-11:00",
+        "notes": [
+            "[Fixed] The Settings template now works with Craft < 2.5",
+            "[Improved] Updated the README.md"
+        ]
+    },
+    {
         "version": "1.1.36",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-09-07T11:00:00-11:00",

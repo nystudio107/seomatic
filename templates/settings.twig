@@ -37,7 +37,7 @@
 <!-- Needed for for Craft < 2.5 -->
 
     {% if craft.app.version < 2.5 %}
-    <form id="settings-form" method="post" accept-charset="UTF-8" data-saveshortcut="1" data-saveshortcut-redirect="{{ continueEditingUrl }}">
+    <form id="settings-form" method="post" accept-charset="UTF-8" data-saveshortcut="1">
     {% endif %}
 
     <input type="hidden" name="action" value="plugins/savePluginSettings">
