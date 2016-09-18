@@ -56,7 +56,7 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
-### 1.1.37 -- 2016.09.08
+### 1.1.37 -- 2016.09.18
 
 * [Fixed] The Settings template now works with Craft < 2.5
 * [Fixed] Fixed a regression that would cause php errors on the settings pages on PHP < 5.5

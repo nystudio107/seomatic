@@ -2,7 +2,7 @@
     {
         "version": "1.1.37",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
-        "date": "2016-09-87T11:00:00-11:00",
+        "date": "2016-09-18T11:00:00-11:00",
         "notes": [
             "[Fixed] The Settings template now works with Craft < 2.5",
             "[Fixed] Fixed a regression that would cause php errors on the settings pages on PHP < 5.5",
