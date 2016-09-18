@@ -56,6 +56,11 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.38 -- 2016.09.28
+
+* [Improved] The Javascript for the SEOmetrics `Analyze` button now returns false to eliminate the #
+* [Improved] Updated the README.md
+
 ### 1.1.37 -- 2016.09.18
 
 * [Fixed] The Settings template now works with Craft < 2.5
