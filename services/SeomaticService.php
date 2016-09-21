@@ -257,6 +257,7 @@ class SeomaticService extends BaseApplicationComponent
         {
             $this->sanitizeMetaVars($metaVars);
             $crumbsJSON = $this->getBreadcrumbsJSONLD($metaVars['seomaticMeta']['breadcrumbs']);
+            $this->sanitizeArray($crumbsJSON);
             $htmlText = $this->renderJSONLD($crumbsJSON, $isPreview);
         }
         return $htmlText;

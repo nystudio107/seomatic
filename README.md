@@ -58,6 +58,7 @@ Some things to do, and ideas for potential features:
 
 ### 1.1.38 -- 2016.09.28
 
+* [Fixed] Fixed an issue where elements with certain characters in them could cause invalid Breadcrumb JSON-LD to be generated
 * [Improved] The Javascript for the SEOmetrics `Analyze` button now returns false to eliminate the #
 * [Improved] Updated the README.md
 
