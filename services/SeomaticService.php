@@ -705,6 +705,10 @@ class SeomaticService extends BaseApplicationComponent
             $meta['seoDescription'] = $entryMeta->seoDescription;
             $meta['seoKeywords'] = $entryMeta->seoKeywords;
 
+            $meta['seoImageTransform'] = $entryMeta->seoImageTransform;
+            $meta['seoFacebookImageTransform'] = $entryMeta->seoFacebookImageTransform;
+            $meta['seoTwitterImageTransform'] = $entryMeta->seoTwitterImageTransform;
+
             if (isset($entryMeta->seoImageId[0]))
                 $meta['seoImageId'] = $entryMeta->seoImageId;
             else
@@ -2394,6 +2398,10 @@ function parseAsTemplate($templateStr, $element)
                 $meta['seoKeywords'] = $this->parseAsTemplate($metaRecord->seoKeywords, $element);
                 $meta['seoMainEntityCategory'] = $metaRecord->seoMainEntityCategory;
                 $meta['seoMainEntityOfPage'] = $metaRecord->seoMainEntityOfPage;
+
+                $meta['seoImageTransform'] = $metaRecord->seoImageTransform;
+                $meta['seoFacebookImageTransform'] = $metaRecord->seoFacebookImageTransform;
+                $meta['seoTwitterImageTransform'] = $metaRecord->seoTwitterImageTransform;
 
                 if (isset($metaRecord->seoImageId))
                     $meta['seoImageId'] = $metaRecord->seoImageId;
