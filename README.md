@@ -56,7 +56,7 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
-### 1.1.38 -- 2016.09.28
+### 1.1.38 -- 2016.09.22
 
 * [Fixed] Fixed an issue with Entry meta and Template Meta would not default Twitter and Facebook images properly
 * [Fixed] Fixed an issue where Facebook and Twitter image transforms were not properly applied with Entry and Template meta
