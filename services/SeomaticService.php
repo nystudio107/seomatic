@@ -713,12 +713,12 @@ class SeomaticService extends BaseApplicationComponent
             if (isset($entryMeta->seoTwitterImageId[0]))
                 $meta['seoTwitterImageId'] = $entryMeta->seoTwitterImageId;
             else
-                $meta['seoTwitterImageId'] = null;
+                $meta['seoTwitterImageId'] = $meta['seoImageId'];
 
             if (isset($entryMeta->seoFacebookImageId[0]))
                 $meta['seoFacebookImageId'] = $entryMeta->seoFacebookImageId;
             else
-                $meta['seoFacebookImageId'] = null;
+                $meta['seoFacebookImageId'] = $meta['seoImageId'];
 
             $meta['canonicalUrl'] =  $this->getFullyQualifiedUrl($entryMetaUrl);
 
@@ -2403,12 +2403,12 @@ function parseAsTemplate($templateStr, $element)
                 if (isset($metaRecord->seoTwitterImageId))
                     $meta['seoTwitterImageId'] = $metaRecord->seoTwitterImageId;
                 else
-                    $meta['seoTwitterImageId'] = null;
+                    $meta['seoTwitterImageId'] = $meta['seoImageId'];
 
                 if (isset($metaRecord->seoFacebookImageId))
                     $meta['seoFacebookImageId'] = $metaRecord->seoFacebookImageId;
                 else
-                    $meta['seoFacebookImageId'] = null;
+                    $meta['seoFacebookImageId'] = $meta['seoImageId'];
 
                 $meta['twitterCardType'] = $metaRecord->twitterCardType;
                 if (!$meta['twitterCardType'])
