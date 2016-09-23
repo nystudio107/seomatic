@@ -142,7 +142,8 @@ class SeomaticPlugin extends BasePlugin
 
 /* -- Show our "Welcome to SEOmatic" message */
 
-    craft()->request->redirect(UrlHelper::getCpUrl('seomatic/welcome'));
++       if (!craft()->isConsole())
+            craft()->request->redirect(UrlHelper::getCpUrl('seomatic/welcome'));
 
     }
 

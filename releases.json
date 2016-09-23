@@ -1,5 +1,14 @@
 [
     {
+        "version": "1.1.39",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
+        "date": "2016-09-23T11:00:00-11:00",
+        "notes": [
+            "[Improved] Don't redirect to the welcome page if we're being installed via Console command",
+            "[Improved] Updated the README.md"
+        ]
+    },
+    {
         "version": "1.1.38",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-09-22T11:00:00-11:00",

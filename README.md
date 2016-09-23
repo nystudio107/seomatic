@@ -56,6 +56,11 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.39 -- 2016.09.23
+
+* [Improved] Don't redirect to the welcome page if we're being installed via Console command
+* [Improved] Updated the README.md
+
 ### 1.1.38 -- 2016.09.22
 
 * [Fixed] Fixed an issue with Entry meta and Template Meta would not default Twitter and Facebook images properly
