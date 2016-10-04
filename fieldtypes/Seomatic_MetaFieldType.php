@@ -475,9 +475,9 @@ class Seomatic_MetaFieldType extends BaseFieldType
             switch ($value->seoImageIdSource)
             {
                 case 'field':
-                    if (isset($element[$value->seoImageIdSourceField]) && $element[$value->seoImageIdSourceField]->first())
+                    if (isset($element[$value->seoImageIdSourceField]) && $element[$value->seoImageIdSourceField][0])
                     {
-                        $value->seoImageId = $element[$value->seoImageIdSourceField]->first()->id;
+                        $value->seoImageId = $element[$value->seoImageIdSourceField][0]->id;
                     }
                 break;
             }
@@ -485,9 +485,9 @@ class Seomatic_MetaFieldType extends BaseFieldType
             switch ($value->seoTwitterImageIdSource)
             {
                 case 'field':
-                    if (isset($element[$value->seoTwitterImageIdSourceField]) && $element[$value->seoTwitterImageIdSourceField]->first())
+                    if (isset($element[$value->seoTwitterImageIdSourceField]) && $element[$value->seoTwitterImageIdSourceField][0])
                     {
-                        $value->seoTwitterImageId = $element[$value->seoTwitterImageIdSourceField]->first()->id;
+                        $value->seoTwitterImageId = $element[$value->seoTwitterImageIdSourceField][0]->id;
                     }
                 break;
             }
@@ -495,9 +495,9 @@ class Seomatic_MetaFieldType extends BaseFieldType
             switch ($value->seoFacebookImageIdSource)
             {
                 case 'field':
-                    if (isset($element[$value->seoFacebookImageIdSourceField]) && $element[$value->seoFacebookImageIdSourceField]->first())
+                    if (isset($element[$value->seoFacebookImageIdSourceField]) && $element[$value->seoFacebookImageIdSourceField][0])
                     {
-                        $value->seoFacebookImageId = $element[$value->seoFacebookImageIdSourceField]->first()->id;
+                        $value->seoFacebookImageId = $element[$value->seoFacebookImageIdSourceField][0]->id;
                     }
                 break;
             }
