@@ -512,6 +512,7 @@ class SeomaticService extends BaseApplicationComponent
             $elemType = $element->getElementType();
             if ($elemType == ElementType::Entry ||
                 $elemType == "Commerce_Product" ||
+                $elemType == "SuperCal_Event" ||
                 $elemType == ElementType::Category)
             {
                 $attributes = $element->content->attributes;
