@@ -475,7 +475,7 @@ class Seomatic_MetaFieldType extends BaseFieldType
             switch ($value->seoImageIdSource)
             {
                 case 'field':
-                    if (isset($element[$value->seoImageIdSourceField]) && $element[$value->seoImageIdSourceField][0])
+                    if (isset($element[$value->seoImageIdSourceField]) && isset($element[$value->seoImageIdSourceField][0]))
                     {
                         $value->seoImageId = $element[$value->seoImageIdSourceField][0]->id;
                     }
@@ -485,7 +485,7 @@ class Seomatic_MetaFieldType extends BaseFieldType
             switch ($value->seoTwitterImageIdSource)
             {
                 case 'field':
-                    if (isset($element[$value->seoTwitterImageIdSourceField]) && $element[$value->seoTwitterImageIdSourceField][0])
+                    if (isset($element[$value->seoTwitterImageIdSourceField]) && isset($element[$value->seoTwitterImageIdSourceField][0]))
                     {
                         $value->seoTwitterImageId = $element[$value->seoTwitterImageIdSourceField][0]->id;
                     }
@@ -495,7 +495,7 @@ class Seomatic_MetaFieldType extends BaseFieldType
             switch ($value->seoFacebookImageIdSource)
             {
                 case 'field':
-                    if (isset($element[$value->seoFacebookImageIdSourceField]) && $element[$value->seoFacebookImageIdSourceField][0])
+                    if (isset($element[$value->seoFacebookImageIdSourceField]) && isset($element[$value->seoFacebookImageIdSourceField][0]))
                     {
                         $value->seoFacebookImageId = $element[$value->seoFacebookImageIdSourceField][0]->id;
                     }
