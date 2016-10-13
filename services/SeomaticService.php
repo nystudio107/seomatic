@@ -510,11 +510,14 @@ class SeomaticService extends BaseApplicationComponent
         if (isset($element) && $element)
         {
             $elemType = $element->getElementType();
+/* -- Take the leap, and just work with all custom elementtypes instead of checking a whitelist
             if ($elemType == ElementType::Entry ||
                 $elemType == "Commerce_Product" ||
                 $elemType == "SuperCal_Event" ||
                 $elemType == "Marketplace_Product" ||
                 $elemType == ElementType::Category)
+*/
+            if (true)
             {
                 $attributes = $element->content->attributes;
                 foreach ($attributes as $key => $value)
