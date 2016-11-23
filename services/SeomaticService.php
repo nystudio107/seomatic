@@ -3074,8 +3074,7 @@ public function getFullyQualifiedUrl($url)
                     $value = $this->encodeEmailAddress($value);
                 elseif ($key === 'url' || $key === 'image' || $key === 'logo')
                     $value = $this->getFullyQualifiedUrl($value);
-                else
-                    $value = htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, 'UTF-8', false);
+                $value = htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, 'UTF-8', false);
                 $theArray[$key] = $value;
             }
             else
