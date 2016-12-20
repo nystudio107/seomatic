@@ -532,19 +532,32 @@ class SeomaticService extends BaseApplicationComponent
                                 $this->lastElement = $element;
         /* -- If this is a Commerce Product, fill in some additional info */
 
-                                if ($elemType == "Commerce_Product" && craft()->config->get("renderCommerceProductJSONLD", "seomatic"))
+                                if (($elemType == "Commerce_Product" || is_a($element, "Commerce\\Base\\Purchasable")) && craft()->config->get("renderCommerceProductJSONLD", "seomatic"))
                                 {
-                                    $commerceSettings = craft()->commerce_settings->getSettings();
-                                    $variants = $element->getVariants();
-                                    $commerceVariants = array();
+                                    if ($elemType == "Commerce_Product")
+                                    {
+                                        $commerceSettings = craft()->commerce_settings->getSettings();
+                                        $variants = $element->getVariants();
+                                        $commerceVariants = array();
 
-                                    foreach ($variants as $variant)
+                                        foreach ($variants as $variant)
+                                        {
+                                            $commerceVariant = array(
+                                                'seoProductDescription' => $variant->getDescription(),
+                                                'seoProductPrice' => number_format($variant->getPrice(), 2, '.', ''),
+                                                'seoProductCurrency' => craft()->commerce_paymentCurrencies->getPrimaryPaymentCurrency(),
+                                                'seoProductSku' => $variant->getSku(),
+                                            );
+                                            $commerceVariants[] = $commerceVariant;
+                                        }
+                                    }
+                                    else
                                     {
                                         $commerceVariant = array(
-                                            'seoProductDescription' => $variant->getDescription(),
-                                            'seoProductPrice' => number_format($variant->getPrice(), 2, '.', ''),
-                                            'seoProductCurrency' => $commerceSettings['defaultCurrency'],
-                                            'seoProductSku' => $variant->getSku(),
+                                            'seoProductDescription' => $element->getDescription(),
+                                            'seoProductPrice' => number_format($element->getPrice(), 2, '.', ''),
+                                            'seoProductCurrency' => craft()->commerce_paymentCurrencies->getPrimaryPaymentCurrency(),
+                                            'seoProductSku' => $element->getSku(),
                                         );
                                         $commerceVariants[] = $commerceVariant;
                                     }
