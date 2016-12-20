@@ -657,6 +657,22 @@
                     <div id="LocalBusiness" class="metaSubPane field">
                         <h2>{{ "Local Business Info" |t }}</h2>
 
+                    {{ forms.selectField({
+                        label: "Price Range"|t,
+                        instructions: "The approximate price range of the goods or services offered by this local business."|t,
+                        id: "localBusinessPriceRange",
+                        options: {
+                            "$": "$",
+                            "$$": "$$",
+                            "$$$": "$$$",
+                            "$$$$": "$$$$",
+                            "$$$$$": "$$$$$",
+                        },
+                        name: "localBusinessPriceRange",
+                        value: identity.localBusinessPriceRange,
+                        locale: identity.locale,
+                    }) }}
+
                         <div class="field" id="localBusinessOwnerOpeningHours-field">
                             <div class="heading">
                                 <label for="localBusinessOwnerOpeningHours">{{ "Opening Hours"|t}}{% if craft.isLocalized and identity.locale %}<span class="locale">{{ identity.locale }}</span>{% endif %}</label>

@@ -80,6 +80,7 @@ class Seomatic_SettingsModel extends BaseModel
 
 /* -- LocalBusiness owner fields https://schema.org/LocalBusiness */
 
+            'localBusinessPriceRange'           => array(AttributeType::String, 'maxLength' => 10, 'default' => '$$$'),
             'localBusinessOwnerOpeningHours'    => array(AttributeType::Mixed, 'default' => ''),
 
 /* -- Corporation owner fields http://schema.org/Corporation */

@@ -78,6 +78,7 @@ class Seomatic_SettingsRecord extends BaseRecord
 
 /* -- LocalBusiness owner fields https://schema.org/LocalBusiness */
 
+            'localBusinessPriceRange'           => array(AttributeType::String, 'maxLength' => 10, 'default' => '$$$'),
             'localBusinessOwnerOpeningHours'    => array(AttributeType::Mixed),
 
 /* -- Corporation owner fields http://schema.org/Corporation */

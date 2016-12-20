@@ -1491,6 +1491,7 @@ class SeomaticService extends BaseApplicationComponent
         $identity['personOwnerGender'] = $settings['personOwnerGender'];
         $identity['personOwnerBirthPlace'] = $settings['personOwnerBirthPlace'];
 
+        $identity['localBusinessPriceRange'] = $settings['localBusinessPriceRange'];
         $identity['localBusinessOwnerOpeningHours'] = $settings['localBusinessOwnerOpeningHours'];
 
 /* -- Handle the opening hours specification */
@@ -1689,6 +1690,8 @@ class SeomaticService extends BaseApplicationComponent
             break;
 
             case 'LocalBusiness':
+                if (isset($identity['localBusinessPriceRange']))
+                    $identityJSONLD['priceRange'] = $identity['localBusinessPriceRange'];
                 if (isset($identity['openingHoursSpecification']))
                 {
                     if (isset($identityJSONLD['location']))
