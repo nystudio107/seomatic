@@ -64,7 +64,6 @@ Some things to do, and ideas for potential features:
 * [Improved] Works with Eager Loaded elements
 * [Improved] Improved the checking on the image fields in case there isn’t anything in there
 * [Improved] Always sanitize the array values
-* [Improved] Made the default `config.php` multi-environment
 * [Improved] Updated the README.md
 
 ### 1.1.39 -- 2016.09.23
