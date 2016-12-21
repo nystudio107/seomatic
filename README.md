@@ -56,7 +56,7 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
-### 1.1.40 -- 2016.12.21
+### 1.1.40 -- 2016.12.20
 
 * [Added] Added support for DigitalProducts and other base purchaseables
 * [Fixed] Fixed Commerce deprecation warnings

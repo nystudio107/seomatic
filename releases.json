@@ -2,7 +2,7 @@
     {
         "version": "1.1.40",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
-        "date": "2016-12-21T11:00:00-11:00",
+        "date": "2016-12-20T11:00:00-11:00",
         "notes": [
             "[Added] Added support for DigitalProducts and other base purchaseables",
             "[Fixed] Fixed Commerce deprecation warnings",
