@@ -56,6 +56,11 @@ Some things to do, and ideas for potential features:
 
 ## Changelog
 
+### 1.1.41 -- 2017.01.05
+
+* [Fixed] Fixed an issue with the Charge plugin if you used the Charge element path
+* [Improved] Updated the README.md
+
 ### 1.1.40 -- 2016.12.20
 
 * [Added] Added support for DigitalProducts and other base purchaseables

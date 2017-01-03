@@ -1,5 +1,14 @@
 [
     {
+        "version": "1.1.41",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
+        "date": "2017-01-05T11:00:00-11:00",
+        "notes": [
+            "[Fixed] Fixed an issue with the Charge plugin if you used the Charge element path",
+            "[Improved] Updated the README.md"
+        ]
+    },
+    {
         "version": "1.1.40",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2016-12-20T11:00:00-11:00",

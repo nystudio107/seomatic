@@ -517,7 +517,8 @@ class SeomaticService extends BaseApplicationComponent
                 $elemType == "Marketplace_Product" ||
                 $elemType == ElementType::Category)
 */
-            if (true)
+            if ((isset($element->content) && is_object($element->content)) &&
+                (isset($element->content->attributes)) && is_object($element->content->attributes))
             {
                 $attributes = $element->content->attributes;
                 foreach ($attributes as $key => $value)
