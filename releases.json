@@ -5,6 +5,7 @@
         "date": "2017-01-05T11:00:00-11:00",
         "notes": [
             "[Fixed] Fixed an issue with the Charge plugin if you used the Charge element path",
+            "[Fixed] Fixed an issue where re-saving a Section might not re-save the SEOmatic FieldType info",
             "[Improved] Updated the README.md"
         ]
     },

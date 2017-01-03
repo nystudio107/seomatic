@@ -59,6 +59,7 @@ Some things to do, and ideas for potential features:
 ### 1.1.41 -- 2017.01.05
 
 * [Fixed] Fixed an issue with the Charge plugin if you used the Charge element path
+* [Fixed] Fixed an issue where re-saving a Section might not re-save the SEOmatic FieldType info
 * [Improved] Updated the README.md
 
 ### 1.1.40 -- 2016.12.20
