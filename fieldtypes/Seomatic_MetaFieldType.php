@@ -534,7 +534,9 @@ class Seomatic_MetaFieldType extends BaseFieldType
                 $shouldResave = true;
         }
 
-        if ($shouldResave)
+// We should always re-save here, in case they changed the source for some fields or such
+//        if ($shouldResave)
+        if (true)
         {
             $defaultField = $this->prepValue(null);
             $content->setAttribute($fieldHandle, $defaultField);
