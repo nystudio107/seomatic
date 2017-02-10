@@ -891,7 +891,7 @@ class SeomaticController extends BaseController
 /* -- Send the Meta back to the template */
 
             craft()->urlManager->setRouteVariables(array(
-                'meta' => $meta
+                'meta' => $model
             ));
         }
     } /* -- actionSaveMeta */
