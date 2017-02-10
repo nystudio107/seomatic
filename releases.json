@@ -2,7 +2,7 @@
     {
         "version": "1.1.41",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
-        "date": "2017-01-05T11:00:00-11:00",
+        "date": "2017-02-10T11:00:00-11:00",
         "notes": [
             "[Improved] Broke the changelog out to CHANGELOG.md",
             "[Fixed] Fixed a bug when saving meta fails",
