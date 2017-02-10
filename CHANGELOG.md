@@ -1,5 +1,9 @@
 # SEOmatic Changelog
 
+## 1.1.42 -- 2017.02.20
+
+* [Improved] 
+
 ## 1.1.41 -- 2017.02.10
 
 * [Improved] Broke the changelog out to CHANGELOG.md
