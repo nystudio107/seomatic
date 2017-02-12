@@ -119,6 +119,7 @@ class Seomatic_SettingsRecord extends BaseRecord
             'pinterestHandle'                   => array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
             'githubHandle'                      => array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
             'vimeoHandle'                       => array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
+            'wikipediaUrl'                       => array(AttributeType::String, 'maxLength' => 100, 'default' => ''),
 
 
 /* --------------------------------------------------------------------------------

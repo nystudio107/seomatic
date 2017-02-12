@@ -115,6 +115,7 @@ class Seomatic_SettingsModel extends BaseModel
             'pinterestHandle'                   => array(AttributeType::String, 'default' => ''),
             'githubHandle'                      => array(AttributeType::String, 'default' => ''),
             'vimeoHandle'                       => array(AttributeType::String, 'default' => ''),
+            'wikipediaUrl'                      => array(AttributeType::String, 'default' => ''),
 
 /* --------------------------------------------------------------------------------
     CEATOR settings

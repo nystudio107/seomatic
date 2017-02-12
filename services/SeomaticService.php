@@ -982,6 +982,7 @@ class SeomaticService extends BaseApplicationComponent
             array_push($sameAs, $helper['pinterestUrl']);
             array_push($sameAs, $helper['githubUrl']);
             array_push($sameAs, $helper['vimeoUrl']);
+            array_push($sameAs, $helper['wikipediaUrl']);
             $sameAs = array_filter($sameAs);
             $sameAs = array_values($sameAs);
             if (!empty($sameAs))
@@ -1638,6 +1639,7 @@ class SeomaticService extends BaseApplicationComponent
         array_push($sameAs, $helper['pinterestUrl']);
         array_push($sameAs, $helper['githubUrl']);
         array_push($sameAs, $helper['vimeoUrl']);
+        array_push($sameAs, $helper['wikipediaUrl']);
         $sameAs = array_filter($sameAs);
         $sameAs = array_values($sameAs);
         if (!empty($sameAs))
@@ -1828,6 +1830,7 @@ class SeomaticService extends BaseApplicationComponent
         $social['pinterestHandle'] = $settings['pinterestHandle'];
         $social['githubHandle'] = $settings['githubHandle'];
         $social['vimeoHandle'] = $settings['vimeoHandle'];
+        $social['wikipediaUrl'] = $settings['wikipediaUrl'];
 
         $result = $social;
 
@@ -2736,6 +2739,12 @@ function parseAsTemplate($templateStr, $element)
         }
         else
             $helper['vimeoUrl'] = '';
+        if ($social['wikipediaUrl'])
+        {
+            $helper['wikipediaUrl'] = $social['wikipediaUrl'];
+        }
+        else
+            $helper['wikipediaUrl'] = '';
     } /* -- addSocialHelpers */
 
 /* --------------------------------------------------------------------------------

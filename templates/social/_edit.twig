@@ -114,6 +114,17 @@
                 }) }}
 
                 {{ forms.textField({
+                    label: "Wikipedia URL"|t,
+                    instructions: ("The full URL to the Wikipedia.com entry that is about this entity.  <a href='http://searchengineland.com/leveraging-wikidata-gain-google-knowledge-graph-result-219706' target='_blank'>Learn More</a>") |t |raw,
+                    id: "wikipediaUrl",
+                    class: 'nicetext',
+                    name: "wikipediaUrl",
+                    value: social.wikipediaUrl,
+                    required: false,
+                    locale:  social.locale,
+                }) }}
+
+                {{ forms.textField({
                     label: "LinkedIn Handle"|t,
                     instructions: ("Your LinkedIn page handle (the part after <code>https://www.linkedin.com/in/</code> or <code>https://www.linkedin.com/company/</code>)") |t |raw,
                     id: "linkedInHandle",

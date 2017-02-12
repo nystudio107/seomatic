@@ -1128,6 +1128,7 @@ class SeomaticController extends BaseController
         $record->pinterestHandle = craft()->request->getPost('pinterestHandle', $record->pinterestHandle);
         $record->githubHandle = craft()->request->getPost('githubHandle', $record->githubHandle);
         $record->vimeoHandle = craft()->request->getPost('vimeoHandle', $record->vimeoHandle);
+        $record->wikipediaUrl = craft()->request->getPost('wikipediaUrl', $record->wikipediaUrl);
 
         if ($record->save())
         {
