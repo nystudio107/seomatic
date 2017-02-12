@@ -49,6 +49,7 @@ class Seomatic_SettingsModel extends BaseModel
             'googleAnalyticsEEcommerce'         => array(AttributeType::Bool, 'default' => false),
             'googleAnalyticsLinkAttribution'    => array(AttributeType::Bool, 'default' => false),
             'googleAnalyticsLinker'             => array(AttributeType::Bool, 'default' => false),
+            'googleAnalyticsAnonymizeIp'        => array(AttributeType::Bool, 'default' => false),
             'siteOwnerType'                     => array(AttributeType::String, 'default' => 'Organization'),
             'siteOwnerSubType'                  => array(AttributeType::String, 'default' => 'Corporation'),
             'siteOwnerSpecificType'             => array(AttributeType::String, 'default' => ''),

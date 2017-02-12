@@ -48,6 +48,7 @@ class Seomatic_SettingsRecord extends BaseRecord
             'googleAnalyticsEEcommerce'         => array(AttributeType::Bool, 'default' => false),
             'googleAnalyticsLinkAttribution'    => array(AttributeType::Bool, 'default' => false),
             'googleAnalyticsLinker'             => array(AttributeType::Bool, 'default' => false),
+            'googleAnalyticsAnonymizeIp'        => array(AttributeType::Bool, 'default' => false),
             'siteOwnerType'                     => array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
             'siteOwnerSubType'                  => array(AttributeType::String, 'maxLength' => 50, 'default' => ''),
             'siteOwnerSpecificType'             => array(AttributeType::String, 'maxLength' => 50, 'default' => ''),

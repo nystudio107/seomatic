@@ -125,6 +125,14 @@
                         on: identity.googleAnalyticsSendPageview,
                     }) }}
 
+                     {{ forms.lightswitchField({
+                        label: "Google Analytics IP Anonymization"|t,
+                        instructions: "When a customer of Analytics requests IP address anonymization, Analytics anonymizes the address as soon as technically feasible at the earliest possible stage of the collection network" |t |raw,
+                        id: 'googleAnalyticsAnonymizeIp',
+                        name: 'googleAnalyticsAnonymizeIp',
+                        on: identity.googleAnalyticsAnonymizeIp,
+                    }) }}
+
                     <div class="field">
                         <div class="heading">
                             <label>{{ "Google Analytics Plugins"|t}}{% if craft.isLocalized and identity.locale %}<span class="locale">{{ identity.locale }}</span>{% endif %}</label>

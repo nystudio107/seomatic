@@ -1478,6 +1478,7 @@ class SeomaticService extends BaseApplicationComponent
         $identity['googleAnalyticsEEcommerce'] = $settings['googleAnalyticsEEcommerce'];
         $identity['googleAnalyticsLinkAttribution'] = $settings['googleAnalyticsLinkAttribution'];
         $identity['googleAnalyticsLinker'] = $settings['googleAnalyticsLinker'];
+        $identity['googleAnalyticsAnonymizeIp'] = $settings['googleAnalyticsAnonymizeIp'];
         $identity['siteOwnerType'] = ucfirst($settings['siteOwnerType']);
         $identity['siteOwnerSubType'] = $settings['siteOwnerSubType'];
         $identity['siteOwnerSpecificType'] = $settings['siteOwnerSpecificType'];
@@ -2756,6 +2757,7 @@ function parseAsTemplate($templateStr, $element)
         $helper['googleAnalyticsEEcommerce'] = $identity['googleAnalyticsEEcommerce'];
         $helper['googleAnalyticsLinkAttribution'] = $identity['googleAnalyticsLinkAttribution'];
         $helper['googleAnalyticsLinker'] = $identity['googleAnalyticsLinker'];
+        $helper['googleAnalyticsAnonymizeIp'] = $identity['googleAnalyticsAnonymizeIp'];
         $now = new DateTime;
         $period = ".";
         $name = $identity['genericOwnerName'];
