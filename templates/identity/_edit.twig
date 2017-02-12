@@ -125,6 +125,14 @@
                         on: identity.googleAnalyticsSendPageview,
                     }) }}
 
+                     {{ forms.lightswitchField({
+                        label: "Google Analytics IP Anonymization"|t,
+                        instructions: "When a customer of Analytics requests IP address anonymization, Analytics anonymizes the address as soon as technically feasible at the earliest possible stage of the collection network" |t |raw,
+                        id: 'googleAnalyticsAnonymizeIp',
+                        name: 'googleAnalyticsAnonymizeIp',
+                        on: identity.googleAnalyticsAnonymizeIp,
+                    }) }}
+
                     <div class="field">
                         <div class="heading">
                             <label>{{ "Google Analytics Plugins"|t}}{% if craft.isLocalized and identity.locale %}<span class="locale">{{ identity.locale }}</span>{% endif %}</label>
@@ -376,45 +384,6 @@
 <!-- Location -->
                     <h2>{{ "Location Info" |t }}</h2>
 
-                    <div class="field">
-                        <div class="half-width-field half-width-field-left">
-                        {{ forms.textField({
-                            label: "Entity Latitude"|t,
-                            instructions: "The latitude of the location of the entity that owns the website, e.g.: -120.5436367" |t |raw,
-                            id: 'genericOwnerGeoLatitude',
-                            class: 'nicetext',
-                            name: 'genericOwnerGeoLatitude',
-                            value: identity.genericOwnerGeoLatitude,
-                            required: false,
-                            locale: identity.locale,
-                        }) }}
-                        </div>
-
-                        <div class="half-width-field">
-                        {{ forms.textField({
-                            label: "Entity Longitude"|t,
-                            instructions: "The longitude of the location of the entity that owns the website, e.g.: 80.6033588" |t |raw,
-                            id: 'genericOwnerGeoLongitude',
-                            class: 'nicetext',
-                            name: 'genericOwnerGeoLongitude',
-                            value: identity.genericOwnerGeoLongitude,
-                            required: false,
-                            locale: identity.locale,
-                        }) }}
-                        </div>
-                    </div>
-
-                    <div class="buttons">
-                        <div class="btngroup first">
-                            <input id="geolookup" type="button" class="btn" value="{{ 'Look up Latitude/Longitude'|t }}">
-                        </div>
-                    </div>
-                    <div id="geolookup-errors" class="geolookup-errors-wrapper">
-                        <ul class="errors">
-                            <li>{{ "No location found.  Perhaps the address is wrong/incomplete?" |t }}</li>
-                        </ul>
-                    </div>
-
                     {{ forms.textField({
                         label: "Entity Street Address"|t,
                         instructions: "The street address of the entity that owns the website, e.g.: 123 Main Street" |t |raw,
@@ -480,6 +449,44 @@
                         </div>
                     </div>
 
+                    <div class="field">
+                        <div class="half-width-field half-width-field-left">
+                        {{ forms.textField({
+                            label: "Entity Latitude"|t,
+                            instructions: "The latitude of the location of the entity that owns the website, e.g.: -120.5436367" |t |raw,
+                            id: 'genericOwnerGeoLatitude',
+                            class: 'nicetext',
+                            name: 'genericOwnerGeoLatitude',
+                            value: identity.genericOwnerGeoLatitude,
+                            required: false,
+                            locale: identity.locale,
+                        }) }}
+                        </div>
+
+                        <div class="half-width-field">
+                        {{ forms.textField({
+                            label: "Entity Longitude"|t,
+                            instructions: "The longitude of the location of the entity that owns the website, e.g.: 80.6033588" |t |raw,
+                            id: 'genericOwnerGeoLongitude',
+                            class: 'nicetext',
+                            name: 'genericOwnerGeoLongitude',
+                            value: identity.genericOwnerGeoLongitude,
+                            required: false,
+                            locale: identity.locale,
+                        }) }}
+                        </div>
+                    </div>
+
+                    <div class="buttons">
+                        <div class="btngroup first">
+                            <input id="geolookup" type="button" class="btn" value="{{ 'Look up Latitude/Longitude'|t }}">
+                        </div>
+                    </div>
+                    <div id="geolookup-errors" class="geolookup-errors-wrapper">
+                        <ul class="errors">
+                            <li>{{ "No location found.  Perhaps the address is wrong/incomplete?" |t }}</li>
+                        </ul>
+                    </div>
 <!-- ========== siteCreatorType ========== -->
 
 <!-- Person-specific fields -->

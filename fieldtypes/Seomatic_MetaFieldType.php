@@ -333,56 +333,14 @@ class Seomatic_MetaFieldType extends BaseFieldType
 
         if (empty($value))
         {
-            $result = $this->prepValue($value);
+            $value = $this->prepValue($value);
         }
         else
         {
-            $result = new Seomatic_MetaFieldModel($value);
-            $result = $this->prepValue($result);
+            $value = new Seomatic_MetaFieldModel($value);
+            $value = $this->prepValue($value);
         }
-        return $result;
-    }
 
-    public function prepValue($value)
-    {
-        if (!$value)
-        {
-            $value = new Seomatic_MetaFieldModel();
-
-            $value->seoMainEntityCategory = $this->getSettings()->seoMainEntityCategory;
-            $value->seoMainEntityOfPage = $this->getSettings()->seoMainEntityOfPage;
-
-            $value->seoTitle = $this->getSettings()->seoTitle;
-            $value->seoTitleUnparsed = $this->getSettings()->seoTitle;
-            $value->seoTitleSource = $this->getSettings()->seoTitleSource;
-            $value->seoTitleSourceField = $this->getSettings()->seoTitleSourceField;
-
-            $value->seoDescription = $this->getSettings()->seoDescription;
-            $value->seoDescriptionUnparsed = $this->getSettings()->seoDescription;
-            $value->seoDescriptionSource = $this->getSettings()->seoDescriptionSource;
-            $value->seoDescriptionSourceField = $this->getSettings()->seoDescriptionSourceField;
-
-            $value->seoKeywords = $this->getSettings()->seoKeywords;
-            $value->seoKeywordsUnparsed = $this->getSettings()->seoKeywords;
-            $value->seoKeywordsSource = $this->getSettings()->seoKeywordsSource;
-            $value->seoKeywordsSourceField = $this->getSettings()->seoKeywordsSourceField;
-
-            $value->seoImageIdSource = $this->getSettings()->seoImageIdSource;
-            $value->seoImageIdSourceField = $this->getSettings()->seoImageIdSourceField;
-            $value->seoImageTransform = $this->getSettings()->seoImageTransform;
-
-            $value->twitterCardType = $this->getSettings()->twitterCardType;
-            $value->seoTwitterImageIdSource = $this->getSettings()->seoTwitterImageIdSource;
-            $value->seoTwitterImageIdSourceField = $this->getSettings()->seoTwitterImageIdSourceField;
-            $value->seoTwitterImageTransform = $this->getSettings()->seoTwitterImageTransform;
-
-            $value->openGraphType = $this->getSettings()->openGraphType;
-            $value->seoFacebookImageIdSource = $this->getSettings()->seoFacebookImageIdSource;
-            $value->seoFacebookImageIdSourceField = $this->getSettings()->seoFacebookImageIdSourceField;
-            $value->seoFacebookImageTransform = $this->getSettings()->seoFacebookImageTransform;
-
-            $value->robots = $this->getSettings()->robots;
-        }
 
 /* -- Handle pulling values from other fields */
 
@@ -503,7 +461,50 @@ class Seomatic_MetaFieldType extends BaseFieldType
             }
 
         }
+        return $value;
+    }
 
+    public function prepValue($value)
+    {
+
+        if (!$value)
+        {
+            $value = new Seomatic_MetaFieldModel();
+
+            $value->seoMainEntityCategory = $this->getSettings()->seoMainEntityCategory;
+            $value->seoMainEntityOfPage = $this->getSettings()->seoMainEntityOfPage;
+
+            $value->seoTitle = $this->getSettings()->seoTitle;
+            $value->seoTitleUnparsed = $this->getSettings()->seoTitle;
+            $value->seoTitleSource = $this->getSettings()->seoTitleSource;
+            $value->seoTitleSourceField = $this->getSettings()->seoTitleSourceField;
+
+            $value->seoDescription = $this->getSettings()->seoDescription;
+            $value->seoDescriptionUnparsed = $this->getSettings()->seoDescription;
+            $value->seoDescriptionSource = $this->getSettings()->seoDescriptionSource;
+            $value->seoDescriptionSourceField = $this->getSettings()->seoDescriptionSourceField;
+
+            $value->seoKeywords = $this->getSettings()->seoKeywords;
+            $value->seoKeywordsUnparsed = $this->getSettings()->seoKeywords;
+            $value->seoKeywordsSource = $this->getSettings()->seoKeywordsSource;
+            $value->seoKeywordsSourceField = $this->getSettings()->seoKeywordsSourceField;
+
+            $value->seoImageIdSource = $this->getSettings()->seoImageIdSource;
+            $value->seoImageIdSourceField = $this->getSettings()->seoImageIdSourceField;
+            $value->seoImageTransform = $this->getSettings()->seoImageTransform;
+
+            $value->twitterCardType = $this->getSettings()->twitterCardType;
+            $value->seoTwitterImageIdSource = $this->getSettings()->seoTwitterImageIdSource;
+            $value->seoTwitterImageIdSourceField = $this->getSettings()->seoTwitterImageIdSourceField;
+            $value->seoTwitterImageTransform = $this->getSettings()->seoTwitterImageTransform;
+
+            $value->openGraphType = $this->getSettings()->openGraphType;
+            $value->seoFacebookImageIdSource = $this->getSettings()->seoFacebookImageIdSource;
+            $value->seoFacebookImageIdSourceField = $this->getSettings()->seoFacebookImageIdSourceField;
+            $value->seoFacebookImageTransform = $this->getSettings()->seoFacebookImageTransform;
+
+            $value->robots = $this->getSettings()->robots;
+        }
 
         if (craft()->request->isSiteRequest())
         {
@@ -538,7 +539,10 @@ class Seomatic_MetaFieldType extends BaseFieldType
 //        if ($shouldResave)
         if (true)
         {
-            $defaultField = $this->prepValue(null);
+            if ($content)
+                $defaultField = $this->prepValueFromPost($content[$fieldHandle]);
+            else
+                $defaultField = $this->prepValueFromPost(null);
             $content->setAttribute($fieldHandle, $defaultField);
             $element->setContent($content);
             craft()->content->saveContent($element);

@@ -1,5 +1,13 @@
 # SEOmatic Changelog
 
+## 1.1.42 -- 2017.02.12
+
+* [Fixed] Fixed a regression that could cause FieldTypes to not save properly
+* [Improved] Moved the lattitude/longitude info down below the address information for on the Site Identity & Site Creator settings
+* [Improved] Wrapped all `templates->render()` calls in try/catch blocks to more gracefully handle errors
+* [Added] Added an `Anonymize IP` toggle for Google Analytics, for compliance with some local laws
+* [Added] Added Wikipedia to the Social Media settings & `sameAs` entity information
+
 ## 1.1.41 -- 2017.02.10
 
 * [Improved] Broke the changelog out to CHANGELOG.md

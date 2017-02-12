@@ -1022,6 +1022,7 @@ class SeomaticController extends BaseController
         $record->googleAnalyticsEEcommerce = craft()->request->getPost('googleAnalyticsEEcommerce', $record->googleAnalyticsEEcommerce);
         $record->googleAnalyticsLinkAttribution = craft()->request->getPost('googleAnalyticsLinkAttribution', $record->googleAnalyticsLinkAttribution);
         $record->googleAnalyticsLinker = craft()->request->getPost('googleAnalyticsLinker', $record->googleAnalyticsLinker);
+        $record->googleAnalyticsAnonymizeIp = craft()->request->getPost('googleAnalyticsAnonymizeIp', $record->googleAnalyticsAnonymizeIp);
         $record->siteOwnerType = craft()->request->getPost('siteOwnerType', $record->siteOwnerType);
         $record->siteOwnerSubType = craft()->request->getPost('siteOwnerSubType', $record->siteOwnerSubType);
         $record->siteOwnerSpecificType = craft()->request->getPost('siteOwnerSpecificType', $record->siteOwnerSpecificType);
@@ -1127,6 +1128,7 @@ class SeomaticController extends BaseController
         $record->pinterestHandle = craft()->request->getPost('pinterestHandle', $record->pinterestHandle);
         $record->githubHandle = craft()->request->getPost('githubHandle', $record->githubHandle);
         $record->vimeoHandle = craft()->request->getPost('vimeoHandle', $record->vimeoHandle);
+        $record->wikipediaUrl = craft()->request->getPost('wikipediaUrl', $record->wikipediaUrl);
 
         if ($record->save())
         {

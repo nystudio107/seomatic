@@ -6,6 +6,9 @@
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
   ga('create', '{{ seomaticHelper.ownerGoogleAnalyticsUID |raw }}', 'auto'{% if seomaticHelper.googleAnalyticsLinker %}, {allowLinker: true}{% endif %});
+{% if seomaticHelper.googleAnalyticsAnonymizeIp %}
+  ga('set', 'anonymizeIp', true);
+{% endif %}
 {% if seomaticHelper.googleAnalyticsAdvertising %}
   ga('require', 'displayfeatures');
 {% endif %}
