@@ -2,9 +2,10 @@
     {
         "version": "1.1.42",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
-        "date": "2017-02-20T11:00:00-11:00",
+        "date": "2017-02-12T11:00:00-11:00",
         "notes": [
-            "[Improved] "
+            "[Fixed] Fixed a regression that could cause FieldTypes to not save properly",
+            "[Improved] Moved the lattitude/longitude info down below the address information for on the Site Identity & Site Creator settings"
         ]
     },
     {

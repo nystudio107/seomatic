@@ -1,8 +1,9 @@
 # SEOmatic Changelog
 
-## 1.1.42 -- 2017.02.20
+## 1.1.42 -- 2017.02.12
 
-* [Improved] 
+* [Fixed] Fixed a regression that could cause FieldTypes to not save properly
+* [Improved] Moved the lattitude/longitude info down below the address information for on the Site Identity & Site Creator settings
 
 ## 1.1.41 -- 2017.02.10
 

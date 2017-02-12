@@ -199,34 +199,6 @@
 <!-- Location -->
                     <h2>{{ "Location Info" |t }}</h2>
 
-                    <div class="field">
-                        <div class="half-width-field half-width-field-left">
-                        {{ forms.textField({
-                            label: "Entity Latitude"|t,
-                            instructions: "The latitude of the location of the entity that created the website, e.g.: -120.5436367" |t |raw,
-                            id: 'genericCreatorGeoLatitude',
-                            class: 'nicetext',
-                            name: 'genericCreatorGeoLatitude',
-                            value: creator.genericCreatorGeoLatitude,
-                            required: false,
-                            locale: creator.locale,
-                        }) }}
-                        </div>
-
-                        <div class="half-width-field">
-                        {{ forms.textField({
-                            label: "Entity Longitude"|t,
-                            instructions: "The longitude of the location of the entity that created the website, e.g.: 80.6033588" |t |raw,
-                            id: 'genericCreatorGeoLongitude',
-                            class: 'nicetext',
-                            name: 'genericCreatorGeoLongitude',
-                            value: creator.genericCreatorGeoLongitude,
-                            required: false,
-                            locale: creator.locale,
-                        }) }}
-                        </div>
-                    </div>
-
                     <div class="buttons">
                         <div class="btngroup first">
                             <input id="geolookup" type="button" class="btn" value="{{ 'Look up Latitude/Longitude'|t }}">
@@ -297,6 +269,34 @@
                             class: 'nicetext',
                             name: 'genericCreatorAddressCountry',
                             value: creator.genericCreatorAddressCountry,
+                            required: false,
+                            locale: creator.locale,
+                        }) }}
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="half-width-field half-width-field-left">
+                        {{ forms.textField({
+                            label: "Entity Latitude"|t,
+                            instructions: "The latitude of the location of the entity that created the website, e.g.: -120.5436367" |t |raw,
+                            id: 'genericCreatorGeoLatitude',
+                            class: 'nicetext',
+                            name: 'genericCreatorGeoLatitude',
+                            value: creator.genericCreatorGeoLatitude,
+                            required: false,
+                            locale: creator.locale,
+                        }) }}
+                        </div>
+
+                        <div class="half-width-field">
+                        {{ forms.textField({
+                            label: "Entity Longitude"|t,
+                            instructions: "The longitude of the location of the entity that created the website, e.g.: 80.6033588" |t |raw,
+                            id: 'genericCreatorGeoLongitude',
+                            class: 'nicetext',
+                            name: 'genericCreatorGeoLongitude',
+                            value: creator.genericCreatorGeoLongitude,
                             required: false,
                             locale: creator.locale,
                         }) }}

@@ -539,7 +539,10 @@ class Seomatic_MetaFieldType extends BaseFieldType
 //        if ($shouldResave)
         if (true)
         {
-            $defaultField = $this->prepValueFromPost($content[$fieldHandle]);
+            if ($content)
+                $defaultField = $this->prepValueFromPost($content[$fieldHandle]);
+            else
+                $defaultField = $this->prepValueFromPost(null);
             $content->setAttribute($fieldHandle, $defaultField);
             $element->setContent($content);
             craft()->content->saveContent($element);
