@@ -4,6 +4,7 @@
 
 * [Fixed] Fixed a regression that could cause FieldTypes to not save properly
 * [Improved] Moved the lattitude/longitude info down below the address information for on the Site Identity & Site Creator settings
+* [Improved] Wrapped all `templates->render()` calls in try/catch blocks to more gracefully handle errors
 
 ## 1.1.41 -- 2017.02.10
 
