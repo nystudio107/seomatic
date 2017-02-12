@@ -20,6 +20,10 @@ The SEOmetrics feature requires PHP 5.4 or later and that you have the [php-xml 
 
 ## Overview
 
+Learn more about SEO: [Modern SEO: Snake Oil vs. Substance](https://nystudio107.com/blog/modern-seo-snake-oil-vs-substance)
+
+Learn more about JSON-LD Structured Data: [JSON-LD, Structured Data and Erotica](https://nystudio107.com/blog/json-ld-structured-data-and-erotica)
+
 ### Video overview of SEOmatic:
 
 [![Video Overview of SEOmatic](https://img.youtube.com/vi/f1149YVEF_0/0.jpg)](https://www.youtube.com/watch?v=f1149YVEF_0)
