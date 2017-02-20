@@ -1,5 +1,9 @@
 # SEOmatic Changelog
 
+## 1.1.43 -- 2017.02.20
+### Added
+* Added Organization to Main Entity of Page
+
 ## 1.1.42 -- 2017.02.12
 
 * [Fixed] Fixed a regression that could cause FieldTypes to not save properly
