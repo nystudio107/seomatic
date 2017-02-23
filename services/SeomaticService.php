@@ -3000,8 +3000,12 @@ public function getLocalizedUrls()
 
             foreach ($_rows as $row)
             {
-              $path = ($row['uri'] == '__home__') ? '' : $row['uri'];
-              $unsortedLocalizedUrls[$row['locale']] = UrlHelper::getSiteUrl($path, null, null, $row['locale'] );
+                $path = ($row['uri'] == '__home__') ? '' : $row['uri'];
+                $url = UrlHelper::getSiteUrl($path, null, null, $row['locale']);
+                if (craft()->config->get('addTrailingSlashesToUrls')) {
+                    $url = rtrim($url, '/') . '/';
+                }
+                $unsortedLocalizedUrls[$row['locale']] = $url;
             }
 
             $locales = craft()->i18n->getSiteLocales();

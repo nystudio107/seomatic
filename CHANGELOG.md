@@ -5,6 +5,7 @@
 * Added Organization to Main Entity of Page
 * Improved error logging on internally rendered template errors
 * Respect `addTrailingSlashesToUrls` when returning fully qualified URLs
+* Respect `addTrailingSlashesToUrls` in the URLs returned from `getLocalizedUrls()`
 
 ### Fixed
 * Return error messages from internally rendered templates as $htmlText
