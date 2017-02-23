@@ -3063,7 +3063,7 @@ public function getFullyQualifiedUrl($url)
         $result = $siteUrl . $result;
     }
     if (craft()->config->get('addTrailingSlashesToUrls')) {
-        $url = rtrim($url, '/') . '/';
+        $result = rtrim($result, '/') . '/';
     }
 
     return $result;
