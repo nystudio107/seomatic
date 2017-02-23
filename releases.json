@@ -6,7 +6,8 @@
         "notes": [
             "[Added] Added Organization to Main Entity of Page",
             "[Added] Improved error logging on internally rendered template errors",
-            "[Fixed] Return error messages from internally rendered templates as $htmlText"
+            "[Fixed] Return error messages from internally rendered templates as $htmlText",
+            "[Added] Respect `addTrailingSlashesToUrls` when returning fully qualified URLs"
         ]
     },
     {
