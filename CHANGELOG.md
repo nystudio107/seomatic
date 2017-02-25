@@ -7,6 +7,9 @@
 * Respect `addTrailingSlashesToUrls` when returning fully qualified URLs
 * Respect `addTrailingSlashesToUrls` in the URLs returned from `getLocalizedUrls()`
 
+### Changed
+* The default `robots.txt` template is now smarter about trailing slashes on the `siteUrl`
+
 ### Fixed
 * Return error messages from internally rendered templates as $htmlText
 

@@ -8,7 +8,8 @@
             "[Added] Improved error logging on internally rendered template errors",
             "[Fixed] Return error messages from internally rendered templates as $htmlText",
             "[Added] Respect `addTrailingSlashesToUrls` when returning fully qualified URLs",
-            "[Added] Respect `addTrailingSlashesToUrls` in the URLs returned from `getLocalizedUrls()`"
+            "[Added] Respect `addTrailingSlashesToUrls` in the URLs returned from `getLocalizedUrls()`",
+            "[Improved] The default `robots.txt` template is now smarter about trailing slashes on the `siteUrl`"
         ]
     },
     {
