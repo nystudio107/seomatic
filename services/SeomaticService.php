@@ -60,7 +60,8 @@ class SeomaticService extends BaseApplicationComponent
                 else
                     $htmlText = $this->render($templatePath, $metaVars);
             } catch (\Exception $e) {
-                SeomaticPlugin::log('Error rendering template in renderSiteMeta()', LogLevel::Error);
+                $htmlText = 'Error rendering template in renderSiteMeta(): ' . $e->getMessage();
+                SeomaticPlugin::log($htmlText, LogLevel::Error);
             }
 
         if ($shouldCache)
@@ -115,7 +116,8 @@ class SeomaticService extends BaseApplicationComponent
                 try {
                         $htmlText = craft()->templates->render($templatePath, $metaVars);
                 } catch (\Exception $e) {
-                    SeomaticPlugin::log('Error rendering template in render()', LogLevel::Error);
+                    $htmlText = 'Error rendering template in render(): ' . $e->getMessage();
+                    SeomaticPlugin::log($htmlText, LogLevel::Error);
                 }
             }
         else
@@ -137,7 +139,8 @@ class SeomaticService extends BaseApplicationComponent
                 else
                     $htmlText = craft()->templates->render($templateName);
             } catch (\Exception $e) {
-                SeomaticPlugin::log('Error rendering template in render()', LogLevel::Error);
+                $htmlText = 'Error rendering template in render(): ' . $e->getMessage();
+                SeomaticPlugin::log($htmlText, LogLevel::Error);
             }
 
             method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($oldPath) : craft()->path->setTemplatesPath($oldPath);
@@ -195,7 +198,8 @@ class SeomaticService extends BaseApplicationComponent
             else
                 $htmlText = craft()->templates->render($templateName, $vars);
         } catch (\Exception $e) {
-            SeomaticPlugin::log('Error rendering template in renderJSONLD()', LogLevel::Error);
+            $htmlText = 'Error rendering template in renderJSONLD(): ' . $e->getMessage();
+            SeomaticPlugin::log($htmlText, LogLevel::Error);
         }
 
         method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($oldPath) : craft()->path->setTemplatesPath($oldPath);
@@ -219,7 +223,8 @@ class SeomaticService extends BaseApplicationComponent
         try {
             $htmlText = craft()->templates->render($templateName, $metaVars);
         } catch (\Exception $e) {
-            SeomaticPlugin::log('Error rendering template in renderDisplayPreview()', LogLevel::Error);
+            $htmlText = 'Error rendering template in renderDisplayPreview(): ' . $e->getMessage();
+            SeomaticPlugin::log($htmlText, LogLevel::Error);
         }
 
         method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($oldPath) : craft()->path->setTemplatesPath($oldPath);
@@ -336,7 +341,8 @@ class SeomaticService extends BaseApplicationComponent
 
                 method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($oldPath) : craft()->path->setTemplatesPath($oldPath);
             } catch (\Exception $e) {
-                SeomaticPlugin::log('Error rendering template in renderGoogleTagManager()', LogLevel::Error);
+                $htmlText = 'Error rendering template in renderGoogleTagManager(): ' . $e->getMessage();
+                SeomaticPlugin::log($htmlText, LogLevel::Error);
             }
         }
         return $htmlText;
@@ -365,7 +371,8 @@ class SeomaticService extends BaseApplicationComponent
                 else
                     $htmlText = craft()->templates->render($templateName, $metaVars);
             } catch (\Exception $e) {
-                SeomaticPlugin::log('Error rendering template in renderGoogleAnalytics()', LogLevel::Error);
+                $htmlText = 'Error rendering template in renderGoogleAnalytics(): ' . $e->getMessage();
+                SeomaticPlugin::log($htmlText, LogLevel::Error);
             }
 
             method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($oldPath) : craft()->path->setTemplatesPath($oldPath);
@@ -403,7 +410,8 @@ class SeomaticService extends BaseApplicationComponent
             try {
                 $htmlText = craft()->templates->render($templatePath);
             } catch (\Exception $e) {
-                SeomaticPlugin::log('Error rendering template in renderHumans()', LogLevel::Error);
+                $htmlText = 'Error rendering template in renderHumans(): ' . $e->getMessage();
+                SeomaticPlugin::log($htmlText, LogLevel::Error);
             }
         }
         else
@@ -420,7 +428,8 @@ class SeomaticService extends BaseApplicationComponent
             try {
                 $htmlText = craft()->templates->render($templateName, $metaVars);
             } catch (\Exception $e) {
-                SeomaticPlugin::log('Error rendering template in renderHumans()', LogLevel::Error);
+                $htmlText = 'Error rendering template in renderHumans(): ' . $e->getMessage();
+                SeomaticPlugin::log($htmlText, LogLevel::Error);
             }
 
             method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($oldPath) : craft()->path->setTemplatesPath($oldPath);
@@ -448,7 +457,8 @@ class SeomaticService extends BaseApplicationComponent
         try {
             $htmlText = craft()->templates->renderString($template, $metaVars);
         } catch (\Exception $e) {
-            SeomaticPlugin::log('Error rendering template in renderHumansTemplate()', LogLevel::Error);
+            $htmlText = 'Error rendering template in renderHumansTemplate(): ' . $e->getMessage();
+            SeomaticPlugin::log($htmlText, LogLevel::Error);
         }
 
         return $htmlText;
@@ -471,7 +481,8 @@ class SeomaticService extends BaseApplicationComponent
             try {
                 $htmlText = craft()->templates->render($templatePath);
             } catch (\Exception $e) {
-                SeomaticPlugin::log('Error rendering template in renderRobots()', LogLevel::Error);
+                $htmlText = 'Error rendering template in renderRobots(): ' . $e->getMessage();
+                SeomaticPlugin::log($htmlText, LogLevel::Error);
             }
         }
         else
@@ -488,7 +499,8 @@ class SeomaticService extends BaseApplicationComponent
             try {
                 $htmlText = craft()->templates->render($templateName, $metaVars);
             } catch (\Exception $e) {
-                SeomaticPlugin::log('Error rendering template in renderRobots()', LogLevel::Error);
+                $htmlText = 'Error rendering template in renderRobots(): ' . $e->getMessage();
+                SeomaticPlugin::log($htmlText, LogLevel::Error);
             }
 
             method_exists(craft()->templates, 'setTemplatesPath') ? craft()->templates->setTemplatesPath($oldPath) : craft()->path->setTemplatesPath($oldPath);
@@ -516,7 +528,8 @@ class SeomaticService extends BaseApplicationComponent
         try {
             $htmlText = craft()->templates->renderString($template, $metaVars);
         } catch (\Exception $e) {
-            SeomaticPlugin::log('Error rendering template in renderRobotsTemplate()', LogLevel::Error);
+            $htmlText = 'Error rendering template in renderRobotsTemplate(): ' . $e->getMessage();
+            SeomaticPlugin::log($htmlText, LogLevel::Error);
         }
 
         return $htmlText;
@@ -548,7 +561,8 @@ class SeomaticService extends BaseApplicationComponent
         try {
             $htmlText = craft()->templates->render('_seo_metrics_floater.twig', $vars);
         } catch (\Exception $e) {
-            SeomaticPlugin::log('Error rendering template in renderSeoMetrics()', LogLevel::Error);
+            $htmlText = 'Error rendering template in renderSeoMetrics(): ' . $e->getMessage();
+            SeomaticPlugin::log($htmlText, LogLevel::Error);
         }
         craft()->templates->includeFootHtml($htmlText);
 
@@ -668,6 +682,7 @@ class SeomaticService extends BaseApplicationComponent
             switch ($srcField->elementType->classHandle)
             {
                 case "Neo":
+                case "Neo_Block":
                     $result= $this->extractTextFromNeo($srcField);
                     break;
                 case ElementType::MatrixBlock:
@@ -2986,8 +3001,12 @@ public function getLocalizedUrls()
 
             foreach ($_rows as $row)
             {
-              $path = ($row['uri'] == '__home__') ? '' : $row['uri'];
-              $unsortedLocalizedUrls[$row['locale']] = UrlHelper::getSiteUrl($path, null, null, $row['locale'] );
+                $path = ($row['uri'] == '__home__') ? '' : $row['uri'];
+                $url = UrlHelper::getSiteUrl($path, null, null, $row['locale']);
+                if (craft()->config->get('addTrailingSlashesToUrls')) {
+                    $url = rtrim($url, '/') . '/';
+                }
+                $unsortedLocalizedUrls[$row['locale']] = $url;
             }
 
             $locales = craft()->i18n->getSiteLocales();
@@ -3047,6 +3066,9 @@ public function getFullyQualifiedUrl($url)
             $siteUrl = rtrim($siteUrl, '/');
         }
         $result = $siteUrl . $result;
+    }
+    if (craft()->config->get('addTrailingSlashesToUrls')) {
+        $result = rtrim($result, '/') . '/';
     }
 
     return $result;

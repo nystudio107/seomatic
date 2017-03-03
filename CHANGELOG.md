@@ -1,6 +1,21 @@
 # SEOmatic Changelog
 
-## 1.1.42 -- 2017.02.12
+## 1.1.43 - 2017.03.03
+### Added
+* Added Organization to Main Entity of Page
+* Improved error logging on internally rendered template errors
+
+### Changed
+* The default `robots.txt` template is now smarter about trailing slashes on the `siteUrl`
+* Respect `addTrailingSlashesToUrls` when returning fully qualified URLs
+* Respect `addTrailingSlashesToUrls` in the URLs returned from `getLocalizedUrls()`
+* Dunn & Bradstreet -> Dun & Bradstreet in `DOCS.md`
+
+### Fixed
+* Return error messages from internally rendered templates as $htmlText
+* Fix for extracting content from a Neo field
+
+## 1.1.42 - 2017.02.12
 
 * [Fixed] Fixed a regression that could cause FieldTypes to not save properly
 * [Improved] Moved the lattitude/longitude info down below the address information for on the Site Identity & Site Creator settings
@@ -8,7 +23,7 @@
 * [Added] Added an `Anonymize IP` toggle for Google Analytics, for compliance with some local laws
 * [Added] Added Wikipedia to the Social Media settings & `sameAs` entity information
 
-## 1.1.41 -- 2017.02.10
+## 1.1.41 - 2017.02.10
 
 * [Improved] Broke the changelog out to CHANGELOG.md
 * [Fixed] Fixed a bug when saving meta fails
@@ -16,7 +31,7 @@
 * [Fixed] Fixed an issue where re-saving a Section might not re-save the SEOmatic FieldType info
 * [Improved] Updated the README.md
 
-## 1.1.40 -- 2016.12.20
+## 1.1.40 - 2016.12.20
 
 * [Added] Added support for DigitalProducts and other base purchaseables
 * [Fixed] Fixed Commerce deprecation warnings
@@ -26,12 +41,12 @@
 * [Improved] Always sanitize the array values
 * [Improved] Updated the README.md
 
-## 1.1.39 -- 2016.09.23
+## 1.1.39 - 2016.09.23
 
 * [Improved] Don't redirect to the welcome page if we're being installed via Console command
 * [Improved] Updated the README.md
 
-## 1.1.38 -- 2016.09.22
+## 1.1.38 - 2016.09.22
 
 * [Fixed] Fixed an issue with Entry meta and Template Meta would not default Twitter and Facebook images properly
 * [Fixed] Fixed an issue where Facebook and Twitter image transforms were not properly applied with Entry and Template meta
@@ -39,25 +54,25 @@
 * [Improved] The Javascript for the SEOmetrics `Analyze` button now returns false to eliminate the #
 * [Improved] Updated the README.md
 
-## 1.1.37 -- 2016.09.18
+## 1.1.37 - 2016.09.18
 
 * [Fixed] The Settings template now works with Craft < 2.5
 * [Fixed] Fixed a regression that would cause php errors on the settings pages on PHP < 5.5
 * [Improved] Updated the README.md
 
-## 1.1.36 -- 2016.09.07
+## 1.1.36 - 2016.09.07
 
 * [Fixed] SEOmetrics will now work if `open_basedir` is set
 * [Improved] Added html_entity_decode() to the _cleanupText() method
 * [Fixed] Fixed an `Integrity constraint violation` MySQL error on certain MySQL versions
 * [Improved] Updated the README.md
 
-## 1.1.35 -- 2016.09.06
+## 1.1.35 - 2016.09.06
 
 * [Fixed] Fixed a regression that would cause Twitter and Facebook images to not show up
 * [Improved] Updated the README.md
 
-## 1.1.34 -- 2016.09.05
+## 1.1.34 - 2016.09.05
 
 * [Added] Added the ability to set separate images for Twitter Cards and Facebook OpenGraph images
 * [Improved] Do more sanity checking when building the breadcrumbs, so it works if you have not element with the URI `__home__`
@@ -69,7 +84,7 @@
 * [Improved] SEOmetrics now does a better job displaying Top Keywords on pages with very little text
 * [Improved] Updated the README.md
 
-## 1.1.32 -- 2016.08.25
+## 1.1.32 - 2016.08.25
 
 * [Improved] The SEOmetrics tab in the AdminCP now doesn't start analyzing until you click Analyze
 * [Improved] Improved SEOmetric's sitemap.xml detection
@@ -79,7 +94,7 @@
 * [Fixed] Fixed an issue with stale SEOmatic FieldTypes that were added to a section, but then later removed
 * [Improved] Updated the README.md
 
-## 1.1.31 -- 2016.08.15
+## 1.1.31 - 2016.08.15
 
 * [Added] SEOmetrics now has its own tab, and can evaluate any arbitrary URL you paste into it
 * [Added] SEOmatic can now pull images from FocusPoint FieldTypes
@@ -96,7 +111,7 @@
 * [Fixed] The mainEntityOfPage is no longer improperly cached if being called by getJsonLd()
 * [Improved] Updated the README.md
 
-## 1.1.30 -- 2016.08.05
+## 1.1.30 - 2016.08.05
 
 * [Added] Added 'Learn More' link for JSON-LD structured data in SEOmetrics
 * [Added] Breadcrumbs get added to WebPage objects, too
@@ -110,7 +125,7 @@
 * [Fixed] mainEntityOfPage now works for Template Metas
 * [Improved] Updated the README.md
 
-## 1.1.29 -- 2016.07.31
+## 1.1.29 - 2016.07.31
 
 * [Added] Added the ability to extract seoTitle, seoDescription, and seoKeywords from Neo fields
 * [Added] Added the ability to extract seoTitle, seoDescription, and seoKeywords from Preparse fields
@@ -121,7 +136,7 @@
 * [Improved] Improved the SEOmetrics preview CSS a bit
 * [Improved] Updated the README.md
 
-## 1.1.28 -- 2016.07.27
+## 1.1.28 - 2016.07.27
 
 * [Added] Added modified_time and published_time to OpenGraph articles when an SEOmatic Meta FieldType is used
 * [Improved] Safeguard against 'Undefined index: seoImageTransform'
@@ -129,7 +144,7 @@
 * [Fixed] Fixed an issue with getJsonLD($element)
 * [Improved] Updated the README.md
 
-## 1.1.27 -- 2016.07.26
+## 1.1.27 - 2016.07.26
 
 * [Fixed] Fixed a regression with Entry Meta cascade
 * [Fixed] Fixed an issue with SEOmatic FieldTypes on categories
@@ -137,7 +152,7 @@
 * [Improved] We now strip all control characters (including \n and \r) from the JSON-LD arrays
 * [Improved] Updated the README.md
 
-## 1.1.26 -- 2016.07.25
+## 1.1.26 - 2016.07.25
 
 * [Added] Added Main Entity of Page JSON-LD microdata
 * [Added] Added the method getJsonLD($element) to the FieldType model, so you can get the Main Entity of Page JSON-LD for an arbitrary entry (maybe in a craft.entries loop, for instance)
@@ -148,7 +163,7 @@
 * [Improved] Updated the DOCS.md and wiki docs
 * [Improved] Updated the README.md
 
-## 1.1.25 -- 2016.07.19
+## 1.1.25 - 2016.07.19
 
 * [Fixed] Fixed an issue with SEO images not rendering properly via the FieldType
 * [Fixed] Fixed a typo that would cause Template Metas to not save properly
@@ -156,7 +171,7 @@
 * [Improved] Explicitly state that the SEO Image must be in JPG, PNG, or GIF format
 * [Improved] Updated the README.md
 
-## 1.1.24 -- 2016.07.18
+## 1.1.24 - 2016.07.18
 
 * [Added] You can now specify image transforms for your SEO Image, Twitter Image, and Facebook Image for Site Meta, Template Meta, and Entry Metas
 * [Added] Added og:image:type, og:image:width, and og:image:height to the OpenGraph meta
@@ -168,7 +183,7 @@
 * [Improved] The GTM script tags are now rendered when `devMode` is on, for debugging GTM
 * [Improved] Updated the README.md
 
-## 1.1.23 -- 2016.07.08
+## 1.1.23 - 2016.07.08
 
 * [Added] Added support for Google Tag Manager (including `dataLayer`)
 * [Fixed] Keywords in the SEOmatic Meta FieldType are now tokenized again
@@ -179,13 +194,13 @@
 * [Improved] meta keywords and meta description tags only render if they are non-empty
 * [Improved] Updated the README.md
 
-## 1.1.22 -- 2016.06.27
+## 1.1.22 - 2016.06.27
 
 * [Fixed] Fixed the variable accessor rountines getSocial() and getIdentity()
 * [Fixed] Fixed an issue with the 'custom' data not displaying in SEOmatic Meta FieldTypes
 * [Improved] Updated the README.md
 
-## 1.1.21 -- 2016.06.25
+## 1.1.21 - 2016.06.25
 
 * [Improved] Contents of SEOmatic Meta FieldTypes are now parsed when they are saved, rather than at runtime, which should be faster, and also makes the contents of the fields always accessible.  Please re-save your Sections that use SEOmatic FieldTypes as per: [https://github.com/nystudio107/seomatic/wiki/05.-SEO-Entry-Meta](https://github.com/nystudio107/seomatic/wiki/05.-SEO-Entry-Meta)
 * [Added] The SEO Title, SEO Description, and SEO Keywords fields in Template Metas can now include tags that output entry properties, such as `{title}` or `{myCustomField}` in them
@@ -204,7 +219,7 @@
 * [Fixed] Fixed Twitter cards, changed `property` to `name`
 * [Improved] Updated the README.md
 
-## 1.1.20 -- 2016.06.06
+## 1.1.20 - 2016.06.06
 
 * [Added] Added 'Focus Keywords' to the SEOmetrics window, letting you analyze your page content for specific SEO keywords
 * [Fixed] Fixed an issue with environmentalVariables in the Site Identity/Entity URL field
@@ -214,13 +229,13 @@
 * [Improved] Changed the CSS z-index of the SEOmetrics windows to be 9998/9
 * [Improved] Updated the README.md
 
-## 1.1.19 -- 2016.05.30
+## 1.1.19 - 2016.05.30
 
 * [Fixed] Fixed an issue where the SEOmetrics wouldn't render on certain server setups
 * [Added] Added a list of the top keywords on the page to the SEOmetrics
 * [Improved] Updated the README.md
 
-## 1.1.18 -- 2016.05.30
+## 1.1.18 - 2016.05.30
 
 * [Added] Added "SEOmetrics" displayed during Live Preview that analyizes your page, and generates helpful tips for improving SEO
 * [Fixed] SEOmatic will now populate its FieldType with default values on `saveElement()`, which is triggered via import plugings and also via Settings → Edit My Section → hit Save
@@ -228,7 +243,7 @@
 * [Fixed] Fixed a CSS issue with the AdminCP UI and very large screens
 * [Improved] Updated the README.md
 
-## 1.1.17 -- 2016.05.09
+## 1.1.17 - 2016.05.09
 
 * [Added] Added support for Google Sitelinks Search Box
 * [Added] Added support for Bing site verification
@@ -236,7 +251,7 @@
 * [Fixed] Facebook Article tags now use the proper data for author: and publisher:
 * [Improved] Updated the README.md
 
-## 1.1.16 -- 2016.04.29
+## 1.1.16 - 2016.04.29
 
 * [Added] Added `craft()->seomatic->headlessRenderSiteMeta()` for headless Craft CMS installs
 * [Improved] Fixed an issue where Twitter and Facebook properties were double-encoded
@@ -245,7 +260,7 @@
 * [Improved] SEOmatic now converts any objects passed into ths seomatic variables to string automatically* 
 * [Improved] Updated the README.md
 
-## 1.1.15 -- 2016.04.25
+## 1.1.15 - 2016.04.25
 
 * [Added] Added a `siteUrlOverride` config setting for when you need to override the `siteUrl`, for instance in a headless ElementAPI server
 * [Added] Added breadcrumbs to the AdminCP UI
@@ -256,7 +271,7 @@
 * [Improved] Facebook locales now ensure that they have a territory as well as a language, e.g.: fr_FR, not just fr
 * [Improved] Updated the README.md
 
-## 1.1.14 -- 2016.04.19
+## 1.1.14 - 2016.04.19
 
 * [Added] Added [Organization Contact Points](https://developers.google.com/structured-data/customize/contact-points) that can appear in the Google Knowledge panel in some searches
 * [Added] You can control whether Product JSON-LD is rendered via the `renderCommerceProductJSONLD` config variable
@@ -264,30 +279,30 @@
 * [Improved] SEOmatic now outputs JSON-LD microdata for all of the Craft Commerce Product Variants (previously it was outputting only the default Variant)
 * [Improved] Updated the README.md
 
-## 1.1.13 -- 2016.04.16
+## 1.1.13 - 2016.04.16
 
 * [Added] If an SEOmatic FieldType is attached to a Craft Commerce Product, in addition to rendering the page SEO Meta, it will also generate [Product JSON-LD microdata](https://developers.google.com/structured-data/rich-snippets/products) that describes the product.
 * [Improved] SEOmatic now uses control panel sub-navs if you're running Craft 2.5 or later
 * [Improved] Updated the README.md
 
-## 1.1.12 -- 2016.04.14
+## 1.1.12 - 2016.04.14
 
 * [Improved] SEOmatic will now populate its FieldType with default values on saveElement(), which is triggered via import plugings and also via Settings → Edit My Section → hit Save
 * [Improved] Updated the README.md
 
-## 1.1.11 -- 2016.04.08
+## 1.1.11 - 2016.04.08
 
 * [Fixed] Fixed an issue with rendering the humans.tx and robots.txt templates
 * [Improved] An HTML comment is added if the Google Analytics script is not included due to LivePreview or devMode being on
 * [Improved] Updated the README.md
 
-## 1.1.10 -- 2016.03.29
+## 1.1.10 - 2016.03.29
 
 * [Fixed] Fixed API 'deprecation' errors with Craft 2.6.2778 or later
 * [Improved] Added more controls for the default title, description, and keywords values in config.php
 * [Improved] Updated the README.md
 
-## 1.1.9 -- 2016.03.17
+## 1.1.9 - 2016.03.17
 
 * [Fixed] Fixed a typo in the Preview SEO Tags window
 * [Fixed] We now handle Twig errors in SEOmatic FieldType fields gracefully
@@ -295,7 +310,7 @@
 * [Improved] All things that should be fully qualified URLs are now fully qualified URLs, even if you specify them via path or relative URL
 * [Improved] Updated the README.md
 
-## 1.1.8 -- 2016.03.10
+## 1.1.8 - 2016.03.10
 
 * [Improved] In the SEOmatic FieldType, moved default setting to prepValue() so it'll work if the entries are all re-saved via `resaveAllElements`
 * [Added] Added getFullyQualifiedUrl() helper as a Twig function/filter and as a variable for Twig templating
@@ -305,13 +320,13 @@
 * [Fixed] Fixed errant ordinal encoding of the first element in a sequential array
 * [Improved] Updated the README.md
 
-## 1.1.7 -- 2016.03.04
+## 1.1.7 - 2016.03.04
 
 * [Fixed] Fixed a regression that would cause the Place JSON-LD to render incorrectly
 * [Fixed] Fixed a nasty bug that would cause SEOmatic to crash if you used `{title}` or other variables in your SEOmatic Entry Meta fields
 * [Improved] Updated the README.md
 
-## 1.1.6 -- 2016.03.03
+## 1.1.6 - 2016.03.03
 
 * [Fixed] Fixed a fun recursion bug that would cause meta arrays nested more than 1 deep to not be sanitized & parsed properly
 * [Added] Added Composer support for `type: craft-plugin` in `composer.json`
@@ -320,7 +335,7 @@
 * [Fixed] The metas will now be cached as intended (oops), which should increase performance a bit
 * [Improved] Updated the README.md
 
-## 1.1.5 -- 2016.02.27
+## 1.1.5 - 2016.02.27
 
 * [Added] Added support for OpenGraph `article` types
 * [Added] Added support for OpenGraph `fb:app_id` on the Social Media settings
@@ -329,7 +344,7 @@
 * [Fixed] The SEOmatic FieldType will preview the canonicalUrl properly now
 * [Improved] Updated the README.md
 
-## 1.1.4 -- 2016.02.19
+## 1.1.4 - 2016.02.19
 
 * [Added] Set the default Twig escaping strategy for robots.txt and humans.txt to false (so the tag output is not escaped)
 * [Fixed] Handle the case where there is no Twitter field
@@ -340,7 +355,7 @@
 * [Improved] Removed the siteRobotsTxt from the globals display
 * [Improved] Updated the README.md
 
-## 1.1.3 -- 2016.02.17
+## 1.1.3 - 2016.02.17
 
 * [Fixed] Fixed some typos in SEOmatic & the docs re: `robots.txt`
 * [Fixed] The Google Analytics script no longer renders if the Google Analytics Tracking ID field is empty
@@ -350,7 +365,7 @@
 * [Fixed] Fixed a PHP error if the Site Creator is a Person
 * [Improved] Updated the README.md
 
-## 1.1.1 -- 2016.02.09
+## 1.1.1 - 2016.02.09
 
 * [Added] SEOmatic Meta FieldTypes now work to automatically set meta when attached to `Categories` and also Craft Commerce `Products`
 * [Improved] The Google Analytics script tag is not included during Live Preview anymore
@@ -361,7 +376,7 @@
 * [Improved] Updated the README.md
 
 
-## 1.1.0 -- 2016.02.07
+## 1.1.0 - 2016.02.07
 
 * [Added] Added all of the schema.org Organization types to Identity settings
 * [Added] SEOmatic Meta FieldTypes now have settings that let you restrict the Asset Sources available to them
@@ -384,14 +399,14 @@
 * [Fixed] Fixed an issue with the cannonical URL and some localized sites
 * [Improved] Updated the README.md
 
-## 1.0.12 -- 2016.01.19
+## 1.0.12 - 2016.01.19
 
 * [Improved] Performance improvement by not checking to see if a template exists before matching it
 * [Improved] Keyword tags are now saved onblur
 * [Improved] The Preview buttons in the SEOmatic FieldType are laid out better now
 * [Improved] Updated the README.md
 
-## 1.0.11 -- 2016.01.13
+## 1.0.11 - 2016.01.13
 
 * [Added] You can now set Tags fields to be a Source for SEO FieldType Meta fields
 * [Added] Added a meta referrer tag to the template (set to 'always')
@@ -400,7 +415,7 @@
 * [Fixed] Fixed an issue that would cause the seomatic* variables to not be properly sanitized
 * [Improved] Updated the README.md
 
-## 1.0.10 -- 2016.01.12
+## 1.0.10 - 2016.01.12
 
 * [Added] You can now set Matrix blocks to be a Source for SEO FieldType Meta fields; it iterates through all text and rich text fields
 * [Added] Added a extractTextFromMatrix() Twig filter/function/variable for templating use
@@ -408,7 +423,7 @@
 * [Fixed] Fixed a regression that caused the 'New Template Meta' button to be broken
 * [Improved] Updated the README.md
 
-## 1.0.9 -- 2016.01.11
+## 1.0.9 - 2016.01.11
 
 * [Added] Added tokenized input fields for the keywords for the Site Meta, Template Meta, and Field Meta
 * [Added] You can now specify the position of the SEO Site Title relative to the Title
@@ -417,7 +432,7 @@
 * [Fixed] Fixed a regression that caused the Template Metas to stop working on the front-end
 * [Improved] Updated the README.md
 
-## 1.0.8 -- 2016.01.08
+## 1.0.8 - 2016.01.08
 
 * [Improved] The rendering of the Identity and WebSite JSON-LD is now done via a tag in the templates, giving flexibility to people who want to use custom templates
 * [Fixed] Fixed an issue with PHP < 5.4
@@ -425,14 +440,14 @@
 * [Fixed] Fixed an issue if a plugin (like A&M forms) renders a template with Twig code in the template name
 * [Improved] Updated the README.md
 
-## 1.0.7 -- 2016.01.01
+## 1.0.7 - 2016.01.01
 
 * [Added] Added a 'robots' field globally to the SEO Meta for specifying noindex/nofollow
 * [Fixed] Added error handling to the 'Look up Latitude/Longitude' buttons
 * [Fixed] Some minor template / logic issues
 * [Improved] Updated the README.md
 
-## 1.0.6 -- 2015.12.31
+## 1.0.6 - 2015.12.31
 
 * [Added] Added an SEOmatic Meta field type that allows you to attach meta to Entries/Sections
 * [Added] The SEOmatic Meta field type can have custom date, or pull from other fields in that Entry, or even extract keywords from other fields
@@ -445,7 +460,7 @@
 * [Improved] All JSON-LD rendered through SEOmatic is now minified if you have the Minify plugin installed
 * [Improved] Updated the README.md
 
-## 1.0.5 -- 2015.12.28
+## 1.0.5 - 2015.12.28
 
 * [Added] Added 'renderJSONLD' Twig function & filter, and 'craft.seomatic.renderJSONLD()' variable for rendering arbitary JSON-LD schemas
 * [Added] SEOmatic now uses 'renderJSONLD' internally to render the Identity and WebSite JSON-LD microdata, rather than templates
@@ -461,7 +476,7 @@
 * [Added] Database migrations to support the new features
 * [Improved] Updated the README.md
 
-## 1.0.4 -- 2015.12.22
+## 1.0.4 - 2015.12.22
 
 * [Added] Added 'copyrightNotice', 'addressString', 'addressHtml', & 'mapUrl' to 'seomaticIdentity'
 * [Added] Added 'copyrightNotice', 'addressString', 'addressHtml', & 'mapUrl' to 'seomaticCreator'
@@ -471,13 +486,13 @@
 * [Improved] The length of the 'seoSiteName' is now taken into account when truncating the 'seoTitle'
 * [Improved] Updated the README.md
 
-## 1.0.3 -- 2015.12.21
+## 1.0.3 - 2015.12.21
 
 * [Fixed] Fixed an issue with the TextRank lib not being properly in the git repo, causing it to error when used
 * [Fixed] The SEOmatic settings pages now have a SAVE button on them for Craft 2.4
 * [Improved] Updated the README.md
 
-## 1.0.2 -- 2015.12.20
+## 1.0.2 - 2015.12.20
 
 * [Added] Exposed a few more utility functions via Twig filters & functions
 * [Added] The genericOwnerEmail & genericCreatorEmail variables are ordinal-encoded, to obfuscate them
@@ -485,14 +500,14 @@
 * [Fixed] Fixed the localization so SEOmatic works if your Admin CP is in a language other than English
 * [Improved] Updated the README.md
 
-## 1.0.1 -- 2015.12.19
+## 1.0.1 - 2015.12.19
 
 * [Added] If the [Minify](https://github.com/nystudio107/minify) plugin is installed, SEOmatic will minify the SEO Meta tags & JSON-LD
 * [Improved] Improved the caching mechanism to span all of the meta
 * [Fixed] Fixed a few of small errors
 * [Improved] Updated the README.md to better document SEOmatic
 
-## 1.0.0 -- 2015.12.18
+## 1.0.0 - 2015.12.18
 
 * Initial release
 

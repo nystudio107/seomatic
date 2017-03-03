@@ -164,7 +164,7 @@ There is also a `gtmDataLayerVariableName` variable in `config.php` which allows
 * **Entity Country** - The country in which the entity that owns the website is located, e.g.: US
 
 #### Organization Info
-* **Organization DUNS Number** - The DUNS (Dunn & Bradstreet) number of the organization/company/restaurant that owns the website
+* **Organization DUNS Number** - The DUNS (Dun & Bradstreet) number of the organization/company/restaurant that owns the website
 * **Organization Founder** - The name of the founder of the organization/company/restaurant
 * **Organization Founding Date** - The date the organization/company/restaurant was founded
 * **Organization Founding Location** - The location where the organization/company/restaurant was founded
@@ -247,7 +247,7 @@ Leave any fields blank that aren't applicable or which you do not want as part o
 * **Entity Country** - The country in which the entity that created the website is located, e.g.: US
 
 #### Organization Info
-* **Organization DUNS Number** - The DUNS (Dunn & Bradstreet) number of the organization/company/restaurant that created the website
+* **Organization DUNS Number** - The DUNS (Dun & Bradstreet) number of the organization/company/restaurant that created the website
 * **Organization Founder** - The name of the founder of the organization/company
 * **Organization Founding Date** - The date the organization/company was founded
 * **Organization Founding Location** - The location where the organization/company was founded
