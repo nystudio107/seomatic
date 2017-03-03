@@ -1,5 +1,9 @@
 # SEOmatic Changelog
 
+## 1.1.44 - 2017.03.20
+### Changed
+* Fixed some deprecated meta information in `SeomaticPlugin.php`
+
 ## 1.1.43 - 2017.03.03
 ### Added
 * Added Organization to Main Entity of Page

@@ -16,17 +16,17 @@ class SeomaticPlugin extends BasePlugin
 
     public function getDocumentationUrl()
     {
-        return 'https://github.com/khalwat/seomatic/blob/master/README.md';
+        return 'https://github.com/khalwat/nystudio107/blob/master/README.md';
     }
 
     public function getReleaseFeedUrl()
     {
-        return 'https://raw.githubusercontent.com/khalwat/seomatic/master/releases.json';
+        return 'https://raw.githubusercontent.com/nystudio107/seomatic/master/releases.json';
     }
 
     public function getVersion()
     {
-        return '1.1.43';
+        return '1.1.44';
     }
 
     public function getSchemaVersion()
@@ -41,7 +41,7 @@ class SeomaticPlugin extends BasePlugin
 
     public function getDeveloperUrl()
     {
-        return 'http://nystudio107.com';
+        return 'https://nystudio107.com';
     }
 
     public function hasCpSection()
