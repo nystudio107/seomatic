@@ -1,17 +1,19 @@
 # SEOmatic Changelog
 
-## 1.1.43 - 2017.02.20
+## 1.1.43 - 2017.03.03
 ### Added
 * Added Organization to Main Entity of Page
 * Improved error logging on internally rendered template errors
-* Respect `addTrailingSlashesToUrls` when returning fully qualified URLs
-* Respect `addTrailingSlashesToUrls` in the URLs returned from `getLocalizedUrls()`
 
 ### Changed
 * The default `robots.txt` template is now smarter about trailing slashes on the `siteUrl`
+* Respect `addTrailingSlashesToUrls` when returning fully qualified URLs
+* Respect `addTrailingSlashesToUrls` in the URLs returned from `getLocalizedUrls()`
+* Dunn & Bradstreet -> Dun & Bradstreet in `DOCS.md`
 
 ### Fixed
 * Return error messages from internally rendered templates as $htmlText
+* Fix for extracting content from a Neo field
 
 ## 1.1.42 - 2017.02.12
 

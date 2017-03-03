@@ -682,6 +682,7 @@ class SeomaticService extends BaseApplicationComponent
             switch ($srcField->elementType->classHandle)
             {
                 case "Neo":
+                case "Neo_Block":
                     $result= $this->extractTextFromNeo($srcField);
                     break;
                 case ElementType::MatrixBlock:
