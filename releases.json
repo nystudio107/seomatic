@@ -4,6 +4,7 @@
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2017-03-20T11:00:00-11:00",
         "notes": [
+            "[Improved] Add a trailing / if `addTrailingSlashesToUrls` is set, but only if there's on extension",
             "[Improved] Fixed some deprecated meta information in `SeomaticPlugin.php`"
         ]
     },

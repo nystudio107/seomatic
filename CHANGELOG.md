@@ -2,6 +2,7 @@
 
 ## 1.1.44 - 2017.03.20
 ### Changed
+* Add a trailing / if `addTrailingSlashesToUrls` is set, but only if there's on extension
 * Fixed some deprecated meta information in `SeomaticPlugin.php`
 
 ## 1.1.43 - 2017.03.03

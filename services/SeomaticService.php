@@ -3067,8 +3067,11 @@ public function getFullyQualifiedUrl($url)
         }
         $result = $siteUrl . $result;
     }
+    // Add a trailing / if `addTrailingSlashesToUrls` is set, but only if there's on extension
     if (craft()->config->get('addTrailingSlashesToUrls')) {
-        $result = rtrim($result, '/') . '/';
+        $path = parse_url($result, PHP_URL_PATH);
+        if (empty(pathinfo($path,PATHINFO_EXTENSION)))
+            $result = rtrim($result, '/') . '/';
     }
 
     return $result;
