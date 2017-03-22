@@ -1102,6 +1102,12 @@ class SeomaticService extends BaseApplicationComponent
         if ($this->entryMeta)
             $meta = array_merge($meta, $this->entryMeta);
 
+/* -- If this is a 404, set the canonicalUrl to nothing */
+
+        if (http_response_code() == 404) {
+            $meta['canonicalUrl'] = "";
+        }
+
 /* -- Merge with the global override config settings */
 
         $globalMetaOverride = craft()->config->get("globalMetaOverride", "seomatic");
