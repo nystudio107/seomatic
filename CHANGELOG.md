@@ -1,5 +1,17 @@
 # SEOmatic Changelog
 
+## 1.1.44 - 2017.03.23
+### Changed
+* Fixed an issue with SEOmetrics and PHP 7.1 that would cause `Error parsing the DOM` errors
+* Include our own copy of jQuery for SEOmetrics, rather than depending on the Craft version
+* The calls to `file_get_contents` for SEOmetrics are now much more permissive
+
+### Fixed
+* If the current request is a 404, set the `canonicalUrl` to an empty string
+* If the `canonicalUrl` is set to an empty string, don't render the `<meta rel='canonical'` tag
+* Add a trailing / if `addTrailingSlashesToUrls` is set, but only if there's on extension
+* Fixed some deprecated meta information in `SeomaticPlugin.php`
+
 ## 1.1.43 - 2017.03.03
 ### Added
 * Added Organization to Main Entity of Page

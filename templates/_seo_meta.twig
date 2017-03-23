@@ -16,7 +16,9 @@
 <meta name="description" content="{{ seomaticMeta.seoDescription |raw }}" />
 {% endif %}
 <meta name="generator" content="SEOmatic" />
+{% if seomaticMeta.canonicalUrl |length %}
 <link rel="canonical" href="{{ seomaticMeta.canonicalUrl }}" />
+{% endif %}
 {% set localizedUrls = getLocalizedUrls() %}
 {% if localizedUrls |length > 1 %}
 {% for key, value in localizedUrls %}

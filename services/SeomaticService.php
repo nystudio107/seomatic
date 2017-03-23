@@ -1102,6 +1102,12 @@ class SeomaticService extends BaseApplicationComponent
         if ($this->entryMeta)
             $meta = array_merge($meta, $this->entryMeta);
 
+/* -- If this is a 404, set the canonicalUrl to nothing */
+
+        if (http_response_code() == 404) {
+            $meta['canonicalUrl'] = "";
+        }
+
 /* -- Merge with the global override config settings */
 
         $globalMetaOverride = craft()->config->get("globalMetaOverride", "seomatic");
@@ -3067,8 +3073,11 @@ public function getFullyQualifiedUrl($url)
         }
         $result = $siteUrl . $result;
     }
+    // Add a trailing / if `addTrailingSlashesToUrls` is set, but only if there's on extension
     if (craft()->config->get('addTrailingSlashesToUrls')) {
-        $result = rtrim($result, '/') . '/';
+        $path = parse_url($result, PHP_URL_PATH);
+        if (empty(pathinfo($path,PATHINFO_EXTENSION)))
+            $result = rtrim($result, '/') . '/';
     }
 
     return $result;
