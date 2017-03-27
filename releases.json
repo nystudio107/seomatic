@@ -1,5 +1,13 @@
 [
     {
+        "version": "1.1.45",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
+        "date": "2017-03-27T11:00:00-11:00",
+        "notes": [
+            "[Fixed] Fixed an issue with `addTrailingSlashesToUrls` and certain PHP configurations"
+        ]
+    },
+    {
         "version": "1.1.44",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2017-03-22T11:00:00-11:00",

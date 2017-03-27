@@ -1,5 +1,9 @@
 # SEOmatic Changelog
 
+## 1.1.45 - 2017.03.26
+### Changed
+* Fixed an issue with `addTrailingSlashesToUrls` and certain PHP configurations
+
 ## 1.1.44 - 2017.03.23
 ### Changed
 * Fixed an issue with SEOmetrics and PHP 7.1 that would cause `Error parsing the DOM` errors
