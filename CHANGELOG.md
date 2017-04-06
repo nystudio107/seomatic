@@ -1,5 +1,9 @@
 # SEOmatic Changelog
 
+## 1.1.46 - 2017.04.06
+### Changed
+* Force `publisher` to be a `Person` or `Organization` for news articles
+
 ## 1.1.45 - 2017.03.26
 ### Changed
 * Fixed an issue with `addTrailingSlashesToUrls` and certain PHP configurations

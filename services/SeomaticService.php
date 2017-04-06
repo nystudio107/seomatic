@@ -2283,8 +2283,18 @@ class SeomaticService extends BaseApplicationComponent
                     $mainEntityOfPageJSONLD['copyrightYear'] = $copyrightYear;
 
                     $mainEntityOfPageJSONLD['author'] = $identity;
-                    $mainEntityOfPageJSONLD['publisher'] = $identity;
                     $mainEntityOfPageJSONLD['copyrightHolder'] = $identity;
+                    $mainEntityOfPageJSONLD['publisher'] = $identity;
+                    // There are a number of properties that Google apparently doesn't like for 'publisher'
+                    if ($mainEntityOfPageJSONLD['publisher']['type'] !== "Person") {
+                        $mainEntityOfPageJSONLD['publisher']['type'] = "Organization";
+                    }
+                    unset($mainEntityOfPageJSONLD['publisher']['priceRange']);
+                    unset($mainEntityOfPageJSONLD['publisher']['tickerSymbol']);
+                    unset($mainEntityOfPageJSONLD['publisher']['openingHoursSpecification']);
+                    unset($mainEntityOfPageJSONLD['publisher']['servesCuisine']);
+                    unset($mainEntityOfPageJSONLD['publisher']['menu']);
+                    unset($mainEntityOfPageJSONLD['publisher']['acceptsReservations']);
                 }
                 break;
 
