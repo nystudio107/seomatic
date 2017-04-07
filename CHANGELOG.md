@@ -1,8 +1,9 @@
 # SEOmatic Changelog
 
-## 1.1.46 - 2017.04.06
+## 1.1.46 - 2017.04.07
 ### Changed
 * Force `publisher` to be a `Person` or `Organization` for news articles
+* Fixed the AdminCP documentation URL
 
 ## 1.1.45 - 2017.03.26
 ### Changed
