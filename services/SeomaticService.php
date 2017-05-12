@@ -1224,7 +1224,7 @@ class SeomaticService extends BaseApplicationComponent
         {
             if ($this->lastElement->uri != "__home__" && $element->uri)
             {
-                $path = parse_url($this->lastElement->url, PHP_URL_PATH);
+                $path = parse_url($this->lastElement->uri, PHP_URL_PATH);
                 $path = trim($path, "/");
                 $segments = explode("/", $path);
             }
@@ -1238,7 +1238,7 @@ class SeomaticService extends BaseApplicationComponent
             $element = craft()->elements->getElementByUri($uri);
             if ($element && $element->uri)
             {
-                $result[$element->title] = $this->getFullyQualifiedUrl($element->url);
+                $result[$element->title] = $this->getFullyQualifiedUrl($element->uri);
             }
             $uri .= "/";
         }
