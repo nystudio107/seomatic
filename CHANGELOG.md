@@ -1,8 +1,9 @@
 # SEOmatic Changelog
 
-## 1.1.47 - 2017.05.12
+## 1.1.47 - 2017.05.18
 ### Changed
 * Fixed an issue with Live Preview and a previous or draft version of an entry
+* Fixed a problem where the `dataLayer` wasn't passed down to the Google Tag Manager script
 
 ## 1.1.46 - 2017.04.08
 ### Changed
