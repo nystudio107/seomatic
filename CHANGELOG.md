@@ -4,6 +4,7 @@
 ### Changed
 * Fixed an issue with Live Preview and a previous or draft version of an entry
 * Fixed a problem where the `dataLayer` wasn't passed down to the Google Tag Manager script
+* Commerce products now have the `name` set to the variant + title
 
 ## 1.1.46 - 2017.04.08
 ### Changed

@@ -5,7 +5,8 @@
         "date": "2017-05-18T11:00:00-11:00",
         "notes": [
             "[Fixed] Fixed an issue with Live Preview and a previous or draft version of an entry",
-            "[Fixed] Fixed a problem where the `dataLayer` wasn't passed down to the Google Tag Manager script"
+            "[Fixed] Fixed a problem where the `dataLayer` wasn't passed down to the Google Tag Manager script",
+            "[Improved] Commerce products now have the `name` set to the variant + title"
         ]
     },
     {

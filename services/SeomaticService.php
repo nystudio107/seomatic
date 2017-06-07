@@ -615,7 +615,7 @@ class SeomaticService extends BaseApplicationComponent
                                         foreach ($variants as $variant)
                                         {
                                             $commerceVariant = array(
-                                                'seoProductDescription' => $variant->getDescription(),
+                                                'seoProductDescription' => $variant->getDescription() . ' - ' . $element->title,
                                                 'seoProductPrice' => number_format($variant->getPrice(), 2, '.', ''),
                                                 'seoProductCurrency' => craft()->commerce_paymentCurrencies->getPrimaryPaymentCurrency(),
                                                 'seoProductSku' => $variant->getSku(),
@@ -626,7 +626,7 @@ class SeomaticService extends BaseApplicationComponent
                                     else
                                     {
                                         $commerceVariant = array(
-                                            'seoProductDescription' => $element->getDescription(),
+                                            'seoProductDescription' => $element->getDescription() . ' - ' . $element->title,
                                             'seoProductPrice' => number_format($element->getPrice(), 2, '.', ''),
                                             'seoProductCurrency' => craft()->commerce_paymentCurrencies->getPrimaryPaymentCurrency(),
                                             'seoProductSku' => $element->getSku(),
