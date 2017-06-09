@@ -1,5 +1,9 @@
 # SEOmatic Changelog
 
+## 1.1.48 - 2017.06.18
+### Changed
+* Fixed an issue on old versions of PHP < PHP 5.4 with `http_response_code()`
+
 ## 1.1.47 - 2017.06.08
 ### Changed
 * Fixed an issue with Live Preview and a previous or draft version of an entry

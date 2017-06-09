@@ -1104,8 +1104,10 @@ class SeomaticService extends BaseApplicationComponent
 
 /* -- If this is a 404, set the canonicalUrl to nothing */
 
-        if (http_response_code() == 404) {
-            $meta['canonicalUrl'] = "";
+        if (function_exists('http_response_code')) {
+            if (http_response_code() == 404) {
+                $meta['canonicalUrl'] = "";
+            }
         }
 
 /* -- Merge with the global override config settings */
