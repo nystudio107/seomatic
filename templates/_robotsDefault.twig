@@ -1,8 +1,16 @@
 # robots.txt for {{ siteUrl }}
+# For a multi-environment setup, see: https://nystudio107.com/blog/prevent-google-from-indexing-staging-sites
 
 Sitemap: {{ siteUrl |trim('/') }}/sitemap.xml
 
-# Don't allow web crawlers to index Craft
+{% if craft.config.devMode %}
+# devMode - disallow all
+
+User-agent: *
+Disallow: /
+{% else %}
+# Live - Don't allow web crawlers to index Craft
 
 User-agent: *
 Disallow: /craft/
+{% endif %}

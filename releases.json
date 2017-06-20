@@ -4,7 +4,8 @@
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2017-06-18T11:00:00-11:00",
         "notes": [
-            "[Fixed] Fixed an issue on old versions of PHP < PHP 5.4 with `http_response_code()`"
+            "[Fixed] Fixed an issue on old versions of PHP < PHP 5.4 with `http_response_code()`",
+            "[Improved] Added a safer default `robots.txt` template"
         ]
     },
     {
