@@ -1012,7 +1012,8 @@ class SeomaticService extends BaseApplicationComponent
                 $openGraphArticle = array();
                 $openGraphArticle['author'] = $helper['facebookUrl'];
                 $openGraphArticle['publisher'] = $helper['facebookUrl'];
-                $openGraphArticle['tag'] = array_map('trim', explode(',', $meta['seoKeywords']));
+                if ($meta['seoKeywords'])
+                    $openGraphArticle['tag'] = array_map('trim', explode(',', $meta['seoKeywords']));
 
     /* -- If an element was injected into the current template, scrape it for attribuates */
 
