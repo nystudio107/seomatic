@@ -1368,7 +1368,7 @@ SEOmatic cascades Meta settings; if you have a Meta associated with the current 
 	<!-- Standard SEO -->
 	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="referrer" content="always" />
+	<meta name="referrer" content="no-referrer-when-downgrade" />
 	<meta name="robots" content="all" /> <!-- {{ seomaticMeta.robots }} -->
 	<meta name="keywords" content="colossal, considerable, enormous, fat, full, gigantic, hefty, huge, immense, massive, sizable, substantial, tremendous" /> <!-- {{ seomaticMeta.seoKeywords }} -->
 	<meta name="description" content="Big Entity specializes in making the big stuff big, but we also know how to make the little stuff little!" /> <!-- {{ seomaticMeta.seoDescription }} -->

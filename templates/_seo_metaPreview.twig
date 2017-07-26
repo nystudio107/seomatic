@@ -5,7 +5,7 @@
 <!-- Standard SEO -->
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="referrer" content="always" />
+<meta name="referrer" content="no-referrer-when-downgrade" />
 {% if seomaticMeta.robots is defined and seomaticMeta.robots %}
 <meta name="robots" content="{{ seomaticMeta.robots |raw }}" /> <!-- {% verbatim %}{{ seomaticMeta.robots }}{% endverbatim %} -->
 {% endif %}
