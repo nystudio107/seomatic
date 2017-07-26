@@ -3237,7 +3237,7 @@ public function getFullyQualifiedUrl($url)
 
 /* -- remove excess whitespace */
 
-        $text = preg_replace('/\s{2,}/', ' ', $text);
+        $text = preg_replace('/\s{2,}/u', ' ', $text);
 
         $text = html_entity_decode($text);
         return $text;
