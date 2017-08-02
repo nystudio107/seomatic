@@ -1,10 +1,11 @@
 # SEOmatic Changelog
 
-## 1.1.49 - 2017.07.26
+## 1.1.49 - 2017.08.02
 ### Changed
 * Don't render "article:tag" if there are no keywords
 * Fix issue when passing a string containing the "à" character to _cleanupText()
 * Changed `referrer` from `always` to `no-referrer-when-downgrade`
+* Fixed an issue where meta vars were not sanitized with a custom template passed via `seomaticTemplatePath`
 
 ## 1.1.48 - 2017.06.18
 ### Changed

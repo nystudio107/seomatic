@@ -2,11 +2,12 @@
     {
         "version": "1.1.49",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
-        "date": "2017-07-26T11:00:00-11:00",
+        "date": "2017-08-02T11:00:00-11:00",
         "notes": [
             "[Improved] Don't render `article:tag` if there are no keywords",
             "[Improved] Changed `referrer` from `always` to `no-referrer-when-downgrade`",
-            "[Fixed] Fix issue when passing a string containing the `à` character to _cleanupText()"
+            "[Fixed] Fix issue when passing a string containing the `à` character to _cleanupText()",
+            "[Fixed] Fixed an issue where meta vars were not sanitized with a custom template passed via `seomaticTemplatePath`"
         ]
     },
     {

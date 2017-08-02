@@ -114,7 +114,13 @@ class SeomaticService extends BaseApplicationComponent
         if ($templatePath)
             {
                 try {
+                    if ($metaVars) {
+                        $this->sanitizeMetaVars($metaVars);
                         $htmlText = craft()->templates->render($templatePath, $metaVars);
+                    }
+                    else
+                        $htmlText = craft()->templates->render($templatePath);
+
                 } catch (\Exception $e) {
                     $htmlText = 'Error rendering template in render(): ' . $e->getMessage();
                     SeomaticPlugin::log($htmlText, LogLevel::Error);
