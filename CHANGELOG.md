@@ -7,6 +7,7 @@
 * Changed `referrer` from `always` to `no-referrer-when-downgrade`
 * Fixed an issue where meta vars were not sanitized with a custom template passed via `seomaticTemplatePath`
 * Fixed a cosmetic bug where the SEOmatic FieldType settings didn't display the OpenGraph Image Source Changeable properly
+* Fixed an issue with template metas on Windows
 
 ## 1.1.48 - 2017.06.18
 ### Changed

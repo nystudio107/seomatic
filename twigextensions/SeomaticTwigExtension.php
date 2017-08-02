@@ -210,6 +210,10 @@ class SeomaticTwigExtension extends \Twig_Extension
         $currentTemplate = craft()->templates->getRenderingTemplate();
         $templatesPath = method_exists(craft()->templates, 'getTemplatesPath') ? craft()->templates->getTemplatesPath() : craft()->path->getTemplatesPath();
 
+        // Try to normalize things for Windows
+        $currentTemplate = str_replace('\\', '/', $currentTemplate);
+        $templatesPath = str_replace('\\', '/', $templatesPath);
+
         $path_parts = pathinfo($currentTemplate);
 
         if ($path_parts && isset($path_parts['dirname'])  && isset($path_parts['filename']))
