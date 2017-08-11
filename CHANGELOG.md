@@ -1,5 +1,12 @@
 # SEOmatic Changelog
 
+## 1.1.50 - 2017.08.10
+### Added
+* Add the ability to override the canonicalUrl from an SEOmatic Meta FieldType
+
+### Changed
+* Updated the documentation
+
 ## 1.1.49 - 2017.08.02
 ### Changed
 * Don't render "article:tag" if there are no keywords

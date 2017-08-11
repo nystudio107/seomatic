@@ -12,6 +12,7 @@ class Seomatic_MetaFieldModel extends Seomatic_MetaModel
     protected function defineAttributes()
     {
         return array_merge(parent::defineAttributes(), array(
+            'canonicalUrlOverride'          => array(AttributeType::String, 'default' => ''),
             'seoTitleUnparsed'              => array(AttributeType::String, 'default' => ''),
             'seoDescriptionUnparsed'        => array(AttributeType::String, 'default' => ''),
             'seoKeywordsUnparsed'           => array(AttributeType::String, 'default' => ''),

@@ -1,5 +1,14 @@
 [
     {
+        "version": "1.1.50",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
+        "date": "2017-08-10T11:00:00-11:00",
+        "notes": [
+            "[Added] Add the ability to override the canonicalUrl from an SEOmatic Meta FieldType",
+            "[Improved] Updated the documentation"
+        ]
+    },
+    {
         "version": "1.1.49",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2017-08-02T11:00:00-11:00",
