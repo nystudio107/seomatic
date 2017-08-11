@@ -313,7 +313,23 @@
         value: meta.seoImageTransform,
         locale: field.translatable ? locale,
     }) }}
-
+    
+    <div class="field comboField-wrapper">
+        {{ forms.textField({
+            fieldClass: 'nomarginfield',
+            id: id ~ 'canonicalUrlOverride',
+            class: 'nicetext',
+            name: name ~ '[canonicalUrlOverride]',
+            label: "Canonical URL Override"|t,
+            instructions: "The canonical URL is automatically set to the entry's URL. This allows you to override the canonical URL if you need to; this can be a path or a fully qualified URL. Just leave it blank for the canonical URL to be set automatically."|t,
+            value: meta.canonicalUrlOverride,
+            errors: meta.getErrors('canonicalUrlOverride'),
+            showCharsLeft: false,
+            required: false,
+            locale: field.translatable ? locale,
+        }) }}
+    </div>
+    
     <div class="field comboField-wrapper"{% if not twitterCardTypeChangeable %} style="display: none;"{% endif %}>
     {{ forms.selectField({
         label: "Twitter Card Type"|t,

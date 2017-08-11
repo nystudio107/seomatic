@@ -822,6 +822,9 @@ class SeomaticService extends BaseApplicationComponent
                 $meta['seoFacebookImageId'] = $meta['seoImageId'];
 
             $meta['canonicalUrl'] =  $this->getFullyQualifiedUrl($entryMetaUrl);
+            if (!empty($entryMeta->canonicalUrlOverride)) {
+                $meta['canonicalUrl'] =  $this->getFullyQualifiedUrl($entryMeta->canonicalUrlOverride);
+            }
 
             $meta['twitterCardType'] = $entryMeta->twitterCardType;
             if (!$meta['twitterCardType'])
