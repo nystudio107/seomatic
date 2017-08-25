@@ -1217,7 +1217,7 @@ class SeomaticService extends BaseApplicationComponent
         $result = array();
         $element = null;
 
-        $element = craft()->elements->getElementByUri("__home__");
+        $element = craft()->elements->getElementByUri("__home__", craft()->language, true);
         if ($element)
         {
             $result[$element->title] = $this->getFullyQualifiedUrl($element->url);
