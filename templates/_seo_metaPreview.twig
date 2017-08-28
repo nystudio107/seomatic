@@ -20,6 +20,11 @@
 <link rel="canonical" href="{{ seomaticMeta.canonicalUrl }}" /> <!-- {% verbatim %}{{ seomaticMeta.canonicalUrl }} (defaults to craft.request.url){% endverbatim %} -->
 {% endif %}
 {% set localizedUrls = getLocalizedUrls() %}
+{% if localizedUrls |length > 0 %}
+<link rel="alternate" href="{{ localizedUrls |first }}" hreflang="x-default" />
+{% else %}
+<link rel="alternate" href="{{ siteUrl }}" hreflang="x-default" />
+{% endif %}
 {% if localizedUrls |length > 1 %}
 {% for key, value in localizedUrls %}
 <link rel="alternate" hreflang="{{ key |lower |replace ('_', '-') }}" href="{{ value }}" /> <!-- {% verbatim %}hreflang="{{ key |lower |replace ('_', '-') }}" href="{{ value }}"{% endverbatim %} -->

@@ -4,7 +4,8 @@
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2017-08-25T11:00:00-11:00",
         "notes": [
-            "[Fixed] Handle localized elements for breadcrumbs"
+            "[Fixed] Handle localized elements for breadcrumbs",
+            "[Added] Added support for `hreflang='x-default'`"
         ]
     },
     {

@@ -3,6 +3,7 @@
 ## 1.1.51 - 2017.08.24
 ### Added
 * Handle localized elements for breadcrumbs
+* Added support for `hreflang="x-default"`
 
 ## 1.1.50 - 2017.08.10
 ### Added
