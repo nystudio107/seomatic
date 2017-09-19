@@ -620,24 +620,34 @@ class SeomaticService extends BaseApplicationComponent
 
                                         foreach ($variants as $variant)
                                         {
+                                            if ($variant->getIsAvailable()) {
+                                                $availability = "http://schema.org/InStock";
+                                            } else {
+                                                $availability = "http://schema.org/OutOfStock";
+                                            }
                                             $commerceVariant = array(
                                                 'seoProductDescription' => $variant->getDescription() . ' - ' . $element->title,
                                                 'seoProductPrice' => number_format($variant->getPrice(), 2, '.', ''),
                                                 'seoProductCurrency' => craft()->commerce_paymentCurrencies->getPrimaryPaymentCurrency(),
                                                 'seoProductSku' => $variant->getSku(),
-                                                'seoProductAvailability' => "http://schema.org/InStock",
+                                                'seoProductAvailability' => $availability,
                                             );
                                             $commerceVariants[] = $commerceVariant;
                                         }
                                     }
                                     else
                                     {
+                                        if ($element->getIsAvailable()) {
+                                            $availability = "http://schema.org/InStock";
+                                        } else {
+                                            $availability = "http://schema.org/OutOfStock";
+                                        }
                                         $commerceVariant = array(
                                             'seoProductDescription' => $element->getDescription() . ' - ' . $element->title,
                                             'seoProductPrice' => number_format($element->getPrice(), 2, '.', ''),
                                             'seoProductCurrency' => craft()->commerce_paymentCurrencies->getPrimaryPaymentCurrency(),
                                             'seoProductSku' => $element->getSku(),
-                                            'seoProductAvailability' => "http://schema.org/InStock",
+                                            'seoProductAvailability' => $availability,
                                         );
                                         $commerceVariants[] = $commerceVariant;
                                     }
