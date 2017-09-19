@@ -1,9 +1,10 @@
 # SEOmatic Changelog
 
-## 1.1.51 - 2017.08.24
+## 1.1.51 - 2017.09.20
 ### Added
 * Handle localized elements for breadcrumbs
 * Added support for `hreflang="x-default"`
+* Fixed an issue where you could not change the Open Graph or Twitter `title` from a Twig template
 
 ## 1.1.50 - 2017.08.10
 ### Added

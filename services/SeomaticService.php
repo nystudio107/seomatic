@@ -2935,9 +2935,9 @@ function parseAsTemplate($templateStr, $element)
             $titleSuffix = " " . $seomaticSiteMeta['siteSeoTitleSeparator'] . " " . $seomaticSiteMeta['siteSeoName'];
 
         if (isset($seomaticMeta['twitter']))
-            $seomaticMeta['twitter']['title'] = $titlePrefix . $seomaticMeta['seoTitle'] . $titleSuffix;
+            $seomaticMeta['twitter']['title'] = $titlePrefix . $seomaticMeta['twitter']['title'] . $titleSuffix;
         if (isset($seomaticMeta['og']))
-            $seomaticMeta['og']['title'] = $titlePrefix . $seomaticMeta['seoTitle'] . $titleSuffix;
+            $seomaticMeta['og']['title'] = $titlePrefix . $seomaticMeta['og']['title'] . $titleSuffix;
 
 /* -- Truncate seoTitle, seoDescription, and seoKeywords to recommended values */
 
