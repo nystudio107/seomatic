@@ -1185,6 +1185,39 @@ The `email` variable is ordinal-encoded to obfuscate it.  For instance, `info@ny
 
 ## SEOmatic Helper Twig Variables
 
+SEOmatic populates your templates with the following "helper" variables for that you can use in your templates:
+
+    seomaticHelper.twitterUrl
+    seomaticHelper.facebookUrl
+    seomaticHelper.googlePlusUrl
+    seomaticHelper.linkedInUrl
+    seomaticHelper.youtubeUrl,
+    seomaticHelper.youtubeChannelUrl
+    seomaticHelper.instagramUrl
+    seomaticHelper.pinterestUrl
+    seomaticHelper.githubUrl
+    seomaticHelper.vimeoUrl
+    seomaticHelper.wikipediaUrl
+    seomaticHelper.ownerGoogleSiteVerification
+    seomaticHelper.ownerBingSiteVerification
+    seomaticHelper.ownerGoogleAnalyticsUID
+    seomaticHelper.ownerGoogleTagManagerID
+    seomaticHelper.googleAnalyticsSendPageview
+    seomaticHelper.googleAnalyticsAdvertising
+    seomaticHelper.googleAnalyticsEcommerce
+    seomaticHelper.googleAnalyticsEEcommerce
+    seomaticHelper.googleAnalyticsLinkAttribution
+    seomaticHelper.googleAnalyticsLinker
+    seomaticHelper.googleAnalyticsAnonymizeIp
+    seomaticHelper.ownerCopyrightNotice
+    seomaticHelper.ownerAddressString
+    seomaticHelper.ownerAddressHtml
+    seomaticHelper.ownerMapUrl
+    seomaticHelper.creatorCopyrightNotice
+    seomaticHelper.creatorAddressString
+    seomaticHelper.creatorAddressHtml
+    seomaticHelper.creatorMapUrl
+
 ## Previewing your SEO Meta
 
 There's a lot going on here, so to make it all more easily understood, SEOmatic offers two ways to preview your SEO Meta.  You have to **Save** the settings first before you preview them; a "Live Preview" feature is on the wish list for future versions.
