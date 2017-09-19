@@ -6,7 +6,8 @@
         "notes": [
             "[Fixed] Handle localized elements for breadcrumbs",
             "[Added] Added support for `hreflang='x-default'`",
-            "[Fixed] Fixed an issue where you could not change the Open Graph or Twitter `title` from a Twig template"
+            "[Fixed] Fixed an issue where you could not change the Open Graph or Twitter `title` from a Twig template",
+            "[Added] Added `availabilty` to the default `Offer` Product JSON-LD"
         ]
     },
     {

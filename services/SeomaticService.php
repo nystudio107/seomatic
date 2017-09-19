@@ -625,6 +625,7 @@ class SeomaticService extends BaseApplicationComponent
                                                 'seoProductPrice' => number_format($variant->getPrice(), 2, '.', ''),
                                                 'seoProductCurrency' => craft()->commerce_paymentCurrencies->getPrimaryPaymentCurrency(),
                                                 'seoProductSku' => $variant->getSku(),
+                                                'seoProductAvailability' => "http://schema.org/InStock",
                                             );
                                             $commerceVariants[] = $commerceVariant;
                                         }
@@ -636,6 +637,7 @@ class SeomaticService extends BaseApplicationComponent
                                             'seoProductPrice' => number_format($element->getPrice(), 2, '.', ''),
                                             'seoProductCurrency' => craft()->commerce_paymentCurrencies->getPrimaryPaymentCurrency(),
                                             'seoProductSku' => $element->getSku(),
+                                            'seoProductAvailability' => "http://schema.org/InStock",
                                         );
                                         $commerceVariants[] = $commerceVariant;
                                     }
@@ -2374,6 +2376,7 @@ class SeomaticService extends BaseApplicationComponent
                 "priceCurrency" =>  $variant['seoProductCurrency'],
                 "offeredBy" =>  $identity,
                 "seller" =>  $identity,
+                "availability" =>  $variant['seoProductAvailability'],
             );
             $offer = array_filter($offer);
             $productJSONLD['offers'] = $offer;
