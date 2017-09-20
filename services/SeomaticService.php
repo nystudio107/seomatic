@@ -2947,10 +2947,21 @@ function parseAsTemplate($templateStr, $element)
         if ($seomaticSiteMeta['siteSeoTitlePlacement'] == "after")
             $titleSuffix = " " . $seomaticSiteMeta['siteSeoTitleSeparator'] . " " . $seomaticSiteMeta['siteSeoName'];
 
+        if (isset($seomaticMeta['twitter']['title'])) {
+            $title = $seomaticMeta['twitter']['title'];
+        } else {
+            $title = $seomaticMeta['seoTitle'];
+        }
         if (isset($seomaticMeta['twitter']))
-            $seomaticMeta['twitter']['title'] = $titlePrefix . $seomaticMeta['twitter']['title'] . $titleSuffix;
+            $seomaticMeta['twitter']['title'] = $titlePrefix . $title . $titleSuffix;
+
+        if (isset($seomaticMeta['og']['title'])) {
+            $title = $seomaticMeta['og']['title'];
+        } else {
+            $title = $seomaticMeta['seoTitle'];
+        }
         if (isset($seomaticMeta['og']))
-            $seomaticMeta['og']['title'] = $titlePrefix . $seomaticMeta['og']['title'] . $titleSuffix;
+            $seomaticMeta['og']['title'] = $titlePrefix . $title . $titleSuffix;
 
 /* -- Truncate seoTitle, seoDescription, and seoKeywords to recommended values */
 
