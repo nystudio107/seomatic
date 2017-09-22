@@ -620,22 +620,34 @@ class SeomaticService extends BaseApplicationComponent
 
                                         foreach ($variants as $variant)
                                         {
+                                            if ($variant->getIsAvailable()) {
+                                                $availability = "http://schema.org/InStock";
+                                            } else {
+                                                $availability = "http://schema.org/OutOfStock";
+                                            }
                                             $commerceVariant = array(
                                                 'seoProductDescription' => $variant->getDescription() . ' - ' . $element->title,
                                                 'seoProductPrice' => number_format($variant->getPrice(), 2, '.', ''),
                                                 'seoProductCurrency' => craft()->commerce_paymentCurrencies->getPrimaryPaymentCurrency(),
                                                 'seoProductSku' => $variant->getSku(),
+                                                'seoProductAvailability' => $availability,
                                             );
                                             $commerceVariants[] = $commerceVariant;
                                         }
                                     }
                                     else
                                     {
+                                        if ($element->getIsAvailable()) {
+                                            $availability = "http://schema.org/InStock";
+                                        } else {
+                                            $availability = "http://schema.org/OutOfStock";
+                                        }
                                         $commerceVariant = array(
                                             'seoProductDescription' => $element->getDescription() . ' - ' . $element->title,
                                             'seoProductPrice' => number_format($element->getPrice(), 2, '.', ''),
                                             'seoProductCurrency' => craft()->commerce_paymentCurrencies->getPrimaryPaymentCurrency(),
                                             'seoProductSku' => $element->getSku(),
+                                            'seoProductAvailability' => $availability,
                                         );
                                         $commerceVariants[] = $commerceVariant;
                                     }
@@ -1217,7 +1229,7 @@ class SeomaticService extends BaseApplicationComponent
         $result = array();
         $element = null;
 
-        $element = craft()->elements->getElementByUri("__home__");
+        $element = craft()->elements->getElementByUri("__home__", craft()->language, true);
         if ($element)
         {
             $result[$element->title] = $this->getFullyQualifiedUrl($element->url);
@@ -1247,7 +1259,7 @@ class SeomaticService extends BaseApplicationComponent
         foreach ($segments as $segment)
         {
             $uri .= $segment;
-            $element = craft()->elements->getElementByUri($uri);
+            $element = craft()->elements->getElementByUri($uri, craft()->language, true);
             if ($element && $element->uri)
             {
                 $result[$element->title] = $this->getFullyQualifiedUrl($element->uri);
@@ -2374,6 +2386,7 @@ class SeomaticService extends BaseApplicationComponent
                 "priceCurrency" =>  $variant['seoProductCurrency'],
                 "offeredBy" =>  $identity,
                 "seller" =>  $identity,
+                "availability" =>  $variant['seoProductAvailability'],
             );
             $offer = array_filter($offer);
             $productJSONLD['offers'] = $offer;
@@ -2934,10 +2947,21 @@ function parseAsTemplate($templateStr, $element)
         if ($seomaticSiteMeta['siteSeoTitlePlacement'] == "after")
             $titleSuffix = " " . $seomaticSiteMeta['siteSeoTitleSeparator'] . " " . $seomaticSiteMeta['siteSeoName'];
 
+        if (isset($seomaticMeta['twitter']['title'])) {
+            $title = $seomaticMeta['twitter']['title'];
+        } else {
+            $title = $seomaticMeta['seoTitle'];
+        }
         if (isset($seomaticMeta['twitter']))
-            $seomaticMeta['twitter']['title'] = $titlePrefix . $seomaticMeta['seoTitle'] . $titleSuffix;
+            $seomaticMeta['twitter']['title'] = $titlePrefix . $title . $titleSuffix;
+
+        if (isset($seomaticMeta['og']['title'])) {
+            $title = $seomaticMeta['og']['title'];
+        } else {
+            $title = $seomaticMeta['seoTitle'];
+        }
         if (isset($seomaticMeta['og']))
-            $seomaticMeta['og']['title'] = $titlePrefix . $seomaticMeta['seoTitle'] . $titleSuffix;
+            $seomaticMeta['og']['title'] = $titlePrefix . $title . $titleSuffix;
 
 /* -- Truncate seoTitle, seoDescription, and seoKeywords to recommended values */
 

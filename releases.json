@@ -1,5 +1,16 @@
 [
     {
+        "version": "1.1.51",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
+        "date": "2017-09-21T11:00:00-11:00",
+        "notes": [
+            "[Fixed] Handle localized elements for breadcrumbs",
+            "[Added] Added support for `hreflang='x-default'`",
+            "[Fixed] Fixed an issue where you could not change the Open Graph or Twitter `title` from a Twig template",
+            "[Added] Added `availabilty` to the default `Offer` Product JSON-LD"
+        ]
+    },
+    {
         "version": "1.1.50",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2017-08-10T11:00:00-11:00",
