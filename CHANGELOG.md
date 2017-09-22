@@ -1,6 +1,6 @@
 # SEOmatic Changelog
 
-## 1.1.51 - 2017.09.20
+## 1.1.51 - 2017.09.21
 ### Added
 * Added support for `hreflang="x-default"`
 * Added `availabilty` to the default `Offer` Product JSON-LD
