@@ -3103,7 +3103,7 @@ public function getFullyQualifiedUrl($url)
         if ($siteUrlOverride)
             $siteUrl = $siteUrlOverride;
         else
-            $siteUrl = craft()->getSiteUrl();
+            $siteUrl = UrlHelper::getSiteUrl('', null, null, craft()->language);
 
         $urlParts = parse_url($siteUrl);
         $port = "";

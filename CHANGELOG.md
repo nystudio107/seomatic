@@ -1,5 +1,9 @@
 # SEOmatic Changelog
 
+## 1.1.52 - 2017.09.25
+### Changed
+* Fixed breadcrumbs for certain local setups
+
 ## 1.1.51 - 2017.09.21
 ### Added
 * Added support for `hreflang="x-default"`
