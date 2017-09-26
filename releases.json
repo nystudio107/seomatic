@@ -4,7 +4,7 @@
     "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
     "date": "2017-09-25T11:00:00-11:00",
     "notes": [
-      "[Fixed] Fixed breadcrumbs for certain local setups"
+      "[Fixed] Fixed breadcrumbs (and other URLs) for certain multi-locale setups"
     ]
   },
   {
