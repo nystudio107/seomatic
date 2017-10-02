@@ -23,7 +23,7 @@
 {% if localizedUrls |length > 0 %}
 <link rel="alternate" href="{{ localizedUrls |first }}" hreflang="x-default" />
 {% else %}
-<link rel="alternate" href="{{ siteUrl }}" hreflang="x-default" />
+<link rel="alternate" href="{{ seomaticMeta.canonicalUrl }}" hreflang="x-default" />
 {% endif %}
 {% if localizedUrls |length > 1 %}
 {% for key, value in localizedUrls %}

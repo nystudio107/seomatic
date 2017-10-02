@@ -3,6 +3,7 @@
 ## 1.1.52 - 2017.09.25
 ### Changed
 * Fixed breadcrumbs (and other URLs) for certain multi-locale setups
+* Fixed an issue with `hreflang='x-default'` with non-localized sites
 
 ## 1.1.51 - 2017.09.21
 ### Added
