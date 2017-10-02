@@ -1,5 +1,14 @@
 [
     {
+        "version": "1.1.52",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
+        "date": "2017-10-02T11:00:00-11:00",
+        "notes": [
+            "[Fixed] Fixed breadcrumbs (and other URLs) for certain multi-locale setups",
+            "[Fixed] Fixed an issue with `hreflang='x-default'` with non-localized sites"
+        ]
+    },
+    {
         "version": "1.1.51",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2017-09-21T11:00:00-11:00",
@@ -642,7 +651,8 @@
             "[Improved] Converted all of the .html template files over to .twig",
             "[Added] Expanded the JSON-LD parser to support ordinal arrays of associative arrays",
             "[Fixed] Fixed an issue with the cannonical URL and some localized sites",
-            "[Improved] Updated the README.md"        ]
+            "[Improved] Updated the README.md"
+        ]
     },
     {
         "version": "1.0.12",
