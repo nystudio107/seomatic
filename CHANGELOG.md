@@ -1,6 +1,6 @@
 # SEOmatic Changelog
 
-## 1.1.52 - 2017.09.25
+## 1.1.52 - 2017.10.02
 ### Changed
 * Fixed breadcrumbs (and other URLs) for certain multi-locale setups
 * Fixed an issue with `hreflang='x-default'` with non-localized sites
