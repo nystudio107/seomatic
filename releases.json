@@ -1,5 +1,13 @@
 [
     {
+        "version": "1.1.53",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
+        "date": "2017-10-04T11:00:00-11:00",
+        "notes": [
+            "[Improved] "
+        ]
+    },
+    {
         "version": "1.1.52",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2017-10-02T11:00:00-11:00",

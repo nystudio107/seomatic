@@ -1,5 +1,9 @@
 # SEOmatic Changelog
 
+## 1.1.53 - 2017.10.04
+### Changed
+* 
+
 ## 1.1.52 - 2017.10.02
 ### Changed
 * Fixed breadcrumbs (and other URLs) for certain multi-locale setups
