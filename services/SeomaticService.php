@@ -3092,7 +3092,6 @@ public function getFullyQualifiedUrl($url)
     $result = $url;
     if (!isset($result) || $result == "")
         return $result;
-    $srcUrlParts = parse_url($result);
     if (UrlHelper::isAbsoluteUrl($url) || UrlHelper::isProtocolRelativeUrl($url))
     {
 /* -- The URL is already a fully qualfied URL, do nothing */
@@ -3106,17 +3105,17 @@ public function getFullyQualifiedUrl($url)
                 $siteUrl = rtrim($siteUrl, '/');
             }
             $result = $siteUrl . $result;
+            // Add a trailing / if `addTrailingSlashesToUrls` is set, but only if there's one extension
+            if (craft()->config->get('addTrailingSlashesToUrls')) {
+                $path = parse_url($result, PHP_URL_PATH);
+                $pathExtension = pathinfo($path,PATHINFO_EXTENSION);
+                if (empty($pathExtension))
+                    $result = rtrim($result, '/') . '/';
+            }
         } else {
             $result = UrlHelper::getSiteUrl($url, null, null, craft()->language);
         }
 
-    }
-    // Add a trailing / if `addTrailingSlashesToUrls` is set, but only if there's on extension
-    if (craft()->config->get('addTrailingSlashesToUrls')) {
-        $path = parse_url($result, PHP_URL_PATH);
-        $pathExtension = pathinfo($path,PATHINFO_EXTENSION);
-        if (empty($pathExtension))
-            $result = rtrim($result, '/') . '/';
     }
 
     return $result;
