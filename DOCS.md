@@ -476,6 +476,49 @@ Here's an example of how you might add a `startDate` to an `Event` schema type:
 
 Note that `Event` schema types require `startDate` and `location` to be set, which SEOmatic is unable to automatically fill in for you.  Additionally, you may want to add more information to any of the schema types used for Main Entity of Page to give search engines more information to add to their knowledge graph.
 
+### Gated or Subscription Content
+
+Google recommends the use of JSON-LD Structured Data for [Subscription and paywalled content](https://developers.google.com/search/docs/data-types/paywalled-content). This is strongly encouraged, so that you are not errantly punished for violating Google's [cloaking](https://support.google.com/webmasters/answer/66355) policies or [guidelines](https://support.google.com/webmasters/answer/35769).
+
+Whether your content is available only after a free registration process, or it's available only to people who subscribe to your website, it's recommended that you use this markup to help Google understand your content.
+
+SEOmatic makes it easy to add this to your `MainEntityOfPage` using markup such as this in your Twig template:
+
+```
+{% if seomaticMainEntityOfPage is defined %}
+    {% set seomaticMainEntityOfPage = seomaticMainEntityOfPage | merge({
+        'isAccessibleForFree': 'False',
+        'hasPart': {
+            'type': 'WebPageElement',
+            'isAccessibleForFree': 'False',
+            'cssSelector': '.paywall',
+        }
+    }) %}
+{% endif %}
+```
+
+Where the `.paywall` class is whatever your CSS selector is for blocking access to your content. If you have more then one, you'd do something like:
+
+```
+{% if seomaticMainEntityOfPage is defined %}
+    {% set seomaticMainEntityOfPage = seomaticMainEntityOfPage | merge({
+        'isAccessibleForFree': 'False',
+        'hasPart': [
+            {
+                'type': 'WebPageElement',
+                'isAccessibleForFree': 'False',
+                'cssSelector': '.paywall',
+            },
+            {
+                'type': 'WebPageElement',
+                'isAccessibleForFree': 'False',
+                'cssSelector': '#blocksContent',
+            }
+        ]
+    }) %}
+{% endif %}
+```
+For more information, see Googe's support article [Subscription and paywalled content](https://developers.google.com/search/docs/data-types/paywalled-content).
 ## Breadcrumbs Microdata
 
 ![Screenshot](resources/screenshots/seomatic06.png)
