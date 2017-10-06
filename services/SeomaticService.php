@@ -3105,19 +3105,18 @@ public function getFullyQualifiedUrl($url)
                 $siteUrl = rtrim($siteUrl, '/');
             }
             $result = $siteUrl . $result;
-            // Add a trailing / if `addTrailingSlashesToUrls` is set, but only if there's one extension
-            if (craft()->config->get('addTrailingSlashesToUrls')) {
-                $path = parse_url($result, PHP_URL_PATH);
-                $pathExtension = pathinfo($path,PATHINFO_EXTENSION);
-                if (empty($pathExtension))
-                    $result = rtrim($result, '/') . '/';
-            }
         } else {
             $siteUrl = UrlHelper::getSiteUrl('', null, null, craft()->language);
             // Do this to prevent duplicate locales in the URL, e.g.: https://example.com/en/en/
             $result = $this->replaceOverlap($siteUrl, $url);
         }
-
+        // Add a trailing / if `addTrailingSlashesToUrls` is set, but only if there's one extension
+        if (craft()->config->get('addTrailingSlashesToUrls')) {
+            $path = parse_url($result, PHP_URL_PATH);
+            $pathExtension = pathinfo($path,PATHINFO_EXTENSION);
+            if (empty($pathExtension))
+                $result = rtrim($result, '/') . '/';
+        }
     }
 
     return $result;
