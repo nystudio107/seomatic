@@ -3110,6 +3110,9 @@ public function getFullyQualifiedUrl($url)
             // Do this to prevent duplicate locales in the URL, e.g.: https://example.com/en/en/
             $siteUrl = rtrim($siteUrl, '/');
             $result = $this->replaceOverlap($siteUrl, $url);
+            if ($result === false) {
+                $result = UrlHelper::getSiteUrl($url, null, null, craft()->language);
+            }
         }
         // Add a trailing / if `addTrailingSlashesToUrls` is set, but only if there's one extension
         if (craft()->config->get('addTrailingSlashesToUrls')) {
