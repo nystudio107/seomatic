@@ -1,8 +1,8 @@
 # SEOmatic Changelog
 
-## 1.1.53 - 2017.10.04
+## 1.1.53 - 2017.10.06
 ### Changed
-* 
+* Fixed a regression with certain types of localized sites
 
 ## 1.1.52 - 2017.10.02
 ### Changed
