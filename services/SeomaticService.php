@@ -3100,31 +3100,16 @@ public function getFullyQualifiedUrl($url)
     else
     {
         $siteUrlOverride = craft()->config->get("siteUrlOverride", "seomatic");
-        if ($siteUrlOverride)
+        if ($siteUrlOverride) {
             $siteUrl = $siteUrlOverride;
-        else
-            $siteUrl = UrlHelper::getSiteUrl('', null, null, craft()->language);
+            if (($siteUrl[strlen($siteUrl) -1] == '/') && ($result[0] == '/')) {
+                $siteUrl = rtrim($siteUrl, '/');
+            }
+            $result = $siteUrl . $result;
+        } else {
+            $result = UrlHelper::getSiteUrl($url, null, null, craft()->language);
+        }
 
-        if (UrlHelper::isAbsoluteUrl($siteUrl) || UrlHelper::isProtocolRelativeUrl($siteUrl))
-        {
-            /* -- The URL is already a fully qualfied URL, do nothing */
-        }
-        else
-        {
-            $urlParts = parse_url($siteUrl);
-            $port = "";
-            if (isset($urlParts['port']))
-                $port = ":" . $urlParts['port'];
-            if (isset($urlParts['scheme']) && isset($urlParts['host']))
-                $siteUrl = $urlParts['scheme'] . "://" . $urlParts['host'] . $port . "/";
-            else
-                $siteUrl = "/";
-        }
-        if (($siteUrl[strlen($siteUrl) -1] == '/') && ($result[0] == '/'))
-        {
-            $siteUrl = rtrim($siteUrl, '/');
-        }
-        $result = $siteUrl . $result;
     }
     // Add a trailing / if `addTrailingSlashesToUrls` is set, but only if there's on extension
     if (craft()->config->get('addTrailingSlashesToUrls')) {
