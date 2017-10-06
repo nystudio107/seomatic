@@ -3113,7 +3113,9 @@ public function getFullyQualifiedUrl($url)
                     $result = rtrim($result, '/') . '/';
             }
         } else {
-            $result = UrlHelper::getSiteUrl($url, null, null, craft()->language);
+            $siteUrl = UrlHelper::getSiteUrl('', null, null, craft()->language);
+            // Do this to prevent duplicate locales in the URL, e.g.: https://example.com/en/en/
+            $result = $this->replaceOverlap($siteUrl, $url);
         }
 
     }
@@ -3239,9 +3241,62 @@ public function getFullyQualifiedUrl($url)
         }
     } /* -- sanitizeArray */
 
-/* --------------------------------------------------------------------------------
-    Cleanup text before extracting keywords/summary
--------------------------------------------------------------------------------- */
+    /**
+     * As per https://stackoverflow.com/questions/2945446/built-in-function-to-combine-overlapping-string-sequences-in-php
+     * @param $str1
+     * @param $str2
+     *
+     * @return array|bool
+     */
+    private function findOverlap($str1, $str2){
+        $return = array();
+        $sl1 = strlen($str1);
+        $sl2 = strlen($str2);
+        $max = $sl1>$sl2?$sl2:$sl1;
+        $i=1;
+        while($i<=$max){
+            $s1 = substr($str1, -$i);
+            $s2 = substr($str2, 0, $i);
+            if($s1 == $s2){
+                $return[] = $s1;
+            }
+            $i++;
+        }
+        if(!empty($return)){
+            return $return;
+        }
+        return false;
+    }
+
+    /**
+     * As per: https://stackoverflow.com/questions/2945446/built-in-function-to-combine-overlapping-string-sequences-in-php
+     * @param        $str1
+     * @param        $str2
+     * @param string $length
+     *
+     * @return bool|string
+     */
+    private function replaceOverlap($str1, $str2, $length = "long"){
+        if($overlap = $this->findOverlap($str1, $str2)){
+            switch($length){
+                case "short":
+                    $overlap = $overlap[0];
+                    break;
+                case "long":
+                default:
+                    $overlap = $overlap[count($overlap)-1];
+                    break;
+            }
+            $str1 = substr($str1, 0, -strlen($overlap));
+            $str2 = substr($str2, strlen($overlap));
+            return $str1.$overlap.$str2;
+        }
+        return false;
+    }
+
+    /* --------------------------------------------------------------------------------
+        Cleanup text before extracting keywords/summary
+    -------------------------------------------------------------------------------- */
 
     private function _cleanupText($text = null)
     {
