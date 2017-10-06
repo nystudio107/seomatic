@@ -3108,6 +3108,7 @@ public function getFullyQualifiedUrl($url)
         } else {
             $siteUrl = UrlHelper::getSiteUrl('', null, null, craft()->language);
             // Do this to prevent duplicate locales in the URL, e.g.: https://example.com/en/en/
+            $siteUrl = rtrim($siteUrl, '/');
             $result = $this->replaceOverlap($siteUrl, $url);
         }
         // Add a trailing / if `addTrailingSlashesToUrls` is set, but only if there's one extension
