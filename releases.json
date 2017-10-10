@@ -1,5 +1,13 @@
 [
     {
+        "version": "1.1.54",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
+        "date": "2017-10-10T11:00:00-11:00",
+        "notes": [
+            "[Improved] More intelligent handling of `addTrailingSlashesToUrls`"
+        ]
+    },
+    {
         "version": "1.1.53",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2017-10-06T11:00:00-11:00",

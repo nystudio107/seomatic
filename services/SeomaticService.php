@@ -3114,13 +3114,15 @@ public function getFullyQualifiedUrl($url)
                 $result = UrlHelper::getSiteUrl($url, null, null, craft()->language);
             }
         }
-        // Add a trailing / if `addTrailingSlashesToUrls` is set, but only if there's one extension
-        if (craft()->config->get('addTrailingSlashesToUrls')) {
-            $path = parse_url($result, PHP_URL_PATH);
-            $pathExtension = pathinfo($path,PATHINFO_EXTENSION);
-            if (empty($pathExtension))
-                $result = rtrim($result, '/') . '/';
-        }
+    }
+
+    $result = rtrim($result, '/');
+    // Add a trailing / if `addTrailingSlashesToUrls` is set, but only if there's one extension
+    if (craft()->config->get('addTrailingSlashesToUrls')) {
+        $path = parse_url($result, PHP_URL_PATH);
+        $pathExtension = pathinfo($path,PATHINFO_EXTENSION);
+        if (empty($pathExtension))
+            $result = rtrim($result, '/') . '/';
     }
 
     return $result;
