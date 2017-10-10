@@ -1,5 +1,9 @@
 # SEOmatic Changelog
 
+## 1.1.54 - 2017.10.10
+### Changed
+* More intelligent handling of `addTrailingSlashesToUrls`
+
 ## 1.1.53 - 2017.10.06
 ### Changed
 * Fixed a regression with certain types of localized sites
