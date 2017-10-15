@@ -3038,6 +3038,7 @@ public function getLocalizedUrls()
 {
     $localizedUrls = array();
     $requestUri = craft()->request->getRequestUri();
+    $excludeLocales = craft()->config->get("excludeLocales", "seomatic");
     if (craft()->isLocalized())
     {
         $element = craft()->urlManager->getMatchedElement();
@@ -3065,8 +3066,10 @@ public function getLocalizedUrls()
             foreach ($locales as $locale)
             {
                 $localeId = $locale->getId();
-                if (isset($unsortedLocalizedUrls[$localeId]))
-                    $localizedUrls[$localeId] = $unsortedLocalizedUrls[$localeId];
+                if (!in_array($localeId, $excludeLocales)) {
+                    if (isset($unsortedLocalizedUrls[$localeId]))
+                        $localizedUrls[$localeId] = $unsortedLocalizedUrls[$localeId];
+                }
             }
         }
         else
@@ -3075,8 +3078,9 @@ public function getLocalizedUrls()
             foreach ($locales as $locale)
             {
                 $localeId = $locale->getId();
-                $localizedUrls[$localeId] = UrlHelper::getSiteUrl($requestUri, null, null, $localeId);
-
+                if (!in_array($localeId, $excludeLocales)) {
+                    $localizedUrls[$localeId] = UrlHelper::getSiteUrl($requestUri, null, null, $localeId);
+                }
             }
         }
     }

@@ -1,5 +1,9 @@
 # SEOmatic Changelog
 
+## 1.1.55 - 2017.10.16
+### Added
+* Added the ability to disable locales via the `config.php` file, for multi-site reasons
+
 ## 1.1.54 - 2017.10.10
 ### Changed
 * More intelligent handling of `addTrailingSlashesToUrls`
