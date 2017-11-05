@@ -962,7 +962,7 @@ class SeomaticService extends BaseApplicationComponent
             if ($locale == "en")
                 $openGraph['locale'] = 'en_US';
             else
-                $openGraph['locale'] = substr($locale, 0, 4);
+                $openGraph['locale'] = substr($locale, 0, 5);
             if (strlen($openGraph['locale']) == 2)
                 $openGraph['locale'] = $openGraph['locale'] . "_" . strtoupper($openGraph['locale']);
 
@@ -2297,7 +2297,7 @@ class SeomaticService extends BaseApplicationComponent
             {
                 case "CreativeWork":
                 {
-                    $mainEntityOfPageJSONLD['inLanguage'] = substr(craft()->language, 0, 4);
+                    $mainEntityOfPageJSONLD['inLanguage'] = substr(craft()->language, 0, 5);
                     $mainEntityOfPageJSONLD['headline'] = $title;
                     if (isset($meta['seoKeywords']))
                         $mainEntityOfPageJSONLD['keywords'] = $meta['seoKeywords'];
