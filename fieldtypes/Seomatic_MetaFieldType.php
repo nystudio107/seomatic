@@ -145,48 +145,48 @@ class Seomatic_MetaFieldType extends BaseFieldType
         {
             $field = craft()->fields->getFieldById($fieldLayout->fieldId);
 
-            switch ($field->type)
-            {
-                case "PlainText":
-                case "RichText":
-                case "RedactorI":
-                case "PreparseField_Preparse":
-                    $fieldList[$field->handle] = $field->name;
-                    $fieldData[$field->handle] = craft()->seomatic->truncateStringOnWord(
+            if (!empty($field->handle) && !empty($fieldList[$field->handle])) {
+                switch ($field->type) {
+                    case "PlainText":
+                    case "RichText":
+                    case "RedactorI":
+                    case "PreparseField_Preparse":
+                        $fieldList[$field->handle] = $field->name;
+                        $fieldData[$field->handle] = craft()->seomatic->truncateStringOnWord(
                             strip_tags($this->element->content[$field->handle]),
                             200);
-                    break;
+                        break;
 
-                case "Neo":
-                    $fieldList[$field->handle] = $field->name;
-                    $fieldData[$field->handle] = craft()->seomatic->truncateStringOnWord(
+                    case "Neo":
+                        $fieldList[$field->handle] = $field->name;
+                        $fieldData[$field->handle] = craft()->seomatic->truncateStringOnWord(
                             craft()->seomatic->extractTextFromNeo($this->element[$field->handle]),
                             200);
-                    break;
+                        break;
 
-                case "Matrix":
-                    $fieldList[$field->handle] = $field->name;
-                    $fieldData[$field->handle] = craft()->seomatic->truncateStringOnWord(
+                    case "Matrix":
+                        $fieldList[$field->handle] = $field->name;
+                        $fieldData[$field->handle] = craft()->seomatic->truncateStringOnWord(
                             craft()->seomatic->extractTextFromMatrix($this->element[$field->handle]),
                             200);
-                    break;
+                        break;
 
-                case "Tags":
-                    $fieldList[$field->handle] = $field->name;
-                    $fieldData[$field->handle] = craft()->seomatic->truncateStringOnWord(
+                    case "Tags":
+                        $fieldList[$field->handle] = $field->name;
+                        $fieldData[$field->handle] = craft()->seomatic->truncateStringOnWord(
                             craft()->seomatic->extractTextFromTags($this->element[$field->handle]),
                             200);
-                    break;
+                        break;
 
-                case "FocusPoint_FocusPoint":
-                case "Assets":
-                    $imageFieldList[$field->handle] = $field->name;
-                    $img = $this->element[$field->handle]->first();
-                    if ($img)
-                        {
+                    case "FocusPoint_FocusPoint":
+                    case "Assets":
+                        $imageFieldList[$field->handle] = $field->name;
+                        $img = $this->element[$field->handle]->first();
+                        if ($img) {
                             $fieldImage[$field->handle] = $img->url;
                         }
-                    break;
+                        break;
+                }
             }
         }
         $variables['fieldList'] = $fieldList;

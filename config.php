@@ -127,4 +127,10 @@ return array(
         'seoImageId'                => '',
     ),
 
+/**
+ * This allows you to exclude locales from SEOmatic's automatic handling of
+ * hreflang. Useful for some multi-site situations
+ */
+    "excludeLocales" => array(
+    ),
 );

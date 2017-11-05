@@ -962,7 +962,7 @@ class SeomaticService extends BaseApplicationComponent
             if ($locale == "en")
                 $openGraph['locale'] = 'en_US';
             else
-                $openGraph['locale'] = $locale;
+                $openGraph['locale'] = substr($locale, 0, 5);
             if (strlen($openGraph['locale']) == 2)
                 $openGraph['locale'] = $openGraph['locale'] . "_" . strtoupper($openGraph['locale']);
 
@@ -2297,7 +2297,7 @@ class SeomaticService extends BaseApplicationComponent
             {
                 case "CreativeWork":
                 {
-                    $mainEntityOfPageJSONLD['inLanguage'] = craft()->language;
+                    $mainEntityOfPageJSONLD['inLanguage'] = substr(craft()->language, 0, 5);
                     $mainEntityOfPageJSONLD['headline'] = $title;
                     if (isset($meta['seoKeywords']))
                         $mainEntityOfPageJSONLD['keywords'] = $meta['seoKeywords'];
@@ -3038,6 +3038,7 @@ public function getLocalizedUrls()
 {
     $localizedUrls = array();
     $requestUri = craft()->request->getRequestUri();
+    $excludeLocales = craft()->config->get("excludeLocales", "seomatic");
     if (craft()->isLocalized())
     {
         $element = craft()->urlManager->getMatchedElement();
@@ -3065,8 +3066,10 @@ public function getLocalizedUrls()
             foreach ($locales as $locale)
             {
                 $localeId = $locale->getId();
-                if (isset($unsortedLocalizedUrls[$localeId]))
-                    $localizedUrls[$localeId] = $unsortedLocalizedUrls[$localeId];
+                if (!in_array($localeId, $excludeLocales)) {
+                    if (isset($unsortedLocalizedUrls[$localeId]))
+                        $localizedUrls[$localeId] = $unsortedLocalizedUrls[$localeId];
+                }
             }
         }
         else
@@ -3075,8 +3078,9 @@ public function getLocalizedUrls()
             foreach ($locales as $locale)
             {
                 $localeId = $locale->getId();
-                $localizedUrls[$localeId] = UrlHelper::getSiteUrl($requestUri, null, null, $localeId);
-
+                if (!in_array($localeId, $excludeLocales)) {
+                    $localizedUrls[$localeId] = UrlHelper::getSiteUrl($requestUri, null, null, $localeId);
+                }
             }
         }
     }
@@ -3108,7 +3112,7 @@ public function getFullyQualifiedUrl($url)
         } else {
             $siteUrl = UrlHelper::getSiteUrl('', null, null, craft()->language);
             // Do this to prevent duplicate locales in the URL, e.g.: https://example.com/en/en/
-            $siteUrl = rtrim($siteUrl, '/');
+            $siteUrl = rtrim($siteUrl, '/') . '/';
             $result = $this->replaceOverlap($siteUrl, $url);
             if ($result === false) {
                 $result = UrlHelper::getSiteUrl($url, null, null, craft()->language);

@@ -1,5 +1,14 @@
 # SEOmatic Changelog
 
+## 1.1.55 - 2017.11.05
+### Added
+* Added the ability to disable locales via the `config.php` file, for multi-site reasons
+* Added paranoid checking for deleted source fields in the FieldType
+
+### Changed
+* Fixed an issue with the breadcrumbs potentially overlapping URLs improperly
+* Truncate locales to 5 characters, to handle custom locales
+
 ## 1.1.54 - 2017.10.10
 ### Changed
 * More intelligent handling of `addTrailingSlashesToUrls`

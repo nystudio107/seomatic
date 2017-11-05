@@ -1,5 +1,16 @@
 [
     {
+        "version": "1.1.55",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
+        "date": "2017-11-05T11:00:00-11:00",
+        "notes": [
+            "[Improved] Added the ability to disable locales via the `config.php` file, for multi-site reasons",
+            "[Improved] Added paranoid checking for deleted source fields in the FieldType",
+            "[Fixed] Fixed an issue with the breadcrumbs potentially overlapping URLs improperly",
+            "[Fixed] Truncate locales to 5 characters, to handle custom locales"
+        ]
+    },
+    {
         "version": "1.1.54",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2017-10-10T11:00:00-11:00",
