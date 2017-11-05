@@ -7,7 +7,7 @@
             "[Improved] Added the ability to disable locales via the `config.php` file, for multi-site reasons",
             "[Improved] Added paranoid checking for deleted source fields in the FieldType",
             "[Fixed] Fixed an issue with the breadcrumbs potentially overlapping URLs improperly",
-            "[Fixed] Truncate locales to 4 characters, to handle custom locales"
+            "[Fixed] Truncate locales to 5 characters, to handle custom locales"
         ]
     },
     {

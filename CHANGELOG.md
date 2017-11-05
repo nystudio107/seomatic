@@ -7,7 +7,7 @@
 
 ### Changed
 * Fixed an issue with the breadcrumbs potentially overlapping URLs improperly
-* Truncate locales to 4 characters, to handle custom locales
+* Truncate locales to 5 characters, to handle custom locales
 
 ## 1.1.54 - 2017.10.10
 ### Changed
