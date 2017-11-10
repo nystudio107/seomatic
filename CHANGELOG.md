@@ -1,5 +1,9 @@
 # SEOmatic Changelog
 
+## 1.1.56 - 2017.11.10
+### Changed
+* Fixed a regression that would cause field sources to not appear in the SEOmatic FieldType
+
 ## 1.1.55 - 2017.11.05
 ### Added
 * Added the ability to disable locales via the `config.php` file, for multi-site reasons
