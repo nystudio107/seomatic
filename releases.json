@@ -1,5 +1,13 @@
 [
     {
+        "version": "1.1.56",
+        "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
+        "date": "2017-11-10T11:00:00-11:00",
+        "notes": [
+            "[Fixed] Fixed a regression that would cause field sources to not appear in the SEOmatic FieldType"
+        ]
+    },
+    {
         "version": "1.1.55",
         "downloadUrl": "https://github.com/nystudio107/seomatic/archive/master.zip",
         "date": "2017-11-05T11:00:00-11:00",

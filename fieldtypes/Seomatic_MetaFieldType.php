@@ -145,7 +145,7 @@ class Seomatic_MetaFieldType extends BaseFieldType
         {
             $field = craft()->fields->getFieldById($fieldLayout->fieldId);
 
-            if (!empty($field->handle) && !empty($fieldList[$field->handle])) {
+            if (!empty($field) && !empty($field->handle)) {
                 switch ($field->type) {
                     case "PlainText":
                     case "RichText":
