@@ -4,6 +4,8 @@ A turnkey SEO implementation for Craft CMS that is comprehensive, powerful, and 
 
 ![Screenshot](resources/screenshots/seomatic01.png)
 
+Related: [SEOmatic for Craft 3.x](https://github.com/nystudio107/craft-seomatic)
+
 ## Installation
 
 To install SEOmatic, follow these steps:
